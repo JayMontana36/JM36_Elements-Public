@@ -377,7 +377,8 @@ local function _init()
     
     --[[ Add Reload Option With Debug Mode ]]
     if DebugMode then
-        local menu = menu
+        local Scripts_Init = function()Scripts_Init()end -- Required as Stand errors and complains otherwise - function tables unsupported.
+		local menu = menu
         menu.action(menu.my_root(), "Reload Modules", {"elements reload", "reload elements", "reload modules"}, "", Scripts_Init)
     end
     
