@@ -378,7 +378,7 @@ local function _init()
     --[[ Add Reload Option With Debug Mode ]]
     if DebugMode then
         local menu = menu
-        menu.action(menu.root(), "Reload Modules", {"elements reload", "reload elements", "reload modules"}, "", Scripts_Init)
+        menu.action(menu.my_root(), "Reload Modules", {"elements reload", "reload elements", "reload modules"}, "", Scripts_Init)
     end
     
     --[[ Perform scripts initialization ]]
