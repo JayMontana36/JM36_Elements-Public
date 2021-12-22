@@ -31,17 +31,17 @@ return{
 							end
 						end
 					end)
-				end
+				end,
 	loop	=	function(Info)
 					local Vehicle = Info.Player.Vehicle
 					if Vehicle.IsIn and Vehicle.IsOp and Vehicle.Id == Cargobob then
 						RequestEntityControl(GetVehicleAttachedToCargobob(Cargobob))
 					end
-				end
+				end,
 	stop	=	function()
 					local memory_free = memory.free
 					memory_free(outPosition) memory_free(outHeading) memory_free(PtrMem)
 					outPosition, outHeading, PtrMem = nil, nil, nil
 					menu.delete(MenuButton)
-				end
+				end,
 }
