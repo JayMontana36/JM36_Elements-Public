@@ -18,12 +18,12 @@ return{
 								SetVehicleOnGroundProperly(Cargobob, 0.0)
 								_0x279D50DE5652D935(Cargobob, true)
 								CreatePickUpRopeForCargobob(Cargobob, 1)
-								if not DoesCargobobHavePickUpRope(Cargobob) then
-									memory.write_int(PtrMem, Cargobob)
-									DeleteEntity(PtrMem)
-									print'RAGE failed to perform a simple task, try again later elsewhere.'
-									return
-								end
+--								if not DoesCargobobHavePickUpRope(Cargobob) then
+--									memory.write_int(PtrMem, Cargobob)
+--									DeleteEntity(PtrMem)
+--									print'RAGE failed to perform a simple task, try again later elsewhere.'
+--									return
+--								end
 								SetCargobobPickupMagnetActive(Cargobob, true)
 								--SetCargobobPickupMagnetPullRopeLength(Cargobob, 0.0) -- Not As Advertised
 								--SetPickupRopeLengthForCargobob(Cargobob, 100.0, 100.0, true) -- Glitchy And Shrinks After Some Time
