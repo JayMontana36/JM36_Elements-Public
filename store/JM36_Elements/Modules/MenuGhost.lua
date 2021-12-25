@@ -39,43 +39,50 @@ return{
 						config.GhostGod = state
 					end, config.GhostGod)
 					
+					local players_exists = players.exists
 					local menu_player_root = menu.player_root
 					local menu_divider = menu.divider
 					local menu_action = menu.action
 					local function MenuPlayerCreate(Player)
-						local Menu = menu_player_root(Player)
-						local _Menu = {0,0}
-						_Menu[1] = menu_divider(Menu, "Ghosting")
-						_Menu[2] = menu_action(Menu, "Toggle Ghost", {}, "", function()
-							local state = not GhostState[Player]
-							GhostState[Player] = state
-							_GhostState[Player] = state
-							SetRelationshipToPlayer(Player, state)
-						end)
-						MenuPlayer[Player] = _Menu
+						if players_exists(Player) then
+							local Menu = menu_player_root(Player)
+							local _Menu = {0,0}
+							_Menu[1] = menu_divider(Menu, "Ghosting")
+							_Menu[2] = menu_action(Menu, "Toggle Ghost", {}, "", function()
+								local state = not GhostState[Player]
+								GhostState[Player] = state
+								_GhostState[Player] = state
+								SetRelationshipToPlayer(Player, state)
+							end)
+							MenuPlayer[Player] = _Menu
+						end
 					end
 					
+					local config = config
 					do
+						local config = config
 						local Players = players_list(true,true,true)
 						for i=1, #Players do
 							local Player = Players[i]
+							
+							MenuPlayerCreate(Player)
 							
 							if config.GhostAll then
 								GhostState[Player] = true
 								SetRelationshipToPlayer(Player, true)
 							end
-							
-							MenuPlayerCreate(Player)
 						end
 					end
 					
 					players.on_join(function(Player)
-						if config.GhostAll then
-							GhostState[Player] = true
-							SetRelationshipToPlayer(Player, true)
-						end
-						
 						MenuPlayerCreate(Player)
+						if config.GhostAll then
+							Wait(2500)
+							if players_exists(Player) then
+								GhostState[Player] = true
+								SetRelationshipToPlayer(Player, true)
+							end
+						end
 					end)
 					players.on_leave(function(Player)
 						GhostState[Player], _GhostState[Player], MenuPlayer[Player] = false, false, nil
