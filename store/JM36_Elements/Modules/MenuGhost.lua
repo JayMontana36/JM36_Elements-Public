@@ -77,6 +77,9 @@ return{
 					players.on_join(function(Player)
 						MenuPlayerCreate(Player)
 						if config.GhostAll then
+							while players_exists(Player) and GetPlayerPed(Player) == 0 do
+								Wait()
+							end
 							Wait(2500)
 							if players_exists(Player) then
 								GhostState[Player] = true

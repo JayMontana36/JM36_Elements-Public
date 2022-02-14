@@ -36,7 +36,7 @@ return function(Vehicle_Id, SkipAnims)
 	local Vehicle_Id = Vehicle_Id or Vehicle.Id
 	local KeyFobObject = 0
 	local AudioSource = 0
-	if not IsEntityDead(Player_Ped, false) and (not Vehicle.IsIn or Vehicle_Id ~= Vehicle.Id) then
+	if not IsEntityDead(Player_Ped, false) and not Vehicle.IsIn then
 		util_create_thread(function()
 			if not SkipAnims and RequestEntityModel(KeyFobHash) then
 				KeyFobObject = CreateObject(KeyFobHash, 0.0, 0.0, 0.0, true, true, true)

@@ -20,7 +20,8 @@ local GetBlipFromEntity = GetBlipFromEntity
 local AddBlipForEntity = AddBlipForEntity
 local SetBlipSprite = SetBlipSprite
 local ShowHeadingIndicatorOnBlip = ShowHeadingIndicatorOnBlip
-local SetBlipShrink = SetBlipShrink
+--local SetBlipShrink = SetBlipShrink
+local SetBlipShrink = SetBlipAsMinimalOnEdge
 local GetIsVehicleEngineRunning = GetIsVehicleEngineRunning
 local SetVehicleEngineOn = SetVehicleEngineOn
 local SetVehicleJetEngineOn = SetVehicleJetEngineOn
@@ -106,6 +107,7 @@ return {
 							
 							SetEntityCleanupByEngine(PersonalVehicle, false)
 							SetEntityAsMissionEntity(PersonalVehicle, true, true)
+							--SetVehicleExtendedRemovalRange(PersonalVehicle, 32767)--fails to function as expected, appears to make vehicles despawn sooner
 							
 							local Type = Vehicle.Type
 							PersonalVehicleIsPlane, PersonalVehicleIsHeli = Type.Plane, Type.Heli
@@ -190,8 +192,7 @@ return {
 						local PersonalVehicle = PersonalVehicle
 						if RequestEntityControl(PersonalVehicle) then
 							PressKeyFob(PersonalVehicle)
-							--SetVehicleDoorsLocked(PersonalVehicle, 4)
-							SetVehicleDoorsLocked(PersonalVehicle, 14)
+							SetVehicleDoorsLocked(PersonalVehicle, 4)
 							SetVehicleDoorsLockedForAllPlayers(PersonalVehicle, true)
 							if config.DoorLockHard then
 								SetVehicleIsConsideredByPlayer(PersonalVehicle, false)
@@ -242,48 +243,139 @@ return {
 						end
 					end)
 					
-					local Menu = menu_list(Menu, "Settings", {}, "Settings")
-					
-					local menu_toggle = menu.toggle
-					
-					menu_toggle(Menu, "Add Blip", {}, "Enables or disables the blip that gets added when you mark a vehicle as your personal vehicle.", function(state)
-						config.VehicleBlipEnable = state
+					menu_action(Menu, "Disable Vehicle", {}, "Makes the semi-vehicle inoperable and traps players inside (including yourself)", function()
 						local PersonalVehicle = PersonalVehicle
 						if RequestEntityControl(PersonalVehicle) then
 							PressKeyFob(PersonalVehicle)
-							if state then
-								if GetBlipFromEntity(PersonalVehicle) == 0 then
-									PersonalVehicleBlip = AddBlipForEntity(PersonalVehicle)
-									SetBlipSprite(PersonalVehicleBlip, 794)
-									ShowHeadingIndicatorOnBlip(PersonalVehicleBlip, true)
-									SetBlipShrink(PersonalVehicleBlip, true)
+							SetVehicleDoorsLockedForAllPlayers(PersonalVehicle, true)
+							SetVehicleDoorsLocked(PersonalVehicle, 4)
+							SetVehicleIsConsideredByPlayer(PersonalVehicle, false)
+							SetVehicleEngineOn(PersonalVehicle, false, true, true)
+							SetVehicleUndriveable(PersonalVehicle, true)
+							SetVehicleAlarm(PersonalVehicle, true)
+							StartVehicleAlarm(PersonalVehicle)
+						end
+					end)
+					
+					menu_action(Menu, "Bait / Booby Trap", {}, "Self Explanitory", function()
+						local PersonalVehicle = PersonalVehicle
+						if RequestEntityControl(PersonalVehicle) then
+							PressKeyFob(PersonalVehicle)
+							SetVehicleExclusiveDriver(PersonalVehicle, _PersonalVehicle, false)
+							SetVehicleDoorsLocked(PersonalVehicle, 1)
+							SetVehicleDoorsLockedForAllPlayers(PersonalVehicle, false)
+							SetVehicleIsConsideredByPlayer(PersonalVehicle, true)
+							SetVehicleEngineOn(PersonalVehicle, true, true, false)
+							SetVehicleAlarm(PersonalVehicle, true)
+							util_create_thread(function()
+								local PersonalVehicle, PersonalVehicleNumSeats, Player_Ped = PersonalVehicle, PersonalVehicleNumSeats-2, Info.Player.Ped
+								while DoesEntityExist(PersonalVehicle) and not IsEntityDead(PersonalVehicle) do
+									for i=-1, PersonalVehicleNumSeats do
+										local Ped = GetPedInVehicleSeat(PersonalVehicle, i)
+										if Ped ~= 0 and Ped ~= Player_Ped then
+											if RequestEntityControl(PersonalVehicle) then
+												if not GetEntityCanBeDamaged(PersonalVehicle) then
+													SetEntityInvincible(PersonalVehicle, false)
+												end
+												NetworkExplodeVehicle(PersonalVehicle, true, false, false)
+												--return
+											end
+											break
+										end
+									end
+									util_yield()
 								end
-							elseif DoesBlipExist(PersonalVehicleBlip) then
-								memory_write_int(PtrMem, PersonalVehicleBlip)
-								RemoveBlip(PtrMem)
-							end
+							end)
 						end
-					end, config.VehicleBlipEnable)
+					end)
 					
-					menu_toggle(Menu, "Exclusive Driver", {}, "If enabled, then you will be the only one that can enter the drivers seat. Other players will not be able to drive the car. They can still be passengers.", function(state)
-						config.VehicleExclusiveDriver = state
+					menu_action(Menu, "Bait / Booby Trap 2", {}, "Self Explanitory (Including Self)", function()
 						local PersonalVehicle = PersonalVehicle
 						if RequestEntityControl(PersonalVehicle) then
 							PressKeyFob(PersonalVehicle)
-							SetVehicleExclusiveDriver(PersonalVehicle, _PersonalVehicle, state)
+							SetVehicleExclusiveDriver(PersonalVehicle, _PersonalVehicle, false)
+							SetVehicleDoorsLocked(PersonalVehicle, 1)
+							SetVehicleDoorsLockedForAllPlayers(PersonalVehicle, false)
+							SetVehicleIsConsideredByPlayer(PersonalVehicle, true)
+							SetVehicleEngineOn(PersonalVehicle, true, true, false)
+							SetVehicleAlarm(PersonalVehicle, true)
+							util_create_thread(function()
+								local PersonalVehicle, PersonalVehicleNumSeats = PersonalVehicle, PersonalVehicleNumSeats-2
+								while DoesEntityExist(PersonalVehicle) and not IsEntityDead(PersonalVehicle) do
+									for i=-1, PersonalVehicleNumSeats do
+										local Ped = GetPedInVehicleSeat(PersonalVehicle, i)
+										if Ped ~= 0 then
+											if RequestEntityControl(PersonalVehicle) then
+												if not GetEntityCanBeDamaged(PersonalVehicle) then
+													SetEntityInvincible(PersonalVehicle, false)
+												end
+												NetworkExplodeVehicle(PersonalVehicle, true, false, false)
+												--return
+											end
+											break
+										end
+									end
+									util_yield()
+								end
+							end)
 						end
-					end, config.VehicleExclusiveDriver)
+					end)
 					
-					menu_toggle(Menu, "Auto Mode", {}, "Hide yourself", function(state)
-						local _state
-						if state then
-							_state = 'on' SetEntityInvincible(PersonalVehicle, true)
-						else
-							_state = 'off'
+					menu_action(Menu, "Self Destruct", {}, "Self Explanitory", function()
+						local PersonalVehicle = PersonalVehicle
+						if RequestEntityControl(PersonalVehicle) then
+							PressKeyFob(PersonalVehicle)
+							if not GetEntityCanBeDamaged(PersonalVehicle) then
+								SetEntityInvincible(PersonalVehicle, false)
+							end
+							NetworkExplodeVehicle(PersonalVehicle, true, false, false)
 						end
-						menu_trigger_command(string_format('otr %s', _state))
-						menu_trigger_command(string_format('invisibility %s', _state))
-					end, false)
+					end)
+					
+					do
+						local Menu = menu_list(Menu, "Settings", {}, "Settings")
+						
+						local menu_toggle = menu.toggle
+						
+						menu_toggle(Menu, "Add Blip", {}, "Enables or disables the blip that gets added when you mark a vehicle as your personal vehicle.", function(state)
+							config.VehicleBlipEnable = state
+							local PersonalVehicle = PersonalVehicle
+							if RequestEntityControl(PersonalVehicle) then
+								PressKeyFob(PersonalVehicle)
+								if state then
+									if GetBlipFromEntity(PersonalVehicle) == 0 then
+										PersonalVehicleBlip = AddBlipForEntity(PersonalVehicle)
+										SetBlipSprite(PersonalVehicleBlip, 794)
+										ShowHeadingIndicatorOnBlip(PersonalVehicleBlip, true)
+										SetBlipShrink(PersonalVehicleBlip, true)
+									end
+								elseif DoesBlipExist(PersonalVehicleBlip) then
+									memory_write_int(PtrMem, PersonalVehicleBlip)
+									RemoveBlip(PtrMem)
+								end
+							end
+						end, config.VehicleBlipEnable)
+						
+						menu_toggle(Menu, "Exclusive Driver", {}, "If enabled, then you will be the only one that can enter the drivers seat. Other players will not be able to drive the car. They can still be passengers.", function(state)
+							config.VehicleExclusiveDriver = state
+							local PersonalVehicle = PersonalVehicle
+							if RequestEntityControl(PersonalVehicle) then
+								PressKeyFob(PersonalVehicle)
+								SetVehicleExclusiveDriver(PersonalVehicle, _PersonalVehicle, state)
+							end
+						end, config.VehicleExclusiveDriver)
+						
+						menu_toggle(Menu, "Auto Mode", {}, "Hide yourself", function(state)
+							local _state
+							if state then
+								_state = 'on' SetEntityInvincible(PersonalVehicle, true)
+							else
+								_state = 'off'
+							end
+							menu_trigger_command(string_format('otr %s', _state))
+							menu_trigger_command(string_format('invisibility %s', _state))
+						end, false)
+					end
 				end,
 	stop	=	function()
 					config = configFileWrite("MenuPersonalVehicle.ini", config) -- Writes settings to ini and sets config to nil

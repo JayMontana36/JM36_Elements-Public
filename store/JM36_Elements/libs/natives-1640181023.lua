@@ -1,5 +1,5 @@
 -- DONT RENAME THIS FILE
--- This should be natives-1627063482.lua wherein 1627063482 represents the version.
+-- This should be natives-1640181023.lua wherein 1640181023 represents the version.
 -- Any given version may not be compatible with any given script using this library.
 -- Additionally, you should bundle the version of this library that you are developing against with your script, so "installing" your script is a simple drag & drop operation.
 
@@ -280,8 +280,6 @@ AUDIO={
 	-- Note: A list of Name and Parameters can be found here pastebin.com/1GZS5dCL
 	-- 
 	-- Full list of speeches and voices names by DurtyFree: https://github.com/DurtyFree/gta-v-data-dumps/blob/master/speeches.json
-	-- 
-	-- Old name: _PLAY_AMBIENT_SPEECH1
 	["PLAY_PED_AMBIENT_SPEECH_NATIVE"]=--[[void]] function(--[[Ped (int)]] ped,--[[string]] speechName,--[[string]] speechParam,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_string(speechName);native_invoker.push_arg_string(speechParam);native_invoker.push_arg_int(p3);native_invoker.end_call("8E04FEDD28D42462");end,
 	-- Plays ambient speech. See also _0x5C57B85D.
 	-- 
@@ -341,6 +339,7 @@ AUDIO={
 	-- AUDIO::_SET_PED_VOICE_GROUP(PLAYER::PLAYER_PED_ID(), MISC::GET_HASH_KEY("FEMALE_LOST_BLACK_PVG"));
 	-- AUDIO::_SET_PED_VOICE_GROUP(PLAYER::PLAYER_PED_ID(), MISC::GET_HASH_KEY("FEMALE_LOST_WHITE_PVG"));
 	["_SET_PED_VOICE_GROUP"]=--[[void]] function(--[[Ped (int)]] ped,--[[Hash (int)]] voiceGroupHash)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(voiceGroupHash);native_invoker.end_call("7CDC8C3B89F661B3");end,
+	-- BOOL p1: 0 = Female; 1 = Male
 	["_SET_PED_AUDIO_GENDER"]=--[[void]] function(--[[Ped (int)]] ped,--[[BOOL (bool)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_bool(p1);native_invoker.end_call("A5342D390CDA41D6");end,
 	["STOP_CURRENT_PLAYING_SPEECH"]=--[[void]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("7A73D05A607734C7");end,
 	["STOP_CURRENT_PLAYING_AMBIENT_SPEECH"]=--[[void]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("B8BEC0CA6F0EDB0F");end,
@@ -387,7 +386,7 @@ AUDIO={
 	["GET_PLAYER_RADIO_STATION_INDEX"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("E8AF77C4C06ADC93");return native_invoker.get_return_value_int();end,
 	-- Returns active radio station name
 	["GET_PLAYER_RADIO_STATION_NAME"]=--[[string]] function()native_invoker.begin_call();native_invoker.end_call("F6D733C32076AD03");return native_invoker.get_return_value_string();end,
-	-- Returns String with radio station name.
+	-- Converts radio station index to string. Use HUD::_GET_LABEL_TEXT to get the user-readable text.
 	["GET_RADIO_STATION_NAME"]=--[[string]] function(--[[int]] radioStation)native_invoker.begin_call();native_invoker.push_arg_int(radioStation);native_invoker.end_call("B28ECA15046CA8B9");return native_invoker.get_return_value_string();end,
 	["GET_PLAYER_RADIO_STATION_GENRE"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("A571991A7FE6CCEB");return native_invoker.get_return_value_int();end,
 	["IS_RADIO_RETUNING"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("A151A7394A214E65");return native_invoker.get_return_value_bool();end,
@@ -400,13 +399,15 @@ AUDIO={
 	-- 
 	-- SET_RADIO_*
 	["_0xDD6BCF9E94425DF9"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("DD6BCF9E94425DF9");end,
-	-- For a full list, see here: pastebin.com/Kj9t38KF
+	-- List of radio stations that are in the wheel, in clockwise order, as of LS Tuners DLC: https://git.io/J8a3k
+	-- An older list including hidden radio stations: https://pastebin.com/Kj9t38KF
 	["SET_RADIO_TO_STATION_NAME"]=--[[void]] function(--[[string]] stationName)native_invoker.begin_call();native_invoker.push_arg_string(stationName);native_invoker.end_call("C69EDA28699D5107");end,
-	-- For a full list, see here: pastebin.com/Kj9t38KF
+	-- List of radio stations that are in the wheel, in clockwise order, as of LS Tuners DLC: https://git.io/J8a3k
+	-- An older list including hidden radio stations: https://pastebin.com/Kj9t38KF
 	["SET_VEH_RADIO_STATION"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[string]] radioStation)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_string(radioStation);native_invoker.end_call("1B9C0099CB942AC6");end,
-	["_0x3E45765F3FBB582F"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("3E45765F3FBB582F");end,
+	["_SET_VEH_HAS_RADIO_OVERRIDE"]=--[[void]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("3E45765F3FBB582F");end,
 	-- IS_VEHICLE_*
-	["_0x0BE4BE946463F917"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("0BE4BE946463F917");return native_invoker.get_return_value_bool();end,
+	["_IS_VEHICLE_RADIO_ENABLED"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("0BE4BE946463F917");return native_invoker.get_return_value_bool();end,
 	-- SET_VEH*
 	["_0xC1805D05E6D4FE10"]=--[[void]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("C1805D05E6D4FE10");end,
 	-- Full list of static emitters by DurtyFree: https://github.com/DurtyFree/gta-v-data-dumps/blob/master/staticEmitters.json
@@ -425,7 +426,7 @@ AUDIO={
 	-- Sets radio station by index.
 	["SET_RADIO_TO_STATION_INDEX"]=--[[void]] function(--[[int]] radioStation)native_invoker.begin_call();native_invoker.push_arg_int(radioStation);native_invoker.end_call("A619B168B8A8570F");end,
 	["SET_FRONTEND_RADIO_ACTIVE"]=--[[void]] function(--[[BOOL (bool)]] active)native_invoker.begin_call();native_invoker.push_arg_bool(active);native_invoker.end_call("F7F26C6E9CC9EBB8");end,
-	-- I see this as a native that would of been used back in GTA III when you finally unlocked the bridge to the next island and such.
+	-- "news" that play on the radio after you've done something in story mode(?)
 	["UNLOCK_MISSION_NEWS_STORY"]=--[[void]] function(--[[int]] newsStory)native_invoker.begin_call();native_invoker.push_arg_int(newsStory);native_invoker.end_call("B165AB7C248B2DC1");end,
 	["IS_MISSION_NEWS_STORY_UNLOCKED"]=--[[BOOL (bool)]] function(--[[int]] newsStory)native_invoker.begin_call();native_invoker.push_arg_int(newsStory);native_invoker.end_call("66E49BF55B4B1874");return native_invoker.get_return_value_bool();end,
 	["GET_AUDIBLE_MUSIC_TRACK_TEXT_ID"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("50B196FC9ED6545B");return native_invoker.get_return_value_int();end,
@@ -468,7 +469,7 @@ AUDIO={
 	-- AUDIO::CLEAR_CUSTOM_RADIO_TRACK_LIST("RADIO_01_CLASS_ROCK");
 	["CLEAR_CUSTOM_RADIO_TRACK_LIST"]=--[[void]] function(--[[string]] radioStation)native_invoker.begin_call();native_invoker.push_arg_string(radioStation);native_invoker.end_call("1654F24A88A8E3FE");end,
 	["GET_NUM_UNLOCKED_RADIO_STATIONS"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("F1620ECB50E01DE7");return native_invoker.get_return_value_int();end,
-	["FIND_RADIO_STATION_INDEX"]=--[[int]] function(--[[int]] station)native_invoker.begin_call();native_invoker.push_arg_int(station);native_invoker.end_call("8D67489793FF428B");return native_invoker.get_return_value_int();end,
+	["FIND_RADIO_STATION_INDEX"]=--[[int]] function(--[[Hash (int)]] stationNameHash)native_invoker.begin_call();native_invoker.push_arg_int(stationNameHash);native_invoker.end_call("8D67489793FF428B");return native_invoker.get_return_value_int();end,
 	-- 6 calls in the b617d scripts, removed identical lines:
 	-- 
 	-- AUDIO::SET_RADIO_STATION_MUSIC_ONLY("RADIO_01_CLASS_ROCK", 1);
@@ -478,7 +479,7 @@ AUDIO={
 	["SET_RADIO_FRONTEND_FADE_TIME"]=--[[void]] function(--[[float]] fadeTime)native_invoker.begin_call();native_invoker.push_arg_float(fadeTime);native_invoker.end_call("2C96CDB04FCA358E");end,
 	-- AUDIO::UNLOCK_RADIO_STATION_TRACK_LIST("RADIO_16_SILVERLAKE", "MIRRORPARK_LOCKED");
 	["UNLOCK_RADIO_STATION_TRACK_LIST"]=--[[void]] function(--[[string]] radioStation,--[[string]] trackListName)native_invoker.begin_call();native_invoker.push_arg_string(radioStation);native_invoker.push_arg_string(trackListName);native_invoker.end_call("031ACB6ABA18C729");end,
-	["_0xFF5E5EA2DCEEACF3"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("FF5E5EA2DCEEACF3");end,
+	["_LOCK_RADIO_STATION_TRACK_LIST"]=--[[void]] function(--[[string]] radioStation,--[[string]] trackListName)native_invoker.begin_call();native_invoker.push_arg_string(radioStation);native_invoker.push_arg_string(trackListName);native_invoker.end_call("FF5E5EA2DCEEACF3");end,
 	-- Just a nullsub (i.e. does absolutely nothing) since build 1604.
 	["_UPDATE_LSUR"]=--[[void]] function(--[[BOOL (bool)]] enableMixes)native_invoker.begin_call();native_invoker.push_arg_bool(enableMixes);native_invoker.end_call("47AED84213A47510");end,
 	-- Disables the radio station (hides it from the radio wheel).
@@ -488,7 +489,9 @@ AUDIO={
 	-- GET_NE*
 	-- Gets values from the radio?
 	["_0xC64A06D939F826F5"]=--[[BOOL (bool)]] function(--[[float* (pointer)]] p0,--[[float* (pointer)]] p1,--[[int* (pointer)]] p2)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_pointer(p2);native_invoker.end_call("C64A06D939F826F5");return native_invoker.get_return_value_bool();end,
-	["_0x4E0AF9114608257C"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("4E0AF9114608257C");end,
+	-- Changes start time of a tracklist (milliseconds)
+	-- R* uses a random int: MISC::GET_RANDOM_INT_IN_RANGE(0, 13) * 60000)
+	["_FORCE_RADIO_TRACK_LIST_POSITION"]=--[[void]] function(--[[string]] radioStation,--[[string]] trackListName,--[[int]] milliseconds)native_invoker.begin_call();native_invoker.push_arg_string(radioStation);native_invoker.push_arg_string(trackListName);native_invoker.push_arg_int(milliseconds);native_invoker.end_call("4E0AF9114608257C");end,
 	-- GET_CURRENT_*
 	-- Seems to return hashed radio station name?
 	["_GET_CURRENT_RADIO_STATION_HASH"]=--[[int]] function(--[[string]] radioStationName)native_invoker.begin_call();native_invoker.push_arg_string(radioStationName);native_invoker.end_call("3E65CDE5215832C1");return native_invoker.get_return_value_int();end,
@@ -542,6 +545,7 @@ AUDIO={
 	["SET_AGGRESSIVE_HORNS"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("395BF71085D1B1D9");end,
 	-- Does nothing (it's a nullsub).
 	["_0x02E93C796ABD3A97"]=--[[void]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("02E93C796ABD3A97");end,
+	-- SET_VEHICLE_CONVERSATIONS_PERSIST?
 	["_0x58BB377BEC7CD5F4"]=--[[void]] function(--[[BOOL (bool)]] p0,--[[BOOL (bool)]] p1)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.push_arg_bool(p1);native_invoker.end_call("58BB377BEC7CD5F4");end,
 	["_0x9BD7BD55E4533183"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("9BD7BD55E4533183");end,
 	["IS_STREAM_PLAYING"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("D11FA52EB849D978");return native_invoker.get_return_value_bool();end,
@@ -592,14 +596,13 @@ AUDIO={
 	["_0xA8A7D434AFB4B97B"]=--[[void]] function(--[[string]] p0,--[[int]] p1)native_invoker.begin_call();native_invoker.push_arg_string(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("A8A7D434AFB4B97B");end,
 	["_0x2ACABED337622DF2"]=--[[void]] function(--[[string]] p0)native_invoker.begin_call();native_invoker.push_arg_string(p0);native_invoker.end_call("2ACABED337622DF2");end,
 	["SET_SIREN_WITH_NO_DRIVER"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("1FEF0683B96EBCF2");end,
-	["_0xF584CF8529B51434"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("F584CF8529B51434");end,
+	["_SET_SIREN_KEEP_ON"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("F584CF8529B51434");end,
 	["_TRIGGER_SIREN"]=--[[void]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("66C3FB05206041BA");end,
 	-- SET_*
-	["_SOUND_VEHICLE_HORN_THIS_FRAME"]=--[[void]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("9C11908013EA4715");end,
+	["SET_HORN_PERMANENTLY_ON"]=--[[void]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("9C11908013EA4715");end,
 	["SET_HORN_ENABLED"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("76D683C108594D0E");end,
 	["SET_AUDIO_VEHICLE_PRIORITY"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(p1);native_invoker.end_call("E5564483E407F914");end,
-	-- SET_H*
-	["_0x9D3AF56E94C9AE98"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[float]] p1)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_float(p1);native_invoker.end_call("9D3AF56E94C9AE98");end,
+	["SET_HORN_PERMANENTLY_ON_TIME"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[float]] time)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_float(time);native_invoker.end_call("9D3AF56E94C9AE98");end,
 	["USE_SIREN_AS_HORN"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("FA932DE350266EF8");end,
 	-- This native sets the audio of the specified vehicle to the audioName (p1).
 	-- 
@@ -612,18 +615,15 @@ AUDIO={
 	-- FORCE_VEHICLE_???
 	["_FORCE_VEHICLE_ENGINE_AUDIO"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[string]] audioName)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_string(audioName);native_invoker.end_call("4F0C413926060B38");end,
 	["_PRELOAD_VEHICLE_AUDIO"]=--[[void]] function(--[[Hash (int)]] vehicleModel)native_invoker.begin_call();native_invoker.push_arg_int(vehicleModel);native_invoker.end_call("CA4CEA6AE0000A7E");end,
-	-- 2 calls found in the b617d scripts:
-	-- 
-	-- AUDIO::_F1F8157B8C3F171C(l_A42, "Franklin_Bike_Rev", "BIG_SCORE_3A_SOUNDS");
-	-- AUDIO::_F1F8157B8C3F171C(l_166, "Trevor_Revs_Off", "PALETO_SCORE_SETUP_SOUNDS");
-	["_0xF1F8157B8C3F171C"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[string]] p1,--[[string]] p2)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_string(p1);native_invoker.push_arg_string(p2);native_invoker.end_call("F1F8157B8C3F171C");end,
-	["_0xD2DCCD8E16E20997"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("D2DCCD8E16E20997");end,
+	["SET_VEHICLE_STARTUP_REV_SOUND"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[string]] p1,--[[string]] p2)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_string(p1);native_invoker.push_arg_string(p2);native_invoker.end_call("F1F8157B8C3F171C");end,
+	["_RESET_VEHICLE_STARTUP_REV_SOUND"]=--[[void]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("D2DCCD8E16E20997");end,
 	["_0x97FFB4ADEED08066"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("97FFB4ADEED08066");end,
-	["_0x5DB8010EE71FDEF2"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("5DB8010EE71FDEF2");return native_invoker.get_return_value_bool();end,
+	["IS_VEHICLE_AUDIBLY_DAMAGED"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("5DB8010EE71FDEF2");return native_invoker.get_return_value_bool();end,
 	["SET_VEHICLE_AUDIO_ENGINE_DAMAGE_FACTOR"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[float]] damageFactor)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_float(damageFactor);native_invoker.end_call("59E7B488451F4D3A");end,
-	["SET_VEHICLE_AUDIO_BODY_DAMAGE_FACTOR"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[float]] p1)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_float(p1);native_invoker.end_call("01BB4D577D38BD9E");end,
-	-- ENABLE_VEHICLE_*
-	["_0x1C073274E065C6D2"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("1C073274E065C6D2");end,
+	-- intensity: 0.0f - 1.0f, only used once with 1.0f in R* Scripts (nigel2)
+	-- Makes an engine rattling noise when you decelerate, you need to be going faster to hear lower values
+	["SET_VEHICLE_AUDIO_BODY_DAMAGE_FACTOR"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[float]] intensity)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_float(intensity);native_invoker.end_call("01BB4D577D38BD9E");end,
+	["ENABLE_VEHICLE_FANBELT_DAMAGE"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("1C073274E065C6D2");end,
 	["ENABLE_VEHICLE_EXHAUST_POPS"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("2BE4BC731D039D5A");end,
 	-- SET_VEHICLE_BOOST_ACTIVE(vehicle, 1, 0);
 	-- SET_VEHICLE_BOOST_ACTIVE(vehicle, 0, 0); 
@@ -633,8 +633,10 @@ AUDIO={
 	-- SET_P*
 	["_0x6FDDAD856E36988A"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("6FDDAD856E36988A");end,
 	["SET_SCRIPT_UPDATE_DOOR_AUDIO"]=--[[void]] function(--[[Hash (int)]] doorHash,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(doorHash);native_invoker.push_arg_bool(toggle);native_invoker.end_call("06C0023BED16DD6B");end,
-	["PLAY_VEHICLE_DOOR_OPEN_SOUND"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorIndex)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorIndex);native_invoker.end_call("3A539D52857EA82D");end,
-	["PLAY_VEHICLE_DOOR_CLOSE_SOUND"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorIndex)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorIndex);native_invoker.end_call("62A456AA4769EF34");end,
+	-- doorId: see SET_VEHICLE_DOOR_SHUT
+	["PLAY_VEHICLE_DOOR_OPEN_SOUND"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorId)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorId);native_invoker.end_call("3A539D52857EA82D");end,
+	-- doorId: see SET_VEHICLE_DOOR_SHUT
+	["PLAY_VEHICLE_DOOR_CLOSE_SOUND"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorId)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorId);native_invoker.end_call("62A456AA4769EF34");end,
 	-- Works for planes only.
 	["ENABLE_STALL_WARNING_SOUNDS"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("C15907D667F7CFB2");end,
 	-- Hardcoded to return 1
@@ -666,7 +668,8 @@ AUDIO={
 	["ADD_ENTITY_TO_AUDIO_MIX_GROUP"]=--[[void]] function(--[[Entity (int)]] entity,--[[string]] groupName,--[[float]] p2)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.push_arg_string(groupName);native_invoker.push_arg_float(p2);native_invoker.end_call("153973AB99FE8980");end,
 	["REMOVE_ENTITY_FROM_AUDIO_MIX_GROUP"]=--[[void]] function(--[[Entity (int)]] entity,--[[float]] p1)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.push_arg_float(p1);native_invoker.end_call("18EB48CFC41F2EA0");end,
 	["AUDIO_IS_SCRIPTED_MUSIC_PLAYING"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("845FFC3A4FEEFA3E");return native_invoker.get_return_value_bool();end,
-	["_0x2DD39BF3E2F9C47F"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("2DD39BF3E2F9C47F");return native_invoker.get_return_value_int();end,
+	-- This is an alias of AUDIO_IS_SCRIPTED_MUSIC_PLAYING.
+	["_AUDIO_IS_SCRIPTED_MUSIC_PLAYING_2"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("2DD39BF3E2F9C47F");return native_invoker.get_return_value_int();end,
 	-- All music event names found in the b617d scripts: pastebin.com/GnYt0R3P
 	["PREPARE_MUSIC_EVENT"]=--[[BOOL (bool)]] function(--[[string]] eventName)native_invoker.begin_call();native_invoker.push_arg_string(eventName);native_invoker.end_call("1E5185B72EF5158A");return native_invoker.get_return_value_bool();end,
 	-- All music event names found in the b617d scripts: pastebin.com/GnYt0R3P
@@ -683,8 +686,7 @@ AUDIO={
 	["_0x70B8EC8FC108A634"]=--[[void]] function(--[[BOOL (bool)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("70B8EC8FC108A634");end,
 	["_0x149AEE66F0CB3A99"]=--[[void]] function(--[[float]] p0,--[[float]] p1)native_invoker.begin_call();native_invoker.push_arg_float(p0);native_invoker.push_arg_float(p1);native_invoker.end_call("149AEE66F0CB3A99");end,
 	["_0x8BF907833BE275DE"]=--[[void]] function(--[[float]] p0,--[[float]] p1)native_invoker.begin_call();native_invoker.push_arg_float(p0);native_invoker.push_arg_float(p1);native_invoker.end_call("8BF907833BE275DE");end,
-	-- FORCE_*
-	["_0x062D5EAD4DA2FA6A"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("062D5EAD4DA2FA6A");end,
+	["FORCE_PED_PANIC_WALLA"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("062D5EAD4DA2FA6A");end,
 	-- Example:
 	-- 
 	-- bool prepareAlarm = AUDIO::PREPARE_ALARM("PORT_OF_LS_HEIST_FORT_ZANCUDO_ALARMS");
@@ -923,12 +925,11 @@ AUDIO={
 	--  AUDIO::_B4BBFD9CD8B3922B("V_FINALEBANK_PS_VAULT_INTACT");
 	--  AUDIO::_B4BBFD9CD8B3922B("V_MICHAEL_PS_BATHROOM_WITH_WINDOW");
 	["REMOVE_PORTAL_SETTINGS_OVERRIDE"]=--[[void]] function(--[[string]] p0)native_invoker.begin_call();native_invoker.push_arg_string(p0);native_invoker.end_call("B4BBFD9CD8B3922B");end,
-	-- STOP_S*
+	-- STOP_S[MOKE_GRENADE_EXPLOSION_SOUNDS]?
 	["_0xE4E6DD5566D28C82"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("E4E6DD5566D28C82");end,
-	["_0x3A48AB4445D499BE"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("3A48AB4445D499BE");return native_invoker.get_return_value_int();end,
-	-- Speech related.
-	["_SET_PED_TALK"]=--[[void]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("4ADA3F19BE4A6047");end,
-	["_0x0150B6FF25A9E2E5"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("0150B6FF25A9E2E5");end,
+	["GET_MUSIC_VOL_SLIDER"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("3A48AB4445D499BE");return native_invoker.get_return_value_int();end,
+	["REQUEST_TENNIS_BANKS"]=--[[void]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("4ADA3F19BE4A6047");end,
+	["UNREQUEST_TENNIS_BANKS"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("0150B6FF25A9E2E5");end,
 	["_0xBEF34B1D9624D5DD"]=--[[void]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("BEF34B1D9624D5DD");end,
 	["STOP_CUTSCENE_AUDIO"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("806058BBDC136E06");end,
 	-- HAS_*
@@ -992,14 +993,14 @@ BRAIN={
 	-- launcher_Yoga
 	-- ob_mp_bed_low
 	-- ob_mp_bed_med
-	["_0x6D6840CEE8845831"]=--[[void]] function(--[[string]] action)native_invoker.begin_call();native_invoker.push_arg_string(action);native_invoker.end_call("6D6840CEE8845831");end,
+	["_0x6D6840CEE8845831"]=--[[void]] function(--[[string]] scriptName)native_invoker.begin_call();native_invoker.push_arg_string(scriptName);native_invoker.end_call("6D6840CEE8845831");end,
 	-- Looks like a cousin of above function _6D6840CEE8845831 as it was found among them. Must be similar
 	-- 
 	-- Here are possible values of argument - 
 	-- 
 	-- "ob_tv"
 	-- "launcher_Darts"
-	["_0x6E91B04E08773030"]=--[[void]] function(--[[string]] action)native_invoker.begin_call();native_invoker.push_arg_string(action);native_invoker.end_call("6E91B04E08773030");end,
+	["_0x6E91B04E08773030"]=--[[void]] function(--[[string]] scriptName)native_invoker.begin_call();native_invoker.push_arg_string(scriptName);native_invoker.end_call("6E91B04E08773030");end,
 }
 CAM={
 	-- ease - smooth transition between the camera's positions
@@ -1118,7 +1119,7 @@ CAM={
 	["_0x271017B9BA825366"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.end_call("271017B9BA825366");end,
 	-- NOTE: Debugging functions are not present in the retail version of the game.
 	["SET_CAM_DEBUG_NAME"]=--[[void]] function(--[[Cam (int)]] camera,--[[string]] name)native_invoker.begin_call();native_invoker.push_arg_int(camera);native_invoker.push_arg_string(name);native_invoker.end_call("1B93E0107865DD40");end,
-	["_0x77C3CEC46BE286F6"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("77C3CEC46BE286F6");return native_invoker.get_return_value_int();end,
+	["_GET_DEBUG_CAMERA"]=--[[Cam (int)]] function()native_invoker.begin_call();native_invoker.end_call("77C3CEC46BE286F6");return native_invoker.get_return_value_int();end,
 	-- I filled p1-p6 (the floats) as they are as other natives with 6 floats in a row are similar and I see no other method. So if a test from anyone proves them wrong please correct.
 	-- 
 	-- p7 (length) determines the length of the spline, affects camera path and duration of transition between previous node and this one
@@ -1126,7 +1127,7 @@ CAM={
 	-- p8 big values ~100 will slow down the camera movement before reaching this node
 	-- 
 	-- p9 != 0 seems to override the rotation/pitch (bool?)
-	["ADD_CAM_SPLINE_NODE"]=--[[void]] function(--[[Cam (int)]] camera,--[[float]] x,--[[float]] y,--[[float]] z,--[[float]] xRot,--[[float]] yRot,--[[float]] zRot,--[[int]] length,--[[int]] p8,--[[int]] p9)native_invoker.begin_call();native_invoker.push_arg_int(camera);native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_float(xRot);native_invoker.push_arg_float(yRot);native_invoker.push_arg_float(zRot);native_invoker.push_arg_int(length);native_invoker.push_arg_int(p8);native_invoker.push_arg_int(p9);native_invoker.end_call("8609C75EC438FB3B");end,
+	["ADD_CAM_SPLINE_NODE"]=--[[void]] function(--[[Cam (int)]] camera,--[[float]] x,--[[float]] y,--[[float]] z,--[[float]] xRot,--[[float]] yRot,--[[float]] zRot,--[[int]] length,--[[int]] smoothingStyle,--[[int]] rotationOrder)native_invoker.begin_call();native_invoker.push_arg_int(camera);native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_float(xRot);native_invoker.push_arg_float(yRot);native_invoker.push_arg_float(zRot);native_invoker.push_arg_int(length);native_invoker.push_arg_int(smoothingStyle);native_invoker.push_arg_int(rotationOrder);native_invoker.end_call("8609C75EC438FB3B");end,
 	["ADD_CAM_SPLINE_NODE_USING_CAMERA_FRAME"]=--[[void]] function(--[[Cam (int)]] cam,--[[Cam (int)]] cam2,--[[int]] p2,--[[int]] p3)native_invoker.begin_call();native_invoker.push_arg_int(cam);native_invoker.push_arg_int(cam2);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("0A9F2A468B328E74");end,
 	["ADD_CAM_SPLINE_NODE_USING_CAMERA"]=--[[void]] function(--[[Cam (int)]] cam,--[[Cam (int)]] cam2,--[[int]] p2,--[[int]] p3)native_invoker.begin_call();native_invoker.push_arg_int(cam);native_invoker.push_arg_int(cam2);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("0FB82563989CF4FB");end,
 	["ADD_CAM_SPLINE_NODE_USING_GAMEPLAY_FRAME"]=--[[void]] function(--[[Cam (int)]] cam,--[[int]] p1,--[[int]] p2)native_invoker.begin_call();native_invoker.push_arg_int(cam);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("609278246A29CA34");end,
@@ -1141,7 +1142,7 @@ CAM={
 	["SET_CAM_SPLINE_DURATION"]=--[[void]] function(--[[Cam (int)]] cam,--[[int]] timeDuration)native_invoker.begin_call();native_invoker.push_arg_int(cam);native_invoker.push_arg_int(timeDuration);native_invoker.end_call("1381539FEE034CDA");end,
 	["SET_CAM_SPLINE_SMOOTHING_STYLE"]=--[[void]] function(--[[Cam (int)]] cam,--[[int]] smoothingStyle)native_invoker.begin_call();native_invoker.push_arg_int(cam);native_invoker.push_arg_int(smoothingStyle);native_invoker.end_call("D1B0F412F109EA5D");end,
 	["GET_CAM_SPLINE_NODE_INDEX"]=--[[int]] function(--[[Cam (int)]] cam)native_invoker.begin_call();native_invoker.push_arg_int(cam);native_invoker.end_call("B22B17DF858716A6");return native_invoker.get_return_value_int();end,
-	["SET_CAM_SPLINE_NODE_EASE"]=--[[void]] function(--[[Cam (int)]] cam,--[[int]] p1,--[[int]] p2,--[[float]] p3)native_invoker.begin_call();native_invoker.push_arg_int(cam);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_float(p3);native_invoker.end_call("83B8201ED82A9A2D");end,
+	["SET_CAM_SPLINE_NODE_EASE"]=--[[void]] function(--[[Cam (int)]] cam,--[[int]] easingFunction,--[[int]] p2,--[[float]] p3)native_invoker.begin_call();native_invoker.push_arg_int(cam);native_invoker.push_arg_int(easingFunction);native_invoker.push_arg_int(p2);native_invoker.push_arg_float(p3);native_invoker.end_call("83B8201ED82A9A2D");end,
 	["SET_CAM_SPLINE_NODE_VELOCITY_SCALE"]=--[[void]] function(--[[Cam (int)]] cam,--[[int]] p1,--[[float]] scale)native_invoker.begin_call();native_invoker.push_arg_int(cam);native_invoker.push_arg_int(p1);native_invoker.push_arg_float(scale);native_invoker.end_call("A6385DEB180F319F");end,
 	["OVERRIDE_CAM_SPLINE_VELOCITY"]=--[[void]] function(--[[Cam (int)]] cam,--[[int]] p1,--[[float]] p2,--[[float]] p3)native_invoker.begin_call();native_invoker.push_arg_int(cam);native_invoker.push_arg_int(p1);native_invoker.push_arg_float(p2);native_invoker.push_arg_float(p3);native_invoker.end_call("40B62FA033EB0346");end,
 	-- Max value for p1 is 15.
@@ -1285,6 +1286,7 @@ CAM={
 	-- Sets the amplitude for the gameplay (i.e. 3rd or 1st) camera to shake. Used in script "drunk_controller.ysc.c4" to simulate making the player drunk.
 	["SET_GAMEPLAY_CAM_SHAKE_AMPLITUDE"]=--[[void]] function(--[[float]] amplitude)native_invoker.begin_call();native_invoker.push_arg_float(amplitude);native_invoker.end_call("A87E00932DB4D85D");end,
 	["STOP_GAMEPLAY_CAM_SHAKING"]=--[[void]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("0EF93E9F3D08C178");end,
+	-- Forces gameplay cam to specified ped as if you were the ped or spectating it
 	["SET_GAMEPLAY_CAM_FOLLOW_PED_THIS_UPDATE"]=--[[void]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("8BBACBF51DA047A8");end,
 	-- Examples when this function will return 0 are:
 	-- - During busted screen.
@@ -1350,6 +1352,7 @@ CAM={
 	-- 
 	-- CAM::_ANIMATE_GAMEPLAY_CAM_ZOOM(1f, 1f);
 	["_ANIMATE_GAMEPLAY_CAM_ZOOM"]=--[[void]] function(--[[float]] p0,--[[float]] distance)native_invoker.begin_call();native_invoker.push_arg_float(p0);native_invoker.push_arg_float(distance);native_invoker.end_call("DF2E1F7742402E81");end,
+	-- Forces gameplay cam to specified vehicle as if you were in it
 	["SET_IN_VEHICLE_CAM_STATE_THIS_UPDATE"]=--[[void]] function(--[[Vehicle (int)]] p0,--[[int]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("E9EA16D6E54CDCA4");end,
 	-- Disables first person camera for the current frame.
 	-- 
@@ -1445,7 +1448,7 @@ CAM={
 	["GET_FINAL_RENDERED_CAM_FAR_DOF"]=--[[float]] function()native_invoker.begin_call();native_invoker.end_call("9780F32BCAF72431");return native_invoker.get_return_value_float();end,
 	["GET_FINAL_RENDERED_CAM_MOTION_BLUR_STRENGTH"]=--[[float]] function()native_invoker.begin_call();native_invoker.end_call("162F9D995753DC19");return native_invoker.get_return_value_float();end,
 	["SET_GAMEPLAY_COORD_HINT"]=--[[void]] function(--[[float]] x,--[[float]] y,--[[float]] z,--[[int]] duration,--[[int]] blendOutDuration,--[[int]] blendInDuration,--[[int]] unk)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_int(duration);native_invoker.push_arg_int(blendOutDuration);native_invoker.push_arg_int(blendInDuration);native_invoker.push_arg_int(unk);native_invoker.end_call("D51ADCD2D8BC0FB3");end,
-	["SET_GAMEPLAY_PED_HINT"]=--[[void]] function(--[[Ped (int)]] p0,--[[float]] x1,--[[float]] y1,--[[float]] z1,--[[BOOL (bool)]] p4,--[[Any (int)]] p5,--[[Any (int)]] p6,--[[Any (int)]] p7)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_float(x1);native_invoker.push_arg_float(y1);native_invoker.push_arg_float(z1);native_invoker.push_arg_bool(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_int(p6);native_invoker.push_arg_int(p7);native_invoker.end_call("2B486269ACD548D3");end,
+	["SET_GAMEPLAY_PED_HINT"]=--[[void]] function(--[[Ped (int)]] p0,--[[float]] x1,--[[float]] y1,--[[float]] z1,--[[BOOL (bool)]] p4,--[[int]] duration,--[[int]] blendOutDuration,--[[int]] blendInDuration)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_float(x1);native_invoker.push_arg_float(y1);native_invoker.push_arg_float(z1);native_invoker.push_arg_bool(p4);native_invoker.push_arg_int(duration);native_invoker.push_arg_int(blendOutDuration);native_invoker.push_arg_int(blendInDuration);native_invoker.end_call("2B486269ACD548D3");end,
 	-- Focuses the camera on the specified vehicle.
 	["SET_GAMEPLAY_VEHICLE_HINT"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[float]] offsetX,--[[float]] offsetY,--[[float]] offsetZ,--[[BOOL (bool)]] p4,--[[int]] time,--[[int]] easeInTime,--[[int]] easeOutTime)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_float(offsetX);native_invoker.push_arg_float(offsetY);native_invoker.push_arg_float(offsetZ);native_invoker.push_arg_bool(p4);native_invoker.push_arg_int(time);native_invoker.push_arg_int(easeInTime);native_invoker.push_arg_int(easeOutTime);native_invoker.end_call("A2297E18F3E71C2E");end,
 	["SET_GAMEPLAY_OBJECT_HINT"]=--[[void]] function(--[[Any (int)]] p0,--[[float]] p1,--[[float]] p2,--[[float]] p3,--[[BOOL (bool)]] p4,--[[Any (int)]] p5,--[[Any (int)]] p6,--[[Any (int)]] p7)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_float(p1);native_invoker.push_arg_float(p2);native_invoker.push_arg_float(p3);native_invoker.push_arg_bool(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_int(p6);native_invoker.push_arg_int(p7);native_invoker.end_call("83E87508A2CA2AC6");end,
@@ -1458,9 +1461,7 @@ CAM={
 	["_0x247ACBC4ABBC9D1C"]=--[[void]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("247ACBC4ABBC9D1C");end,
 	["_0xBF72910D0F26F025"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("BF72910D0F26F025");return native_invoker.get_return_value_int();end,
 	["SET_GAMEPLAY_HINT_FOV"]=--[[void]] function(--[[float]] FOV)native_invoker.begin_call();native_invoker.push_arg_float(FOV);native_invoker.end_call("513403FB9C56211F");end,
-	-- Old name: _SET_GAMEPLAY_HINT_ANIM_OFFSETZ
 	["SET_GAMEPLAY_HINT_FOLLOW_DISTANCE_SCALAR"]=--[[void]] function(--[[float]] value)native_invoker.begin_call();native_invoker.push_arg_float(value);native_invoker.end_call("F8BDBF3D573049A1");end,
-	-- Old name: _SET_GAMEPLAY_HINT_ANGLE
 	["SET_GAMEPLAY_HINT_BASE_ORBIT_PITCH_OFFSET"]=--[[void]] function(--[[float]] value)native_invoker.begin_call();native_invoker.push_arg_float(value);native_invoker.end_call("D1F8363DFAD03848");end,
 	["_SET_GAMEPLAY_HINT_ANIM_OFFSETX"]=--[[void]] function(--[[float]] xOffset)native_invoker.begin_call();native_invoker.push_arg_float(xOffset);native_invoker.end_call("5D7B620DAE436138");end,
 	["_SET_GAMEPLAY_HINT_ANIM_OFFSETY"]=--[[void]] function(--[[float]] yOffset)native_invoker.begin_call();native_invoker.push_arg_float(yOffset);native_invoker.end_call("C92717EF615B6704");end,
@@ -1648,6 +1649,9 @@ CUTSCENE={
 	["_0x20746F7B1032A3C7"]=--[[void]] function(--[[BOOL (bool)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2,--[[BOOL (bool)]] p3)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_bool(p3);native_invoker.end_call("20746F7B1032A3C7");end,
 	["_0x06EE9048FD080382"]=--[[void]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("06EE9048FD080382");end,
 	["_0xA0FE76168A189DDB"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("A0FE76168A189DDB");return native_invoker.get_return_value_int();end,
+	-- Stops current cutscene with a fade transition
+	-- p0: always true in R* Scripts
+	-- You will need to manually fade the screen back in
 	["_0x2F137B508DE238F2"]=--[[void]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("2F137B508DE238F2");end,
 	["_0xE36A98D8AB3D3C66"]=--[[void]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("E36A98D8AB3D3C66");end,
 	["_0x5EDEF0CF8C1DAB3C"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("5EDEF0CF8C1DAB3C");return native_invoker.get_return_value_int();end,
@@ -2335,7 +2339,7 @@ ENTITY={
 	["_0xE66377CDDADA4810"]=--[[void]] function(--[[Entity (int)]] entity,--[[BOOL (bool)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.push_arg_bool(p1);native_invoker.end_call("E66377CDDADA4810");end,
 	-- Note that the third parameter(denoted as z) is "up and down" with positive numbers encouraging upwards movement.
 	["SET_ENTITY_VELOCITY"]=--[[void]] function(--[[Entity (int)]] entity,--[[float]] x,--[[float]] y,--[[float]] z)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.end_call("1C99BB7B6E96D16F");end,
-	["_0x8339643499D1222E"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("8339643499D1222E");end,
+	["_SET_ENTITY_ANGULAR_VELOCITY"]=--[[void]] function(--[[Entity (int)]] entity,--[[float]] x,--[[float]] y,--[[float]] z)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.end_call("8339643499D1222E");end,
 	["SET_ENTITY_HAS_GRAVITY"]=--[[void]] function(--[[Entity (int)]] entity,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.push_arg_bool(toggle);native_invoker.end_call("4A4722448F18EEF5");end,
 	-- LOD distance can be 0 to 0xFFFF (higher values will result in 0xFFFF) as it is actually stored as a 16-bit value (aka uint16_t).
 	["SET_ENTITY_LOD_DIST"]=--[[void]] function(--[[Entity (int)]] entity,--[[int]] value)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.push_arg_int(value);native_invoker.end_call("5927F96A78577363");end,
@@ -2346,7 +2350,8 @@ ENTITY={
 	["SET_ENTITY_ALPHA"]=--[[void]] function(--[[Entity (int)]] entity,--[[int]] alphaLevel,--[[BOOL (bool)]] skin)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.push_arg_int(alphaLevel);native_invoker.push_arg_bool(skin);native_invoker.end_call("44A0870B7E92D7C0");end,
 	["GET_ENTITY_ALPHA"]=--[[int]] function(--[[Entity (int)]] entity)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.end_call("5A47B3B5E63E94C6");return native_invoker.get_return_value_int();end,
 	["RESET_ENTITY_ALPHA"]=--[[void]] function(--[[Entity (int)]] entity)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.end_call("9B1E824FFBB7027A");end,
-	["_0x490861B88F4FD846"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("490861B88F4FD846");end,
+	-- Similar to RESET_ENTITY_ALPHA
+	["_0x490861B88F4FD846"]=--[[void]] function(--[[Entity (int)]] entity)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.end_call("490861B88F4FD846");end,
 	["_0xCEA7C8E1B48FF68C"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("CEA7C8E1B48FF68C");end,
 	-- Only called once in the scripts.
 	-- 
@@ -2688,7 +2693,7 @@ FIRE={
 	-- Returns a handle to the first entity within the a circle spawned inside the 2 points from a radius.
 	-- 
 	-- explosionType: See ADD_EXPLOSION.
-	["_GET_ENTITY_INSIDE_EXPLOSION_AREA"]=--[[Entity (int)]] function(--[[int]] explosionType,--[[float]] x1,--[[float]] y1,--[[float]] z1,--[[float]] x2,--[[float]] y2,--[[float]] z2,--[[float]] radius)native_invoker.begin_call();native_invoker.push_arg_int(explosionType);native_invoker.push_arg_float(x1);native_invoker.push_arg_float(y1);native_invoker.push_arg_float(z1);native_invoker.push_arg_float(x2);native_invoker.push_arg_float(y2);native_invoker.push_arg_float(z2);native_invoker.push_arg_float(radius);native_invoker.end_call("14BA4BA137AF6CEC");return native_invoker.get_return_value_int();end,
+	["GET_OWNER_OF_EXPLOSION_IN_ANGLED_AREA"]=--[[Entity (int)]] function(--[[int]] explosionType,--[[float]] x1,--[[float]] y1,--[[float]] z1,--[[float]] x2,--[[float]] y2,--[[float]] z2,--[[float]] radius)native_invoker.begin_call();native_invoker.push_arg_int(explosionType);native_invoker.push_arg_float(x1);native_invoker.push_arg_float(y1);native_invoker.push_arg_float(z1);native_invoker.push_arg_float(x2);native_invoker.push_arg_float(y2);native_invoker.push_arg_float(z2);native_invoker.push_arg_float(radius);native_invoker.end_call("14BA4BA137AF6CEC");return native_invoker.get_return_value_int();end,
 }
 GRAPHICS={
 	-- NOTE: Debugging functions are not present in the retail version of the game.
@@ -2972,8 +2977,8 @@ GRAPHICS={
 	["_0xFCF6788FC4860CD4"]=--[[void]] function(--[[int]] checkpoint)native_invoker.begin_call();native_invoker.push_arg_int(checkpoint);native_invoker.end_call("FCF6788FC4860CD4");end,
 	-- Unknown. Called after creating a checkpoint (type: 51) in the creators.
 	["_0x615D3925E87A3B26"]=--[[void]] function(--[[int]] checkpoint)native_invoker.begin_call();native_invoker.push_arg_int(checkpoint);native_invoker.end_call("615D3925E87A3B26");end,
-	["_0xDB1EA9411C8911EC"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("DB1EA9411C8911EC");end,
-	["_0x3C788E7F6438754D"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("3C788E7F6438754D");end,
+	["_0xDB1EA9411C8911EC"]=--[[void]] function(--[[int]] checkpoint)native_invoker.begin_call();native_invoker.push_arg_int(checkpoint);native_invoker.end_call("DB1EA9411C8911EC");end,
+	["_0x3C788E7F6438754D"]=--[[void]] function(--[[int]] checkpoint,--[[float]] posX,--[[float]] posY,--[[float]] posZ)native_invoker.begin_call();native_invoker.push_arg_int(checkpoint);native_invoker.push_arg_float(posX);native_invoker.push_arg_float(posY);native_invoker.push_arg_float(posZ);native_invoker.end_call("3C788E7F6438754D");end,
 	["DELETE_CHECKPOINT"]=--[[void]] function(--[[int]] checkpoint)native_invoker.begin_call();native_invoker.push_arg_int(checkpoint);native_invoker.end_call("F5ED37F54CD4D52E");end,
 	["DONT_RENDER_IN_GAME_UI"]=--[[void]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("22A249A53034450A");end,
 	["FORCE_RENDER_IN_GAME_UI"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("DC459CFA0CCE245B");end,
@@ -3333,8 +3338,7 @@ GRAPHICS={
 	["_0xE59343E9E96529E7"]=--[[float]] function()native_invoker.begin_call();native_invoker.end_call("E59343E9E96529E7");return native_invoker.get_return_value_float();end,
 	-- SET_F*
 	["_0x6A51F78772175A51"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("6A51F78772175A51");end,
-	-- TOGGLE_*
-	["_0xE63D7C6EECECB66B"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("E63D7C6EECECB66B");end,
+	["TOGGLE_PLAYER_DAMAGE_OVERLAY"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("E63D7C6EECECB66B");end,
 	-- Sets an unknown value related to timecycles.
 	["_0xE3E2C1B4C59DBC77"]=--[[void]] function(--[[int]] unk)native_invoker.begin_call();native_invoker.push_arg_int(unk);native_invoker.end_call("E3E2C1B4C59DBC77");end,
 	-- time in ms to transition to fully blurred screen
@@ -3474,6 +3478,7 @@ GRAPHICS={
 	-- Full list of particle effect dictionaries and effects by DurtyFree: https://github.com/DurtyFree/gta-v-data-dumps/blob/master/particleEffectsCompact.json
 	["_0xBA3D194057C79A7B"]=--[[void]] function(--[[string]] p0)native_invoker.begin_call();native_invoker.push_arg_string(p0);native_invoker.end_call("BA3D194057C79A7B");end,
 	["_0x5DBF05DB5926D089"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("5DBF05DB5926D089");end,
+	["_0xC6730E0D14E50703"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("C6730E0D14E50703");end,
 	-- FORCE_*
 	["_0x9B079E5221D984D3"]=--[[void]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("9B079E5221D984D3");end,
 	-- From the b678d decompiled scripts:
@@ -3574,9 +3579,7 @@ GRAPHICS={
 	["_0x27CFB1B1E078CB2D"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("27CFB1B1E078CB2D");end,
 	["SET_DISABLE_DECAL_RENDERING_THIS_FRAME"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("4B5CFC83122DF602");end,
 	["GET_IS_PETROL_DECAL_IN_RANGE"]=--[[BOOL (bool)]] function(--[[float]] xCoord,--[[float]] yCoord,--[[float]] zCoord,--[[float]] radius)native_invoker.begin_call();native_invoker.push_arg_float(xCoord);native_invoker.push_arg_float(yCoord);native_invoker.push_arg_float(zCoord);native_invoker.push_arg_float(radius);native_invoker.end_call("2F09F7976C512404");return native_invoker.get_return_value_bool();end,
-	-- Old name: _OVERRIDE_DECAL_TEXTURE
 	["PATCH_DECAL_DIFFUSE_MAP"]=--[[void]] function(--[[int]] decalType,--[[string]] textureDict,--[[string]] textureName)native_invoker.begin_call();native_invoker.push_arg_int(decalType);native_invoker.push_arg_string(textureDict);native_invoker.push_arg_string(textureName);native_invoker.end_call("8A35C742130C6080");end,
-	-- Old name: _UNDO_DECAL_TEXTURE_OVERRIDE
 	["UNPATCH_DECAL_DIFFUSE_MAP"]=--[[void]] function(--[[int]] decalType)native_invoker.begin_call();native_invoker.push_arg_int(decalType);native_invoker.end_call("B7ED70C49521A61D");end,
 	["MOVE_VEHICLE_DECALS"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("84C8D7C2D30D3280");end,
 	-- boneIndex is always chassis_dummy in the scripts. The x/y/z params are location relative to the chassis bone.
@@ -3781,8 +3784,7 @@ GRAPHICS={
 	["_SCALEFORM_MOVIE_METHOD_ADD_PARAM_TEXTURE_NAME_STRING_2"]=--[[void]] function(--[[string]] string)native_invoker.begin_call();native_invoker.push_arg_string(string);native_invoker.end_call("77FE3402004CD1B0");end,
 	["SCALEFORM_MOVIE_METHOD_ADD_PARAM_TEXTURE_NAME_STRING"]=--[[void]] function(--[[string]] string)native_invoker.begin_call();native_invoker.push_arg_string(string);native_invoker.end_call("BA7148484BD90365");end,
 	["SCALEFORM_MOVIE_METHOD_ADD_PARAM_PLAYER_NAME_STRING"]=--[[void]] function(--[[string]] string)native_invoker.begin_call();native_invoker.push_arg_string(string);native_invoker.end_call("E83A3E3557A56640");end,
-	-- DOES_*
-	["_0x5E657EF1099EDD65"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("5E657EF1099EDD65");return native_invoker.get_return_value_bool();end,
+	["DOES_LATEST_BRIEF_STRING_EXIST"]=--[[BOOL (bool)]] function(--[[int]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("5E657EF1099EDD65");return native_invoker.get_return_value_bool();end,
 	["SCALEFORM_MOVIE_METHOD_ADD_PARAM_LATEST_BRIEF_STRING"]=--[[void]] function(--[[int]] value)native_invoker.begin_call();native_invoker.push_arg_int(value);native_invoker.end_call("EC52C631A1831C03");end,
 	["REQUEST_SCALEFORM_SCRIPT_HUD_MOVIE"]=--[[void]] function(--[[int]] hudComponent)native_invoker.begin_call();native_invoker.push_arg_int(hudComponent);native_invoker.end_call("9304881D6F6537EA");end,
 	["HAS_SCALEFORM_SCRIPT_HUD_MOVIE_LOADED"]=--[[BOOL (bool)]] function(--[[int]] hudComponent)native_invoker.begin_call();native_invoker.push_arg_int(hudComponent);native_invoker.end_call("DF6E5987D2B4D140");return native_invoker.get_return_value_bool();end,
@@ -4136,27 +4138,6 @@ HUD={
 	-- HUD::_0xAA295B6F28BD587D("Hunting", "Hunting_Gold_128", 0, 109, "HUD_MED_UNLKED");
 	["END_TEXT_COMMAND_THEFEED_POST_AWARD"]=--[[int]] function(--[[string]] textureDict,--[[string]] textureName,--[[int]] rpBonus,--[[int]] colorOverlay,--[[string]] titleLabel)native_invoker.begin_call();native_invoker.push_arg_string(textureDict);native_invoker.push_arg_string(textureName);native_invoker.push_arg_int(rpBonus);native_invoker.push_arg_int(colorOverlay);native_invoker.push_arg_string(titleLabel);native_invoker.end_call("AA295B6F28BD587D");return native_invoker.get_return_value_int();end,
 	["END_TEXT_COMMAND_THEFEED_POST_CREWTAG"]=--[[int]] function(--[[BOOL (bool)]] p0,--[[BOOL (bool)]] p1,--[[int* (pointer)]] p2,--[[int]] p3,--[[BOOL (bool)]] isLeader,--[[BOOL (bool)]] unk0,--[[int]] clanDesc,--[[int]] R,--[[int]] G,--[[int]] B)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_pointer(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_bool(isLeader);native_invoker.push_arg_bool(unk0);native_invoker.push_arg_int(clanDesc);native_invoker.push_arg_int(R);native_invoker.push_arg_int(G);native_invoker.push_arg_int(B);native_invoker.end_call("97C9E4E7024A8F2C");return native_invoker.get_return_value_int();end,
-	-- p0 = 1 or 0
-	-- 
-	-- crashes my game...
-	-- this is for sending invites to network players - jobs/apartment/ect... 
-	-- return notification handle
-	-- 
-	-- int invite(Player player)
-	--    {
-	--      networkHandleMgr netHandle;
-	--        networkClanMgr clan;
-	--       char *playerName = GET_PLAYER_NAME(player);
-	--        _SET_NOTIFICATION_TEXT_ENTRY("STRING");
-	--      _SET_NOTIFACTION_COLOR_NEXT(1);
-	--        ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(playerName);
-	--      NETWORK_HANDLE_FROM_PLAYER(player, &netHandle.netHandle, 13);
-	--      if (NETWORK_CLAN_PLAYER_IS_ACTIVE(&netHandle.netHandle))
-	--       {
-	--          NETWORK_CLAN_PLAYER_GET_DESC(&clan.clanHandle, 35, &netHandle.netHandle);
-	--          _DRAW_NOTIFICATION_CLAN_INVITE(0, _0x54E79E9C(&clan.clanHandle, 35), &clan.unk17, clan.isLeader, 0, 0, clan.clanHandle, playerName, 0, 0, 0);
-	--      }
-	--  }
 	["END_TEXT_COMMAND_THEFEED_POST_CREWTAG_WITH_GAME_NAME"]=--[[int]] function(--[[BOOL (bool)]] p0,--[[BOOL (bool)]] p1,--[[int* (pointer)]] p2,--[[int]] p3,--[[BOOL (bool)]] isLeader,--[[BOOL (bool)]] unk0,--[[int]] clanDesc,--[[string]] playerName,--[[int]] R,--[[int]] G,--[[int]] B)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_pointer(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_bool(isLeader);native_invoker.push_arg_bool(unk0);native_invoker.push_arg_int(clanDesc);native_invoker.push_arg_string(playerName);native_invoker.push_arg_int(R);native_invoker.push_arg_int(G);native_invoker.push_arg_int(B);native_invoker.end_call("137BC35589E34E1E");return native_invoker.get_return_value_int();end,
 	["END_TEXT_COMMAND_THEFEED_POST_UNLOCK"]=--[[Any (int)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("33EE12743CCD6343");return native_invoker.get_return_value_int();end,
 	["END_TEXT_COMMAND_THEFEED_POST_UNLOCK_TU"]=--[[Any (int)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("C8F3AAF93D0600BF");return native_invoker.get_return_value_int();end,
@@ -4419,12 +4400,13 @@ HUD={
 	-- SET_F*
 	["_0x2790F4B17D098E26"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("2790F4B17D098E26");end,
 	["_0x6CDD58146A436083"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("6CDD58146A436083");end,
-	["_0xD1942374085C8469"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("D1942374085C8469");end,
+	["_0xD1942374085C8469"]=--[[void]] function(--[[BOOL (bool)]] disabled)native_invoker.begin_call();native_invoker.push_arg_bool(disabled);native_invoker.end_call("D1942374085C8469");end,
 	["ADD_NEXT_MESSAGE_TO_PREVIOUS_BRIEFS"]=--[[void]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("60296AF4BA14ABC5");end,
 	-- FORCE_*
 	["_0x57D760D55F54E071"]=--[[void]] function(--[[int]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("57D760D55F54E071");end,
+	-- zoom ranges from 0 to 90f in R* Scripts
 	["SET_RADAR_ZOOM_PRECISE"]=--[[void]] function(--[[float]] zoom)native_invoker.begin_call();native_invoker.push_arg_float(zoom);native_invoker.end_call("BD12C5EEE184C337");end,
-	-- zoomLevel ranges from 0 to 200 
+	-- zoomLevel ranges from 0 to 1400 in R* Scripts
 	["SET_RADAR_ZOOM"]=--[[void]] function(--[[int]] zoomLevel)native_invoker.begin_call();native_invoker.push_arg_int(zoomLevel);native_invoker.end_call("096EF57A0C999BBA");end,
 	["SET_RADAR_ZOOM_TO_BLIP"]=--[[void]] function(--[[Blip (int)]] blip,--[[float]] zoom)native_invoker.begin_call();native_invoker.push_arg_int(blip);native_invoker.push_arg_float(zoom);native_invoker.end_call("F98E4B3E56AFC7B1");end,
 	["SET_RADAR_ZOOM_TO_DISTANCE"]=--[[void]] function(--[[float]] zoom)native_invoker.begin_call();native_invoker.push_arg_float(zoom);native_invoker.end_call("CB7CC0D58405AD41");end,
@@ -4449,9 +4431,8 @@ HUD={
 	["FLASH_WANTED_DISPLAY"]=--[[void]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("A18AFB39081B6A1F");end,
 	-- FORCE_*
 	["_0xBA8D65C1C65702E5"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("BA8D65C1C65702E5");end,
+	["_SET_CURRENT_CHARACTER_HUD_COLOR"]=--[[void]] function(--[[int]] hudColorId)native_invoker.begin_call();native_invoker.push_arg_int(hudColorId);native_invoker.end_call("2ACCB195F3CCD9DE");end,
 	-- This gets the height of the FONT and not the total text. You need to get the number of lines your text uses, and get the height of a newline (I'm using a smaller value) to get the total text height.
-	-- 
-	-- Old name: _GET_TEXT_SCALE_HEIGHT
 	["GET_RENDERED_CHARACTER_HEIGHT"]=--[[float]] function(--[[float]] size,--[[int]] font)native_invoker.begin_call();native_invoker.push_arg_float(size);native_invoker.push_arg_int(font);native_invoker.end_call("DB88A37483346780");return native_invoker.get_return_value_float();end,
 	-- Size range : 0F to 1.0F
 	-- p0 is unknown and doesn't seem to have an effect, yet in the game scripts it changes to 1.0F sometimes.
@@ -4501,8 +4482,7 @@ HUD={
 	["IS_HELP_MESSAGE_BEING_DISPLAYED"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("4D79439A6B55AC67");return native_invoker.get_return_value_bool();end,
 	["IS_HELP_MESSAGE_FADING_OUT"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("327EDEEEAC55C369");return native_invoker.get_return_value_bool();end,
 	["_SET_HELP_MESSAGE_TEXT_STYLE"]=--[[void]] function(--[[int]] style,--[[int]] hudColor,--[[int]] alpha,--[[int]] p3,--[[int]] p4)native_invoker.begin_call();native_invoker.push_arg_int(style);native_invoker.push_arg_int(hudColor);native_invoker.push_arg_int(alpha);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("B9C362BABECDDC7A");end,
-	-- This function is hard-coded to always return 1.
-	["GET_STANDARD_BLIP_ENUM_ID"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("4A9923385BDB9DAD");return native_invoker.get_return_value_bool();end,
+	["GET_STANDARD_BLIP_ENUM_ID"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("4A9923385BDB9DAD");return native_invoker.get_return_value_int();end,
 	["GET_WAYPOINT_BLIP_ENUM_ID"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("186E5D252FA50E7D");return native_invoker.get_return_value_int();end,
 	["GET_NUMBER_OF_ACTIVE_BLIPS"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("9A3FF3DE163034E8");return native_invoker.get_return_value_int();end,
 	["GET_NEXT_BLIP_INFO_ID"]=--[[Blip (int)]] function(--[[int]] blipSprite)native_invoker.begin_call();native_invoker.push_arg_int(blipSprite);native_invoker.end_call("14F96AA50D6FBEA7");return native_invoker.get_return_value_int();end,
@@ -4580,15 +4560,13 @@ HUD={
 	["SET_BLIP_ALPHA"]=--[[void]] function(--[[Blip (int)]] blip,--[[int]] alpha)native_invoker.begin_call();native_invoker.push_arg_int(blip);native_invoker.push_arg_int(alpha);native_invoker.end_call("45FF974EEE1C8734");end,
 	["GET_BLIP_ALPHA"]=--[[int]] function(--[[Blip (int)]] blip)native_invoker.begin_call();native_invoker.push_arg_int(blip);native_invoker.end_call("970F608F0EE6C885");return native_invoker.get_return_value_int();end,
 	["SET_BLIP_FADE"]=--[[void]] function(--[[Blip (int)]] blip,--[[int]] opacity,--[[int]] duration)native_invoker.begin_call();native_invoker.push_arg_int(blip);native_invoker.push_arg_int(opacity);native_invoker.push_arg_int(duration);native_invoker.end_call("2AEE8F8390D2298C");end,
-	-- GET_BLIP_*
-	-- 
-	-- Seems to always return 0 from what I can tell. I've tried a lot of different blip related natives and it always seems to return 0. Decompiled scripts always pass a blip handle as p0.
-	["_0x2C173AE2BDB9385E"]=--[[int]] function(--[[Blip (int)]] blip)native_invoker.begin_call();native_invoker.push_arg_int(blip);native_invoker.end_call("2C173AE2BDB9385E");return native_invoker.get_return_value_int();end,
+	-- Returns -1, 0, +1, depending on if the blip is fading out, doing nothing, or fading in respectively.
+	["_GET_BLIP_FADE_STATUS"]=--[[int]] function(--[[Blip (int)]] blip)native_invoker.begin_call();native_invoker.push_arg_int(blip);native_invoker.end_call("2C173AE2BDB9385E");return native_invoker.get_return_value_int();end,
 	-- After some testing, looks like you need to use CEIL() on the rotation (vehicle/ped heading) before using it there.
 	["SET_BLIP_ROTATION"]=--[[void]] function(--[[Blip (int)]] blip,--[[int]] rotation)native_invoker.begin_call();native_invoker.push_arg_int(blip);native_invoker.push_arg_int(rotation);native_invoker.end_call("F87683CDF73C3F6E");end,
 	-- Does not require whole number/integer rotations.
 	["_SET_BLIP_SQUARED_ROTATION"]=--[[void]] function(--[[Blip (int)]] blip,--[[float]] heading)native_invoker.begin_call();native_invoker.push_arg_int(blip);native_invoker.push_arg_float(heading);native_invoker.end_call("A8B6AFDAC320AC87");end,
-	["_0x003E92BA477F9D7F"]=--[[int]] function(--[[Blip (int)]] blip)native_invoker.begin_call();native_invoker.push_arg_int(blip);native_invoker.end_call("003E92BA477F9D7F");return native_invoker.get_return_value_int();end,
+	["_GET_BLIP_ROTATION"]=--[[int]] function(--[[Blip (int)]] blip)native_invoker.begin_call();native_invoker.push_arg_int(blip);native_invoker.end_call("003E92BA477F9D7F");return native_invoker.get_return_value_int();end,
 	-- Adds up after viewing multiple R* scripts. I believe that the duration is in miliseconds.
 	["SET_BLIP_FLASH_TIMER"]=--[[void]] function(--[[Blip (int)]] blip,--[[int]] duration)native_invoker.begin_call();native_invoker.push_arg_int(blip);native_invoker.push_arg_int(duration);native_invoker.end_call("D3CD6FD297AE87CC");end,
 	["SET_BLIP_FLASH_INTERVAL"]=--[[void]] function(--[[Blip (int)]] blip,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(blip);native_invoker.push_arg_int(p1);native_invoker.end_call("AA51DB313C010A7E");end,
@@ -4606,7 +4584,8 @@ HUD={
 	["IS_MISSION_CREATOR_BLIP"]=--[[BOOL (bool)]] function(--[[Blip (int)]] blip)native_invoker.begin_call();native_invoker.push_arg_int(blip);native_invoker.end_call("26F49BF3381D933D");return native_invoker.get_return_value_bool();end,
 	["GET_NEW_SELECTED_MISSION_CREATOR_BLIP"]=--[[Blip (int)]] function()native_invoker.begin_call();native_invoker.end_call("5C90988E7C8E1AF4");return native_invoker.get_return_value_int();end,
 	["IS_HOVERING_OVER_MISSION_CREATOR_BLIP"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("4167EFE0527D706E");return native_invoker.get_return_value_bool();end,
-	["SHOW_START_MISSION_INSTRUCTIONAL_BUTTON"]=--[[void]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("F1A6C18B35BCADE6");end,
+	["SHOW_START_MISSION_INSTRUCTIONAL_BUTTON"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("F1A6C18B35BCADE6");end,
+	["_SHOW_CONTACT_INSTRUCTIONAL_BUTTON"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("C772A904CDE1186F");end,
 	["_0x2916A928514C9827"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("2916A928514C9827");end,
 	["_0xB552929B85FC27EC"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("B552929B85FC27EC");end,
 	["SET_BLIP_FLASHES"]=--[[void]] function(--[[Blip (int)]] blip,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(blip);native_invoker.push_arg_bool(toggle);native_invoker.end_call("B14552383D39CE3E");end,
@@ -4708,9 +4687,7 @@ HUD={
 	["_0x4B5B620C9B59ED34"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("4B5B620C9B59ED34");end,
 	["_0x2C9F302398E13141"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("2C9F302398E13141");end,
 	-- Makes a blip go small when off the minimap.
-	-- 
-	-- SET_BLIP_AS_*
-	["_SET_BLIP_SHRINK"]=--[[void]] function(--[[Blip (int)]] blip,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(blip);native_invoker.push_arg_bool(toggle);native_invoker.end_call("2B6D467DAB714E8D");end,
+	["SET_BLIP_AS_MINIMAL_ON_EDGE"]=--[[void]] function(--[[Blip (int)]] blip,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(blip);native_invoker.push_arg_bool(toggle);native_invoker.end_call("2B6D467DAB714E8D");end,
 	-- Enabling this on a radius blip will make it outline only. See https://cdn.discordapp.com/attachments/553235301632573459/575132227935928330/unknown.png
 	["SET_RADIUS_BLIP_EDGE"]=--[[void]] function(--[[Blip (int)]] blip,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(blip);native_invoker.push_arg_bool(toggle);native_invoker.end_call("25615540D894B814");end,
 	["DOES_BLIP_EXIST"]=--[[BOOL (bool)]] function(--[[Blip (int)]] blip)native_invoker.begin_call();native_invoker.push_arg_int(blip);native_invoker.end_call("A6DB27D19ECBB7DA");return native_invoker.get_return_value_bool();end,
@@ -4745,8 +4722,8 @@ HUD={
 	-- List of interior hashes: pastebin.com/1FUyXNqY
 	-- Not for every interior zoom > 0 available.
 	["SET_RADAR_AS_INTERIOR_THIS_FRAME"]=--[[void]] function(--[[Hash (int)]] interior,--[[float]] x,--[[float]] y,--[[int]] z,--[[int]] zoom)native_invoker.begin_call();native_invoker.push_arg_int(interior);native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_int(z);native_invoker.push_arg_int(zoom);native_invoker.end_call("59E727A1C9D3E31A");end,
-	["_0x504DFE62A1692296"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("504DFE62A1692296");end,
-	["_0x7EC8ABA5E74B3D7A"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("7EC8ABA5E74B3D7A");end,
+	["_SET_INTERIOR_ZOOM_LEVEL_INCREASED"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("504DFE62A1692296");end,
+	["_SET_INTERIOR_ZOOM_LEVEL_DECREASED"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("7EC8ABA5E74B3D7A");end,
 	["SET_RADAR_AS_EXTERIOR_THIS_FRAME"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("E81B7D2A3DAB2D81");end,
 	-- Sets the position of the arrow icon representing the player on both the minimap and world map.
 	-- 
@@ -4857,7 +4834,7 @@ HUD={
 	["CLEAR_GPS_MULTI_ROUTE"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("67EEDEA1B9BAFD94");end,
 	["CLEAR_GPS_PLAYER_WAYPOINT"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("FF4FB7C8CDFA3DA7");end,
 	["SET_GPS_FLASHES"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("320D0E0D936A0E9B");end,
-	["_0x7B21E0BB01E8224A"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("7B21E0BB01E8224A");end,
+	["_SET_MAIN_PLAYER_BLIP_COLOUR"]=--[[void]] function(--[[int]] color)native_invoker.begin_call();native_invoker.push_arg_int(color);native_invoker.end_call("7B21E0BB01E8224A");end,
 	-- adds a short flash to the Radar/Minimap
 	-- Usage: UI.FLASH_MINIMAP_DISPLAY
 	["FLASH_MINIMAP_DISPLAY"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("F2DD778C22B15BDA");end,
@@ -5094,13 +5071,27 @@ HUD={
 	-- You can only use text entries. No custom text.
 	-- 
 	-- Example: SET_WARNING_MESSAGE("t20", 3, "adder", false, -1, 0, 0, true);
-	["SET_WARNING_MESSAGE"]=--[[void]] function(--[[string]] titleMsg,--[[int]] flags,--[[string]] promptMsg,--[[BOOL (bool)]] p3,--[[int]] p4,--[[string]] p5,--[[string]] p6,--[[BOOL (bool)]] showBackground,--[[Any (int)]] p8)native_invoker.begin_call();native_invoker.push_arg_string(titleMsg);native_invoker.push_arg_int(flags);native_invoker.push_arg_string(promptMsg);native_invoker.push_arg_bool(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_string(p5);native_invoker.push_arg_string(p6);native_invoker.push_arg_bool(showBackground);native_invoker.push_arg_int(p8);native_invoker.end_call("7B1776B3B53F8D74");end,
+	-- errorCode: shows an error code at the bottom left if nonzero
+	["SET_WARNING_MESSAGE"]=--[[void]] function(--[[string]] titleMsg,--[[int]] flags,--[[string]] promptMsg,--[[BOOL (bool)]] p3,--[[int]] p4,--[[string]] p5,--[[string]] p6,--[[BOOL (bool)]] showBackground,--[[int]] errorCode)native_invoker.begin_call();native_invoker.push_arg_string(titleMsg);native_invoker.push_arg_int(flags);native_invoker.push_arg_string(promptMsg);native_invoker.push_arg_bool(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_string(p5);native_invoker.push_arg_string(p6);native_invoker.push_arg_bool(showBackground);native_invoker.push_arg_int(errorCode);native_invoker.end_call("7B1776B3B53F8D74");end,
 	-- Shows a warning message on screen with a header.
 	-- Note: You can only use text entries. No custom text. You can recreate this easily with scaleforms.
 	-- Example: https://i.imgur.com/ITJt8bJ.png
 	["SET_WARNING_MESSAGE_WITH_HEADER"]=--[[void]] function(--[[string]] entryHeader,--[[string]] entryLine1,--[[int]] instructionalKey,--[[string]] entryLine2,--[[BOOL (bool)]] p4,--[[Any (int)]] p5,--[[Any* (pointer)]] showBackground,--[[Any* (pointer)]] p7,--[[BOOL (bool)]] p8,--[[Any (int)]] p9)native_invoker.begin_call();native_invoker.push_arg_string(entryHeader);native_invoker.push_arg_string(entryLine1);native_invoker.push_arg_int(instructionalKey);native_invoker.push_arg_string(entryLine2);native_invoker.push_arg_bool(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_pointer(showBackground);native_invoker.push_arg_pointer(p7);native_invoker.push_arg_bool(p8);native_invoker.push_arg_int(p9);native_invoker.end_call("DC38CC1E35B6A5D7");end,
-	-- You can only use text entries. No custom text.
-	["SET_WARNING_MESSAGE_WITH_HEADER_AND_SUBSTRING_FLAGS"]=--[[void]] function(--[[string]] entryHeader,--[[string]] entryLine1,--[[Any (int)]] instructionalKey,--[[string]] entryLine2,--[[BOOL (bool)]] p4,--[[Any (int)]] p5,--[[Any (int)]] p6,--[[Any* (pointer)]] p7,--[[Any* (pointer)]] p8,--[[BOOL (bool)]] p9,--[[Any (int)]] p10)native_invoker.begin_call();native_invoker.push_arg_string(entryHeader);native_invoker.push_arg_string(entryLine1);native_invoker.push_arg_int(instructionalKey);native_invoker.push_arg_string(entryLine2);native_invoker.push_arg_bool(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_int(p6);native_invoker.push_arg_pointer(p7);native_invoker.push_arg_pointer(p8);native_invoker.push_arg_bool(p9);native_invoker.push_arg_int(p10);native_invoker.end_call("701919482C74B5AB");end,
+	-- You can use this native for custom input, without having to use any scaleform-related natives.
+	-- The native must be called on tick.
+	-- The entryHeader must be a valid label.
+	-- For Single lines use JL_INVITE_N as entryLine1, JL_INVITE_ND for multiple.
+	-- Notes:
+	-- - additionalIntInfo: replaces first occurrence of ~1~ in provided label with an integer
+	-- - additionalTextInfoLine1: replaces first occurrence of ~a~ in provided label, with your custom text
+	-- - additionalTextInfoLine2: replaces second occurrence of ~a~ in provided label, with your custom text
+	-- - showBackground: shows black background of the warning screen
+	-- - errorCode: shows an error code at the bottom left if nonzero
+	-- Example of usage:
+	-- SET_WARNING_MESSAGE_WITH_HEADER_AND_SUBSTRING_FLAGS("ALERT", "JL_INVITE_ND", 66, "", true, -1, -1, "Testing line 1", "Testing line 2", true, 0);
+	-- Screenshot:
+	-- https://imgur.com/a/IYA7vJ8
+	["SET_WARNING_MESSAGE_WITH_HEADER_AND_SUBSTRING_FLAGS"]=--[[void]] function(--[[string]] entryHeader,--[[string]] entryLine1,--[[int]] instructionalKey,--[[string]] entryLine2,--[[BOOL (bool)]] p4,--[[Any (int)]] p5,--[[Any (int)]] additionalIntInfo,--[[string]] additionalTextInfoLine1,--[[string]] additionalTextInfoLine2,--[[BOOL (bool)]] showBackground,--[[int]] errorCode)native_invoker.begin_call();native_invoker.push_arg_string(entryHeader);native_invoker.push_arg_string(entryLine1);native_invoker.push_arg_int(instructionalKey);native_invoker.push_arg_string(entryLine2);native_invoker.push_arg_bool(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_int(additionalIntInfo);native_invoker.push_arg_string(additionalTextInfoLine1);native_invoker.push_arg_string(additionalTextInfoLine2);native_invoker.push_arg_bool(showBackground);native_invoker.push_arg_int(errorCode);native_invoker.end_call("701919482C74B5AB");end,
 	["_SET_WARNING_MESSAGE_WITH_HEADER_UNK"]=--[[void]] function(--[[string]] entryHeader,--[[string]] entryLine1,--[[int]] flags,--[[string]] entryLine2,--[[BOOL (bool)]] p4,--[[Any (int)]] p5,--[[Any* (pointer)]] p6,--[[Any* (pointer)]] p7,--[[BOOL (bool)]] showBg,--[[Any (int)]] p9,--[[Any (int)]] p10)native_invoker.begin_call();native_invoker.push_arg_string(entryHeader);native_invoker.push_arg_string(entryLine1);native_invoker.push_arg_int(flags);native_invoker.push_arg_string(entryLine2);native_invoker.push_arg_bool(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_pointer(p6);native_invoker.push_arg_pointer(p7);native_invoker.push_arg_bool(showBg);native_invoker.push_arg_int(p9);native_invoker.push_arg_int(p10);native_invoker.end_call("38B55259C2E078ED");end,
 	-- labelTitle: Label of the alert's title.
 	-- labelMsg: Label of the alert's message.
@@ -5173,12 +5164,12 @@ HUD={
 	["CLEAR_DYNAMIC_PAUSE_MENU_ERROR_MESSAGE"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("7792424AA0EAC32E");end,
 	-- If toggle is true, the map is shown in full screen
 	-- If toggle is false, the map is shown in normal mode
-	["_RACE_GALLERY_FULLSCREEN"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("5354C5BA2EA868A4");end,
+	["CUSTOM_MINIMAP_SET_ACTIVE"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("5354C5BA2EA868A4");end,
 	-- Sets the sprite of the next BLIP_GALLERY blip, values used in the native scripts: 143 (ObjectiveBlue), 144 (ObjectiveGreen), 145 (ObjectiveRed), 146 (ObjectiveYellow).
-	["_RACE_GALLERY_NEXT_BLIP_SPRITE"]=--[[void]] function(--[[int]] spriteId)native_invoker.begin_call();native_invoker.push_arg_int(spriteId);native_invoker.end_call("1EAE6DD17B7A5EFA");end,
+	["CUSTOM_MINIMAP_SET_BLIP_OBJECT"]=--[[void]] function(--[[int]] spriteId)native_invoker.begin_call();native_invoker.push_arg_int(spriteId);native_invoker.end_call("1EAE6DD17B7A5EFA");end,
 	-- Add a BLIP_GALLERY at the specific coordinate. Used in fm_maintain_transition_players to display race track points.
-	["_RACE_GALLERY_ADD_BLIP"]=--[[Any (int)]] function(--[[float]] x,--[[float]] y,--[[float]] z)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.end_call("551DF99658DB6EE8");return native_invoker.get_return_value_int();end,
-	["_CLEAR_RACE_GALLERY_BLIPS"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("2708FC083123F9FF");end,
+	["CUSTOM_MINIMAP_CREATE_BLIP"]=--[[Any (int)]] function(--[[float]] x,--[[float]] y,--[[float]] z)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.end_call("551DF99658DB6EE8");return native_invoker.get_return_value_int();end,
+	["CUSTOM_MINIMAP_CLEAR_BLIPS"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("2708FC083123F9FF");end,
 	-- Doesn't actually return anything.
 	["FORCE_SONAR_BLIPS_THIS_FRAME"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("1121BFA1A1A522A8");return native_invoker.get_return_value_int();end,
 	["_GET_NORTH_RADAR_BLIP"]=--[[Blip (int)]] function()native_invoker.begin_call();native_invoker.end_call("3F0CF9CB7E589B88");return native_invoker.get_return_value_int();end,
@@ -5289,13 +5280,13 @@ HUD={
 	["PAUSE_MENU_ACTIVATE_CONTEXT"]=--[[void]] function(--[[Hash (int)]] contextHash)native_invoker.begin_call();native_invoker.push_arg_int(contextHash);native_invoker.end_call("DD564BDD0472C936");end,
 	["PAUSE_MENU_DEACTIVATE_CONTEXT"]=--[[void]] function(--[[Hash (int)]] contextHash)native_invoker.begin_call();native_invoker.push_arg_int(contextHash);native_invoker.end_call("444D8CF241EC25C5");end,
 	["PAUSE_MENU_IS_CONTEXT_ACTIVE"]=--[[BOOL (bool)]] function(--[[Hash (int)]] contextHash)native_invoker.begin_call();native_invoker.push_arg_int(contextHash);native_invoker.end_call("84698AB38D0C6636");return native_invoker.get_return_value_bool();end,
-	["PAUSE_MENU_IS_CONTEXT_MENU_ACTIVE"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("2A25ADC48F87841F");return native_invoker.get_return_value_int();end,
-	["_0xDE03620F8703A9DF"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("DE03620F8703A9DF");return native_invoker.get_return_value_int();end,
-	["_0x359AF31A4B52F5ED"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("359AF31A4B52F5ED");return native_invoker.get_return_value_int();end,
-	["_0x13C4B962653A5280"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("13C4B962653A5280");return native_invoker.get_return_value_int();end,
+	["PAUSE_MENU_IS_CONTEXT_MENU_ACTIVE"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("2A25ADC48F87841F");return native_invoker.get_return_value_bool();end,
+	["_0xDE03620F8703A9DF"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("DE03620F8703A9DF");return native_invoker.get_return_value_int();end,
+	["_0x359AF31A4B52F5ED"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("359AF31A4B52F5ED");return native_invoker.get_return_value_int();end,
+	["_0x13C4B962653A5280"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("13C4B962653A5280");return native_invoker.get_return_value_int();end,
 	["_0xC8E1071177A23BE5"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] p0,--[[Any* (pointer)]] p1,--[[Any* (pointer)]] p2)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_pointer(p2);native_invoker.end_call("C8E1071177A23BE5");return native_invoker.get_return_value_bool();end,
 	["_0x4895BDEA16E7C080"]=--[[void]] function(--[[int]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("4895BDEA16E7C080");end,
-	["PAUSE_MENU_SET_BUSY_SPINNER"]=--[[void]] function(--[[BOOL (bool)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("C78E239AC5B2DDB9");end,
+	["PAUSE_MENU_SET_BUSY_SPINNER"]=--[[void]] function(--[[BOOL (bool)]] p0,--[[int]] position,--[[int]] spinnerIndex)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.push_arg_int(position);native_invoker.push_arg_int(spinnerIndex);native_invoker.end_call("C78E239AC5B2DDB9");end,
 	["_0xF06EBB91A81E09E3"]=--[[void]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("F06EBB91A81E09E3");end,
 	["IS_FRONTEND_READY_FOR_CONTROL"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("3BAB9A4E4F2FF5C7");return native_invoker.get_return_value_bool();end,
 	-- Disables frontend (works in custom frontends, not sure about regular pause menu) navigation keys on keyboard. Not sure about controller. Does not disable mouse controls. No need to call this every tick.
@@ -5305,10 +5296,10 @@ HUD={
 	-- Enables frontend (works in custom frontends, not sure about regular pause menu) navigation keys on keyboard if they were disabled using the native below.
 	-- To disable the keys, use `0xEC9264727EEC0F28`
 	["RELEASE_CONTROL_OF_FRONTEND"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("14621BB1DF14E2B2");end,
-	["_0x66E7CB63C97B7D20"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("66E7CB63C97B7D20");return native_invoker.get_return_value_int();end,
-	["_0x593FEAE1F73392D4"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("593FEAE1F73392D4");return native_invoker.get_return_value_int();end,
-	["IS_NAVIGATING_MENU_CONTENT"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("4E3CD0EF8A489541");return native_invoker.get_return_value_int();end,
-	["_0xF284AC67940C6812"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("F284AC67940C6812");return native_invoker.get_return_value_int();end,
+	["_0x66E7CB63C97B7D20"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("66E7CB63C97B7D20");return native_invoker.get_return_value_bool();end,
+	["_0x593FEAE1F73392D4"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("593FEAE1F73392D4");return native_invoker.get_return_value_int();end,
+	["IS_NAVIGATING_MENU_CONTENT"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("4E3CD0EF8A489541");return native_invoker.get_return_value_bool();end,
+	["_0xF284AC67940C6812"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("F284AC67940C6812");return native_invoker.get_return_value_bool();end,
 	-- Returns true when the menu state(?) changed this frame.
 	-- HAS_*? _GET_MENU_STATE_CHANGED_THIS_FRAME?
 	["_0x2E22FEFA0100275E"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("2E22FEFA0100275E");return native_invoker.get_return_value_bool();end,
@@ -5333,10 +5324,10 @@ HUD={
 	-- selectedItemMenuId = -1
 	-- selectedItemUniqueId updates as normal
 	["_GET_PAUSE_MENU_SELECTION_DATA"]=--[[void]] function(--[[int* (pointer)]] lastItemMenuId,--[[int* (pointer)]] selectedItemMenuId,--[[int* (pointer)]] selectedItemUniqueId)native_invoker.begin_call();native_invoker.push_arg_pointer(lastItemMenuId);native_invoker.push_arg_pointer(selectedItemMenuId);native_invoker.push_arg_pointer(selectedItemUniqueId);native_invoker.end_call("7E17BE53E1AAABAF");end,
-	["_0xA238192F33110615"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] p0,--[[int* (pointer)]] p1,--[[int* (pointer)]] p2)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_pointer(p2);native_invoker.end_call("A238192F33110615");return native_invoker.get_return_value_bool();end,
+	["_0xA238192F33110615"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] r,--[[int* (pointer)]] g,--[[int* (pointer)]] b)native_invoker.begin_call();native_invoker.push_arg_pointer(r);native_invoker.push_arg_pointer(g);native_invoker.push_arg_pointer(b);native_invoker.end_call("A238192F33110615");return native_invoker.get_return_value_bool();end,
 	["GET_MENU_PED_INT_STAT"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any* (pointer)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_pointer(p1);native_invoker.end_call("EF4CED81CEBEDC6D");return native_invoker.get_return_value_bool();end,
 	["_0xCA6B2F7CE32AB653"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any* (pointer)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("CA6B2F7CE32AB653");return native_invoker.get_return_value_bool();end,
-	["GET_MENU_PED_MASKED_INT_STAT"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any* (pointer)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("90A6526CF0381030");return native_invoker.get_return_value_bool();end,
+	["GET_MENU_PED_MASKED_INT_STAT"]=--[[BOOL (bool)]] function(--[[Hash (int)]] p0,--[[Any* (pointer)]] p1,--[[Any (int)]] p2,--[[int]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("90A6526CF0381030");return native_invoker.get_return_value_bool();end,
 	["_0x24A49BEAF468DC90"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any* (pointer)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("24A49BEAF468DC90");return native_invoker.get_return_value_bool();end,
 	["GET_MENU_PED_FLOAT_STAT"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[float* (pointer)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_pointer(p1);native_invoker.end_call("5FBD7095FE7AE57F");return native_invoker.get_return_value_bool();end,
 	["_0x8F08017F9D7C47BD"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any* (pointer)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("8F08017F9D7C47BD");return native_invoker.get_return_value_bool();end,
@@ -5502,7 +5493,7 @@ INTERIOR={
 	-- Does something similar to INTERIOR::DISABLE_INTERIOR
 	["CAP_INTERIOR"]=--[[void]] function(--[[Interior (int)]] interior,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(interior);native_invoker.push_arg_bool(toggle);native_invoker.end_call("D9175F941610DB54");end,
 	["IS_INTERIOR_CAPPED"]=--[[BOOL (bool)]] function(--[[Interior (int)]] interior)native_invoker.begin_call();native_invoker.push_arg_int(interior);native_invoker.end_call("92BAC8ACF88CEC26");return native_invoker.get_return_value_bool();end,
-	-- DISABLE_*
+	-- DISABLE_[METRO_SYSTEM]?
 	["_0x9E6542F0CE8E70A3"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("9E6542F0CE8E70A3");end,
 	-- Jenkins hash _might_ be 0xFC227584.
 	["_0x7241CCB7D020DB69"]=--[[void]] function(--[[Entity (int)]] entity,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.push_arg_bool(toggle);native_invoker.end_call("7241CCB7D020DB69");end,
@@ -5626,8 +5617,11 @@ MISC={
 	-- "SMOG"
 	-- "FOGGY"
 	-- "XMAS"
+	-- "SNOW"
 	-- "SNOWLIGHT"
 	-- "BLIZZARD"
+	-- "HALLOWEEN"
+	-- "NEUTRAL"
 	["SET_WEATHER_TYPE_PERSIST"]=--[[void]] function(--[[string]] weatherType)native_invoker.begin_call();native_invoker.push_arg_string(weatherType);native_invoker.end_call("704983DF373B198F");end,
 	-- The following weatherTypes are used in the scripts:
 	-- "CLEAR"
@@ -5640,8 +5634,11 @@ MISC={
 	-- "SMOG"
 	-- "FOGGY"
 	-- "XMAS"
+	-- "SNOW"
 	-- "SNOWLIGHT"
 	-- "BLIZZARD"
+	-- "HALLOWEEN"
+	-- "NEUTRAL"
 	["SET_WEATHER_TYPE_NOW_PERSIST"]=--[[void]] function(--[[string]] weatherType)native_invoker.begin_call();native_invoker.push_arg_string(weatherType);native_invoker.end_call("ED712CA327900C8A");end,
 	-- The following weatherTypes are used in the scripts:
 	-- "CLEAR"
@@ -5654,17 +5651,16 @@ MISC={
 	-- "SMOG"
 	-- "FOGGY"
 	-- "XMAS"
+	-- "SNOW"
 	-- "SNOWLIGHT"
 	-- "BLIZZARD"
+	-- "HALLOWEEN"
+	-- "NEUTRAL"
 	["SET_WEATHER_TYPE_NOW"]=--[[void]] function(--[[string]] weatherType)native_invoker.begin_call();native_invoker.push_arg_string(weatherType);native_invoker.end_call("29B487C359E19889");end,
 	["SET_WEATHER_TYPE_OVERTIME_PERSIST"]=--[[void]] function(--[[string]] weatherType,--[[float]] time)native_invoker.begin_call();native_invoker.push_arg_string(weatherType);native_invoker.push_arg_float(time);native_invoker.end_call("FB5045B7C42B75BF");end,
 	["SET_RANDOM_WEATHER_TYPE"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("8B05F884CF7E8020");end,
 	["CLEAR_WEATHER_TYPE_PERSIST"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("CCC39339BEF76CF5");end,
-	-- 0 as param = weird black and green screen
-	-- 0.1 - 0.99 = Prevent rain effect from falling (still sound and effects on puddles) and prevent puddles from increase/decrease, seems than it prevent any weather change too
-	-- 1 and more = "Unfreeze" rain puddles but clear weather too
-	-- When 'freezing' is enabled, it seem to also freeze value getted with GetRainLevel
-	["_0x0CF97F497FE7D048"]=--[[void]] function(--[[float]] p0)native_invoker.begin_call();native_invoker.push_arg_float(p0);native_invoker.end_call("0CF97F497FE7D048");end,
+	["_CLEAR_WEATHER_TYPE_OVERTIME_PERSIST"]=--[[void]] function(--[[int]] milliseconds)native_invoker.begin_call();native_invoker.push_arg_int(milliseconds);native_invoker.end_call("0CF97F497FE7D048");end,
 	["_GET_WEATHER_TYPE_TRANSITION"]=--[[void]] function(--[[Hash* (pointer)]] weatherType1,--[[Hash* (pointer)]] weatherType2,--[[float* (pointer)]] percentWeather2)native_invoker.begin_call();native_invoker.push_arg_pointer(weatherType1);native_invoker.push_arg_pointer(weatherType2);native_invoker.push_arg_pointer(percentWeather2);native_invoker.end_call("F3BBE884A14BB413");end,
 	-- Mixes two weather types. If percentWeather2 is set to 0.0f, then the weather will be entirely of weatherType1, if it is set to 1.0f it will be entirely of weatherType2. If it's set somewhere in between, there will be a mixture of weather behaviors. To test, try this in the RPH console, and change the float to different values between 0 and 1:
 	-- 
@@ -5700,7 +5696,8 @@ MISC={
 	-- 
 	-- If you pass true, something will be set to zero.
 	["SET_OVERRIDE_WEATHER"]=--[[void]] function(--[[string]] weatherType)native_invoker.begin_call();native_invoker.push_arg_string(weatherType);native_invoker.end_call("A43D5C6FE51ADBEF");end,
-	["_0x1178E104409FE58C"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("1178E104409FE58C");end,
+	-- Identical to SET_OVERRIDE_WEATHER but has an additional BOOL param that sets some weather var to 0 if true
+	["_0x1178E104409FE58C"]=--[[void]] function(--[[string]] weatherType,--[[BOOL (bool)]] p1)native_invoker.begin_call();native_invoker.push_arg_string(weatherType);native_invoker.push_arg_bool(p1);native_invoker.end_call("1178E104409FE58C");end,
 	["CLEAR_OVERRIDE_WEATHER"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("338D2E3477711050");end,
 	["WATER_OVERRIDE_SET_SHOREWAVEAMPLITUDE"]=--[[void]] function(--[[float]] amplitude)native_invoker.begin_call();native_invoker.push_arg_float(amplitude);native_invoker.end_call("B8F87EAD7533B176");end,
 	["WATER_OVERRIDE_SET_SHOREWAVEMINAMPLITUDE"]=--[[void]] function(--[[float]] minAmplitude)native_invoker.begin_call();native_invoker.push_arg_float(minAmplitude);native_invoker.end_call("C3EAD29AB273ECE8");end,
@@ -5721,13 +5718,13 @@ MISC={
 	["WATER_OVERRIDE_SET_STRENGTH"]=--[[void]] function(--[[float]] strength)native_invoker.begin_call();native_invoker.push_arg_float(strength);native_invoker.end_call("C54A08C85AE4D410");end,
 	["WATER_OVERRIDE_FADE_IN"]=--[[void]] function(--[[float]] p0)native_invoker.begin_call();native_invoker.push_arg_float(p0);native_invoker.end_call("A8434F1DFF41D6E7");end,
 	["WATER_OVERRIDE_FADE_OUT"]=--[[void]] function(--[[float]] p0)native_invoker.begin_call();native_invoker.push_arg_float(p0);native_invoker.end_call("C3C221ADDDE31A11");end,
-	-- Sets the the raw wind speed value.
+	-- Sets the the normalized wind speed value. The wind speed clamps always at 12.0, SET_WIND sets the wind in a percentage, 0.0 is 0 and 1.0 is 12.0. Setting this value to a negative number resumes the random wind speed changes provided by the game.
 	["SET_WIND"]=--[[void]] function(--[[float]] speed)native_invoker.begin_call();native_invoker.push_arg_float(speed);native_invoker.end_call("AC3A74E8384A9919");end,
-	-- Using this native will clamp the wind speed value to a range of 0.0- 12.0. Using SET_WIND sets the same value but without the restriction.
+	-- Using this native will set the absolute wind speed value. The wind speed clamps to a range of 0.0- 12.0. Setting this value to a negative number resumes the random wind speed changes provided by the game.
 	["SET_WIND_SPEED"]=--[[void]] function(--[[float]] speed)native_invoker.begin_call();native_invoker.push_arg_float(speed);native_invoker.end_call("EE09ECEDBABE47FC");end,
 	["GET_WIND_SPEED"]=--[[float]] function()native_invoker.begin_call();native_invoker.end_call("A8CF1CC0AFCD3F12");return native_invoker.get_return_value_float();end,
 	-- The wind direction in radians
-	-- 180 degrees, wind will blow from the south
+	-- 180 degrees (PI), wind will blow from the south. Setting this value to a negative number resumes the random wind direction changes provided by the game.
 	["SET_WIND_DIRECTION"]=--[[void]] function(--[[float]] direction)native_invoker.begin_call();native_invoker.push_arg_float(direction);native_invoker.end_call("EB0F4468467B4528");end,
 	["GET_WIND_DIRECTION"]=--[[Vector3 (vector3)]] function()native_invoker.begin_call();native_invoker.end_call("1F400FEF721170DA");return native_invoker.get_return_value_vector3();end,
 	-- With an `intensity` higher than `0.5f`, only the creation of puddles gets faster, rain and rain sound won't increase after that.
@@ -5856,8 +5853,8 @@ MISC={
 	["CLEAR_AREA_LEAVE_VEHICLE_HEALTH"]=--[[void]] function(--[[float]] x,--[[float]] y,--[[float]] z,--[[float]] radius,--[[BOOL (bool)]] p4,--[[BOOL (bool)]] p5,--[[BOOL (bool)]] p6,--[[BOOL (bool)]] p7)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_float(radius);native_invoker.push_arg_bool(p4);native_invoker.push_arg_bool(p5);native_invoker.push_arg_bool(p6);native_invoker.push_arg_bool(p7);native_invoker.end_call("957838AAF91BD12D");end,
 	-- Example:
 	-- CLEAR_AREA_OF_VEHICLES(0.0f, 0.0f, 0.0f, 10000.0f, false, false, false, false, false, false);
-	["CLEAR_AREA_OF_VEHICLES"]=--[[void]] function(--[[float]] x,--[[float]] y,--[[float]] z,--[[float]] radius,--[[BOOL (bool)]] p4,--[[BOOL (bool)]] p5,--[[BOOL (bool)]] p6,--[[BOOL (bool)]] p7,--[[BOOL (bool)]] p8,--[[BOOL (bool)]] p9)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_float(radius);native_invoker.push_arg_bool(p4);native_invoker.push_arg_bool(p5);native_invoker.push_arg_bool(p6);native_invoker.push_arg_bool(p7);native_invoker.push_arg_bool(p8);native_invoker.push_arg_bool(p9);native_invoker.end_call("01C7B9B38428AEB6");end,
-	["CLEAR_ANGLED_AREA_OF_VEHICLES"]=--[[void]] function(--[[float]] x1,--[[float]] y1,--[[float]] z1,--[[float]] x2,--[[float]] y2,--[[float]] z2,--[[float]] width,--[[BOOL (bool)]] p7,--[[BOOL (bool)]] p8,--[[BOOL (bool)]] p9,--[[BOOL (bool)]] p10,--[[BOOL (bool)]] p11,--[[Any (int)]] p12)native_invoker.begin_call();native_invoker.push_arg_float(x1);native_invoker.push_arg_float(y1);native_invoker.push_arg_float(z1);native_invoker.push_arg_float(x2);native_invoker.push_arg_float(y2);native_invoker.push_arg_float(z2);native_invoker.push_arg_float(width);native_invoker.push_arg_bool(p7);native_invoker.push_arg_bool(p8);native_invoker.push_arg_bool(p9);native_invoker.push_arg_bool(p10);native_invoker.push_arg_bool(p11);native_invoker.push_arg_int(p12);native_invoker.end_call("11DB3500F042A8AA");end,
+	["CLEAR_AREA_OF_VEHICLES"]=--[[void]] function(--[[float]] x,--[[float]] y,--[[float]] z,--[[float]] radius,--[[BOOL (bool)]] p4,--[[BOOL (bool)]] p5,--[[BOOL (bool)]] p6,--[[BOOL (bool)]] p7,--[[BOOL (bool)]] p8,--[[BOOL (bool)]] p9,--[[Any (int)]] p10)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_float(radius);native_invoker.push_arg_bool(p4);native_invoker.push_arg_bool(p5);native_invoker.push_arg_bool(p6);native_invoker.push_arg_bool(p7);native_invoker.push_arg_bool(p8);native_invoker.push_arg_bool(p9);native_invoker.push_arg_int(p10);native_invoker.end_call("01C7B9B38428AEB6");end,
+	["CLEAR_ANGLED_AREA_OF_VEHICLES"]=--[[void]] function(--[[float]] x1,--[[float]] y1,--[[float]] z1,--[[float]] x2,--[[float]] y2,--[[float]] z2,--[[float]] width,--[[BOOL (bool)]] p7,--[[BOOL (bool)]] p8,--[[BOOL (bool)]] p9,--[[BOOL (bool)]] p10,--[[BOOL (bool)]] p11,--[[Any (int)]] p12,--[[Any (int)]] p13)native_invoker.begin_call();native_invoker.push_arg_float(x1);native_invoker.push_arg_float(y1);native_invoker.push_arg_float(z1);native_invoker.push_arg_float(x2);native_invoker.push_arg_float(y2);native_invoker.push_arg_float(z2);native_invoker.push_arg_float(width);native_invoker.push_arg_bool(p7);native_invoker.push_arg_bool(p8);native_invoker.push_arg_bool(p9);native_invoker.push_arg_bool(p10);native_invoker.push_arg_bool(p11);native_invoker.push_arg_int(p12);native_invoker.push_arg_int(p13);native_invoker.end_call("11DB3500F042A8AA");end,
 	-- I looked through the PC scripts that this site provides you with a link to find. It shows the last param mainly uses, (0, 2, 6, 16, and 17) so I am going to assume it is a type of flag. 
 	["CLEAR_AREA_OF_OBJECTS"]=--[[void]] function(--[[float]] x,--[[float]] y,--[[float]] z,--[[float]] radius,--[[int]] flags)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_float(radius);native_invoker.push_arg_int(flags);native_invoker.end_call("DD9B9B385AAC7F5B");end,
 	-- Example:       CLEAR_AREA_OF_PEDS(0, 0, 0, 10000, 1);
@@ -5915,15 +5912,13 @@ MISC={
 	-- Returns true if profile setting 208 is equal to 0.
 	["GET_IS_AUTO_SAVE_OFF"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("6E04F06094C87047");return native_invoker.get_return_value_bool();end,
 	["IS_AUTO_SAVE_IN_PROGRESS"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("69240733738C19A0");return native_invoker.get_return_value_bool();end,
-	-- HAS_*
-	["_0x2107A3773771186D"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("2107A3773771186D");return native_invoker.get_return_value_bool();end,
-	-- CLEAR_*
-	["_0x06462A961E94B67C"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("06462A961E94B67C");end,
+	["HAS_CODE_REQUESTED_AUTOSAVE"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("2107A3773771186D");return native_invoker.get_return_value_bool();end,
+	["CLEAR_CODE_REQUESTED_AUTOSAVE"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("06462A961E94B67C");end,
 	["BEGIN_REPLAY_STATS"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("E0E500246FF73D66");end,
 	["ADD_REPLAY_STAT_VALUE"]=--[[void]] function(--[[Any (int)]] value)native_invoker.begin_call();native_invoker.push_arg_int(value);native_invoker.end_call("69FE6DC87BD2A5E9");end,
 	["END_REPLAY_STATS"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("A23E821FBDF8A5F2");end,
-	["_0xD642319C54AADEB6"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("D642319C54AADEB6");return native_invoker.get_return_value_int();end,
-	["_0x5B1F2E327B6B6FE1"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("5B1F2E327B6B6FE1");return native_invoker.get_return_value_int();end,
+	["HAVE_REPLAY_STATS_BEEN_STORED"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("D642319C54AADEB6");return native_invoker.get_return_value_int();end,
+	["GET_REPLAY_STAT_MISSION_ID"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("5B1F2E327B6B6FE1");return native_invoker.get_return_value_int();end,
 	["GET_REPLAY_STAT_MISSION_TYPE"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("2B626A0150E4D449");return native_invoker.get_return_value_int();end,
 	["GET_REPLAY_STAT_COUNT"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("DC9274A7EF6B2867");return native_invoker.get_return_value_int();end,
 	["GET_REPLAY_STAT_AT_INDEX"]=--[[int]] function(--[[int]] index)native_invoker.begin_call();native_invoker.push_arg_int(index);native_invoker.end_call("8098C8D6597AAE18");return native_invoker.get_return_value_int();end,
@@ -6032,14 +6027,10 @@ MISC={
 	["IS_XBOX360_VERSION"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("F6201B4DAF662A9D");return native_invoker.get_return_value_bool();end,
 	["IS_PS3_VERSION"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("CCA1072C29D096C2");return native_invoker.get_return_value_bool();end,
 	["IS_PC_VERSION"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("48AF36444B965238");return native_invoker.get_return_value_bool();end,
-	-- if (MISC::IS_AUSSIE_VERSION()) {
-	--     sub_127a9(&l_31, 1024); // l_31 |= 1024
-	--     l_129 = 3;
-	--     sub_129d2("AUSSIE VERSION IS TRUE!?!?!"); // DEBUG
-	-- }
-	-- 
+	["_0x0A27B2B6282F7169"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("0A27B2B6282F7169");return native_invoker.get_return_value_bool();end,
 	-- Used to block some of the prostitute stuff due to laws in Australia.
 	["IS_AUSSIE_VERSION"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("9F1935CA1F724008");return native_invoker.get_return_value_bool();end,
+	["_IS_JAPANESE_VERSION"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("B8C0BB75D8A77DB3");return native_invoker.get_return_value_bool();end,
 	["IS_STRING_NULL"]=--[[BOOL (bool)]] function(--[[string]] string)native_invoker.begin_call();native_invoker.push_arg_string(string);native_invoker.end_call("F22B6C47C6EAB066");return native_invoker.get_return_value_bool();end,
 	["IS_STRING_NULL_OR_EMPTY"]=--[[BOOL (bool)]] function(--[[string]] string)native_invoker.begin_call();native_invoker.push_arg_string(string);native_invoker.end_call("CA042B6957743895");return native_invoker.get_return_value_bool();end,
 	-- Returns false if it's a null or empty string or if the string is too long. outInteger will be set to -999 in that case.
@@ -6337,7 +6328,7 @@ MISC={
 	-- Called before calling DISPLAY_ONSCREEN_KEYBOARD if the input needs to be saved.
 	["NEXT_ONSCREEN_KEYBOARD_RESULT_WILL_DISPLAY_USING_THESE_FONTS"]=--[[void]] function(--[[int]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("3ED1438C1F5C6612");end,
 	-- Appears to remove stealth kill action from memory
-	["_REMOVE_STEALTH_KILL"]=--[[void]] function(--[[Hash (int)]] hash,--[[BOOL (bool)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(hash);native_invoker.push_arg_bool(p1);native_invoker.end_call("A6A12939F16D85BE");end,
+	["ACTION_MANAGER_ENABLE_ACTION"]=--[[void]] function(--[[Hash (int)]] hash,--[[BOOL (bool)]] enable)native_invoker.begin_call();native_invoker.push_arg_int(hash);native_invoker.push_arg_bool(enable);native_invoker.end_call("A6A12939F16D85BE");end,
 	-- Unsure about the use of this native but here's an example:
 	-- 
 	-- void sub_8709() {
@@ -6507,8 +6498,8 @@ MONEY={
 	["_NETWORK_MANUAL_DELETE_CHARACTER"]=--[[void]] function(--[[int]] characterSlot)native_invoker.begin_call();native_invoker.push_arg_int(characterSlot);native_invoker.end_call("821418C727FCACD7");end,
 	["_NETWORK_GET_IS_HIGH_EARNER"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("FB2456B2040A6A67");return native_invoker.get_return_value_bool();end,
 	["NETWORK_CLEAR_CHARACTER_WALLET"]=--[[void]] function(--[[int]] characterSlot)native_invoker.begin_call();native_invoker.push_arg_int(characterSlot);native_invoker.end_call("A921DED15FDF28F5");end,
-	["NETWORK_GIVE_PLAYER_JOBSHARE_CASH"]=--[[void]] function(--[[int]] amount,--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("FB18DF9CB95E0105");end,
-	["NETWORK_RECEIVE_PLAYER_JOBSHARE_CASH"]=--[[void]] function(--[[int]] value,--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_int(value);native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("56A3B51944C50598");end,
+	["NETWORK_GIVE_PLAYER_JOBSHARE_CASH"]=--[[void]] function(--[[int]] amount,--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("FB18DF9CB95E0105");end,
+	["NETWORK_RECEIVE_PLAYER_JOBSHARE_CASH"]=--[[void]] function(--[[int]] value,--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_int(value);native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("56A3B51944C50598");end,
 	["NETWORK_CAN_SHARE_JOB_CASH"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("1C2473301B1C66BA");return native_invoker.get_return_value_bool();end,
 	-- index
 	-- -------
@@ -6579,9 +6570,9 @@ MONEY={
 	["_0xCD0F5B5D932AE473"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("CD0F5B5D932AE473");end,
 	-- CAN_*
 	["_CAN_PAY_GOON"]=--[[BOOL (bool)]] function(--[[int]] p0,--[[int]] p1,--[[int]] amount,--[[int* (pointer)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(amount);native_invoker.push_arg_pointer(p3);native_invoker.end_call("9777734DAD16992F");return native_invoker.get_return_value_bool();end,
-	["_NETWORK_EARN_FROM_CASHING_OUT"]=--[[void]] function(--[[int]] amount)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.end_call("EFE9C9A1651B81E6");end,
 	["NETWORK_EARN_FROM_PICKUP"]=--[[void]] function(--[[int]] amount)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.end_call("ED1517D3AF17C698");end,
-	["_NETWORK_EARN_FROM_GANG_PICKUP"]=--[[void]] function(--[[int]] amount)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.end_call("A03D4ACE0A3284CE");end,
+	["_NETWORK_EARN_FROM_CASHING_OUT"]=--[[void]] function(--[[int]] amount)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.end_call("718FBBF67414FA36");end,
+	["NETWORK_EARN_FROM_GANGATTACK_PICKUP"]=--[[void]] function(--[[int]] amount)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.end_call("A03D4ACE0A3284CE");end,
 	["_NETWORK_EARN_FROM_ASSASSINATE_TARGET_KILLED"]=--[[void]] function(--[[int]] amount)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.end_call("FA700D8A9905F78A");end,
 	-- For the money bags that drop a max of $40,000. Often called 40k bags.
 	-- 
@@ -6594,7 +6585,7 @@ MONEY={
 	["_NETWORK_EARN_FROM_PREMIUM_JOB"]=--[[void]] function(--[[int]] amount,--[[string]] p1)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_string(p1);native_invoker.end_call("C8407624CEF2354B");end,
 	["NETWORK_EARN_FROM_BEND_JOB"]=--[[void]] function(--[[int]] amount,--[[string]] heistHash)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_string(heistHash);native_invoker.end_call("61326EE6DF15B0CA");end,
 	["NETWORK_EARN_FROM_CHALLENGE_WIN"]=--[[void]] function(--[[Any (int)]] p0,--[[Any* (pointer)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("2B171E6B2F64D8DF");end,
-	["NETWORK_EARN_FROM_BOUNTY"]=--[[void]] function(--[[int]] amount,--[[int* (pointer)]] networkHandle,--[[Any* (pointer)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_pointer(networkHandle);native_invoker.push_arg_pointer(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("131BB5DA15453ACF");end,
+	["NETWORK_EARN_FROM_BOUNTY"]=--[[void]] function(--[[int]] amount,--[[Any* (pointer)]] gamerHandle,--[[Any* (pointer)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_pointer(gamerHandle);native_invoker.push_arg_pointer(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("131BB5DA15453ACF");end,
 	["NETWORK_EARN_FROM_IMPORT_EXPORT"]=--[[void]] function(--[[int]] amount,--[[Hash (int)]] modelHash)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_int(modelHash);native_invoker.end_call("F92A014A634442D6");end,
 	["NETWORK_EARN_FROM_HOLDUPS"]=--[[void]] function(--[[int]] amount)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.end_call("45B8154E077D9E4D");end,
 	["NETWORK_EARN_FROM_PROPERTY"]=--[[void]] function(--[[int]] amount,--[[Hash (int)]] propertyName)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_int(propertyName);native_invoker.end_call("849648349D77F5C5");end,
@@ -6634,9 +6625,8 @@ MONEY={
 	-- NETWORK_CAN_R??? or NETWORK_CAN_S???
 	["_NETWORK_CAN_SPEND_MONEY_2"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2,--[[BOOL (bool)]] p3,--[[Any* (pointer)]] p4,--[[Any (int)]] p5,--[[Any (int)]] p6)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_bool(p3);native_invoker.push_arg_pointer(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_int(p6);native_invoker.end_call("7303E27CC6532080");return native_invoker.get_return_value_bool();end,
 	["NETWORK_BUY_ITEM"]=--[[void]] function(--[[int]] amount,--[[Hash (int)]] item,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[BOOL (bool)]] p4,--[[string]] item_name,--[[Any (int)]] p6,--[[Any (int)]] p7,--[[Any (int)]] p8,--[[BOOL (bool)]] p9)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_int(item);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_bool(p4);native_invoker.push_arg_string(item_name);native_invoker.push_arg_int(p6);native_invoker.push_arg_int(p7);native_invoker.push_arg_int(p8);native_invoker.push_arg_bool(p9);native_invoker.end_call("F0077C797F66A355");end,
-	["NETWORK_SPENT_TAXI"]=--[[void]] function(--[[int]] amount,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("17C3A7D31EAE39F9");end,
+	["NETWORK_SPENT_TAXI"]=--[[void]] function(--[[int]] amount,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("17C3A7D31EAE39F9");end,
 	["NETWORK_PAY_EMPLOYEE_WAGE"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("5FD5ED82CBBE9989");end,
-	["NETWORK_PAY_UTILITY_BILL"]=--[[void]] function(--[[int]] amount,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("AFE08B35EC0C9EAE");end,
 	["NETWORK_PAY_MATCH_ENTRY_FEE"]=--[[void]] function(--[[int]] amount,--[[string]] matchId,--[[BOOL (bool)]] p2,--[[BOOL (bool)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_string(matchId);native_invoker.push_arg_bool(p2);native_invoker.push_arg_bool(p3);native_invoker.end_call("9346E14F2AF74D46");end,
 	["NETWORK_SPENT_BETTING"]=--[[void]] function(--[[int]] amount,--[[int]] p1,--[[string]] matchId,--[[BOOL (bool)]] p3,--[[BOOL (bool)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_int(p1);native_invoker.push_arg_string(matchId);native_invoker.push_arg_bool(p3);native_invoker.push_arg_bool(p4);native_invoker.end_call("1C436FD11FFA692F");end,
 	["_NETWORK_SPENT_WAGER"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[int]] amount)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(amount);native_invoker.end_call("D99DB210089617FE");end,
@@ -6644,34 +6634,34 @@ MONEY={
 	["NETWORK_BUY_HEALTHCARE"]=--[[void]] function(--[[int]] cost,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(cost);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("D9B067E55253E3DD");end,
 	-- p1 = 0 (always)
 	-- p2 = 1 (always)
-	["NETWORK_BUY_AIRSTRIKE"]=--[[void]] function(--[[int]] cost,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(cost);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("763B4BD305338F19");end,
+	["NETWORK_BUY_AIRSTRIKE"]=--[[void]] function(--[[int]] cost,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(cost);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("763B4BD305338F19");end,
 	["NETWORK_BUY_BACKUP_GANG"]=--[[void]] function(--[[int]] p0,--[[int]] p1,--[[BOOL (bool)]] p2,--[[BOOL (bool)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_bool(p3);native_invoker.end_call("A3EDDAA42411D3B9");end,
 	-- p1 = 0 (always)
 	-- p2 = 1 (always)
-	["NETWORK_BUY_HELI_STRIKE"]=--[[void]] function(--[[int]] cost,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(cost);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("81AA4610E3FD3A69");end,
-	["NETWORK_SPENT_AMMO_DROP"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("B162DC95C0A3317B");end,
+	["NETWORK_BUY_HELI_STRIKE"]=--[[void]] function(--[[int]] cost,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(cost);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("81AA4610E3FD3A69");end,
+	["NETWORK_SPENT_AMMO_DROP"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("B162DC95C0A3317B");end,
 	-- p1 is just an assumption. p2 was false and p3 was true.
-	["NETWORK_BUY_BOUNTY"]=--[[void]] function(--[[int]] amount,--[[Player (int)]] victim,--[[BOOL (bool)]] p2,--[[BOOL (bool)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_int(victim);native_invoker.push_arg_bool(p2);native_invoker.push_arg_bool(p3);native_invoker.end_call("7B718E197453F2D9");end,
+	["NETWORK_BUY_BOUNTY"]=--[[void]] function(--[[int]] amount,--[[Player (int)]] victim,--[[BOOL (bool)]] p2,--[[BOOL (bool)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_int(victim);native_invoker.push_arg_bool(p2);native_invoker.push_arg_bool(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("7B718E197453F2D9");end,
 	["NETWORK_BUY_PROPERTY"]=--[[void]] function(--[[int]] cost,--[[Hash (int)]] propertyName,--[[BOOL (bool)]] p2,--[[BOOL (bool)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(cost);native_invoker.push_arg_int(propertyName);native_invoker.push_arg_bool(p2);native_invoker.push_arg_bool(p3);native_invoker.end_call("650A08A280870AF6");end,
 	["NETWORK_BUY_SMOKES"]=--[[void]] function(--[[int]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("75AF80E61248EEBD");end,
-	["NETWORK_SPENT_HELI_PICKUP"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("7BF1D73DB2ECA492");end,
-	["NETWORK_SPENT_BOAT_PICKUP"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("524EE43A37232C00");end,
-	["NETWORK_SPENT_BULL_SHARK"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("A6DD8458CE24012C");end,
+	["NETWORK_SPENT_HELI_PICKUP"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("7BF1D73DB2ECA492");end,
+	["NETWORK_SPENT_BOAT_PICKUP"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("524EE43A37232C00");end,
+	["NETWORK_SPENT_BULL_SHARK"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("A6DD8458CE24012C");end,
 	["NETWORK_SPENT_CASH_DROP"]=--[[void]] function(--[[int]] amount,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("289016EC778D60E0");end,
 	-- Only used once in a script (am_contact_requests)
 	-- p1 = 0
 	-- p2 = 1
-	["NETWORK_SPENT_HIRE_MUGGER"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("E404BFB981665BF0");end,
-	["NETWORK_SPENT_ROBBED_BY_MUGGER"]=--[[void]] function(--[[int]] amount,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("995A65F15F581359");end,
-	["NETWORK_SPENT_HIRE_MERCENARY"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("E7B80E2BF9D80BD6");end,
-	["NETWORK_SPENT_BUY_WANTEDLEVEL"]=--[[void]] function(--[[Any (int)]] p0,--[[Any* (pointer)]] p1,--[[BOOL (bool)]] p2,--[[BOOL (bool)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_bool(p3);native_invoker.end_call("E1B13771A843C4F6");end,
-	["NETWORK_SPENT_BUY_OFFTHERADAR"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("A628A745E2275C5D");end,
-	["NETWORK_SPENT_BUY_REVEAL_PLAYERS"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("6E176F1B18BC0637");end,
+	["NETWORK_SPENT_HIRE_MUGGER"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("E404BFB981665BF0");end,
+	["NETWORK_SPENT_ROBBED_BY_MUGGER"]=--[[void]] function(--[[int]] amount,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("995A65F15F581359");end,
+	["NETWORK_SPENT_HIRE_MERCENARY"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("E7B80E2BF9D80BD6");end,
+	["NETWORK_SPENT_BUY_WANTEDLEVEL"]=--[[void]] function(--[[Any (int)]] p0,--[[Any* (pointer)]] p1,--[[BOOL (bool)]] p2,--[[BOOL (bool)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_bool(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("E1B13771A843C4F6");end,
+	["NETWORK_SPENT_BUY_OFFTHERADAR"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("A628A745E2275C5D");end,
+	["NETWORK_SPENT_BUY_REVEAL_PLAYERS"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("6E176F1B18BC0637");end,
 	["NETWORK_SPENT_CARWASH"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[BOOL (bool)]] p3,--[[BOOL (bool)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_bool(p3);native_invoker.push_arg_bool(p4);native_invoker.end_call("EC03C719DB2F4306");end,
 	["NETWORK_SPENT_CINEMA"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[BOOL (bool)]] p2,--[[BOOL (bool)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_bool(p3);native_invoker.end_call("6B38ECB05A63A685");end,
 	["NETWORK_SPENT_TELESCOPE"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("7FE61782AD94CC09");end,
 	["NETWORK_SPENT_HOLDUPS"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("D9B86B9872039763");end,
-	["NETWORK_SPENT_BUY_PASSIVE_MODE"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("6D3A430D1A809179");end,
+	["NETWORK_SPENT_BUY_PASSIVE_MODE"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("6D3A430D1A809179");end,
 	["NETWORK_SPENT_BANK_INTEREST"]=--[[void]] function(--[[int]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("CA230C9682556CF1");end,
 	["NETWORK_SPENT_PROSTITUTES"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("B21B89501CFAC79E");end,
 	["NETWORK_SPENT_ARREST_BAIL"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("812F5488B1B2A299");end,
@@ -6686,7 +6676,7 @@ MONEY={
 	-- 
 	-- The fifth and last parameter is a bool that returns true/false depending on if you have the money for the car based on the cost returned by func_5749. In the freemode script eg,
 	-- bool hasTheMoney = MONEY::_GET_BANK_BALANCE() < carCost.
-	["NETWORK_SPENT_PAY_VEHICLE_INSURANCE_PREMIUM"]=--[[void]] function(--[[int]] amount,--[[Hash (int)]] vehicleModel,--[[int* (pointer)]] networkHandle,--[[BOOL (bool)]] notBankrupt,--[[BOOL (bool)]] hasTheMoney)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_int(vehicleModel);native_invoker.push_arg_pointer(networkHandle);native_invoker.push_arg_bool(notBankrupt);native_invoker.push_arg_bool(hasTheMoney);native_invoker.end_call("9FF28D88C766E3E8");end,
+	["NETWORK_SPENT_PAY_VEHICLE_INSURANCE_PREMIUM"]=--[[void]] function(--[[int]] amount,--[[Hash (int)]] vehicleModel,--[[Any* (pointer)]] gamerHandle,--[[BOOL (bool)]] notBankrupt,--[[BOOL (bool)]] hasTheMoney)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_int(vehicleModel);native_invoker.push_arg_pointer(gamerHandle);native_invoker.push_arg_bool(notBankrupt);native_invoker.push_arg_bool(hasTheMoney);native_invoker.end_call("9FF28D88C766E3E8");end,
 	["NETWORK_SPENT_CALL_PLAYER"]=--[[void]] function(--[[Any (int)]] p0,--[[Any* (pointer)]] p1,--[[BOOL (bool)]] p2,--[[BOOL (bool)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_bool(p3);native_invoker.end_call("ACDE7185B374177C");end,
 	["NETWORK_SPENT_BOUNTY"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("29B260B84947DFCC");end,
 	["NETWORK_SPENT_FROM_ROCKSTAR"]=--[[void]] function(--[[int]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("6A445B64ED7ABEB5");end,
@@ -6696,16 +6686,16 @@ MONEY={
 	["PROCESS_CASH_GIFT"]=--[[string]] function(--[[int* (pointer)]] p0,--[[int* (pointer)]] p1,--[[string]] p2)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_string(p2);native_invoker.end_call("20194D48EAEC9A41");return native_invoker.get_return_value_string();end,
 	["_0xCD4D66B43B1DD28D"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("CD4D66B43B1DD28D");end,
 	["NETWORK_SPENT_PLAYER_HEALTHCARE"]=--[[void]] function(--[[int]] p0,--[[int]] p1,--[[BOOL (bool)]] p2,--[[BOOL (bool)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_bool(p3);native_invoker.end_call("7C99101F7FCE2EE5");end,
-	["NETWORK_SPENT_NO_COPS"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("D5BB406F4E04019F");end,
-	["NETWORK_SPENT_REQUEST_JOB"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("8204DA7934DF3155");end,
-	["NETWORK_SPENT_REQUEST_HEIST"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("9D26502BB97BFE62");end,
+	["NETWORK_SPENT_NO_COPS"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("D5BB406F4E04019F");end,
+	["NETWORK_SPENT_REQUEST_JOB"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("8204DA7934DF3155");end,
+	["NETWORK_SPENT_REQUEST_HEIST"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("9D26502BB97BFE62");end,
 	-- The first parameter is the amount spent which is store in a global when this native is called. The global returns 10. Which is the price for both rides.
 	-- 
 	-- The last 3 parameters are, 
 	-- 2,0,1 in the am_ferriswheel.c
 	-- 1,0,1 in the am_rollercoaster.c
 	-- 
-	["NETWORK_BUY_FAIRGROUND_RIDE"]=--[[void]] function(--[[int]] amount,--[[Any (int)]] p1,--[[BOOL (bool)]] p2,--[[BOOL (bool)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_int(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_bool(p3);native_invoker.end_call("8A7B3952DD64D2B5");end,
+	["NETWORK_BUY_FAIRGROUND_RIDE"]=--[[void]] function(--[[int]] amount,--[[Any (int)]] p1,--[[BOOL (bool)]] p2,--[[BOOL (bool)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_int(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_bool(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("8A7B3952DD64D2B5");end,
 	["_0x7C4FCCD2E4DEB394"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("7C4FCCD2E4DEB394");return native_invoker.get_return_value_bool();end,
 	["_NETWORK_SPENT_JOB_SKIP"]=--[[void]] function(--[[int]] amount,--[[string]] matchId,--[[BOOL (bool)]] p2,--[[BOOL (bool)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_string(matchId);native_invoker.push_arg_bool(p2);native_invoker.push_arg_bool(p3);native_invoker.end_call("28F174A67B8D0C2F");end,
 	["_NETWORK_SPENT_BOSS"]=--[[BOOL (bool)]] function(--[[int]] amount,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("FFBE02CD385356BD");return native_invoker.get_return_value_bool();end,
@@ -6714,7 +6704,6 @@ MONEY={
 	["_NETWORK_SPENT_MOVE_YACHT"]=--[[void]] function(--[[int]] amount,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("E7DF4E0545DFB56E");end,
 	["_NETWORK_SPENT_RENAME_ORGANIZATION"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("FC4EE00A7B3BFB76");end,
 	["_NETWORK_BUY_CONTRABAND"]=--[[void]] function(--[[int]] p0,--[[int]] p1,--[[Hash (int)]] p2,--[[BOOL (bool)]] p3,--[[BOOL (bool)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_bool(p3);native_invoker.push_arg_bool(p4);native_invoker.end_call("30FD873ECE50E9F6");end,
-	["_NETWORK_SPENT_VIP_UTILITY_CHARGES"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("5182A339A3474510");end,
 	["_0x112209CE0290C03A"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("112209CE0290C03A");end,
 	["_0xED5FD7AF10F5E262"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("ED5FD7AF10F5E262");end,
 	["_0x0D30EB83668E63C5"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("0D30EB83668E63C5");end,
@@ -6754,7 +6743,7 @@ MONEY={
 	["_NETWORK_EARN_FROM_SELL_BUNKER"]=--[[void]] function(--[[int]] amount,--[[Hash (int)]] bunkerHash)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_int(bunkerHash);native_invoker.end_call("9251B6ABF2D0A5B4");end,
 	["_NETWORK_SPENT_BALLISTIC_EQUIPMENT"]=--[[void]] function(--[[int]] amount,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("5D97630A8A0EF123");end,
 	["_NETWORK_EARN_FROM_RDR_BONUS"]=--[[void]] function(--[[int]] amount,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_int(p1);native_invoker.end_call("7A5349B773584675");end,
-	["_NETWORK_EARN_FROM_WAGE_PAYMENT"]=--[[void]] function(--[[int]] amount)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.end_call("35F8DA0E8A31EF1B");end,
+	["_NETWORK_EARN_FROM_WAGE_PAYMENT"]=--[[void]] function(--[[int]] amount,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_int(p1);native_invoker.end_call("35F8DA0E8A31EF1B");end,
 	["_NETWORK_EARN_FROM_WAGE_PAYMENT_BONUS"]=--[[void]] function(--[[int]] amount)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.end_call("005ACA7100BD101D");end,
 	["_NETWORK_SPENT_BUY_BASE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("4EA3F425C7744D21");end,
 	["_NETWORK_SPENT_UPGRADE_BASE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("3DD3F33A5D55EA6F");end,
@@ -6841,28 +6830,49 @@ MONEY={
 	["_NETWORK_SPENT_SUBMARINE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.end_call("6C8BC1488527AAAB");end,
 	["_NETWORK_SPENT_CASINO_CLUB_GENERIC"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5,--[[Any (int)]] p6,--[[Any (int)]] p7,--[[Any (int)]] p8)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_int(p6);native_invoker.push_arg_int(p7);native_invoker.push_arg_int(p8);native_invoker.end_call("C991C255AA6D90B2");end,
 	["_0x90CD7C6871FBF1B4"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("90CD7C6871FBF1B4");end,
-	["_0x89049A84065CE68E"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("89049A84065CE68E");end,
+	["_NETWORK_SPENT_UPGRADE_SUB"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("89049A84065CE68E");end,
 	["_NETWORK_SPENT_ISLAND_HEIST"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("E86689E5F82DE429");end,
 	["_NETWORK_EARN_ISLAND_HEIST"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.end_call("D21D111C46BA9F15");end,
 	["_0xA51338E0DCCD4065"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("A51338E0DCCD4065");end,
 	["_0xE2BB399D90942091"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("E2BB399D90942091");end,
-	["_0xB40F96D6D252839B"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("B40F96D6D252839B");end,
-	["_0x1464E17207CD36E2"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("1464E17207CD36E2");end,
-	["_0x925227803A0EAA1B"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("925227803A0EAA1B");end,
-	["_0x9BEA350D7C48061B"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("9BEA350D7C48061B");end,
-	["_0xD1E46824E6FB92B5"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("D1E46824E6FB92B5");end,
-	["_0xEEB7E5D1FEB20869"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("EEB7E5D1FEB20869");end,
-	["_0xDD829AA198FDC46C"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("DD829AA198FDC46C");end,
-	["_0x36A7FD5A7194B03E"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("36A7FD5A7194B03E");end,
-	["_0xC66D1CF99ED7FE25"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("C66D1CF99ED7FE25");end,
-	["_0xBC6227792A188E2E"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("BC6227792A188E2E");end,
-	["_0x533073E8A596008C"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("533073E8A596008C");end,
-	["_0xFE65AFE7308E32B2"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("FE65AFE7308E32B2");end,
-	["_0xB846F547D3792DF6"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("B846F547D3792DF6");end,
-	["_0xBCB266247193AC61"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("BCB266247193AC61");end,
-	["_0xC10322A8D3E061EE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("C10322A8D3E061EE");end,
-	["_0x93AA4165CB67E925"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("93AA4165CB67E925");end,
-	["_0xB9F7A469460E7A4A"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[BOOL (bool)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_bool(p3);native_invoker.end_call("B9F7A469460E7A4A");end,
+	["_NETWORK_SPENT_CARCLUB_MEMBERSHIP"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("1464E17207CD36E2");end,
+	["_NETWORK_SPENT_CARCLUB"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("925227803A0EAA1B");end,
+	["_NETWORK_SPENT_AUTOSHOP_MODIFICATIONS"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("9BEA350D7C48061B");end,
+	["_NETWORK_SPENT_CARCLUB_TAKEOVER"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("D1E46824E6FB92B5");end,
+	["_NETWORK_SPENT_BUY_AUTOSHOP"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("EEB7E5D1FEB20869");end,
+	["_NETWORK_SPENT_UPGRADE_AUTOSHOP"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("DD829AA198FDC46C");end,
+	["_NETWORK_EARN_FROM_AUTOSHOP_BUSINESS"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("36A7FD5A7194B03E");end,
+	["_NETWORK_EARN_FROM_AUTOSHOP_INCOME"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("C66D1CF99ED7FE25");end,
+	["_NETWORK_EARN_FROM_CARCLUB_MEMBERSHIP"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("BC6227792A188E2E");end,
+	["_NETWORK_EARN_FROM_VEHICLE_AUTOSHOP"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("533073E8A596008C");end,
+	["_NETWORK_EARN_FROM_VEHICLE_AUTOSHOP_BONUS"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("FE65AFE7308E32B2");end,
+	["_NETWORK_EARN_FROM_TUNER_AWARD"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("B846F547D3792DF6");end,
+	["_NETWORK_EARN_FROM_TUNER_FINALE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("BCB266247193AC61");end,
+	["_NETWORK_EARN_FROM_UPGRADE_AUTOSHOP_LOCATION"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("C10322A8D3E061EE");end,
+	["_NETWORK_SPENT_INTERACTION_MENU_ABILITY"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("93AA4165CB67E925");end,
+	["_NETWORK_SPENT_FROM_BANK"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[BOOL (bool)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_bool(p3);native_invoker.end_call("B9F7A469460E7A4A");end,
+	["_NETWORK_SPENT_BUY_AGENCY"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("EA8CD3C9B3C35884");end,
+	["_NETWORK_SPENT_UPGRADE_AGENCY"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("6CCA64840589A3B6");end,
+	["_NETWORK_SPENT_AGENCY_CONCIERGE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("1B2120405080125C");end,
+	["_NETWORK_SPENT_HIDDEN_CONTACT_SERVICE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("BF8793B91EA094A7");end,
+	["_NETWORK_SPENT_SOURCE_BIKE_CONTACT_SERVICE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("D9DF467CBE4398C8");end,
+	["_NETWORK_SPENT_COMPANY_SUV_CONTACT_SERVICE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("D86581F9E7CDA383");end,
+	["_NETWORK_SPENT_SUV_FAST_TRAVEL"]=--[[void]] function(--[[int]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("61A2DF64ED2D396E");end,
+	["_NETWORK_SPENT_SUPPLY_CONTACT_SERVICE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("EBD482B82ACB8BAD");end,
+	["_NETWORK_EARN_FROM_AGENCY_INCOME"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("663B4B9D11742A12");end,
+	["_NETWORK_EARN_FROM_AWARD_SECURITY_CONTRACT"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("146D4EB6D22A403F");end,
+	["_NETWORK_EARN_FROM_AGENCY_SECURITY_CONTRACT"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("38482AD49CB905C7");end,
+	["_NETWORK_EARN_FROM_AWARD_PHONE_HIT"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("7397A115030F1BE3");end,
+	["_NETWORK_EARN_FROM_AGENCY_PHONE_HIT"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("E29F3D5FA63B1B82");end,
+	["_NETWORK_EARN_FROM_AWARD_AGENCY_STORY"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("88D6C327D6C57C45");end,
+	["_NETWORK_EARN_FROM_AGENCY_STORY_PREP"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("6283E5DE4C4460C6");end,
+	["_NETWORK_EARN_FROM_AGENCY_STORY_FINALE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("BA154373C5FE51E8");end,
+	["_NETWORK_EARN_FROM_AGENCY_SHORT_TRIP"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("F4A8E57460BF2037");end,
+	["_NETWORK_EARN_FROM_AWARD_SHORT_TRIP"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("5B4DBDED84D6A420");end,
+	["_NETWORK_EARN_RIVAL_DELIVERY_SECURITY_CONTRACT"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("235D41210B3A1A5E");end,
+	["_NETWORK_EARN_FROM_UPGRADE_AGENCY_LOCATION"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("D07C7C3F1995108C");end,
+	["_NETWORK_SPENT_AGGREGATED_UTILITY_BILLS"]=--[[void]] function(--[[int]] amount,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2,--[[Any* (pointer)]] data)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_pointer(data);native_invoker.end_call("1254B5B3925EFD3D");end,
+	["_NETWORK_SPENT_BUSINESS_EXPENSES"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("92D1CFDA1227FF1C");end,
 	["NETWORK_GET_VC_BANK_BALANCE"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("76EF28DA05EA395A");return native_invoker.get_return_value_int();end,
 	["NETWORK_GET_VC_WALLET_BALANCE"]=--[[int]] function(--[[int]] characterSlot)native_invoker.begin_call();native_invoker.push_arg_int(characterSlot);native_invoker.end_call("A40F9C2623F6A8B5");return native_invoker.get_return_value_int();end,
 	["NETWORK_GET_VC_BALANCE"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("5CBAD97E059E1B94");return native_invoker.get_return_value_int();end,
@@ -6901,7 +6911,7 @@ NETSHOPPING={
 	["NET_GAMESERVER_GET_PRICE"]=--[[int]] function(--[[Hash (int)]] itemHash,--[[Hash (int)]] categoryHash,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(itemHash);native_invoker.push_arg_int(categoryHash);native_invoker.push_arg_bool(p2);native_invoker.end_call("C27009422FCCA88D");return native_invoker.get_return_value_int();end,
 	["_NET_GAMESERVER_CATALOG_IS_READY"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("3C4487461E9B0DCB");return native_invoker.get_return_value_bool();end,
 	["_NET_GAMESERVER_IS_CATALOG_VALID"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("2B949A1E6AEC8F6A");return native_invoker.get_return_value_bool();end,
-	["_0x85F6C9ABA1DE2BCF"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("85F6C9ABA1DE2BCF");return native_invoker.get_return_value_int();end,
+	["_NET_GAMESERVER_GET_CATALOG_CRC"]=--[[Hash (int)]] function()native_invoker.begin_call();native_invoker.end_call("85F6C9ABA1DE2BCF");return native_invoker.get_return_value_int();end,
 	["_0x357B152EF96C30B6"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("357B152EF96C30B6");return native_invoker.get_return_value_int();end,
 	["_NET_GAMESERVER_GET_CATALOG_STATE"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] state)native_invoker.begin_call();native_invoker.push_arg_pointer(state);native_invoker.end_call("CF38DAFBB49EDE5E");return native_invoker.get_return_value_bool();end,
 	["_0xE3E5A7C64CA2C6ED"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("E3E5A7C64CA2C6ED");return native_invoker.get_return_value_int();end,
@@ -6916,7 +6926,7 @@ NETSHOPPING={
 	["NET_GAMESERVER_SESSION_APPLY_RECEIVED_DATA"]=--[[BOOL (bool)]] function(--[[int]] charSlot)native_invoker.begin_call();native_invoker.push_arg_int(charSlot);native_invoker.end_call("2F41D51BA3BCD1F1");return native_invoker.get_return_value_bool();end,
 	["NET_GAMESERVER_IS_SESSION_REFRESH_PENDING"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("810E8431C0614BF9");return native_invoker.get_return_value_bool();end,
 	-- Note: only one of the arguments can be set to true at a time
-	["_NET_GAMESERVER_GET_BALANCE"]=--[[BOOL (bool)]] function(--[[BOOL (bool)]] inventory,--[[BOOL (bool)]] playerbalance)native_invoker.begin_call();native_invoker.push_arg_bool(inventory);native_invoker.push_arg_bool(playerbalance);native_invoker.end_call("35A1B3E1D1315CFA");return native_invoker.get_return_value_bool();end,
+	["_NET_GAMESERVER_UPDATE_BALANCE"]=--[[BOOL (bool)]] function(--[[BOOL (bool)]] inventory,--[[BOOL (bool)]] playerbalance)native_invoker.begin_call();native_invoker.push_arg_bool(inventory);native_invoker.push_arg_bool(playerbalance);native_invoker.end_call("35A1B3E1D1315CFA");return native_invoker.get_return_value_bool();end,
 	["_0x613F125BA3BD2EB9"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("613F125BA3BD2EB9");return native_invoker.get_return_value_bool();end,
 	["_NET_GAMESERVER_GET_TRANSACTION_MANAGER_DATA"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] p0,--[[BOOL* (pointer)]] p1)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_pointer(p1);native_invoker.end_call("897433D292B44130");return native_invoker.get_return_value_bool();end,
 	["NET_GAMESERVER_BASKET_START"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] transactionId,--[[Hash (int)]] categoryHash,--[[Hash (int)]] actionHash,--[[int]] flags)native_invoker.begin_call();native_invoker.push_arg_pointer(transactionId);native_invoker.push_arg_int(categoryHash);native_invoker.push_arg_int(actionHash);native_invoker.push_arg_int(flags);native_invoker.end_call("279F08B1A4B29B7E");return native_invoker.get_return_value_bool();end,
@@ -7038,7 +7048,7 @@ NETWORK={
 	["NETWORK_SESSION_ENTER"]=--[[Any (int)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[int]] maxPlayers,--[[Any (int)]] p4,--[[Any (int)]] p5)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(maxPlayers);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.end_call("330ED4D05491934F");return native_invoker.get_return_value_int();end,
 	["NETWORK_SESSION_FRIEND_MATCHMAKING"]=--[[BOOL (bool)]] function(--[[int]] p0,--[[int]] p1,--[[int]] maxPlayers,--[[BOOL (bool)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(maxPlayers);native_invoker.push_arg_bool(p3);native_invoker.end_call("2CFC76E0D087C994");return native_invoker.get_return_value_bool();end,
 	["NETWORK_SESSION_CREW_MATCHMAKING"]=--[[BOOL (bool)]] function(--[[int]] p0,--[[int]] p1,--[[int]] p2,--[[int]] maxPlayers,--[[BOOL (bool)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(maxPlayers);native_invoker.push_arg_bool(p4);native_invoker.end_call("94BC51E9449D917F");return native_invoker.get_return_value_bool();end,
-	["NETWORK_SESSION_ACTIVITY_QUICKMATCH"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("BE3E347A87ACEB82");return native_invoker.get_return_value_bool();end,
+	["NETWORK_SESSION_ACTIVITY_QUICKMATCH"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("BE3E347A87ACEB82");return native_invoker.get_return_value_bool();end,
 	-- Does nothing in online but in offline it will cause the screen to fade to black. Nothing happens past then, the screen will sit at black until you restart GTA. Other stuff must be needed to actually host a session.
 	["NETWORK_SESSION_HOST"]=--[[BOOL (bool)]] function(--[[int]] p0,--[[int]] maxPlayers,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(maxPlayers);native_invoker.push_arg_bool(p2);native_invoker.end_call("6F3D4ED9BEE4E61D");return native_invoker.get_return_value_bool();end,
 	["NETWORK_SESSION_HOST_CLOSED"]=--[[BOOL (bool)]] function(--[[int]] p0,--[[int]] maxPlayers)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(maxPlayers);native_invoker.end_call("ED34C0C02C098BB7");return native_invoker.get_return_value_bool();end,
@@ -7067,17 +7077,14 @@ NETWORK={
 	-- 8 = unknown
 	["NETWORK_SESSION_SET_MATCHMAKING_GROUP_MAX"]=--[[void]] function(--[[int]] playerType,--[[int]] playerCount)native_invoker.begin_call();native_invoker.push_arg_int(playerType);native_invoker.push_arg_int(playerCount);native_invoker.end_call("8B6A4DD0AF9CE215");end,
 	["NETWORK_SESSION_GET_MATCHMAKING_GROUP_FREE"]=--[[int]] function(--[[int]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("56CE820830EF040B");return native_invoker.get_return_value_int();end,
-	-- NETWORK_SESSION_*
-	-- 
-	-- p0 must be <= 4
-	["_0xCAE55F48D3D7875C"]=--[[void]] function(--[[int]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("CAE55F48D3D7875C");end,
+	-- groupId range: [0, 4]
+	["NETWORK_SESSION_ADD_ACTIVE_MATCHMAKING_GROUP"]=--[[void]] function(--[[int]] groupId)native_invoker.begin_call();native_invoker.push_arg_int(groupId);native_invoker.end_call("CAE55F48D3D7875C");end,
 	["_0xF49ABC20D8552257"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("F49ABC20D8552257");end,
 	["_0x4811BBAC21C5FCD5"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("4811BBAC21C5FCD5");end,
 	["_0x5539C3EBF104A53A"]=--[[void]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("5539C3EBF104A53A");end,
 	["_0x702BC4D605522539"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("702BC4D605522539");end,
 	["NETWORK_SESSION_SET_MATCHMAKING_PROPERTY_ID"]=--[[void]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("3F52E880AAF6C8CA");end,
 	["NETWORK_SESSION_SET_MATCHMAKING_MENTAL_STATE"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("F1EEA2DDA9FFA69D");end,
-	["_0x5ECD378EE64450AB"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("5ECD378EE64450AB");end,
 	["_0x59D421683D31835A"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("59D421683D31835A");end,
 	["_0x1153FA02A659051C"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("1153FA02A659051C");end,
 	["NETWORK_SESSION_VALIDATE_JOIN"]=--[[void]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("C19F6C8E7865A6FF");end,
@@ -7110,7 +7117,7 @@ NETWORK={
 	-- Triggers a CEventNetworkInviteConfirmed event
 	["_NETWORK_ACCEPT_INVITE"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("62A0296C1BB1CEB3");return native_invoker.get_return_value_bool();end,
 	["NETWORK_SESSION_WAS_INVITED"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("23DFB504655D0CE4");return native_invoker.get_return_value_bool();end,
-	["NETWORK_SESSION_GET_INVITER"]=--[[void]] function(--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("E57397B4A3429DD0");end,
+	["NETWORK_SESSION_GET_INVITER"]=--[[void]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("E57397B4A3429DD0");end,
 	-- NETWORK_SESSION_IS_*
 	["_0xD313DE83394AF134"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("D313DE83394AF134");return native_invoker.get_return_value_bool();end,
 	-- NETWORK_SESSION_IS_*
@@ -7122,7 +7129,7 @@ NETWORK={
 	["_NETWORK_BLOCK_KICKED_PLAYERS"]=--[[void]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("6B07B9CE4D390375");end,
 	["NETWORK_SET_SCRIPT_READY_FOR_EVENTS"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("7AC752103856FB20");end,
 	["NETWORK_IS_OFFLINE_INVITE_PENDING"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("74698374C45701D2");return native_invoker.get_return_value_bool();end,
-	["_0x140E6A44870A11CE"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("140E6A44870A11CE");end,
+	["NETWORK_CLEAR_OFFLINE_INVITE_PENDING"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("140E6A44870A11CE");end,
 	-- Loads up the map that is loaded when beeing in mission creator
 	-- Player gets placed in a mix between online/offline mode
 	-- p0 is always 2 in R* scripts.
@@ -7171,13 +7178,13 @@ NETWORK={
 	["_0xB5D3453C98456528"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("B5D3453C98456528");return native_invoker.get_return_value_int();end,
 	["NETWORK_SESSION_IS_VOICE_SESSION_BUSY"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("EF0912DDF7C4CB4B");return native_invoker.get_return_value_bool();end,
 	-- Message is limited to 64 characters.
-	["NETWORK_SEND_TEXT_MESSAGE"]=--[[BOOL (bool)]] function(--[[string]] message,--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_string(message);native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("3A214F2EC889B100");return native_invoker.get_return_value_bool();end,
+	["NETWORK_SEND_TEXT_MESSAGE"]=--[[BOOL (bool)]] function(--[[string]] message,--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_string(message);native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("3A214F2EC889B100");return native_invoker.get_return_value_bool();end,
 	["NETWORK_SET_ACTIVITY_SPECTATOR"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("75138790B4359A74");end,
 	["NETWORK_IS_ACTIVITY_SPECTATOR"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("12103B9E0C9F92FB");return native_invoker.get_return_value_bool();end,
 	["_0x0E4F77F7B9D74D84"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("0E4F77F7B9D74D84");end,
 	["NETWORK_SET_ACTIVITY_SPECTATOR_MAX"]=--[[void]] function(--[[int]] maxSpectators)native_invoker.begin_call();native_invoker.push_arg_int(maxSpectators);native_invoker.end_call("9D277B76D1D12222");end,
 	["NETWORK_GET_ACTIVITY_PLAYER_NUM"]=--[[int]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("73E2B500410DA5A2");return native_invoker.get_return_value_int();end,
-	["NETWORK_IS_ACTIVITY_SPECTATOR_FROM_HANDLE"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("2763BBAA72A7BCB9");return native_invoker.get_return_value_bool();end,
+	["NETWORK_IS_ACTIVITY_SPECTATOR_FROM_HANDLE"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("2763BBAA72A7BCB9");return native_invoker.get_return_value_bool();end,
 	-- p0: Unknown int
 	-- p1: Unknown int
 	-- p2: Unknown int
@@ -7211,7 +7218,7 @@ NETWORK={
 	["NETWORK_SET_TRANSITION_CREATOR_HANDLE"]=--[[void]] function(--[[Any* (pointer)]] p0)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.end_call("EF26739BCD9907D5");end,
 	["NETWORK_CLEAR_TRANSITION_CREATOR_HANDLE"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("FB3272229A82C759");end,
 	["NETWORK_INVITE_GAMERS_TO_TRANSITION"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("4A595C32F77DFF76");return native_invoker.get_return_value_bool();end,
-	["NETWORK_SET_GAMER_INVITED_TO_TRANSITION"]=--[[void]] function(--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("CA2C8073411ECDB6");end,
+	["NETWORK_SET_GAMER_INVITED_TO_TRANSITION"]=--[[void]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("CA2C8073411ECDB6");end,
 	["NETWORK_LEAVE_TRANSITION"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("D23A1A815D21DB19");return native_invoker.get_return_value_bool();end,
 	["NETWORK_LAUNCH_TRANSITION"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("2DCF46CB1A4F0884");return native_invoker.get_return_value_bool();end,
 	-- Appears to set whether a transition should be started when the session is migrating.
@@ -7233,11 +7240,11 @@ NETWORK={
 	-- the first arg seems to be the network player handle (&handle) and the second var is pretty much always "" and the third seems to be a number between 0 and ~10 and the 4th is is something like 0 to 5 and I guess the 5th is a bool cuz it is always 0 or 1
 	-- 
 	-- does this send an invite to a player?
-	["NETWORK_SEND_TRANSITION_GAMER_INSTRUCTION"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] networkHandle,--[[string]] p1,--[[int]] p2,--[[int]] p3,--[[BOOL (bool)]] p4)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.push_arg_string(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_bool(p4);native_invoker.end_call("31D1D2B858D25E6B");return native_invoker.get_return_value_bool();end,
+	["NETWORK_SEND_TRANSITION_GAMER_INSTRUCTION"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle,--[[string]] p1,--[[int]] p2,--[[int]] p3,--[[BOOL (bool)]] p4)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.push_arg_string(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_bool(p4);native_invoker.end_call("31D1D2B858D25E6B");return native_invoker.get_return_value_bool();end,
 	["NETWORK_MARK_TRANSITION_GAMER_AS_FULLY_JOINED"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] p0)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.end_call("5728BB6D63E3FF1D");return native_invoker.get_return_value_bool();end,
 	["NETWORK_IS_TRANSITION_HOST"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("0B824797C9BF2159");return native_invoker.get_return_value_bool();end,
-	["NETWORK_IS_TRANSITION_HOST_FROM_HANDLE"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("6B5C83BA3EFE6A10");return native_invoker.get_return_value_bool();end,
-	["NETWORK_GET_TRANSITION_HOST"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("65042B9774C4435E");return native_invoker.get_return_value_bool();end,
+	["NETWORK_IS_TRANSITION_HOST_FROM_HANDLE"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("6B5C83BA3EFE6A10");return native_invoker.get_return_value_bool();end,
+	["NETWORK_GET_TRANSITION_HOST"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("65042B9774C4435E");return native_invoker.get_return_value_bool();end,
 	["NETWORK_IS_IN_TRANSITION"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("68049AEFF83D8F0A");return native_invoker.get_return_value_bool();end,
 	["NETWORK_IS_TRANSITION_STARTED"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("53FA83401D9C07FE");return native_invoker.get_return_value_bool();end,
 	["NETWORK_IS_TRANSITION_BUSY"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("520F3282A53D26B7");return native_invoker.get_return_value_bool();end,
@@ -7269,7 +7276,7 @@ NETWORK={
 	["NETWORK_IS_ACTIVITY_SESSION"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("05095437424397FA");return native_invoker.get_return_value_bool();end,
 	-- Does nothing. It's just a nullsub.
 	["_0x4A9FDE3A5A6D0437"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("4A9FDE3A5A6D0437");end,
-	["NETWORK_SEND_INVITE_VIA_PRESENCE"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] networkHandle,--[[Any* (pointer)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("C3C7A6AFDB244624");return native_invoker.get_return_value_bool();end,
+	["NETWORK_SEND_INVITE_VIA_PRESENCE"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle,--[[Any* (pointer)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("C3C7A6AFDB244624");return native_invoker.get_return_value_bool();end,
 	-- String "NETWORK_SEND_PRESENCE_TRANSITION_INVITE" is contained in the function in ida so this one is correct.
 	["_NETWORK_SEND_PRESENCE_TRANSITION_INVITE"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] p0,--[[Any* (pointer)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("C116FF9B4D488291");return native_invoker.get_return_value_bool();end,
 	["_0x1171A97A3D3981B6"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] p0,--[[Any* (pointer)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("1171A97A3D3981B6");return native_invoker.get_return_value_bool();end,
@@ -7297,7 +7304,7 @@ NETWORK={
 	["NETWORK_INVITE_GAMERS"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] p0,--[[Any (int)]] p1,--[[Any* (pointer)]] p2,--[[Any* (pointer)]] p3)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_pointer(p2);native_invoker.push_arg_pointer(p3);native_invoker.end_call("9D80CD1D0E6327DE");return native_invoker.get_return_value_bool();end,
 	["NETWORK_HAS_INVITED_GAMER"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] p0)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.end_call("4D86CD31E8976ECE");return native_invoker.get_return_value_bool();end,
 	-- NETWORK_HAS_*
-	["_0x71DC455F5CD1C2B1"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("71DC455F5CD1C2B1");return native_invoker.get_return_value_bool();end,
+	["_0x71DC455F5CD1C2B1"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("71DC455F5CD1C2B1");return native_invoker.get_return_value_bool();end,
 	["_0x3855FB5EB2C5E8B2"]=--[[Any (int)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("3855FB5EB2C5E8B2");return native_invoker.get_return_value_int();end,
 	["NETWORK_GET_CURRENTLY_SELECTED_GAMER_HANDLE_FROM_INVITE_MENU"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] p0)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.end_call("74881E6BCAE2327C");return native_invoker.get_return_value_bool();end,
 	["NETWORK_SET_CURRENTLY_SELECTED_GAMER_HANDLE_FROM_INVITE_MENU"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] p0)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.end_call("7206F674F2A3B1BB");return native_invoker.get_return_value_bool();end,
@@ -7306,7 +7313,7 @@ NETWORK={
 	["_0x4AD490AE1536933B"]=--[[Any (int)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("4AD490AE1536933B");return native_invoker.get_return_value_int();end,
 	-- NETWORK_SET_*
 	["_0x0D77A82DC2D0DA59"]=--[[void]] function(--[[Any* (pointer)]] p0,--[[Any* (pointer)]] p1)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_pointer(p1);native_invoker.end_call("0D77A82DC2D0DA59");end,
-	["FILLOUT_PM_PLAYER_LIST"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] networkHandle,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("CBBD7C4991B64809");return native_invoker.get_return_value_bool();end,
+	["FILLOUT_PM_PLAYER_LIST"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("CBBD7C4991B64809");return native_invoker.get_return_value_bool();end,
 	["FILLOUT_PM_PLAYER_LIST_WITH_NAMES"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] p0,--[[Any* (pointer)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("716B6DB9D1886106");return native_invoker.get_return_value_bool();end,
 	["REFRESH_PLAYER_LIST_STATS"]=--[[BOOL (bool)]] function(--[[int]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("E26CCFF8094D8C74");return native_invoker.get_return_value_bool();end,
 	["NETWORK_SET_CURRENT_DATA_MANAGER_HANDLE"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] p0)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.end_call("796A87B3B68D1F3D");return native_invoker.get_return_value_bool();end,
@@ -7319,7 +7326,7 @@ NETWORK={
 	-- This would be nice to see if someone is in party chat, but 2 sad notes.
 	-- 1) It only becomes true if said person is speaking in that party at the time.
 	-- 2) It will never, become true unless you are in that party with said person.
-	["NETWORK_IS_CHATTING_IN_PLATFORM_PARTY"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("8DE9945BCC9AEC52");return native_invoker.get_return_value_bool();end,
+	["NETWORK_IS_CHATTING_IN_PLATFORM_PARTY"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("8DE9945BCC9AEC52");return native_invoker.get_return_value_bool();end,
 	["_0x2BF66D2E7414F686"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("2BF66D2E7414F686");return native_invoker.get_return_value_int();end,
 	-- NETWORK_IS_*
 	["_0x14922ED3E38761F0"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("14922ED3E38761F0");return native_invoker.get_return_value_bool();end,
@@ -7338,7 +7345,10 @@ NETWORK={
 	["_0xA12D3A5A3753CC23"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("A12D3A5A3753CC23");return native_invoker.get_return_value_int();end,
 	["_0xF287F506767CC8A9"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("F287F506767CC8A9");return native_invoker.get_return_value_int();end,
 	["_REMOTE_CHEAT_DETECTED"]=--[[BOOL (bool)]] function(--[[Player (int)]] player,--[[int]] a,--[[int]] b)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_int(a);native_invoker.push_arg_int(b);native_invoker.end_call("472841A026D26D8B");return native_invoker.get_return_value_bool();end,
-	["BAD_SPORT_PLAYER_LEFT_DETECTED"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] networkHandle,--[[int]] event,--[[int]] amountReceived)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.push_arg_int(event);native_invoker.push_arg_int(amountReceived);native_invoker.end_call("EC5E3AF5289DCA81");return native_invoker.get_return_value_bool();end,
+	["BAD_SPORT_PLAYER_LEFT_DETECTED"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle,--[[int]] event,--[[int]] amountReceived)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.push_arg_int(event);native_invoker.push_arg_int(amountReceived);native_invoker.end_call("EC5E3AF5289DCA81");return native_invoker.get_return_value_bool();end,
+	["_NETWORK_ADD_INVALID_MODEL"]=--[[void]] function(--[[Hash (int)]] modelHash)native_invoker.begin_call();native_invoker.push_arg_int(modelHash);native_invoker.end_call("7F562DBC212E81F9");end,
+	["_NETWORK_REMOVE_INVALID_MODEL"]=--[[void]] function(--[[Hash (int)]] modelHash)native_invoker.begin_call();native_invoker.push_arg_int(modelHash);native_invoker.end_call("791EDB5803B2F468");end,
+	["_NETWORK_CLEAR_INVALID_MODELS"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("03B2F03A53D85E41");end,
 	["NETWORK_APPLY_PED_SCAR_DATA"]=--[[void]] function(--[[Ped (int)]] ped,--[[int]] p1)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(p1);native_invoker.end_call("E66C690248F11150");end,
 	["NETWORK_SET_THIS_SCRIPT_IS_NETWORK_SCRIPT"]=--[[void]] function(--[[int]] maxNumMissionParticipants,--[[BOOL (bool)]] p1,--[[int]] instanceId)native_invoker.begin_call();native_invoker.push_arg_int(maxNumMissionParticipants);native_invoker.push_arg_bool(p1);native_invoker.push_arg_int(instanceId);native_invoker.end_call("1CA59E306ECB80A5");end,
 	["_NETWORK_IS_THIS_SCRIPT_MARKED"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("D1110739EEADB592");return native_invoker.get_return_value_bool();end,
@@ -7353,10 +7363,10 @@ NETWORK={
 	["NETWORK_GET_MAX_NUM_PARTICIPANTS"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("A6C90FBC38E395EE");return native_invoker.get_return_value_int();end,
 	["NETWORK_GET_NUM_PARTICIPANTS"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("18D0456E86604654");return native_invoker.get_return_value_int();end,
 	["NETWORK_GET_SCRIPT_STATUS"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("57D158647A6BFABF");return native_invoker.get_return_value_int();end,
-	["NETWORK_REGISTER_HOST_BROADCAST_VARIABLES"]=--[[void]] function(--[[int* (pointer)]] vars,--[[int]] numVars)native_invoker.begin_call();native_invoker.push_arg_pointer(vars);native_invoker.push_arg_int(numVars);native_invoker.end_call("3E9B2F01C50DF595");end,
-	["NETWORK_REGISTER_PLAYER_BROADCAST_VARIABLES"]=--[[void]] function(--[[int* (pointer)]] vars,--[[int]] numVars)native_invoker.begin_call();native_invoker.push_arg_pointer(vars);native_invoker.push_arg_int(numVars);native_invoker.end_call("3364AA97340CA215");end,
-	["_0xEA8C0DDB10E2822A"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("EA8C0DDB10E2822A");end,
-	["_0xD6D7478CA62B8D41"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("D6D7478CA62B8D41");end,
+	["NETWORK_REGISTER_HOST_BROADCAST_VARIABLES"]=--[[void]] function(--[[int* (pointer)]] vars,--[[int]] numVars,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_pointer(vars);native_invoker.push_arg_int(numVars);native_invoker.push_arg_int(p2);native_invoker.end_call("3E9B2F01C50DF595");end,
+	["NETWORK_REGISTER_PLAYER_BROADCAST_VARIABLES"]=--[[void]] function(--[[int* (pointer)]] vars,--[[int]] numVars,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_pointer(vars);native_invoker.push_arg_int(numVars);native_invoker.push_arg_int(p2);native_invoker.end_call("3364AA97340CA215");end,
+	["_0xEA8C0DDB10E2822A"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("EA8C0DDB10E2822A");end,
+	["_0xD6D7478CA62B8D41"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("D6D7478CA62B8D41");end,
 	["NETWORK_FINISH_BROADCASTING_DATA"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("64F62AFB081E260D");end,
 	["NETWORK_HAS_RECEIVED_HOST_BROADCAST_DATA"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("5D10B3795F3FC886");return native_invoker.get_return_value_bool();end,
 	["NETWORK_GET_PLAYER_INDEX"]=--[[int]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("24FB80D107371267");return native_invoker.get_return_value_int();end,
@@ -7382,10 +7392,10 @@ NETWORK={
 	["NETWORK_SET_MISSION_FINISHED"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("3B3D11CD9FFCDFC9");end,
 	["NETWORK_IS_SCRIPT_ACTIVE"]=--[[BOOL (bool)]] function(--[[string]] scriptName,--[[Player (int)]] player,--[[BOOL (bool)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_string(scriptName);native_invoker.push_arg_int(player);native_invoker.push_arg_bool(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("9D40DF90FAD26098");return native_invoker.get_return_value_bool();end,
 	["NETWORK_IS_SCRIPT_ACTIVE_BY_HASH"]=--[[BOOL (bool)]] function(--[[Hash (int)]] scriptHash,--[[int]] p1,--[[BOOL (bool)]] p2,--[[int]] p3)native_invoker.begin_call();native_invoker.push_arg_int(scriptHash);native_invoker.push_arg_int(p1);native_invoker.push_arg_bool(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("DA7DE67F5FE5EE13");return native_invoker.get_return_value_bool();end,
-	["_0x560B423D73015E77"]=--[[Any (int)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("560B423D73015E77");return native_invoker.get_return_value_int();end,
+	["_NETWORK_IS_THREAD_ACTIVE"]=--[[BOOL (bool)]] function(--[[int]] threadId)native_invoker.begin_call();native_invoker.push_arg_int(threadId);native_invoker.end_call("560B423D73015E77");return native_invoker.get_return_value_bool();end,
 	["NETWORK_GET_NUM_SCRIPT_PARTICIPANTS"]=--[[int]] function(--[[Any* (pointer)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("3658E8CD94FC121A");return native_invoker.get_return_value_int();end,
 	["NETWORK_GET_INSTANCE_ID_OF_THIS_SCRIPT"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("638A3A81733086DB");return native_invoker.get_return_value_int();end,
-	["_0x257ED0FADF750BCF"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("257ED0FADF750BCF");return native_invoker.get_return_value_int();end,
+	["_NETWORK_GET_POSITION_HASH_OF_THIS_SCRIPT"]=--[[Hash (int)]] function()native_invoker.begin_call();native_invoker.end_call("257ED0FADF750BCF");return native_invoker.get_return_value_int();end,
 	["NETWORK_IS_PLAYER_A_PARTICIPANT_ON_SCRIPT"]=--[[BOOL (bool)]] function(--[[Player (int)]] player1,--[[string]] script,--[[Player (int)]] player2)native_invoker.begin_call();native_invoker.push_arg_int(player1);native_invoker.push_arg_string(script);native_invoker.push_arg_int(player2);native_invoker.end_call("1AD5B71586B94820");return native_invoker.get_return_value_bool();end,
 	["_0x2302C0264EA58D31"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("2302C0264EA58D31");end,
 	-- Has something to do with a host request.
@@ -7398,17 +7408,18 @@ NETWORK={
 	-- 
 	-- This native is exactly the same as 'PARTICIPANT_ID' native.
 	["PARTICIPANT_ID_TO_INT"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("57A3BDDAD8E5AA0A");return native_invoker.get_return_value_int();end,
-	["_0x2DA41ED6E1FCD7A5"]=--[[Any (int)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("2DA41ED6E1FCD7A5");return native_invoker.get_return_value_int();end,
+	["_NETWORK_GET_PLAYER_KILLER_OF_PLAYER"]=--[[Any (int)]] function(--[[Player (int)]] player,--[[Hash* (pointer)]] weaponHash)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_pointer(weaponHash);native_invoker.end_call("2DA41ED6E1FCD7A5");return native_invoker.get_return_value_int();end,
 	["NETWORK_GET_DESTROYER_OF_NETWORK_ID"]=--[[int]] function(--[[int]] netId,--[[Hash* (pointer)]] weaponHash)native_invoker.begin_call();native_invoker.push_arg_int(netId);native_invoker.push_arg_pointer(weaponHash);native_invoker.end_call("7A1ADEEF01740A24");return native_invoker.get_return_value_int();end,
-	["_0xC434133D9BA52777"]=--[[Any (int)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("C434133D9BA52777");return native_invoker.get_return_value_int();end,
-	["_0x83660B734994124D"]=--[[Any (int)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("83660B734994124D");return native_invoker.get_return_value_int();end,
-	["_NETWORK_GET_DESTROYER_OF_ENTITY"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Hash* (pointer)]] weaponHash)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_pointer(weaponHash);native_invoker.end_call("4CACA84440FA26F6");return native_invoker.get_return_value_bool();end,
+	["_NETWORK_GET_DESTROYER_OF_ENTITY"]=--[[Any (int)]] function(--[[Entity (int)]] entity,--[[Hash* (pointer)]] weaponHash)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.push_arg_pointer(weaponHash);native_invoker.end_call("C434133D9BA52777");return native_invoker.get_return_value_int();end,
+	-- NETWORK_GET_ASSISTED_DAMAGE_OF_ENTITY that ensures the entity is dead (IS_ENTITY_DEAD)
+	["_NETWORK_GET_ASSISTED_DAMAGE_OF_DEAD_ENTITY"]=--[[BOOL (bool)]] function(--[[Player (int)]] player,--[[Entity (int)]] entity,--[[int* (pointer)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_int(entity);native_invoker.push_arg_pointer(p2);native_invoker.end_call("83660B734994124D");return native_invoker.get_return_value_bool();end,
+	["NETWORK_GET_ASSISTED_DAMAGE_OF_ENTITY"]=--[[BOOL (bool)]] function(--[[Player (int)]] player,--[[Entity (int)]] entity,--[[int* (pointer)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_int(entity);native_invoker.push_arg_pointer(p2);native_invoker.end_call("4CACA84440FA26F6");return native_invoker.get_return_value_bool();end,
 	["NETWORK_GET_ENTITY_KILLER_OF_PLAYER"]=--[[Entity (int)]] function(--[[Player (int)]] player,--[[Hash* (pointer)]] weaponHash)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_pointer(weaponHash);native_invoker.end_call("42B2DAA6B596F5F8");return native_invoker.get_return_value_int();end,
 	["NETWORK_RESURRECT_LOCAL_PLAYER"]=--[[void]] function(--[[float]] x,--[[float]] y,--[[float]] z,--[[float]] heading,--[[BOOL (bool)]] unk,--[[BOOL (bool)]] changetime,--[[Any (int)]] p6)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_float(heading);native_invoker.push_arg_bool(unk);native_invoker.push_arg_bool(changetime);native_invoker.push_arg_int(p6);native_invoker.end_call("EA23C49EAA83ACFB");end,
 	["NETWORK_SET_LOCAL_PLAYER_INVINCIBLE_TIME"]=--[[void]] function(--[[int]] time)native_invoker.begin_call();native_invoker.push_arg_int(time);native_invoker.end_call("2D95C7E2D7E07307");end,
 	["NETWORK_IS_LOCAL_PLAYER_INVINCIBLE"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("8A8694B48715B000");return native_invoker.get_return_value_bool();end,
 	["NETWORK_DISABLE_INVINCIBLE_FLASHING"]=--[[void]] function(--[[Player (int)]] player,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_bool(toggle);native_invoker.end_call("9DD368BF06983221");end,
-	["_0xF0BC9BCD24A511D5"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("F0BC9BCD24A511D5");end,
+	["_NETWORK_PED_FORCE_GAME_STATE_UPDATE"]=--[[void]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("F0BC9BCD24A511D5");end,
 	["NETWORK_SET_LOCAL_PLAYER_SYNC_LOOK_AT"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("524FF0AEFF9C3973");end,
 	["NETWORK_HAS_ENTITY_BEEN_REGISTERED_WITH_THIS_THREAD"]=--[[BOOL (bool)]] function(--[[Entity (int)]] entity)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.end_call("B07D3185E11657A5");return native_invoker.get_return_value_bool();end,
 	["NETWORK_GET_NETWORK_ID_FROM_ENTITY"]=--[[int]] function(--[[Entity (int)]] entity)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.end_call("A11700682F3AD45C");return native_invoker.get_return_value_int();end,
@@ -7421,11 +7432,8 @@ NETWORK={
 	["NETWORK_DOES_ENTITY_EXIST_WITH_NETWORK_ID"]=--[[BOOL (bool)]] function(--[[int]] netId)native_invoker.begin_call();native_invoker.push_arg_int(netId);native_invoker.end_call("18A47D074708FD68");return native_invoker.get_return_value_bool();end,
 	["NETWORK_REQUEST_CONTROL_OF_NETWORK_ID"]=--[[BOOL (bool)]] function(--[[int]] netId)native_invoker.begin_call();native_invoker.push_arg_int(netId);native_invoker.end_call("A670B3662FAFFBD0");return native_invoker.get_return_value_bool();end,
 	["NETWORK_HAS_CONTROL_OF_NETWORK_ID"]=--[[BOOL (bool)]] function(--[[int]] netId)native_invoker.begin_call();native_invoker.push_arg_int(netId);native_invoker.end_call("4D36070FE0215186");return native_invoker.get_return_value_bool();end,
-	-- NETWORK_IS_*
-	-- Probably a bool, returns true if the specified network id is controlled by someone else.
-	-- Ff you have control over the entity corresponding to the netId then this will return false (0);
-	-- Returns probably a bool, returns 1 if you don't have control over the netId entity.
-	["_0x7242F8B741CE1086"]=--[[BOOL (bool)]] function(--[[int]] netId)native_invoker.begin_call();native_invoker.push_arg_int(netId);native_invoker.end_call("7242F8B741CE1086");return native_invoker.get_return_value_bool();end,
+	-- Returns true if the specified network id is controlled by someone else.
+	["_NETWORK_IS_NETWORK_ID_A_CLONE"]=--[[BOOL (bool)]] function(--[[int]] netId)native_invoker.begin_call();native_invoker.push_arg_int(netId);native_invoker.end_call("7242F8B741CE1086");return native_invoker.get_return_value_bool();end,
 	["NETWORK_REQUEST_CONTROL_OF_ENTITY"]=--[[BOOL (bool)]] function(--[[Entity (int)]] entity)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.end_call("B69317BF5E782347");return native_invoker.get_return_value_bool();end,
 	["NETWORK_REQUEST_CONTROL_OF_DOOR"]=--[[BOOL (bool)]] function(--[[int]] doorID)native_invoker.begin_call();native_invoker.push_arg_int(doorID);native_invoker.end_call("870DDFD5A4A796E4");return native_invoker.get_return_value_bool();end,
 	["NETWORK_HAS_CONTROL_OF_ENTITY"]=--[[BOOL (bool)]] function(--[[Entity (int)]] entity)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.end_call("01BF60A500E28887");return native_invoker.get_return_value_bool();end,
@@ -7448,65 +7456,37 @@ NETWORK={
 	["NET_TO_OBJ"]=--[[Object (int)]] function(--[[int]] netHandle)native_invoker.begin_call();native_invoker.push_arg_int(netHandle);native_invoker.end_call("D8515F5FEA14CB3F");return native_invoker.get_return_value_int();end,
 	-- gets the entity id of a network id
 	["NET_TO_ENT"]=--[[Entity (int)]] function(--[[int]] netHandle)native_invoker.begin_call();native_invoker.push_arg_int(netHandle);native_invoker.end_call("BFFEAB45A9A9094A");return native_invoker.get_return_value_int();end,
-	-- Retrieves the local player's NetworkHandle* and stores it in the given buffer.
-	-- 
-	-- * Currently unknown struct
-	["NETWORK_GET_LOCAL_HANDLE"]=--[[void]] function(--[[int* (pointer)]] networkHandle,--[[int]] bufferSize)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.push_arg_int(bufferSize);native_invoker.end_call("E86051786B66CD8E");end,
-	-- Returns a NetworkHandle* from the specified user ID and stores it in a given buffer.
-	-- 
-	-- * Currently unknown struct
-	["NETWORK_HANDLE_FROM_USER_ID"]=--[[void]] function(--[[string]] userId,--[[int* (pointer)]] networkHandle,--[[int]] bufferSize)native_invoker.begin_call();native_invoker.push_arg_string(userId);native_invoker.push_arg_pointer(networkHandle);native_invoker.push_arg_int(bufferSize);native_invoker.end_call("DCD51DD8F87AEC5C");end,
-	-- Returns a NetworkHandle* from the specified member ID and stores it in a given buffer.
-	-- 
-	-- * Currently unknown struct
-	["NETWORK_HANDLE_FROM_MEMBER_ID"]=--[[void]] function(--[[string]] memberId,--[[int* (pointer)]] networkHandle,--[[int]] bufferSize)native_invoker.begin_call();native_invoker.push_arg_string(memberId);native_invoker.push_arg_pointer(networkHandle);native_invoker.push_arg_int(bufferSize);native_invoker.end_call("A0FD21BED61E5C4C");end,
-	-- Returns a handle to networkHandle* from the specified player handle and stores it in a given buffer.
-	-- 
-	-- * Currently unknown struct
-	-- 
-	-- Example:
-	-- std::vector<UINT64> GetPlayerNetworkHandle(Player player) {
-	--     const int size = 13;
-	--     uint64_t *buffer = std::make_unique<uint64_t[]>(size).get();
-	--     NETWORK::NETWORK_HANDLE_FROM_PLAYER(player, reinterpret_cast<int *>(buffer), 13);
-	--     for (int i = 0; i < size; i++) {
-	--         Log::Msg("networkhandle[%i]: %llx", i, buffer[i]);
-	--     }
-	--     std::vector<UINT64> result(buffer, buffer + sizeof(buffer));
-	--     return result;
-	-- }
-	["NETWORK_HANDLE_FROM_PLAYER"]=--[[void]] function(--[[Player (int)]] player,--[[int* (pointer)]] networkHandle,--[[int]] bufferSize)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_pointer(networkHandle);native_invoker.push_arg_int(bufferSize);native_invoker.end_call("388EB2B86C73B6B3");end,
+	["NETWORK_GET_LOCAL_HANDLE"]=--[[void]] function(--[[Any* (pointer)]] gamerHandle,--[[int]] gamerHandleSize)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.push_arg_int(gamerHandleSize);native_invoker.end_call("E86051786B66CD8E");end,
+	["NETWORK_HANDLE_FROM_USER_ID"]=--[[void]] function(--[[string]] userId,--[[Any* (pointer)]] gamerHandle,--[[int]] gamerHandleSize)native_invoker.begin_call();native_invoker.push_arg_string(userId);native_invoker.push_arg_pointer(gamerHandle);native_invoker.push_arg_int(gamerHandleSize);native_invoker.end_call("DCD51DD8F87AEC5C");end,
+	["NETWORK_HANDLE_FROM_MEMBER_ID"]=--[[void]] function(--[[string]] memberId,--[[Any* (pointer)]] gamerHandle,--[[int]] gamerHandleSize)native_invoker.begin_call();native_invoker.push_arg_string(memberId);native_invoker.push_arg_pointer(gamerHandle);native_invoker.push_arg_int(gamerHandleSize);native_invoker.end_call("A0FD21BED61E5C4C");end,
+	["NETWORK_HANDLE_FROM_PLAYER"]=--[[void]] function(--[[Player (int)]] player,--[[Any* (pointer)]] gamerHandle,--[[int]] gamerHandleSize)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_pointer(gamerHandle);native_invoker.push_arg_int(gamerHandleSize);native_invoker.end_call("388EB2B86C73B6B3");end,
 	["NETWORK_HASH_FROM_PLAYER_HANDLE"]=--[[Hash (int)]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("BC1D768F2F5D6C05");return native_invoker.get_return_value_int();end,
-	["NETWORK_HASH_FROM_GAMER_HANDLE"]=--[[Hash (int)]] function(--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("58575AC3CF2CA8EC");return native_invoker.get_return_value_int();end,
-	["NETWORK_HANDLE_FROM_FRIEND"]=--[[void]] function(--[[int]] friendIndex,--[[int* (pointer)]] networkHandle,--[[int]] bufferSize)native_invoker.begin_call();native_invoker.push_arg_int(friendIndex);native_invoker.push_arg_pointer(networkHandle);native_invoker.push_arg_int(bufferSize);native_invoker.end_call("D45CB817D7E177D2");end,
-	["NETWORK_GAMERTAG_FROM_HANDLE_START"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("9F0C0A981D73FA56");return native_invoker.get_return_value_bool();end,
+	["NETWORK_HASH_FROM_GAMER_HANDLE"]=--[[Hash (int)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("58575AC3CF2CA8EC");return native_invoker.get_return_value_int();end,
+	["NETWORK_HANDLE_FROM_FRIEND"]=--[[void]] function(--[[int]] friendIndex,--[[Any* (pointer)]] gamerHandle,--[[int]] gamerHandleSize)native_invoker.begin_call();native_invoker.push_arg_int(friendIndex);native_invoker.push_arg_pointer(gamerHandle);native_invoker.push_arg_int(gamerHandleSize);native_invoker.end_call("D45CB817D7E177D2");end,
+	["NETWORK_GAMERTAG_FROM_HANDLE_START"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("9F0C0A981D73FA56");return native_invoker.get_return_value_bool();end,
 	["NETWORK_GAMERTAG_FROM_HANDLE_PENDING"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("B071E27958EF4CF0");return native_invoker.get_return_value_bool();end,
 	["NETWORK_GAMERTAG_FROM_HANDLE_SUCCEEDED"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("FD00798DBA7523DD");return native_invoker.get_return_value_bool();end,
-	["NETWORK_GET_GAMERTAG_FROM_HANDLE"]=--[[string]] function(--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("426141162EBE5CDB");return native_invoker.get_return_value_string();end,
+	["NETWORK_GET_GAMERTAG_FROM_HANDLE"]=--[[string]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("426141162EBE5CDB");return native_invoker.get_return_value_string();end,
 	-- Hardcoded to return -1.
 	["NETWORK_DISPLAYNAMES_FROM_HANDLES_START"]=--[[int]] function(--[[Any* (pointer)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("D66C9E72B3CC4982");return native_invoker.get_return_value_int();end,
 	-- MulleDK19: This function is hard-coded to always return 0.
 	["NETWORK_GET_DISPLAYNAMES_FROM_HANDLES"]=--[[int]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("58CC181719256197");return native_invoker.get_return_value_int();end,
-	["NETWORK_ARE_HANDLES_THE_SAME"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] netHandle1,--[[int* (pointer)]] netHandle2)native_invoker.begin_call();native_invoker.push_arg_pointer(netHandle1);native_invoker.push_arg_pointer(netHandle2);native_invoker.end_call("57DBA049E110F217");return native_invoker.get_return_value_bool();end,
-	["NETWORK_IS_HANDLE_VALID"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] networkHandle,--[[int]] bufferSize)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.push_arg_int(bufferSize);native_invoker.end_call("6F79B93B0A8E4133");return native_invoker.get_return_value_bool();end,
-	["NETWORK_GET_PLAYER_FROM_GAMER_HANDLE"]=--[[Player (int)]] function(--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("CE5F689CF5A0A49D");return native_invoker.get_return_value_int();end,
-	["NETWORK_MEMBER_ID_FROM_GAMER_HANDLE"]=--[[string]] function(--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("C82630132081BB6F");return native_invoker.get_return_value_string();end,
-	["NETWORK_IS_GAMER_IN_MY_SESSION"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("0F10B05DDF8D16E9");return native_invoker.get_return_value_bool();end,
-	-- Example:
-	-- 
-	-- int playerHandle; 
-	-- NETWORK_HANDLE_FROM_PLAYER(selectedPlayer, &playerHandle, 13);
-	-- NETWORK_SHOW_PROFILE_UI(&playerHandle);
-	["NETWORK_SHOW_PROFILE_UI"]=--[[void]] function(--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("859ED1CEA343FCA8");end,
-	-- Returns the name of a given player. Returns "**Invalid**" if CPlayerInfo of the given player cannot be retrieved or the player doesn't exist.
+	["NETWORK_ARE_HANDLES_THE_SAME"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle1,--[[Any* (pointer)]] gamerHandle2)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle1);native_invoker.push_arg_pointer(gamerHandle2);native_invoker.end_call("57DBA049E110F217");return native_invoker.get_return_value_bool();end,
+	["NETWORK_IS_HANDLE_VALID"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle,--[[int]] gamerHandleSize)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.push_arg_int(gamerHandleSize);native_invoker.end_call("6F79B93B0A8E4133");return native_invoker.get_return_value_bool();end,
+	["NETWORK_GET_PLAYER_FROM_GAMER_HANDLE"]=--[[Player (int)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("CE5F689CF5A0A49D");return native_invoker.get_return_value_int();end,
+	["NETWORK_MEMBER_ID_FROM_GAMER_HANDLE"]=--[[string]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("C82630132081BB6F");return native_invoker.get_return_value_string();end,
+	["NETWORK_IS_GAMER_IN_MY_SESSION"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("0F10B05DDF8D16E9");return native_invoker.get_return_value_bool();end,
+	["NETWORK_SHOW_PROFILE_UI"]=--[[void]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("859ED1CEA343FCA8");end,
+	-- Returns the name of a given player. Returns "**Invalid**" if rlGamerInfo of the given player cannot be retrieved or the player doesn't exist.
 	["NETWORK_PLAYER_GET_NAME"]=--[[string]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("7718D2E2060837D2");return native_invoker.get_return_value_string();end,
-	-- Takes a 24 char buffer. Returns the buffer or "**Invalid**" if CPlayerInfo of the given player cannot be retrieved or the player doesn't exist.
+	-- Returns a string of the player's Rockstar Id. 
+	-- Takes a 24 char buffer. Returns the buffer or "**Invalid**" if rlGamerInfo of the given player cannot be retrieved or the player doesn't exist.
 	["NETWORK_PLAYER_GET_USERID"]=--[[string]] function(--[[Player (int)]] player,--[[int* (pointer)]] userID)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_pointer(userID);native_invoker.end_call("4927FC39CD0869A0");return native_invoker.get_return_value_string();end,
-	-- Checks if a specific value (BYTE) in CPlayerInfo is nonzero.
+	-- Checks if a specific value (BYTE) in CNetGamePlayer is nonzero.
 	-- Returns always false in Singleplayer.
 	-- 
 	-- No longer used for dev checks since first mods were released on PS3 & 360.
-	-- R* now checks with the is_dlc_present native for the dlc hash 2532323046,
+	-- R* now checks with the IS_DLC_PRESENT native for the dlc hash 2532323046,
 	-- if that is present it will unlock dev stuff.
 	["NETWORK_PLAYER_IS_ROCKSTAR_DEV"]=--[[BOOL (bool)]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("544ABDDA3B409B6D");return native_invoker.get_return_value_bool();end,
 	["NETWORK_PLAYER_INDEX_IS_CHEATER"]=--[[BOOL (bool)]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("565E430DB3B05BEC");return native_invoker.get_return_value_bool();end,
@@ -7524,15 +7504,15 @@ NETWORK={
 	["NETWORK_GET_FRIEND_NAME"]=--[[string]] function(--[[int]] friendIndex)native_invoker.begin_call();native_invoker.push_arg_int(friendIndex);native_invoker.end_call("E11EBBB2A783FE8B");return native_invoker.get_return_value_string();end,
 	["_NETWORK_GET_FRIEND_NAME_FROM_INDEX"]=--[[string]] function(--[[int]] friendIndex)native_invoker.begin_call();native_invoker.push_arg_int(friendIndex);native_invoker.end_call("4164F227D052E293");return native_invoker.get_return_value_string();end,
 	["NETWORK_IS_FRIEND_ONLINE"]=--[[BOOL (bool)]] function(--[[string]] name)native_invoker.begin_call();native_invoker.push_arg_string(name);native_invoker.end_call("425A44533437B64D");return native_invoker.get_return_value_bool();end,
-	["NETWORK_IS_FRIEND_HANDLE_ONLINE"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("87EB7A3FFCB314DB");return native_invoker.get_return_value_bool();end,
+	["NETWORK_IS_FRIEND_HANDLE_ONLINE"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("87EB7A3FFCB314DB");return native_invoker.get_return_value_bool();end,
 	-- In scripts R* calls 'NETWORK_GET_FRIEND_NAME' in this param.
 	["NETWORK_IS_FRIEND_IN_SAME_TITLE"]=--[[BOOL (bool)]] function(--[[string]] friendName)native_invoker.begin_call();native_invoker.push_arg_string(friendName);native_invoker.end_call("2EA9A3BEDF3F17B8");return native_invoker.get_return_value_bool();end,
 	["NETWORK_IS_FRIEND_IN_MULTIPLAYER"]=--[[BOOL (bool)]] function(--[[string]] friendName)native_invoker.begin_call();native_invoker.push_arg_string(friendName);native_invoker.end_call("57005C18827F3A28");return native_invoker.get_return_value_bool();end,
-	["NETWORK_IS_FRIEND"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("1A24A179F9B31654");return native_invoker.get_return_value_bool();end,
+	["NETWORK_IS_FRIEND"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("1A24A179F9B31654");return native_invoker.get_return_value_bool();end,
 	-- This function is hard-coded to always return 0.
 	["NETWORK_IS_PENDING_FRIEND"]=--[[Any (int)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("0BE73DA6984A6E33");return native_invoker.get_return_value_int();end,
 	["NETWORK_IS_ADDING_FRIEND"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("6EA101606F6E4D81");return native_invoker.get_return_value_int();end,
-	["NETWORK_ADD_FRIEND"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] networkHandle,--[[string]] message)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.push_arg_string(message);native_invoker.end_call("8E02D73914064223");return native_invoker.get_return_value_bool();end,
+	["NETWORK_ADD_FRIEND"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle,--[[string]] message)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.push_arg_string(message);native_invoker.end_call("8E02D73914064223");return native_invoker.get_return_value_bool();end,
 	["NETWORK_IS_FRIEND_INDEX_ONLINE"]=--[[BOOL (bool)]] function(--[[int]] friendIndex)native_invoker.begin_call();native_invoker.push_arg_int(friendIndex);native_invoker.end_call("BAD8F2A42B844821");return native_invoker.get_return_value_bool();end,
 	["NETWORK_SET_PLAYER_IS_PASSIVE"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("1B857666604B1A74");end,
 	["NETWORK_GET_PLAYER_OWNS_WAYPOINT"]=--[[BOOL (bool)]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("82377B65E943F72D");return native_invoker.get_return_value_bool();end,
@@ -7543,21 +7523,21 @@ NETWORK={
 	["NETWORK_HAS_HEADSET"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("E870F9F1F7B4F1FA");return native_invoker.get_return_value_bool();end,
 	["_0x7D395EA61622E116"]=--[[void]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("7D395EA61622E116");end,
 	["NETWORK_IS_LOCAL_TALKING"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("C0D2AF00BCC234CA");return native_invoker.get_return_value_bool();end,
-	["NETWORK_GAMER_HAS_HEADSET"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("F2FD55CB574BCC55");return native_invoker.get_return_value_bool();end,
-	["NETWORK_IS_GAMER_TALKING"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("71C33B22606CD88A");return native_invoker.get_return_value_bool();end,
+	["NETWORK_GAMER_HAS_HEADSET"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("F2FD55CB574BCC55");return native_invoker.get_return_value_bool();end,
+	["NETWORK_IS_GAMER_TALKING"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("71C33B22606CD88A");return native_invoker.get_return_value_bool();end,
 	-- Same as NETWORK_CAN_COMMUNICATE_WITH_GAMER
 	-- 
 	-- NETWORK_CAN_*
-	["_NETWORK_CAN_COMMUNICATE_WITH_GAMER_2"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("8F5D1AD832AEB06C");return native_invoker.get_return_value_bool();end,
-	["NETWORK_CAN_COMMUNICATE_WITH_GAMER"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("A150A4F065806B1F");return native_invoker.get_return_value_bool();end,
-	["NETWORK_IS_GAMER_MUTED_BY_ME"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("CE60DE011B6C7978");return native_invoker.get_return_value_bool();end,
-	["NETWORK_AM_I_MUTED_BY_GAMER"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("DF02A2C93F1F26DA");return native_invoker.get_return_value_bool();end,
-	["NETWORK_IS_GAMER_BLOCKED_BY_ME"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("E944C4F5AF1B5883");return native_invoker.get_return_value_bool();end,
-	["NETWORK_AM_I_BLOCKED_BY_GAMER"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("15337C7C268A27B2");return native_invoker.get_return_value_bool();end,
-	["NETWORK_CAN_VIEW_GAMER_USER_CONTENT"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("B57A49545BA53CE7");return native_invoker.get_return_value_bool();end,
-	["NETWORK_HAS_VIEW_GAMER_USER_CONTENT_RESULT"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("CCA4318E1AB03F1F");return native_invoker.get_return_value_bool();end,
-	["NETWORK_CAN_PLAY_MULTIPLAYER_WITH_GAMER"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("07DD29D5E22763F1");return native_invoker.get_return_value_bool();end,
-	["NETWORK_CAN_GAMER_PLAY_MULTIPLAYER_WITH_ME"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("135F9B7B7ADD2185");return native_invoker.get_return_value_bool();end,
+	["_NETWORK_CAN_COMMUNICATE_WITH_GAMER_2"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("8F5D1AD832AEB06C");return native_invoker.get_return_value_bool();end,
+	["NETWORK_CAN_COMMUNICATE_WITH_GAMER"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("A150A4F065806B1F");return native_invoker.get_return_value_bool();end,
+	["NETWORK_IS_GAMER_MUTED_BY_ME"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("CE60DE011B6C7978");return native_invoker.get_return_value_bool();end,
+	["NETWORK_AM_I_MUTED_BY_GAMER"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("DF02A2C93F1F26DA");return native_invoker.get_return_value_bool();end,
+	["NETWORK_IS_GAMER_BLOCKED_BY_ME"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("E944C4F5AF1B5883");return native_invoker.get_return_value_bool();end,
+	["NETWORK_AM_I_BLOCKED_BY_GAMER"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("15337C7C268A27B2");return native_invoker.get_return_value_bool();end,
+	["NETWORK_CAN_VIEW_GAMER_USER_CONTENT"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("B57A49545BA53CE7");return native_invoker.get_return_value_bool();end,
+	["NETWORK_HAS_VIEW_GAMER_USER_CONTENT_RESULT"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("CCA4318E1AB03F1F");return native_invoker.get_return_value_bool();end,
+	["NETWORK_CAN_PLAY_MULTIPLAYER_WITH_GAMER"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("07DD29D5E22763F1");return native_invoker.get_return_value_bool();end,
+	["NETWORK_CAN_GAMER_PLAY_MULTIPLAYER_WITH_ME"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("135F9B7B7ADD2185");return native_invoker.get_return_value_bool();end,
 	-- returns true if someone is screaming or talking in a microphone
 	["NETWORK_IS_PLAYER_TALKING"]=--[[BOOL (bool)]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("031E11F3D447647E");return native_invoker.get_return_value_bool();end,
 	["NETWORK_PLAYER_HAS_HEADSET"]=--[[BOOL (bool)]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("3FB99A8B08D18FD6");return native_invoker.get_return_value_bool();end,
@@ -7604,8 +7584,8 @@ NETWORK={
 	["NETWORK_CLEAR_VOICE_CHANNEL"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("E036A705F989E049");end,
 	["NETWORK_APPLY_VOICE_PROXIMITY_OVERRIDE"]=--[[void]] function(--[[float]] x,--[[float]] y,--[[float]] z)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.end_call("DBD2056652689917");end,
 	["NETWORK_CLEAR_VOICE_PROXIMITY_OVERRIDE"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("F03755696450470C");end,
-	["_0x5E3AA4CA2B6FB0EE"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("5E3AA4CA2B6FB0EE");end,
-	["_0xCA575C391FEA25CC"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("CA575C391FEA25CC");end,
+	["NETWORK_ENABLE_VOICE_BANDWIDTH_RESTRICTION"]=--[[void]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("5E3AA4CA2B6FB0EE");end,
+	["NETWORK_DISABLE_VOICE_BANDWIDTH_RESTRICTION"]=--[[void]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("CA575C391FEA25CC");end,
 	["_0xADB57E5B663CCA8B"]=--[[void]] function(--[[Player (int)]] p0,--[[float* (pointer)]] p1,--[[float* (pointer)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_pointer(p2);native_invoker.end_call("ADB57E5B663CCA8B");end,
 	-- NETWORK_SET_*
 	["_0x8EF52ACAECC51D9C"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("8EF52ACAECC51D9C");end,
@@ -7628,14 +7608,14 @@ NETWORK={
 	["NETWORK_SET_RICH_PRESENCE_STRING"]=--[[void]] function(--[[int]] p0,--[[string]] textLabel)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_string(textLabel);native_invoker.end_call("3E200C2BCF4164EB");end,
 	["NETWORK_GET_TIMEOUT_TIME"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("5ED0356A0CE3A34F");return native_invoker.get_return_value_int();end,
 	-- p4 and p5 are always 0 in scripts
-	["_NETWORK_RESPAWN_COORDS"]=--[[void]] function(--[[Player (int)]] player,--[[float]] x,--[[float]] y,--[[float]] z,--[[BOOL (bool)]] p4,--[[BOOL (bool)]] p5)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_bool(p4);native_invoker.push_arg_bool(p5);native_invoker.end_call("9769F811D1785B03");end,
-	["_0xBF22E0F32968E967"]=--[[void]] function(--[[Player (int)]] player,--[[BOOL (bool)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_bool(p1);native_invoker.end_call("BF22E0F32968E967");end,
+	["NETWORK_LEAVE_PED_BEHIND_BEFORE_WARP"]=--[[void]] function(--[[Player (int)]] player,--[[float]] x,--[[float]] y,--[[float]] z,--[[BOOL (bool)]] p4,--[[BOOL (bool)]] p5)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_bool(p4);native_invoker.push_arg_bool(p5);native_invoker.end_call("9769F811D1785B03");end,
+	["NETWORK_LEAVE_PED_BEHIND_BEFORE_CUTSCENE"]=--[[void]] function(--[[Player (int)]] player,--[[BOOL (bool)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_bool(p1);native_invoker.end_call("BF22E0F32968E967");end,
 	-- entity must be a valid entity; ped can be NULL
 	["REMOVE_ALL_STICKY_BOMBS_FROM_ENTITY"]=--[[void]] function(--[[Entity (int)]] entity,--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.push_arg_int(ped);native_invoker.end_call("715135F4B82AC90D");end,
 	["_0x17C9E241111A674D"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("17C9E241111A674D");end,
 	["_0x2E4C123D1C8A710E"]=--[[Any (int)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5,--[[Any (int)]] p6)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_int(p6);native_invoker.end_call("2E4C123D1C8A710E");return native_invoker.get_return_value_int();end,
 	["NETWORK_CLAN_SERVICE_IS_VALID"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("579CCED0265D4896");return native_invoker.get_return_value_bool();end,
-	["NETWORK_CLAN_PLAYER_IS_ACTIVE"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("B124B57F571D8F18");return native_invoker.get_return_value_bool();end,
+	["NETWORK_CLAN_PLAYER_IS_ACTIVE"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("B124B57F571D8F18");return native_invoker.get_return_value_bool();end,
 	-- bufferSize is 35 in the scripts.
 	-- 
 	-- bufferSize is the elementCount of p0(desc), sizeof(p0) == 280 == p1*8 == 35 * 8, p2(netHandle) is obtained from NETWORK::NETWORK_HANDLE_FROM_PLAYER.  And no, I can't explain why 35 * sizeof(int) == 280 and not 140, but I'll get back to you on that.
@@ -7643,47 +7623,20 @@ NETWORK={
 	-- the answer is: because p0 an int64_t* / int64_t[35].  and FYI p2 is an int64_t[13]
 	-- 
 	-- pastebin.com/cSZniHak
-	["NETWORK_CLAN_PLAYER_GET_DESC"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] clanDesc,--[[int]] bufferSize,--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(clanDesc);native_invoker.push_arg_int(bufferSize);native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("EEE6EACBE8874FBA");return native_invoker.get_return_value_bool();end,
+	["NETWORK_CLAN_PLAYER_GET_DESC"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] clanDesc,--[[int]] bufferSize,--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(clanDesc);native_invoker.push_arg_int(bufferSize);native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("EEE6EACBE8874FBA");return native_invoker.get_return_value_bool();end,
 	-- bufferSize is 35 in the scripts.
 	["NETWORK_CLAN_IS_ROCKSTAR_CLAN"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] clanDesc,--[[int]] bufferSize)native_invoker.begin_call();native_invoker.push_arg_pointer(clanDesc);native_invoker.push_arg_int(bufferSize);native_invoker.end_call("7543BB439F63792B");return native_invoker.get_return_value_bool();end,
 	-- bufferSize is 35 in the scripts.
 	["NETWORK_CLAN_GET_UI_FORMATTED_TAG"]=--[[void]] function(--[[int* (pointer)]] clanDesc,--[[int]] bufferSize,--[[char* (pointer)]] formattedTag)native_invoker.begin_call();native_invoker.push_arg_pointer(clanDesc);native_invoker.push_arg_int(bufferSize);native_invoker.push_arg_pointer(formattedTag);native_invoker.end_call("F45352426FF3A4F0");end,
 	["NETWORK_CLAN_GET_LOCAL_MEMBERSHIPS_COUNT"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("1F471B79ACC90BEF");return native_invoker.get_return_value_int();end,
 	["NETWORK_CLAN_GET_MEMBERSHIP_DESC"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] memberDesc,--[[int]] p1)native_invoker.begin_call();native_invoker.push_arg_pointer(memberDesc);native_invoker.push_arg_int(p1);native_invoker.end_call("48DE78AF2C8885B8");return native_invoker.get_return_value_bool();end,
-	["NETWORK_CLAN_DOWNLOAD_MEMBERSHIP"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("A989044E70010ABE");return native_invoker.get_return_value_bool();end,
+	["NETWORK_CLAN_DOWNLOAD_MEMBERSHIP"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("A989044E70010ABE");return native_invoker.get_return_value_bool();end,
 	["NETWORK_CLAN_DOWNLOAD_MEMBERSHIP_PENDING"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] p0)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.end_call("5B9E023DC6EBEDC0");return native_invoker.get_return_value_bool();end,
-	["_NETWORK_IS_CLAN_MEMBERSHIP_FINISHED_DOWNLOADING"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("B3F64A6A91432477");return native_invoker.get_return_value_bool();end,
+	["NETWORK_CLAN_ANY_DOWNLOAD_MEMBERSHIP_PENDING"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("B3F64A6A91432477");return native_invoker.get_return_value_bool();end,
 	["NETWORK_CLAN_REMOTE_MEMBERSHIPS_ARE_IN_CACHE"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] p0)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.end_call("BB6E6FEE99D866B2");return native_invoker.get_return_value_bool();end,
 	["NETWORK_CLAN_GET_MEMBERSHIP_COUNT"]=--[[int]] function(--[[int* (pointer)]] p0)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.end_call("AAB11F6C4ADBC2C1");return native_invoker.get_return_value_int();end,
 	["NETWORK_CLAN_GET_MEMBERSHIP_VALID"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("48A59CF88D43DF0E");return native_invoker.get_return_value_bool();end,
-	-- BOOL DEBUG_MEMBRESHIP(int Param)
-	--     {
-	--      int membership;
-	--        networkHandleMgr handle;
-	--       NETWORK_HANDLE_FROM_PLAYER(iSelectedPlayer, &handle.netHandle, 13);
-	-- 
-	--      if (!_NETWORK_IS_CLAN_MEMBERSHIP_FINISHED_DOWNLOADING())
-	--       {
-	--          if (NETWORK_CLAN_REMOTE_MEMBERSHIPS_ARE_IN_CACHE(&Param))
-	--          {
-	--              if (NETWORK_CLAN_GET_MEMBERSHIP_COUNT(&Param) > 0)
-	--              {
-	--                  if (NETWORK_CLAN_GET_MEMBERSHIP_VALID(&Param, 0))
-	--                  {
-	--                      if (NETWORK_CLAN_GET_MEMBERSHIP(&Param, &membership, -1))
-	--                      {
-	--                          _0xF633805A(&membership, 35, &handle.netHandle);
-	--                       }
-	--                  }
-	--              }
-	--          }
-	--      }
-	--      else
-	--       {
-	--          NETWORK_CLAN_DOWNLOAD_MEMBERSHIP(&handle.netHandle);
-	--       }
-	--  }
-	["NETWORK_CLAN_GET_MEMBERSHIP"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] p0,--[[int* (pointer)]] clanMembership,--[[int]] p2)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_pointer(clanMembership);native_invoker.push_arg_int(p2);native_invoker.end_call("C8BC2011F67B3411");return native_invoker.get_return_value_bool();end,
+	["NETWORK_CLAN_GET_MEMBERSHIP"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] p0,--[[Any* (pointer)]] clanMembership,--[[int]] p2)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_pointer(clanMembership);native_invoker.push_arg_int(p2);native_invoker.end_call("C8BC2011F67B3411");return native_invoker.get_return_value_bool();end,
 	["NETWORK_CLAN_JOIN"]=--[[BOOL (bool)]] function(--[[int]] clanDesc)native_invoker.begin_call();native_invoker.push_arg_int(clanDesc);native_invoker.end_call("9FAAA4F4FC71F87F");return native_invoker.get_return_value_bool();end,
 	-- Only documented...
 	-- 
@@ -7778,8 +7731,9 @@ NETWORK={
 	["GET_MAX_NUM_NETWORK_PEDS"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("0C1F7D49C39D2289");return native_invoker.get_return_value_int();end,
 	["GET_MAX_NUM_NETWORK_VEHICLES"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("0AFCE529F69B21FF");return native_invoker.get_return_value_int();end,
 	["GET_MAX_NUM_NETWORK_PICKUPS"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("A72835064DD63E4C");return native_invoker.get_return_value_int();end,
-	["_0xBA7F0B77D80A4EB7"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("BA7F0B77D80A4EB7");end,
+	["_NETWORK_SET_OBJECT_INTEREST_RANGE"]=--[[void]] function(--[[Object (int)]] object,--[[float]] range)native_invoker.begin_call();native_invoker.push_arg_int(object);native_invoker.push_arg_float(range);native_invoker.end_call("BA7F0B77D80A4EB7");end,
 	["_0x0F1A4B45B7693B95"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("0F1A4B45B7693B95");end,
+	["_0xC6FCEE21C6FCEE21"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("C6FCEE21C6FCEE21");end,
 	["GET_NETWORK_TIME"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("7A5487FE9FAA6B48");return native_invoker.get_return_value_int();end,
 	-- Returns the same value as GET_NETWORK_TIME in freemode, but as opposed to `GET_NETWORK_TIME` it always gets the most recent time, instead of once per tick.
 	-- Could be used for benchmarking since it can return times in ticks.
@@ -7829,8 +7783,10 @@ NETWORK={
 	["_0xFAC18E7356BD3210"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("FAC18E7356BD3210");end,
 	["SET_NETWORK_VEHICLE_RESPOT_TIMER"]=--[[void]] function(--[[int]] netId,--[[int]] time,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(netId);native_invoker.push_arg_int(time);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("EC51713AB6EC36E8");end,
 	["SET_NETWORK_VEHICLE_AS_GHOST"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("6274C4712850841E");end,
-	["_0xA2A707979FE754DC"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("A2A707979FE754DC");end,
-	["_0x838DA0936A24ED4D"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("838DA0936A24ED4D");end,
+	-- rage::netBlenderLinInterp::GetPositionMaxForUpdateLevel
+	["_SET_NETWORK_VEHICLE_POSITION_UPDATE_MULTIPLIER"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[float]] multiplier)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_float(multiplier);native_invoker.end_call("A2A707979FE754DC");end,
+	-- Enables a periodic ShapeTest within the NetBlender and invokes rage::netBlenderLinInterp::GoStraightToTarget (or some functional wrapper).
+	["_SET_NETWORK_ENABLE_VEHICLE_POSITION_CORRECTION"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("838DA0936A24ED4D");end,
 	["_SET_LOCAL_PLAYER_AS_GHOST"]=--[[void]] function(--[[BOOL (bool)]] toggle,--[[BOOL (bool)]] p1)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.push_arg_bool(p1);native_invoker.end_call("5FFE9B4144F9712F");end,
 	["_IS_ENTITY_GHOSTED_TO_LOCAL_PLAYER"]=--[[BOOL (bool)]] function(--[[Entity (int)]] entity)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.end_call("21D04D7BC538C146");return native_invoker.get_return_value_bool();end,
 	-- SET_NETWORK_*
@@ -7854,12 +7810,11 @@ NETWORK={
 	-- Similar structure as NETWORK_ADD_ENTITY_TO_SYNCHRONISED_SCENE but it includes this time a hash.
 	-- In casino_slots it is used one time in a synced scene involving a ped and the slot machine?
 	["_0x45F35C0EDC33B03B"]=--[[void]] function(--[[int]] netScene,--[[Hash (int)]] modelHash,--[[float]] x,--[[float]] y,--[[float]] z,--[[float]] p5,--[[string]] p6,--[[float]] p7,--[[float]] p8,--[[int]] flags)native_invoker.begin_call();native_invoker.push_arg_int(netScene);native_invoker.push_arg_int(modelHash);native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_float(p5);native_invoker.push_arg_string(p6);native_invoker.push_arg_float(p7);native_invoker.push_arg_float(p8);native_invoker.push_arg_int(flags);native_invoker.end_call("45F35C0EDC33B03B");end,
-	["_NETWORK_FORCE_LOCAL_USE_OF_SYNCED_SCENE_CAMERA"]=--[[void]] function(--[[int]] netScene,--[[string]] animDict,--[[string]] animName)native_invoker.begin_call();native_invoker.push_arg_int(netScene);native_invoker.push_arg_string(animDict);native_invoker.push_arg_string(animName);native_invoker.end_call("CF8BD3B0BD6D42D7");end,
+	["NETWORK_ADD_SYNCHRONISED_SCENE_CAMERA"]=--[[void]] function(--[[int]] netScene,--[[string]] animDict,--[[string]] animName)native_invoker.begin_call();native_invoker.push_arg_int(netScene);native_invoker.push_arg_string(animDict);native_invoker.push_arg_string(animName);native_invoker.end_call("CF8BD3B0BD6D42D7");end,
 	["NETWORK_ATTACH_SYNCHRONISED_SCENE_TO_ENTITY"]=--[[void]] function(--[[int]] netScene,--[[Entity (int)]] entity,--[[int]] bone)native_invoker.begin_call();native_invoker.push_arg_int(netScene);native_invoker.push_arg_int(entity);native_invoker.push_arg_int(bone);native_invoker.end_call("478DCBD2A98B705A");end,
 	["NETWORK_START_SYNCHRONISED_SCENE"]=--[[void]] function(--[[int]] netScene)native_invoker.begin_call();native_invoker.push_arg_int(netScene);native_invoker.end_call("9A1B3FCDB36C8697");end,
 	["NETWORK_STOP_SYNCHRONISED_SCENE"]=--[[void]] function(--[[int]] netScene)native_invoker.begin_call();native_invoker.push_arg_int(netScene);native_invoker.end_call("C254481A4574CB2F");end,
-	-- netScene to scene
-	["_NETWORK_CONVERT_SYNCHRONISED_SCENE_TO_SYNCHRONIZED_SCENE"]=--[[int]] function(--[[int]] netScene)native_invoker.begin_call();native_invoker.push_arg_int(netScene);native_invoker.end_call("02C40BF885C567B6");return native_invoker.get_return_value_int();end,
+	["NETWORK_GET_LOCAL_SCENE_FROM_NETWORK_ID"]=--[[int]] function(--[[int]] netId)native_invoker.begin_call();native_invoker.push_arg_int(netId);native_invoker.end_call("02C40BF885C567B6");return native_invoker.get_return_value_int();end,
 	["_0xC9B43A33D09CADA7"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("C9B43A33D09CADA7");end,
 	["_0x144DA052257AE7D8"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("144DA052257AE7D8");end,
 	-- p0 is always 0. p1 is pointing to a global.
@@ -7874,10 +7829,13 @@ NETWORK={
 	["NETWORK_CANCEL_RESPAWN_SEARCH"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("FB8F2A6F3DF08CBE");end,
 	-- Based on scripts such as in freemode.c how they call their vars vVar and fVar the 2nd and 3rd param it a Vector3 and Float, but the first is based on get_random_int_in_range..
 	["NETWORK_GET_RESPAWN_RESULT"]=--[[void]] function(--[[int]] randomInt,--[[Vector3* (pointer)]] coordinates,--[[float* (pointer)]] heading)native_invoker.begin_call();native_invoker.push_arg_int(randomInt);native_invoker.push_arg_pointer(coordinates);native_invoker.push_arg_pointer(heading);native_invoker.end_call("371EA43692861CF1");end,
-	["NETWORK_GET_RESPAWN_RESULT_FLAGS"]=--[[Any (int)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("6C34F1208B8923FD");return native_invoker.get_return_value_int();end,
+	["NETWORK_GET_RESPAWN_RESULT_FLAGS"]=--[[int]] function(--[[int]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("6C34F1208B8923FD");return native_invoker.get_return_value_int();end,
 	-- *
 	["NETWORK_START_SOLO_TUTORIAL_SESSION"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("17E0198B3882C2CB");end,
-	["_0xFB680D403909DC70"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("FB680D403909DC70");end,
+	-- teamId must be < 3, instanceId must be < 64
+	-- 
+	-- NETWORK_A*
+	["_0xFB680D403909DC70"]=--[[void]] function(--[[int]] teamId,--[[int]] instanceId)native_invoker.begin_call();native_invoker.push_arg_int(teamId);native_invoker.push_arg_int(instanceId);native_invoker.end_call("FB680D403909DC70");end,
 	["NETWORK_END_TUTORIAL_SESSION"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("D0AFAFF5A51D72F7");end,
 	["NETWORK_IS_IN_TUTORIAL_SESSION"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("ADA24309FE08DACF");return native_invoker.get_return_value_bool();end,
 	["_0xB37E4E6A2388CA7B"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("B37E4E6A2388CA7B");return native_invoker.get_return_value_bool();end,
@@ -7885,6 +7843,7 @@ NETWORK={
 	["NETWORK_GET_PLAYER_TUTORIAL_SESSION_INSTANCE"]=--[[int]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("3B39236746714134");return native_invoker.get_return_value_int();end,
 	-- NETWORK_ARE_*
 	["_NETWORK_IS_PLAYER_EQUAL_TO_INDEX"]=--[[BOOL (bool)]] function(--[[Player (int)]] player,--[[int]] index)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_int(index);native_invoker.end_call("9DE986FC9A87C474");return native_invoker.get_return_value_bool();end,
+	["_0xFEA7A352DDB34D52"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("FEA7A352DDB34D52");end,
 	["NETWORK_CONCEAL_PLAYER"]=--[[void]] function(--[[Player (int)]] player,--[[BOOL (bool)]] toggle,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_bool(toggle);native_invoker.push_arg_bool(p2);native_invoker.end_call("BBDF066252829606");end,
 	["NETWORK_IS_PLAYER_CONCEALED"]=--[[BOOL (bool)]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("919B3C98ED8292F9");return native_invoker.get_return_value_bool();end,
 	["_NETWORK_CONCEAL_ENTITY"]=--[[void]] function(--[[Entity (int)]] entity,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.push_arg_bool(toggle);native_invoker.end_call("1632BE0AC1E62876");end,
@@ -7904,9 +7863,9 @@ NETWORK={
 	["_0x2B1C623823DB0D9D"]=--[[Any (int)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5,--[[Any (int)]] p6)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_int(p6);native_invoker.end_call("2B1C623823DB0D9D");return native_invoker.get_return_value_int();end,
 	["NETWORK_REMOVE_ENTITY_AREA"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("93CF869BAA0C4874");return native_invoker.get_return_value_bool();end,
 	["NETWORK_ENTITY_AREA_DOES_EXIST"]=--[[BOOL (bool)]] function(--[[int]] areaHandle)native_invoker.begin_call();native_invoker.push_arg_int(areaHandle);native_invoker.end_call("E64A3CA08DFA37A9");return native_invoker.get_return_value_bool();end,
-	["_0x4DF7CFFF471A7FB1"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("4DF7CFFF471A7FB1");return native_invoker.get_return_value_bool();end,
+	["NETWORK_ENTITY_AREA_HAVE_ALL_REPLIED"]=--[[BOOL (bool)]] function(--[[int]] areaHandle)native_invoker.begin_call();native_invoker.push_arg_int(areaHandle);native_invoker.end_call("4DF7CFFF471A7FB1");return native_invoker.get_return_value_bool();end,
 	["NETWORK_ENTITY_AREA_IS_OCCUPIED"]=--[[BOOL (bool)]] function(--[[int]] areaHandle)native_invoker.begin_call();native_invoker.push_arg_int(areaHandle);native_invoker.end_call("4A2D4E8BF4265B0F");return native_invoker.get_return_value_bool();end,
-	["_NETWORK_SET_NETWORK_ID_DYNAMIC"]=--[[void]] function(--[[int]] netID,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(netID);native_invoker.push_arg_bool(toggle);native_invoker.end_call("2B1813ABA29016C5");end,
+	["NETWORK_USE_HIGH_PRECISION_BLENDING"]=--[[void]] function(--[[int]] netID,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(netID);native_invoker.push_arg_bool(toggle);native_invoker.end_call("2B1813ABA29016C5");end,
 	["_0xA6FCECCF4721D679"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("A6FCECCF4721D679");end,
 	["_0x95BAF97C82464629"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("95BAF97C82464629");end,
 	["NETWORK_REQUEST_CLOUD_BACKGROUND_SCRIPTS"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("924426BFFD82E915");return native_invoker.get_return_value_bool();end,
@@ -7969,9 +7928,9 @@ NETWORK={
 	-- 
 	-- Seems it's like ADD_EXPLOSION, etc. the first 2 params. The 3rd atm no need to worry since it always seems to be 0.
 	-- 
-	["NETWORK_EXPLODE_VEHICLE"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] isAudible,--[[BOOL (bool)]] isInvisible,--[[BOOL (bool)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(isAudible);native_invoker.push_arg_bool(isInvisible);native_invoker.push_arg_bool(p3);native_invoker.end_call("301A42153C9AD707");end,
-	["_0x2A5E0621DD815A9A"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("2A5E0621DD815A9A");end,
-	["_0xCD71A4ECAB22709E"]=--[[void]] function(--[[Entity (int)]] entity)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.end_call("CD71A4ECAB22709E");end,
+	["NETWORK_EXPLODE_VEHICLE"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] isAudible,--[[BOOL (bool)]] isInvisible,--[[int]] netId)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(isAudible);native_invoker.push_arg_bool(isInvisible);native_invoker.push_arg_int(netId);native_invoker.end_call("301A42153C9AD707");end,
+	["_NETWORK_EXPLODE_HELI"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] isAudible,--[[BOOL (bool)]] isInvisible,--[[int]] netId)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(isAudible);native_invoker.push_arg_bool(isInvisible);native_invoker.push_arg_int(netId);native_invoker.end_call("2A5E0621DD815A9A");end,
+	["NETWORK_USE_LOGARITHMIC_BLENDING_THIS_FRAME"]=--[[void]] function(--[[Entity (int)]] entity)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.end_call("CD71A4ECAB22709E");end,
 	["NETWORK_OVERRIDE_COORDS_AND_HEADING"]=--[[void]] function(--[[Entity (int)]] entity,--[[float]] x,--[[float]] y,--[[float]] z,--[[float]] heading)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_float(heading);native_invoker.end_call("A7E30DE9272B6D49");end,
 	["_0xE6717E652B8C8D8A"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("E6717E652B8C8D8A");end,
 	["NETWORK_DISABLE_PROXIMITY_MIGRATION"]=--[[void]] function(--[[int]] netID)native_invoker.begin_call();native_invoker.push_arg_int(netID);native_invoker.end_call("407091CF6037118E");end,
@@ -8042,20 +8001,20 @@ NETWORK={
 	["UGC_COPY_CONTENT"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] p0,--[[Any* (pointer)]] p1)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_pointer(p1);native_invoker.end_call("152D90E4C1B4738A");return native_invoker.get_return_value_bool();end,
 	["_0x9FEDF86898F100E9"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("9FEDF86898F100E9");return native_invoker.get_return_value_int();end,
 	["UGC_HAS_CREATE_FINISHED"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("5E24341A7F92A74B");return native_invoker.get_return_value_bool();end,
-	["_0x24E4E51FC16305F9"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("24E4E51FC16305F9");return native_invoker.get_return_value_int();end,
+	["UGC_DID_CREATE_SUCCEED"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("24E4E51FC16305F9");return native_invoker.get_return_value_int();end,
 	["UGC_GET_CREATE_RESULT"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("FBC5E768C7A77A6A");return native_invoker.get_return_value_int();end,
 	["UGC_GET_CREATE_CONTENT_ID"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("C55A0B40FFB1ED23");return native_invoker.get_return_value_int();end,
 	["UGC_CLEAR_CREATE_RESULT"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("17440AA15D1D3739");end,
 	["UGC_QUERY_MY_CONTENT"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any* (pointer)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_pointer(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.end_call("9BF438815F5D96EA");return native_invoker.get_return_value_bool();end,
-	["_0x692D58DF40657E8C"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any* (pointer)]] p3,--[[Any (int)]] p4,--[[BOOL (bool)]] p5)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_pointer(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_bool(p5);native_invoker.end_call("692D58DF40657E8C");return native_invoker.get_return_value_bool();end,
+	["_0x692D58DF40657E8C"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[string]] p3,--[[Any (int)]] p4,--[[BOOL (bool)]] p5)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_string(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_bool(p5);native_invoker.end_call("692D58DF40657E8C");return native_invoker.get_return_value_bool();end,
 	["UGC_QUERY_BY_CONTENT_ID"]=--[[BOOL (bool)]] function(--[[string]] contentId,--[[BOOL (bool)]] latestVersion,--[[string]] contentTypeName)native_invoker.begin_call();native_invoker.push_arg_string(contentId);native_invoker.push_arg_bool(latestVersion);native_invoker.push_arg_string(contentTypeName);native_invoker.end_call("158EC424F35EC469");return native_invoker.get_return_value_bool();end,
 	["UGC_QUERY_BY_CONTENT_IDS"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] data,--[[int]] count,--[[BOOL (bool)]] latestVersion,--[[string]] contentTypeName)native_invoker.begin_call();native_invoker.push_arg_pointer(data);native_invoker.push_arg_int(count);native_invoker.push_arg_bool(latestVersion);native_invoker.push_arg_string(contentTypeName);native_invoker.end_call("C7397A83F7A2A462");return native_invoker.get_return_value_bool();end,
 	["_UGC_QUERY_RECENTLY_CREATED_CONTENT"]=--[[BOOL (bool)]] function(--[[int]] offset,--[[int]] count,--[[string]] contentTypeName,--[[int]] p3)native_invoker.begin_call();native_invoker.push_arg_int(offset);native_invoker.push_arg_int(count);native_invoker.push_arg_string(contentTypeName);native_invoker.push_arg_int(p3);native_invoker.end_call("6D4CB481FAC835E8");return native_invoker.get_return_value_bool();end,
-	["UGC_GET_BOOKMARKED_CONTENT"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any* (pointer)]] p2,--[[Any* (pointer)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_pointer(p2);native_invoker.push_arg_pointer(p3);native_invoker.end_call("D5A4B59980401588");return native_invoker.get_return_value_bool();end,
-	["UGC_GET_MY_CONTENT"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any* (pointer)]] p2,--[[Any* (pointer)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_pointer(p2);native_invoker.push_arg_pointer(p3);native_invoker.end_call("3195F8DD0D531052");return native_invoker.get_return_value_bool();end,
-	["UGC_GET_FRIEND_CONTENT"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any* (pointer)]] p2,--[[Any* (pointer)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_pointer(p2);native_invoker.push_arg_pointer(p3);native_invoker.end_call("F9E1CCAE8BA4C281");return native_invoker.get_return_value_bool();end,
-	["UGC_GET_CREW_CONTENT"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any* (pointer)]] p3,--[[Any* (pointer)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_pointer(p3);native_invoker.push_arg_pointer(p4);native_invoker.end_call("9F6E2821885CAEE2");return native_invoker.get_return_value_bool();end,
-	["UGC_GET_GET_BY_CATEGORY"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any* (pointer)]] p3,--[[Any* (pointer)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_pointer(p3);native_invoker.push_arg_pointer(p4);native_invoker.end_call("678BB03C1A3BD51E");return native_invoker.get_return_value_bool();end,
+	["UGC_GET_BOOKMARKED_CONTENT"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[string]] p2,--[[Any* (pointer)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_string(p2);native_invoker.push_arg_pointer(p3);native_invoker.end_call("D5A4B59980401588");return native_invoker.get_return_value_bool();end,
+	["UGC_GET_MY_CONTENT"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[string]] p2,--[[Any* (pointer)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_string(p2);native_invoker.push_arg_pointer(p3);native_invoker.end_call("3195F8DD0D531052");return native_invoker.get_return_value_bool();end,
+	["UGC_GET_FRIEND_CONTENT"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[string]] p2,--[[Any* (pointer)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_string(p2);native_invoker.push_arg_pointer(p3);native_invoker.end_call("F9E1CCAE8BA4C281");return native_invoker.get_return_value_bool();end,
+	["UGC_GET_CREW_CONTENT"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[string]] p3,--[[Any* (pointer)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_string(p3);native_invoker.push_arg_pointer(p4);native_invoker.end_call("9F6E2821885CAEE2");return native_invoker.get_return_value_bool();end,
+	["UGC_GET_GET_BY_CATEGORY"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[string]] p3,--[[Any* (pointer)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_string(p3);native_invoker.push_arg_pointer(p4);native_invoker.end_call("678BB03C1A3BD51E");return native_invoker.get_return_value_bool();end,
 	["SET_BALANCE_ADD_MACHINE"]=--[[BOOL (bool)]] function(--[[string]] contentId,--[[string]] contentTypeName)native_invoker.begin_call();native_invoker.push_arg_string(contentId);native_invoker.push_arg_string(contentTypeName);native_invoker.end_call("815E5E3073DA1D67");return native_invoker.get_return_value_bool();end,
 	["SET_BALANCE_ADD_MACHINES"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] data,--[[int]] dataCount,--[[string]] contentTypeName)native_invoker.begin_call();native_invoker.push_arg_pointer(data);native_invoker.push_arg_int(dataCount);native_invoker.push_arg_string(contentTypeName);native_invoker.end_call("B8322EEB38BE7C26");return native_invoker.get_return_value_bool();end,
 	["_0xA7862BC5ED1DFD7E"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any* (pointer)]] p2,--[[Any* (pointer)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_pointer(p2);native_invoker.push_arg_pointer(p3);native_invoker.end_call("A7862BC5ED1DFD7E");return native_invoker.get_return_value_bool();end,
@@ -8072,7 +8031,7 @@ NETWORK={
 	["UGC_GET_CONTENT_HASH"]=--[[Hash (int)]] function()native_invoker.begin_call();native_invoker.end_call("3A17A27D75C74887");return native_invoker.get_return_value_int();end,
 	["UGC_CLEAR_QUERY_RESULTS"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("BA96394A0EECFA65");end,
 	["UGC_GET_CONTENT_USER_ID"]=--[[string]] function(--[[int]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("CD67AD041A394C9C");return native_invoker.get_return_value_string();end,
-	["_0x584770794D758C18"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any* (pointer)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_pointer(p1);native_invoker.end_call("584770794D758C18");return native_invoker.get_return_value_bool();end,
+	["_0x584770794D758C18"]=--[[BOOL (bool)]] function(--[[int]] p0,--[[Any* (pointer)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_pointer(p1);native_invoker.end_call("584770794D758C18");return native_invoker.get_return_value_bool();end,
 	["_0x8C8D2739BA44AF0F"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("8C8D2739BA44AF0F");return native_invoker.get_return_value_bool();end,
 	["UGC_GET_CONTENT_USER_NAME"]=--[[Any (int)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("703F12425ECA8BF5");return native_invoker.get_return_value_int();end,
 	["_0xAEAB987727C5A8A4"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("AEAB987727C5A8A4");return native_invoker.get_return_value_bool();end,
@@ -8108,7 +8067,7 @@ NETWORK={
 	["_0x68103E2247887242"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("68103E2247887242");end,
 	["UGC_PUBLISH"]=--[[BOOL (bool)]] function(--[[string]] contentId,--[[string]] baseContentId,--[[string]] contentTypeName)native_invoker.begin_call();native_invoker.push_arg_string(contentId);native_invoker.push_arg_string(baseContentId);native_invoker.push_arg_string(contentTypeName);native_invoker.end_call("1DE0F5F50D723CAA");return native_invoker.get_return_value_bool();end,
 	["UGC_SET_BOOKMARKED"]=--[[BOOL (bool)]] function(--[[string]] contentId,--[[BOOL (bool)]] bookmarked,--[[string]] contentTypeName)native_invoker.begin_call();native_invoker.push_arg_string(contentId);native_invoker.push_arg_bool(bookmarked);native_invoker.push_arg_string(contentTypeName);native_invoker.end_call("274A1519DFC1094F");return native_invoker.get_return_value_bool();end,
-	["UGC_SET_DELETED"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] p0,--[[BOOL (bool)]] p1,--[[Any* (pointer)]] p2)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_pointer(p2);native_invoker.end_call("D05D1A6C74DA3498");return native_invoker.get_return_value_bool();end,
+	["UGC_SET_DELETED"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] p0,--[[BOOL (bool)]] p1,--[[string]] p2)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_string(p2);native_invoker.end_call("D05D1A6C74DA3498");return native_invoker.get_return_value_bool();end,
 	["_0x45E816772E93A9DB"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("45E816772E93A9DB");return native_invoker.get_return_value_int();end,
 	["UGC_HAS_MODIFY_FINISHED"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("299EF3C576773506");return native_invoker.get_return_value_bool();end,
 	["_0x793FF272D5B365F4"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("793FF272D5B365F4");return native_invoker.get_return_value_int();end,
@@ -8123,15 +8082,15 @@ NETWORK={
 	["UGC_SET_QUERY_DATA_FROM_OFFLINE"]=--[[void]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("F98DDE0A8ED09323");end,
 	["_0xFD75DABC0957BF33"]=--[[void]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("FD75DABC0957BF33");end,
 	["UGC_IS_LANGUAGE_SUPPORTED"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("F53E48461B71EECB");return native_invoker.get_return_value_bool();end,
-	["_FACEBOOK_SET_HEIST_COMPLETE"]=--[[BOOL (bool)]] function(--[[string]] heistName,--[[int]] cashEarned,--[[int]] xpEarned)native_invoker.begin_call();native_invoker.push_arg_string(heistName);native_invoker.push_arg_int(cashEarned);native_invoker.push_arg_int(xpEarned);native_invoker.end_call("098AB65B9ED9A9EC");return native_invoker.get_return_value_bool();end,
-	["_FACEBOOK_SET_CREATE_CHARACTER_COMPLETE"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("DC48473142545431");return native_invoker.get_return_value_bool();end,
-	["_FACEBOOK_SET_MILESTONE_COMPLETE"]=--[[BOOL (bool)]] function(--[[int]] milestoneId)native_invoker.begin_call();native_invoker.push_arg_int(milestoneId);native_invoker.end_call("0AE1F1653B554AB9");return native_invoker.get_return_value_bool();end,
+	["FACEBOOK_POST_COMPLETED_HEIST"]=--[[BOOL (bool)]] function(--[[string]] heistName,--[[int]] cashEarned,--[[int]] xpEarned)native_invoker.begin_call();native_invoker.push_arg_string(heistName);native_invoker.push_arg_int(cashEarned);native_invoker.push_arg_int(xpEarned);native_invoker.end_call("098AB65B9ED9A9EC");return native_invoker.get_return_value_bool();end,
+	["FACEBOOK_POST_CREATE_CHARACTER"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("DC48473142545431");return native_invoker.get_return_value_bool();end,
+	["FACEBOOK_POST_COMPLETED_MILESTONE"]=--[[BOOL (bool)]] function(--[[int]] milestoneId)native_invoker.begin_call();native_invoker.push_arg_int(milestoneId);native_invoker.end_call("0AE1F1653B554AB9");return native_invoker.get_return_value_bool();end,
 	["_FACEBOOK_IS_SENDING_DATA"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("62B9FEC9A11F10EF");return native_invoker.get_return_value_bool();end,
 	["_FACEBOOK_DO_UNK_CHECK"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("A75E2B6733DA5142");return native_invoker.get_return_value_bool();end,
 	["_FACEBOOK_IS_AVAILABLE"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("43865688AE10F0D7");return native_invoker.get_return_value_bool();end,
-	["TEXTURE_DOWNLOAD_REQUEST"]=--[[int]] function(--[[int* (pointer)]] PlayerHandle,--[[string]] FilePath,--[[string]] Name,--[[BOOL (bool)]] p3)native_invoker.begin_call();native_invoker.push_arg_pointer(PlayerHandle);native_invoker.push_arg_string(FilePath);native_invoker.push_arg_string(Name);native_invoker.push_arg_bool(p3);native_invoker.end_call("16160DA74A8E74A2");return native_invoker.get_return_value_int();end,
-	["TITLE_TEXTURE_DOWNLOAD_REQUEST"]=--[[int]] function(--[[string]] FilePath,--[[string]] Name,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_string(FilePath);native_invoker.push_arg_string(Name);native_invoker.push_arg_bool(p2);native_invoker.end_call("0B203B4AFDE53A4F");return native_invoker.get_return_value_int();end,
-	["UGC_TEXTURE_DOWNLOAD_REQUEST"]=--[[Any (int)]] function(--[[Any* (pointer)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any* (pointer)]] p4,--[[BOOL (bool)]] p5)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_pointer(p4);native_invoker.push_arg_bool(p5);native_invoker.end_call("308F96458B7087CC");return native_invoker.get_return_value_int();end,
+	["TEXTURE_DOWNLOAD_REQUEST"]=--[[int]] function(--[[Any* (pointer)]] gamerHandle,--[[string]] filePath,--[[string]] name,--[[BOOL (bool)]] p3)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.push_arg_string(filePath);native_invoker.push_arg_string(name);native_invoker.push_arg_bool(p3);native_invoker.end_call("16160DA74A8E74A2");return native_invoker.get_return_value_int();end,
+	["TITLE_TEXTURE_DOWNLOAD_REQUEST"]=--[[int]] function(--[[string]] filePath,--[[string]] name,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_string(filePath);native_invoker.push_arg_string(name);native_invoker.push_arg_bool(p2);native_invoker.end_call("0B203B4AFDE53A4F");return native_invoker.get_return_value_int();end,
+	["UGC_TEXTURE_DOWNLOAD_REQUEST"]=--[[Any (int)]] function(--[[string]] p0,--[[int]] p1,--[[int]] p2,--[[int]] p3,--[[string]] p4,--[[BOOL (bool)]] p5)native_invoker.begin_call();native_invoker.push_arg_string(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_string(p4);native_invoker.push_arg_bool(p5);native_invoker.end_call("308F96458B7087CC");return native_invoker.get_return_value_int();end,
 	["TEXTURE_DOWNLOAD_RELEASE"]=--[[void]] function(--[[int]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("487EB90B98E9FB19");end,
 	["TEXTURE_DOWNLOAD_HAS_FAILED"]=--[[BOOL (bool)]] function(--[[int]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("5776ED562C134687");return native_invoker.get_return_value_bool();end,
 	["TEXTURE_DOWNLOAD_GET_NAME"]=--[[string]] function(--[[int]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("3448505B6E35262D");return native_invoker.get_return_value_string();end,
@@ -8180,8 +8139,7 @@ NETWORK={
 	["_NETWORK_GET_AVERAGE_LATENCY_FOR_PLAYER"]=--[[float]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("D414BE129BB81B32");return native_invoker.get_return_value_float();end,
 	-- Same as _NETWORK_GET_AVERAGE_LATENCY_FOR_PLAYER (0xD414BE129BB81B32)
 	["_NETWORK_GET_AVERAGE_LATENCY_FOR_PLAYER_2"]=--[[float]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("0E3A041ED6AC2B45");return native_invoker.get_return_value_float();end,
-	-- NETWORK_GET_*
-	["_0x350C23949E43686C"]=--[[float]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("350C23949E43686C");return native_invoker.get_return_value_float();end,
+	["_NETWORK_GET_AVERAGE_PACKET_LOSS_FOR_PLAYER"]=--[[float]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("350C23949E43686C");return native_invoker.get_return_value_float();end,
 	["_NETWORK_GET_NUM_UNACKED_FOR_PLAYER"]=--[[int]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("FF8FCF9FFC458A1C");return native_invoker.get_return_value_int();end,
 	["_NETWORK_GET_UNRELIABLE_RESEND_COUNT_FOR_PLAYER"]=--[[int]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("3765C3A3E8192E10");return native_invoker.get_return_value_int();end,
 	-- NETWORK_GET_*
@@ -8192,8 +8150,8 @@ NETWORK={
 	-- Returns the coordinates of another player.
 	-- Does not work if you enter your own player id as p0 (will return `(0.0, 0.0, 0.0)` in that case).
 	["_NETWORK_GET_PLAYER_COORDS"]=--[[Vector3 (vector3)]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("125E6D638B8605D4");return native_invoker.get_return_value_vector3();end,
-	-- NETWORK_GET_*
-	["_0x33DE49EDF4DDE77A"]=--[[Vector3 (vector3)]] function(--[[Entity (int)]] entity)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.end_call("33DE49EDF4DDE77A");return native_invoker.get_return_value_vector3();end,
+	-- Used by NetBlender
+	["_NETWORK_GET_LAST_VELOCITY_RECEIVED"]=--[[Vector3 (vector3)]] function(--[[Entity (int)]] entity)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.end_call("33DE49EDF4DDE77A");return native_invoker.get_return_value_vector3();end,
 	-- NETWORK_GET_P*
 	["_0xAA5FAFCD2C5F5E47"]=--[[Vector3 (vector3)]] function(--[[Entity (int)]] entity)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.end_call("AA5FAFCD2C5F5E47");return native_invoker.get_return_value_vector3();end,
 	-- Does nothing (it's a nullsub).
@@ -8203,7 +8161,7 @@ NETWORK={
 	-- Does nothing (it's a nullsub).
 	["_0x6FD992C4A1C1B986"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("6FD992C4A1C1B986");return native_invoker.get_return_value_int();end,
 	["_0xDB663CC9FF3407A9"]=--[[int]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("DB663CC9FF3407A9");return native_invoker.get_return_value_int();end,
-	["_0xC1447451DDB512F0"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("C1447451DDB512F0");end,
+	["_NETWORK_UGC_NAV"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("C1447451DDB512F0");end,
 }
 OBJECT={
 	["CREATE_OBJECT"]=--[[Object (int)]] function(--[[Hash (int)]] modelHash,--[[float]] x,--[[float]] y,--[[float]] z,--[[BOOL (bool)]] isNetwork,--[[BOOL (bool)]] bScriptHostObj,--[[BOOL (bool)]] dynamic)native_invoker.begin_call();native_invoker.push_arg_int(modelHash);native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_bool(isNetwork);native_invoker.push_arg_bool(bScriptHostObj);native_invoker.push_arg_bool(dynamic);native_invoker.end_call("509D5878EB39E842");return native_invoker.get_return_value_int();end,
@@ -8221,7 +8179,8 @@ OBJECT={
 	-- Has to be looped until it returns true.
 	["SLIDE_OBJECT"]=--[[BOOL (bool)]] function(--[[Object (int)]] object,--[[float]] toX,--[[float]] toY,--[[float]] toZ,--[[float]] speedX,--[[float]] speedY,--[[float]] speedZ,--[[BOOL (bool)]] collision)native_invoker.begin_call();native_invoker.push_arg_int(object);native_invoker.push_arg_float(toX);native_invoker.push_arg_float(toY);native_invoker.push_arg_float(toZ);native_invoker.push_arg_float(speedX);native_invoker.push_arg_float(speedY);native_invoker.push_arg_float(speedZ);native_invoker.push_arg_bool(collision);native_invoker.end_call("2FDFF4107B8C1147");return native_invoker.get_return_value_bool();end,
 	["SET_OBJECT_TARGETTABLE"]=--[[void]] function(--[[Object (int)]] object,--[[BOOL (bool)]] targettable)native_invoker.begin_call();native_invoker.push_arg_int(object);native_invoker.push_arg_bool(targettable);native_invoker.end_call("8A7391690F5AFD81");end,
-	["_SET_OBJECT_SOMETHING"]=--[[void]] function(--[[Object (int)]] object,--[[BOOL (bool)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(object);native_invoker.push_arg_bool(p1);native_invoker.end_call("77F33F2CCF64B3AA");end,
+	-- Overrides a flag on the object which determines if the object should be avoided by a vehicle in task CTaskVehicleGoToPointWithAvoidanceAutomobile.
+	["SET_OBJECT_FORCE_VEHICLES_TO_AVOID"]=--[[void]] function(--[[Object (int)]] object,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(object);native_invoker.push_arg_bool(toggle);native_invoker.end_call("77F33F2CCF64B3AA");end,
 	-- Has 8 params in the latest patches.
 	-- 
 	-- isMission - if true doesn't return mission objects
@@ -8275,7 +8234,7 @@ OBJECT={
 	["ADD_DOOR_TO_SYSTEM"]=--[[void]] function(--[[Hash (int)]] doorHash,--[[Hash (int)]] modelHash,--[[float]] x,--[[float]] y,--[[float]] z,--[[BOOL (bool)]] p5,--[[BOOL (bool)]] scriptDoor,--[[BOOL (bool)]] isLocal)native_invoker.begin_call();native_invoker.push_arg_int(doorHash);native_invoker.push_arg_int(modelHash);native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_bool(p5);native_invoker.push_arg_bool(scriptDoor);native_invoker.push_arg_bool(isLocal);native_invoker.end_call("6F8838D03D1DC226");end,
 	-- CDoor and CDoorSystemData still internally allocated (and their associations between doorHash, modelHash, and coordinates).
 	-- Only its NetObj removed and flag ``*(v2 + 192) |= 8u`` (1604 retail) toggled.
-	["REMOVE_DOOR_FROM_SYSTEM"]=--[[void]] function(--[[Hash (int)]] doorHash)native_invoker.begin_call();native_invoker.push_arg_int(doorHash);native_invoker.end_call("464D8E1427156FE4");end,
+	["REMOVE_DOOR_FROM_SYSTEM"]=--[[void]] function(--[[Hash (int)]] doorHash,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(doorHash);native_invoker.push_arg_int(p1);native_invoker.end_call("464D8E1427156FE4");end,
 	-- Lockstates not applied and CNetObjDoor's not created until DOOR_SYSTEM_GET_IS_PHYSICS_LOADED returns true.
 	-- `requestDoor` on true, and when door system is configured to, i.e., "persists w/o netobj", generate a CRequestDoorEvent.
 	-- `forceUpdate` on true, forces an update on the door system (same path as netObjDoor_applyDoorStuff)
@@ -8299,7 +8258,7 @@ OBJECT={
 	-- Ranges from -1.0 to 1.0, and 0.0 is closed / default.
 	-- `forceUpdate` on true invokes DOOR_SYSTEM_SET_DOOR_STATE otherwise requestDoor is unused.
 	["DOOR_SYSTEM_SET_OPEN_RATIO"]=--[[void]] function(--[[Hash (int)]] doorHash,--[[float]] ajar,--[[BOOL (bool)]] requestDoor,--[[BOOL (bool)]] forceUpdate)native_invoker.begin_call();native_invoker.push_arg_int(doorHash);native_invoker.push_arg_float(ajar);native_invoker.push_arg_bool(requestDoor);native_invoker.push_arg_bool(forceUpdate);native_invoker.end_call("B6E6FBA95C7324AC");end,
-	["_0xE851471AEFC3374F"]=--[[Any (int)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("E851471AEFC3374F");return native_invoker.get_return_value_int();end,
+	["_DOOR_SYSTEM_GET_AUTOMATIC_DISTANCE"]=--[[Any (int)]] function(--[[Hash (int)]] doorHash)native_invoker.begin_call();native_invoker.push_arg_int(doorHash);native_invoker.end_call("E851471AEFC3374F");return native_invoker.get_return_value_int();end,
 	["DOOR_SYSTEM_GET_OPEN_RATIO"]=--[[float]] function(--[[Hash (int)]] doorHash)native_invoker.begin_call();native_invoker.push_arg_int(doorHash);native_invoker.end_call("65499865FCA6E5EC");return native_invoker.get_return_value_float();end,
 	-- Includes networking check: ownership vs. or the door itself **isn't** networked.
 	-- `forceUpdate` on true invokes DOOR_SYSTEM_SET_DOOR_STATE otherwise requestDoor is unused.
@@ -8414,18 +8373,17 @@ OBJECT={
 	-- 
 	-- Full list of pickup types by DurtyFree: https://github.com/DurtyFree/gta-v-data-dumps/blob/master/pickupTypes.json
 	["CREATE_AMBIENT_PICKUP"]=--[[Pickup (int)]] function(--[[Hash (int)]] pickupHash,--[[float]] posX,--[[float]] posY,--[[float]] posZ,--[[int]] flags,--[[int]] value,--[[Hash (int)]] modelHash,--[[BOOL (bool)]] p7,--[[BOOL (bool)]] p8)native_invoker.begin_call();native_invoker.push_arg_int(pickupHash);native_invoker.push_arg_float(posX);native_invoker.push_arg_float(posY);native_invoker.push_arg_float(posZ);native_invoker.push_arg_int(flags);native_invoker.push_arg_int(value);native_invoker.push_arg_int(modelHash);native_invoker.push_arg_bool(p7);native_invoker.push_arg_bool(p8);native_invoker.end_call("673966A0C0FD7171");return native_invoker.get_return_value_int();end,
-	["_0x9C93764223E29C50"]=--[[Any (int)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5,--[[Any (int)]] p6,--[[Any (int)]] p7,--[[Any (int)]] p8)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_int(p6);native_invoker.push_arg_int(p7);native_invoker.push_arg_int(p8);native_invoker.end_call("9C93764223E29C50");return native_invoker.get_return_value_int();end,
+	["_CREATE_NON_NETWORKED_AMBIENT_PICKUP"]=--[[Pickup (int)]] function(--[[Hash (int)]] pickupHash,--[[float]] posX,--[[float]] posY,--[[float]] posZ,--[[int]] flags,--[[int]] value,--[[Hash (int)]] modelHash,--[[BOOL (bool)]] p7,--[[BOOL (bool)]] p8)native_invoker.begin_call();native_invoker.push_arg_int(pickupHash);native_invoker.push_arg_float(posX);native_invoker.push_arg_float(posY);native_invoker.push_arg_float(posZ);native_invoker.push_arg_int(flags);native_invoker.push_arg_int(value);native_invoker.push_arg_int(modelHash);native_invoker.push_arg_bool(p7);native_invoker.push_arg_bool(p8);native_invoker.end_call("9C93764223E29C50");return native_invoker.get_return_value_int();end,
 	["_0x1E3F1B1B891A2AAA"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("1E3F1B1B891A2AAA");end,
 	-- Pickup hashes: pastebin.com/8EuSv2r1
 	-- 
 	-- Full list of pickup types by DurtyFree: https://github.com/DurtyFree/gta-v-data-dumps/blob/master/pickupTypes.json
 	["CREATE_PORTABLE_PICKUP"]=--[[Object (int)]] function(--[[Hash (int)]] pickupHash,--[[float]] x,--[[float]] y,--[[float]] z,--[[BOOL (bool)]] placeOnGround,--[[Hash (int)]] modelHash)native_invoker.begin_call();native_invoker.push_arg_int(pickupHash);native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_bool(placeOnGround);native_invoker.push_arg_int(modelHash);native_invoker.end_call("2EAF1FDB2FB55698");return native_invoker.get_return_value_int();end,
-	-- CREATE_*
-	-- 
 	-- Full list of pickup types by DurtyFree: https://github.com/DurtyFree/gta-v-data-dumps/blob/master/pickupTypes.json
-	["_CREATE_PORTABLE_PICKUP_2"]=--[[Object (int)]] function(--[[Hash (int)]] pickupHash,--[[float]] x,--[[float]] y,--[[float]] z,--[[BOOL (bool)]] placeOnGround,--[[Hash (int)]] modelHash)native_invoker.begin_call();native_invoker.push_arg_int(pickupHash);native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_bool(placeOnGround);native_invoker.push_arg_int(modelHash);native_invoker.end_call("125494B98A21AAF7");return native_invoker.get_return_value_int();end,
+	["CREATE_NON_NETWORKED_PORTABLE_PICKUP"]=--[[Object (int)]] function(--[[Hash (int)]] pickupHash,--[[float]] x,--[[float]] y,--[[float]] z,--[[BOOL (bool)]] placeOnGround,--[[Hash (int)]] modelHash)native_invoker.begin_call();native_invoker.push_arg_int(pickupHash);native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_bool(placeOnGround);native_invoker.push_arg_int(modelHash);native_invoker.end_call("125494B98A21AAF7");return native_invoker.get_return_value_int();end,
 	["ATTACH_PORTABLE_PICKUP_TO_PED"]=--[[void]] function(--[[Object (int)]] pickupObject,--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(pickupObject);native_invoker.push_arg_int(ped);native_invoker.end_call("8DC39368BDD57755");end,
 	["DETACH_PORTABLE_PICKUP_FROM_PED"]=--[[void]] function(--[[Object (int)]] pickupObject)native_invoker.begin_call();native_invoker.push_arg_int(pickupObject);native_invoker.end_call("CF463D1E9A0AECB1");end,
+	["_0x5CE2E45A5CE2E45A"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("5CE2E45A5CE2E45A");end,
 	["_HIDE_PICKUP"]=--[[void]] function(--[[Object (int)]] pickupObject,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(pickupObject);native_invoker.push_arg_bool(toggle);native_invoker.end_call("867458251D47CCB2");end,
 	["SET_MAX_NUM_PORTABLE_PICKUPS_CARRIED_BY_PLAYER"]=--[[void]] function(--[[Hash (int)]] modelHash,--[[int]] p1)native_invoker.begin_call();native_invoker.push_arg_int(modelHash);native_invoker.push_arg_int(p1);native_invoker.end_call("0BF3B3BD47D79C08");end,
 	["SET_LOCAL_PLAYER_CAN_COLLECT_PORTABLE_PICKUPS"]=--[[void]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("78857FC65CADB909");end,
@@ -8522,7 +8480,7 @@ OBJECT={
 	-- Sets some value of pickup
 	-- SET_PICKUP_*
 	["_0xAA059C615DE9DD03"]=--[[void]] function(--[[Pickup (int)]] pickup,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(pickup);native_invoker.push_arg_bool(toggle);native_invoker.end_call("AA059C615DE9DD03");end,
-	["_0xF92099527DB8E2A7"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("F92099527DB8E2A7");end,
+	["SUPPRESS_PICKUP_REWARD_TYPE"]=--[[void]] function(--[[int]] rewardType,--[[BOOL (bool)]] suppress)native_invoker.begin_call();native_invoker.push_arg_int(rewardType);native_invoker.push_arg_bool(suppress);native_invoker.end_call("F92099527DB8E2A7");end,
 	-- CLEAR_*
 	["_0xA2C1F5E92AFE49ED"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("A2C1F5E92AFE49ED");end,
 	["_0x762DB2D380B48D04"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("762DB2D380B48D04");end,
@@ -8699,7 +8657,7 @@ PAD={
 	-- Does nothing (it's a nullsub).
 	["_0x14D29BB12D47F68C"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("14D29BB12D47F68C");end,
 	["STOP_PAD_SHAKE"]=--[[void]] function(--[[int]] padIndex)native_invoker.begin_call();native_invoker.push_arg_int(padIndex);native_invoker.end_call("38C16A305E8CDC8D");end,
-	["_0xF239400E16C23E08"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("F239400E16C23E08");end,
+	["SET_PAD_SHAKE_SUPPRESSED_ID"]=--[[void]] function(--[[int]] padIndex,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(padIndex);native_invoker.push_arg_int(p1);native_invoker.end_call("F239400E16C23E08");end,
 	["_0xA0CEFCEA390AAB9B"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("A0CEFCEA390AAB9B");end,
 	["IS_LOOK_INVERTED"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("77B612531280010D");return native_invoker.get_return_value_bool();end,
 	-- Used with IS_LOOK_INVERTED() and negates its affect.
@@ -8731,7 +8689,7 @@ PAD={
 	["SET_PLAYERPAD_SHAKES_WHEN_CONTROLLER_DISABLED"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("798FDEB5B1575088");end,
 	-- padIndex: 0 (PLAYER_CONTROL), 1 (unk) and 2 (unk) used in the scripts.
 	["SET_INPUT_EXCLUSIVE"]=--[[void]] function(--[[int]] padIndex,--[[int]] control)native_invoker.begin_call();native_invoker.push_arg_int(padIndex);native_invoker.push_arg_int(control);native_invoker.end_call("EDE476E5EE29EDB1");end,
-	-- control values and meaning: github.com/crosire/scripthookvdotnet/blob/dev_v3/source/scripting/Controls.cs
+	-- control values and meaning: https://pastebin.com/JEkxhZ7R 
 	-- 
 	-- padIndex: 0 (PLAYER_CONTROL), 1 (unk) and 2 (unk) used in the scripts.
 	-- 
@@ -8750,7 +8708,7 @@ PAD={
 	--  
 	-- Control group 1 and 0 gives the same results as 2. Same results for all players. 
 	["DISABLE_CONTROL_ACTION"]=--[[void]] function(--[[int]] padIndex,--[[int]] control,--[[BOOL (bool)]] disable)native_invoker.begin_call();native_invoker.push_arg_int(padIndex);native_invoker.push_arg_int(control);native_invoker.push_arg_bool(disable);native_invoker.end_call("FE99B66D079CF6BC");end,
-	-- control values and meaning: github.com/crosire/scripthookvdotnet/blob/dev/source/scripting/Controls.hpp
+	-- control values and meaning: https://pastebin.com/JEkxhZ7R 
 	-- 
 	-- padIndex: 0 (PLAYER_CONTROL), 1 (unk) and 2 (unk) used in the scripts.
 	-- 
@@ -8847,17 +8805,11 @@ PATHFIND={
 	-- Vector3 nodePos;
 	-- GET_CLOSEST_VEHICLE_NODE(x,y,z,&nodePos,...)
 	-- 
-	-- p4 is either 0, 1 or 8. 1 means any path/road. 0 means node in the middle of the closest main (asphalt) road.
+	-- nodeType: 0 = main roads, 1 = any dry path, 3 = water
 	-- p5, p6 are always the same:
 	-- 0x40400000 (3.0), 0
 	-- p5 can also be 100.0 and p6 can be 2.5:
 	-- PATHFIND::GET_CLOSEST_VEHICLE_NODE(a_0, &v_5, v_9, 100.0, 2.5)
-	-- 
-	-- Known node types: simple path/asphalt road, only asphalt road, water, under the map at always the same coords. 
-	-- 
-	-- The node types follows a pattern. For example, every fourth node is of the type water i.e. 3, 7, 11, 15, 19, 23, 27, 31, 35, 39... 239. Could not see any difference between nodes within certain types. 
-	-- Starting at 2, every fourth node is under the map, always same coords.
-	-- Same with only asphalt road (0, 4, 8, etc) and simple path/asphalt road (1, 5, 9, etc). 
 	-- 
 	-- gtaforums.com/topic/843561-pathfind-node-types
 	["GET_CLOSEST_VEHICLE_NODE"]=--[[BOOL (bool)]] function(--[[float]] x,--[[float]] y,--[[float]] z,--[[Vector3* (pointer)]] outPosition,--[[int]] nodeType,--[[float]] p5,--[[float]] p6)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_pointer(outPosition);native_invoker.push_arg_int(nodeType);native_invoker.push_arg_float(p5);native_invoker.push_arg_float(p6);native_invoker.end_call("240A18690AE96513");return native_invoker.get_return_value_bool();end,
@@ -8865,15 +8817,9 @@ PATHFIND={
 	["GET_CLOSEST_MAJOR_VEHICLE_NODE"]=--[[BOOL (bool)]] function(--[[float]] x,--[[float]] y,--[[float]] z,--[[Vector3* (pointer)]] outPosition,--[[float]] unknown1,--[[int]] unknown2)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_pointer(outPosition);native_invoker.push_arg_float(unknown1);native_invoker.push_arg_int(unknown2);native_invoker.end_call("2EABE3B06F58C1BE");return native_invoker.get_return_value_bool();end,
 	-- p5, p6 and p7 seems to be about the same as p4, p5 and p6 for GET_CLOSEST_VEHICLE_NODE. p6 and/or p7 has something to do with finding a node on the same path/road and same direction(at least for this native, something to do with the heading maybe). Edit this when you find out more.
 	-- 
-	-- p5 is either 1 or 12. 1 means any path/road. 12, 8, 0 means node in the middle of the closest main (asphalt) road.
+	-- nodeType: 0 = main roads, 1 = any dry path, 3 = water
 	-- p6 is always 3.0
-	-- p7 is always 0.
-	-- 
-	-- Known node types: simple path/asphalt road, only asphalt road, water, under the map at always the same coords. 
-	-- 
-	-- The node types follows a pattern. For example, every fourth node is of the type water i.e. 3, 7, 11, 15, 19, 23, 27, 31, 35, 39... 239. Could not see any difference between nodes within certain types. 
-	-- Starting at 2, every fourth node is under the map, always same coords.
-	-- Same with only asphalt road (0, 4, 8, etc) and simple path/asphalt road (1, 5, 9, etc).
+	-- p7 is always 0
 	-- 
 	-- gtaforums.com/topic/843561-pathfind-node-types
 	-- 
@@ -9002,13 +8948,13 @@ PATHFIND={
 	["REMOVE_NAVMESH_BLOCKING_OBJECT"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("46399A7895957C0E");end,
 	["DOES_NAVMESH_BLOCKING_OBJECT_EXIST"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("0EAEB0DB4B132399");return native_invoker.get_return_value_bool();end,
 	-- Returns CGameWorldHeightMap's maximum Z value at specified point (grid node).
-	["_GET_HEIGHTMAP_TOP_Z_FOR_POSITION"]=--[[float]] function(--[[float]] x,--[[float]] y)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.end_call("29C24BFBED8AB8FB");return native_invoker.get_return_value_float();end,
+	["GET_APPROX_HEIGHT_FOR_POINT"]=--[[float]] function(--[[float]] x,--[[float]] y)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.end_call("29C24BFBED8AB8FB");return native_invoker.get_return_value_float();end,
 	-- Returns CGameWorldHeightMap's maximum Z among all grid nodes that intersect with the specified rectangle.
-	["_GET_HEIGHTMAP_TOP_Z_FOR_AREA"]=--[[float]] function(--[[float]] x1,--[[float]] y1,--[[float]] x2,--[[float]] y2)native_invoker.begin_call();native_invoker.push_arg_float(x1);native_invoker.push_arg_float(y1);native_invoker.push_arg_float(x2);native_invoker.push_arg_float(y2);native_invoker.end_call("8ABE8608576D9CE3");return native_invoker.get_return_value_float();end,
+	["GET_APPROX_HEIGHT_FOR_AREA"]=--[[float]] function(--[[float]] x1,--[[float]] y1,--[[float]] x2,--[[float]] y2)native_invoker.begin_call();native_invoker.push_arg_float(x1);native_invoker.push_arg_float(y1);native_invoker.push_arg_float(x2);native_invoker.push_arg_float(y2);native_invoker.end_call("8ABE8608576D9CE3");return native_invoker.get_return_value_float();end,
 	-- Returns CGameWorldHeightMap's minimum Z value at specified point (grid node).
-	["_GET_HEIGHTMAP_BOTTOM_Z_FOR_POSITION"]=--[[float]] function(--[[float]] x,--[[float]] y)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.end_call("336511A34F2E5185");return native_invoker.get_return_value_float();end,
+	["GET_APPROX_FLOOR_FOR_POINT"]=--[[float]] function(--[[float]] x,--[[float]] y)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.end_call("336511A34F2E5185");return native_invoker.get_return_value_float();end,
 	-- Returns CGameWorldHeightMap's minimum Z among all grid nodes that intersect with the specified rectangle.
-	["_GET_HEIGHTMAP_BOTTOM_Z_FOR_AREA"]=--[[float]] function(--[[float]] x1,--[[float]] y1,--[[float]] x2,--[[float]] y2)native_invoker.begin_call();native_invoker.push_arg_float(x1);native_invoker.push_arg_float(y1);native_invoker.push_arg_float(x2);native_invoker.push_arg_float(y2);native_invoker.end_call("3599D741C9AC6310");return native_invoker.get_return_value_float();end,
+	["GET_APPROX_FLOOR_FOR_AREA"]=--[[float]] function(--[[float]] x1,--[[float]] y1,--[[float]] x2,--[[float]] y2)native_invoker.begin_call();native_invoker.push_arg_float(x1);native_invoker.push_arg_float(y1);native_invoker.push_arg_float(x2);native_invoker.push_arg_float(y2);native_invoker.end_call("3599D741C9AC6310");return native_invoker.get_return_value_float();end,
 	-- Calculates the travel distance between a set of points.
 	-- 
 	-- Doesn't seem to correlate with distance on gps sometimes.
@@ -9312,7 +9258,7 @@ PED={
 	-- 
 	-- p1 is usually 0 in the scripts because it gets the ped id during the task sequence. For instance: PED::IS_PED_IN_COMBAT(l_42E[4/*14*/], PLAYER::PLAYER_PED_ID()) // armenian2.ct4: 43794
 	["IS_PED_IN_COMBAT"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped,--[[Ped (int)]] target)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(target);native_invoker.end_call("4859F1FC66A6278E");return native_invoker.get_return_value_bool();end,
-	["_0x32C27A11307B01CC"]=--[[Any (int)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("32C27A11307B01CC");return native_invoker.get_return_value_int();end,
+	["_GET_PED_TASK_COMBAT_TARGET"]=--[[Entity (int)]] function(--[[Ped (int)]] ped,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(p1);native_invoker.end_call("32C27A11307B01CC");return native_invoker.get_return_value_int();end,
 	["CAN_PED_IN_COMBAT_SEE_TARGET"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped,--[[Ped (int)]] target)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(target);native_invoker.end_call("EAD42DE3610D0721");return native_invoker.get_return_value_bool();end,
 	["IS_PED_DOING_DRIVEBY"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("B2C086CC1BF8F2BF");return native_invoker.get_return_value_bool();end,
 	["IS_PED_JACKING"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("4AE4FF911DFB61DA");return native_invoker.get_return_value_bool();end,
@@ -9746,27 +9692,28 @@ PED={
 	-- 
 	-- Full list of ped components by DurtyFree: https://github.com/DurtyFree/gta-v-data-dumps/blob/master/pedComponentVariations.json
 	["IS_PED_COMPONENT_VARIATION_VALID"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped,--[[int]] componentId,--[[int]] drawableId,--[[int]] textureId)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(componentId);native_invoker.push_arg_int(drawableId);native_invoker.push_arg_int(textureId);native_invoker.end_call("E825F6B6CEA7671D");return native_invoker.get_return_value_bool();end,
-	-- paletteId/palletColor -  0 to 3. 
-	-- enum PedVariationData
-	-- {
-	--  PED_VARIATION_FACE = 0,
-	--    PED_VARIATION_HEAD = 1,
-	--    PED_VARIATION_HAIR = 2,
-	--    PED_VARIATION_TORSO = 3,
-	--   PED_VARIATION_LEGS = 4,
-	--    PED_VARIATION_HANDS = 5,
-	--   PED_VARIATION_FEET = 6,
-	--    PED_VARIATION_EYES = 7,
-	--    PED_VARIATION_ACCESSORIES = 8,
-	--     PED_VARIATION_TASKS = 9,
-	--   PED_VARIATION_TEXTURES = 10,
-	--   PED_VARIATION_TORSO2 = 11
-	-- };
-	-- Usage: 
-	-- SET_PED_COMPONENT_VARIATION(playerPed, PED_VARIATION_FACE, GET_NUMBER_OF_PED_DRAWABLE_VARIATIONS(playerPed, PED_VARIATION_FACE), GET_NUMBER_OF_PED_TEXTURE_VARIATIONS(playerPed, PED_VARIATION_FACE, 0), 2);
+	-- paletteId: 0 to 3.
 	-- 
-	-- List of component/props ID
-	-- gtaxscripting.blogspot.com/2016/04/gta-v-peds-component-and-props.html
+	-- componentId:
+	-- enum ePedVarComp
+	-- {
+	-- 	PV_COMP_INVALID = -1,
+	-- 	PV_COMP_HEAD,
+	-- 	PV_COMP_BERD,
+	-- 	PV_COMP_HAIR,
+	-- 	PV_COMP_UPPR,
+	-- 	PV_COMP_LOWR,
+	-- 	PV_COMP_HAND,
+	-- 	PV_COMP_FEET,
+	-- 	PV_COMP_TEEF,
+	-- 	PV_COMP_ACCS,
+	-- 	PV_COMP_TASK,
+	-- 	PV_COMP_DECL,
+	-- 	PV_COMP_JBIB,
+	-- 	PV_COMP_MAX
+	-- };
+	-- 
+	-- Examples: https://gtaxscripting.blogspot.com/2016/04/gta-v-peds-component-and-props.html
 	-- 
 	-- Full list of ped components by DurtyFree: https://github.com/DurtyFree/gta-v-data-dumps/blob/master/pedComponentVariations.json
 	["SET_PED_COMPONENT_VARIATION"]=--[[void]] function(--[[Ped (int)]] ped,--[[int]] componentId,--[[int]] drawableId,--[[int]] textureId,--[[int]] paletteId)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(componentId);native_invoker.push_arg_int(drawableId);native_invoker.push_arg_int(textureId);native_invoker.push_arg_int(paletteId);native_invoker.end_call("262B14F48D29DE80");end,
@@ -9963,7 +9910,7 @@ PED={
 	-- Used when calling SET_PED_HEAD_BLEND_DATA.
 	["GET_PED_HEAD_BLEND_FIRST_INDEX"]=--[[int]] function(--[[int]] type)native_invoker.begin_call();native_invoker.push_arg_int(type);native_invoker.end_call("68D353AB88B97E0C");return native_invoker.get_return_value_int();end,
 	-- Type equals 0 for male non-dlc, 1 for female non-dlc, 2 for male dlc, and 3 for female dlc.
-	["_GET_NUM_PARENT_PEDS_OF_TYPE"]=--[[int]] function(--[[int]] type)native_invoker.begin_call();native_invoker.push_arg_int(type);native_invoker.end_call("5EF37013A6539C9D");return native_invoker.get_return_value_int();end,
+	["GET_PED_HEAD_BLEND_NUM_HEADS"]=--[[int]] function(--[[int]] type)native_invoker.begin_call();native_invoker.push_arg_int(type);native_invoker.end_call("5EF37013A6539C9D");return native_invoker.get_return_value_int();end,
 	-- from extreme3.c4
 	-- PED::_39D55A620FCB6A3A(PLAYER::PLAYER_PED_ID(), 8, PED::GET_PED_DRAWABLE_VARIATION(PLAYER::PLAYER_PED_ID(), 8), PED::GET_PED_TEXTURE_VARIATION(PLAYER::PLAYER_PED_ID(), 8));
 	-- 
@@ -10129,21 +10076,7 @@ PED={
 	["SET_PED_CAN_RAGDOLL"]=--[[void]] function(--[[Ped (int)]] ped,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_bool(toggle);native_invoker.end_call("B128377056A54E2A");end,
 	["IS_PED_RUNNING_MELEE_TASK"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("D1871251F3B5ACD7");return native_invoker.get_return_value_bool();end,
 	["IS_PED_RUNNING_MOBILE_PHONE_TASK"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("2AFE52F782F25775");return native_invoker.get_return_value_bool();end,
-	-- Only called once in the scripts:
-	-- 
-	-- if (sub_1abd() && (!PED::_A3F3564A5B3646C0(l_8C))) {
-	--     if (sub_52e3("RESNA_CELLR", 0)) {
-	--         PED::SET_PED_CAN_PLAY_GESTURE_ANIMS(l_8C, 1);
-	--         PED::SET_PED_CAN_PLAY_AMBIENT_ANIMS(l_8C, 1);
-	--         PED::SET_PED_CAN_PLAY_VISEME_ANIMS(l_8C, 1, 0);
-	--         l_184 += 1;
-	--     }
-	-- }
-	-- 
-	-- Checks something related to the mobile phone task.
-	-- 
-	-- IS_*
-	["_0xA3F3564A5B3646C0"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("A3F3564A5B3646C0");return native_invoker.get_return_value_bool();end,
+	["IS_MOBILE_PHONE_TO_PED_EAR"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("A3F3564A5B3646C0");return native_invoker.get_return_value_bool();end,
 	-- Works for both player and peds, but some flags don't seem to work for the player (1, for example)
 	-- 
 	-- 1 - Blocks ragdolling when shot.
@@ -10202,16 +10135,23 @@ PED={
 	["_0xF9ACF4A08098EA25"]=--[[void]] function(--[[Ped (int)]] ped,--[[BOOL (bool)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_bool(p1);native_invoker.end_call("F9ACF4A08098EA25");end,
 	["RESET_PED_VISIBLE_DAMAGE"]=--[[void]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("3AC1F7B898F30C05");end,
 	["APPLY_PED_BLOOD_DAMAGE_BY_ZONE"]=--[[void]] function(--[[Ped (int)]] ped,--[[Any (int)]] p1,--[[float]] p2,--[[float]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(p1);native_invoker.push_arg_float(p2);native_invoker.push_arg_float(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("816F6981C60BF53B");end,
-	-- Found one occurence in re_crashrescue.c4
-	-- 
-	-- PED::APPLY_PED_BLOOD(l_4B, 3, 0.0, 0.0, 0.0, "wound_sheet");
-	-- 
-	-- - winject
-	-- 
-	-- 
+	-- woundTypes:
+	-- - soak_splat
+	-- - wound_sheet
+	-- - BulletSmall
+	-- - BulletLarge
+	-- - ShotgunSmall
+	-- - ShotgunSmallMonolithic
+	-- - ShotgunLarge
+	-- - ShotgunLargeMonolithic
+	-- - NonFatalHeadshot
+	-- - stab
+	-- - BasicSlash
+	-- - Scripted_Ped_Splash_Back
+	-- - BackSplash
 	["APPLY_PED_BLOOD"]=--[[void]] function(--[[Ped (int)]] ped,--[[int]] boneIndex,--[[float]] xRot,--[[float]] yRot,--[[float]] zRot,--[[string]] woundType)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(boneIndex);native_invoker.push_arg_float(xRot);native_invoker.push_arg_float(yRot);native_invoker.push_arg_float(zRot);native_invoker.push_arg_string(woundType);native_invoker.end_call("83F7E01C7B769A26");end,
-	["APPLY_PED_BLOOD_BY_ZONE"]=--[[void]] function(--[[Ped (int)]] ped,--[[Any (int)]] p1,--[[float]] p2,--[[float]] p3,--[[Any* (pointer)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(p1);native_invoker.push_arg_float(p2);native_invoker.push_arg_float(p3);native_invoker.push_arg_pointer(p4);native_invoker.end_call("3311E47B91EDCBBC");end,
-	["APPLY_PED_BLOOD_SPECIFIC"]=--[[void]] function(--[[Ped (int)]] ped,--[[Any (int)]] p1,--[[float]] p2,--[[float]] p3,--[[float]] p4,--[[float]] p5,--[[Any (int)]] p6,--[[float]] p7,--[[Any* (pointer)]] p8)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(p1);native_invoker.push_arg_float(p2);native_invoker.push_arg_float(p3);native_invoker.push_arg_float(p4);native_invoker.push_arg_float(p5);native_invoker.push_arg_int(p6);native_invoker.push_arg_float(p7);native_invoker.push_arg_pointer(p8);native_invoker.end_call("EF0D582CBF2D9B0F");end,
+	["APPLY_PED_BLOOD_BY_ZONE"]=--[[void]] function(--[[Ped (int)]] ped,--[[int]] p1,--[[float]] p2,--[[float]] p3,--[[string]] p4)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(p1);native_invoker.push_arg_float(p2);native_invoker.push_arg_float(p3);native_invoker.push_arg_string(p4);native_invoker.end_call("3311E47B91EDCBBC");end,
+	["APPLY_PED_BLOOD_SPECIFIC"]=--[[void]] function(--[[Ped (int)]] ped,--[[int]] p1,--[[float]] p2,--[[float]] p3,--[[float]] p4,--[[float]] p5,--[[int]] p6,--[[float]] p7,--[[string]] p8)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(p1);native_invoker.push_arg_float(p2);native_invoker.push_arg_float(p3);native_invoker.push_arg_float(p4);native_invoker.push_arg_float(p5);native_invoker.push_arg_int(p6);native_invoker.push_arg_float(p7);native_invoker.push_arg_string(p8);native_invoker.end_call("EF0D582CBF2D9B0F");end,
 	-- enum eDamageZone
 	-- {
 	-- 	DZ_Torso = 0,
@@ -10324,8 +10264,8 @@ PED={
 	-- 	ZONE_RIGHT_ARM = 3,
 	-- 	ZONE_LEFT_LEG = 4,
 	-- 	ZONE_RIGHT_LEG = 5,
-	-- 	ZONE_UNKNOWN = 6,
-	-- 	ZONE_NONE = 7
+	-- 	ZONE_MEDALS = 6,
+	-- 	ZONE_INVALID = 7
 	-- };
 	-- 
 	-- Full list of ped overlays / decorations by DurtyFree: https://github.com/DurtyFree/gta-v-data-dumps/blob/master/pedOverlayCollections.json
@@ -10430,65 +10370,474 @@ PED={
 	["SET_PED_CLOTH_PACKAGE_INDEX"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("78C4E9961DB3EB5B");end,
 	["SET_PED_CLOTH_PRONE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("82A3D6D9CC2CB8E3");end,
 	["_0xA660FAF550EB37E5"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.end_call("A660FAF550EB37E5");end,
-	-- Research help : pastebin.com/fPL1cSwB
-	-- New items added with underscore as first char
-	-- -----------------------------------------------------------------------
-	-- 
-	-- enum PedConfigFlags
+	-- enum ePedConfigFlags
 	-- {
-	-- 	PED_FLAG_CAN_FLY_THRU_WINDSCREEN = 32,
-	-- 	PED_FLAG_DIES_BY_RAGDOLL = 33,
-	-- 	PED_FLAG_NO_COLLISION = 52,
-	-- 	_PED_FLAG_IS_SHOOTING = 58,
-	-- 	_PED_FLAG_IS_ON_GROUND = 60,
-	-- 	PED_FLAG_NO_COLLIDE = 62,
-	-- 	PED_FLAG_DEAD = 71,
-	-- 	PED_FLAG_IS_SNIPER_SCOPE_ACTIVE = 72,
-	-- 	PED_FLAG_SUPER_DEAD = 73,
-	-- 	_PED_FLAG_IS_IN_AIR = 76,
-	-- 	PED_FLAG_IS_AIMING = 78,
-	-- 	PED_FLAG_DRUNK = 100,
-	-- 	_PED_FLAG_IS_NOT_RAGDOLL_AND_NOT_PLAYING_ANIM = 104,
-	-- 	PED_FLAG_NO_PLAYER_MELEE = 122,
-	-- 	PED_FLAG_NM_MESSAGE_466 = 125,
-	-- 	PED_FLAG_INJURED_LIMP = 166,
-	-- 	PED_FLAG_INJURED_LIMP_2 = 170,
-	-- 	PED_FLAG_INJURED_DOWN = 187,
-	-- 	PED_FLAG_SHRINK = 223,
-	-- 	PED_FLAG_MELEE_COMBAT = 224,
-	-- 	_PED_FLAG_IS_ON_STAIRS = 253,
-	-- 	_PED_FLAG_HAS_ONE_LEG_ON_GROUND = 276,
-	-- 	PED_FLAG_NO_WRITHE = 281,
-	-- 	PED_FLAG_FREEZE = 292,
-	-- 	PED_FLAG_IS_STILL = 301,
-	-- 	PED_FLAG_NO_PED_MELEE = 314,
-	-- 	_PED_SWITCHING_WEAPON = 331,
-	-- 	PED_FLAG_ALPHA = 410,
+	-- 	_CPED_CONFIG_FLAG_0x67D1A445 = 0,
+	-- 	_CPED_CONFIG_FLAG_0xC63DE95E = 1,
+	-- 	CPED_CONFIG_FLAG_NoCriticalHits = 2,
+	-- 	CPED_CONFIG_FLAG_DrownsInWater = 3,
+	-- 	CPED_CONFIG_FLAG_DisableReticuleFixedLockon = 4,
+	-- 	_CPED_CONFIG_FLAG_0x37D196F4 = 5,
+	-- 	_CPED_CONFIG_FLAG_0xE2462399 = 6,
+	-- 	CPED_CONFIG_FLAG_UpperBodyDamageAnimsOnly = 7,
+	-- 	_CPED_CONFIG_FLAG_0xEDDEB838 = 8,
+	-- 	_CPED_CONFIG_FLAG_0xB398B6FD = 9,
+	-- 	_CPED_CONFIG_FLAG_0xF6664E68 = 10,
+	-- 	_CPED_CONFIG_FLAG_0xA05E7CA3 = 11,
+	-- 	_CPED_CONFIG_FLAG_0xCE394045 = 12,
+	-- 	CPED_CONFIG_FLAG_NeverLeavesGroup = 13,
+	-- 	_CPED_CONFIG_FLAG_0xCD8D1411 = 14,
+	-- 	_CPED_CONFIG_FLAG_0xB031F1A9 = 15,
+	-- 	_CPED_CONFIG_FLAG_0xFE65BEE3 = 16,
+	-- 	CPED_CONFIG_FLAG_BlockNonTemporaryEvents = 17,
+	-- 	_CPED_CONFIG_FLAG_0x380165BD = 18,
+	-- 	_CPED_CONFIG_FLAG_0x07C045C7 = 19,
+	-- 	_CPED_CONFIG_FLAG_0x583B5E2D = 20,
+	-- 	_CPED_CONFIG_FLAG_0x475EDA58 = 21,
+	-- 	_CPED_CONFIG_FLAG_0x8629D05B = 22,
+	-- 	_CPED_CONFIG_FLAG_0x1522968B = 23,
+	-- 	CPED_CONFIG_FLAG_IgnoreSeenMelee = 24,
+	-- 	_CPED_CONFIG_FLAG_0x4CC09C4B = 25,
+	-- 	_CPED_CONFIG_FLAG_0x034F3053 = 26,
+	-- 	_CPED_CONFIG_FLAG_0xD91BA7CC = 27,
+	-- 	_CPED_CONFIG_FLAG_0x5C8DC66E = 28,
+	-- 	_CPED_CONFIG_FLAG_0x8902EAA0 = 29,
+	-- 	_CPED_CONFIG_FLAG_0x6580B9D2 = 30,
+	-- 	_CPED_CONFIG_FLAG_0x0EF7A297 = 31,
+	-- 	_CPED_CONFIG_FLAG_CanFlyThruWindscreen = 32, // 0x6BF86E5B
+	-- 	CPED_CONFIG_FLAG_DieWhenRagdoll = 33,
+	-- 	CPED_CONFIG_FLAG_HasHelmet = 34,
+	-- 	CPED_CONFIG_FLAG_UseHelmet = 35,
+	-- 	_CPED_CONFIG_FLAG_0xEEB3D630 = 36,
+	-- 	_CPED_CONFIG_FLAG_0xB130D17B = 37,
+	-- 	_CPED_CONFIG_FLAG_0x5F071200 = 38,
+	-- 	CPED_CONFIG_FLAG_DisableEvasiveDives = 39,
+	-- 	_CPED_CONFIG_FLAG_0xC287AAFF = 40,
+	-- 	_CPED_CONFIG_FLAG_0x203328CC = 41,
+	-- 	CPED_CONFIG_FLAG_DontInfluenceWantedLevel = 42,
+	-- 	CPED_CONFIG_FLAG_DisablePlayerLockon = 43,
+	-- 	CPED_CONFIG_FLAG_DisableLockonToRandomPeds = 44,
+	-- 	_CPED_CONFIG_FLAG_0xEC4A8ACF = 45,
+	-- 	_CPED_CONFIG_FLAG_0xDB115BFA = 46,
+	-- 	CPED_CONFIG_FLAG_PedBeingDeleted = 47,
+	-- 	CPED_CONFIG_FLAG_BlockWeaponSwitching = 48,
+	-- 	_CPED_CONFIG_FLAG_0xF8E99565 = 49,
+	-- 	_CPED_CONFIG_FLAG_0xDD17FEE6 = 50,
+	-- 	_CPED_CONFIG_FLAG_0x7ED9B2C9 = 51,
+	-- 	_CPED_CONFIG_FLAG_NoCollison = 52, // 0x655E8618
+	-- 	_CPED_CONFIG_FLAG_0x5A6C1F6E = 53,
+	-- 	_CPED_CONFIG_FLAG_0xD749FC41 = 54,
+	-- 	_CPED_CONFIG_FLAG_0x357F63F3 = 55,
+	-- 	_CPED_CONFIG_FLAG_0xC5E60961 = 56,
+	-- 	_CPED_CONFIG_FLAG_0x29275C3E = 57,
+	-- 	CPED_CONFIG_FLAG_IsFiring = 58,
+	-- 	CPED_CONFIG_FLAG_WasFiring = 59,
+	-- 	CPED_CONFIG_FLAG_IsStanding = 60,
+	-- 	CPED_CONFIG_FLAG_WasStanding = 61,
+	-- 	CPED_CONFIG_FLAG_InVehicle = 62,
+	-- 	CPED_CONFIG_FLAG_OnMount = 63,
+	-- 	CPED_CONFIG_FLAG_AttachedToVehicle = 64,
+	-- 	CPED_CONFIG_FLAG_IsSwimming = 65,
+	-- 	CPED_CONFIG_FLAG_WasSwimming = 66,
+	-- 	CPED_CONFIG_FLAG_IsSkiing = 67,
+	-- 	CPED_CONFIG_FLAG_IsSitting = 68,
+	-- 	CPED_CONFIG_FLAG_KilledByStealth = 69,
+	-- 	CPED_CONFIG_FLAG_KilledByTakedown = 70,
+	-- 	CPED_CONFIG_FLAG_Knockedout = 71,
+	-- 	_CPED_CONFIG_FLAG_0x3E3C4560 = 72,
+	-- 	_CPED_CONFIG_FLAG_0x2994C7B7 = 73,
+	-- 	_CPED_CONFIG_FLAG_0x6D59D275 = 74,
+	-- 	CPED_CONFIG_FLAG_UsingCoverPoint = 75,
+	-- 	CPED_CONFIG_FLAG_IsInTheAir = 76,
+	-- 	_CPED_CONFIG_FLAG_0x2D493FB7 = 77,
+	-- 	CPED_CONFIG_FLAG_IsAimingGun = 78,
+	-- 	_CPED_CONFIG_FLAG_0x14D69875 = 79,
+	-- 	_CPED_CONFIG_FLAG_0x40B05311 = 80,
+	-- 	_CPED_CONFIG_FLAG_0x8B230BC5 = 81,
+	-- 	_CPED_CONFIG_FLAG_0xC74E5842 = 82,
+	-- 	_CPED_CONFIG_FLAG_0x9EA86147 = 83,
+	-- 	_CPED_CONFIG_FLAG_0x674C746C = 84,
+	-- 	_CPED_CONFIG_FLAG_0x3E56A8C2 = 85,
+	-- 	_CPED_CONFIG_FLAG_0xC144A1EF = 86,
+	-- 	_CPED_CONFIG_FLAG_0x0548512D = 87,
+	-- 	_CPED_CONFIG_FLAG_0x31C93909 = 88,
+	-- 	_CPED_CONFIG_FLAG_0xA0269315 = 89,
+	-- 	_CPED_CONFIG_FLAG_0xD4D59D4D = 90,
+	-- 	_CPED_CONFIG_FLAG_0x411D4420 = 91,
+	-- 	_CPED_CONFIG_FLAG_0xDF4AEF0D = 92,
+	-- 	CPED_CONFIG_FLAG_ForcePedLoadCover = 93,
+	-- 	_CPED_CONFIG_FLAG_0x300E4CD3 = 94,
+	-- 	_CPED_CONFIG_FLAG_0xF1C5BF04 = 95,
+	-- 	_CPED_CONFIG_FLAG_0x89C2EF13 = 96,
+	-- 	CPED_CONFIG_FLAG_VaultFromCover = 97,
+	-- 	_CPED_CONFIG_FLAG_0x02A852C8 = 98,
+	-- 	_CPED_CONFIG_FLAG_0x3D9407F1 = 99,
+	-- 	_CPED_CONFIG_FLAG_IsDrunk = 100, // 0x319B4558
+	-- 	CPED_CONFIG_FLAG_ForcedAim = 101,
+	-- 	_CPED_CONFIG_FLAG_0xB942D71A = 102,
+	-- 	_CPED_CONFIG_FLAG_0xD26C55A8 = 103,
+	-- 	_CPED_CONFIG_FLAG_0xB89E703B = 104,
+	-- 	CPED_CONFIG_FLAG_ForceReload = 105,
+	-- 	_CPED_CONFIG_FLAG_0xD9E73DA2 = 106,
+	-- 	_CPED_CONFIG_FLAG_0xFF71DC2C = 107,
+	-- 	_CPED_CONFIG_FLAG_0x1E27E8D8 = 108,
+	-- 	_CPED_CONFIG_FLAG_0xF2C53966 = 109,
+	-- 	_CPED_CONFIG_FLAG_0xC4DBE247 = 110,
+	-- 	_CPED_CONFIG_FLAG_0x83C0A4BF = 111,
+	-- 	_CPED_CONFIG_FLAG_0x0E0FAF8C = 112,
+	-- 	_CPED_CONFIG_FLAG_0x26616660 = 113,
+	-- 	_CPED_CONFIG_FLAG_0x43B80B79 = 114,
+	-- 	_CPED_CONFIG_FLAG_0x0D2A9309 = 115,
+	-- 	_CPED_CONFIG_FLAG_0x12C1C983 = 116,
+	-- 	CPED_CONFIG_FLAG_BumpedByPlayer = 117,
+	-- 	_CPED_CONFIG_FLAG_0xE586D504 = 118,
+	-- 	_CPED_CONFIG_FLAG_0x52374204 = 119,
+	-- 	CPED_CONFIG_FLAG_IsHandCuffed = 120,
+	-- 	CPED_CONFIG_FLAG_IsAnkleCuffed = 121,
+	-- 	CPED_CONFIG_FLAG_DisableMelee = 122,
+	-- 	_CPED_CONFIG_FLAG_0xFE714397 = 123,
+	-- 	_CPED_CONFIG_FLAG_0xB3E660BD = 124,
+	-- 	_CPED_CONFIG_FLAG_0x5FED6BFD = 125,
+	-- 	_CPED_CONFIG_FLAG_0xC9D6F66F = 126,
+	-- 	_CPED_CONFIG_FLAG_0x519BC986 = 127,
+	-- 	CPED_CONFIG_FLAG_CanBeAgitated = 128,
+	-- 	_CPED_CONFIG_FLAG_0x9A4B617C = 129,
+	-- 	_CPED_CONFIG_FLAG_0xDAB70E9F = 130,
+	-- 	_CPED_CONFIG_FLAG_0xE569438A = 131,
+	-- 	_CPED_CONFIG_FLAG_0xBBC77D6D = 132,
+	-- 	_CPED_CONFIG_FLAG_0xCB59EF0F = 133,
+	-- 	_CPED_CONFIG_FLAG_0x8C5EA971 = 134,
+	-- 	CPED_CONFIG_FLAG_IsScuba = 135,
+	-- 	CPED_CONFIG_FLAG_WillArrestRatherThanJack = 136,
+	-- 	_CPED_CONFIG_FLAG_0xDCE59B58 = 137,
+	-- 	CPED_CONFIG_FLAG_RidingTrain = 138,
+	-- 	CPED_CONFIG_FLAG_ArrestResult = 139,
+	-- 	CPED_CONFIG_FLAG_CanAttackFriendly = 140,
+	-- 	_CPED_CONFIG_FLAG_0x98A4BE43 = 141,
+	-- 	_CPED_CONFIG_FLAG_0x6901E731 = 142,
+	-- 	_CPED_CONFIG_FLAG_0x9EC9BF6C = 143,
+	-- 	_CPED_CONFIG_FLAG_0x42841A8F = 144,
+	-- 	CPED_CONFIG_FLAG_ShootingAnimFlag = 145,
+	-- 	CPED_CONFIG_FLAG_DisableLadderClimbing = 146,
+	-- 	CPED_CONFIG_FLAG_StairsDetected = 147,
+	-- 	CPED_CONFIG_FLAG_SlopeDetected = 148,
+	-- 	_CPED_CONFIG_FLAG_0x1A15670B = 149,
+	-- 	_CPED_CONFIG_FLAG_0x61786EE5 = 150,
+	-- 	_CPED_CONFIG_FLAG_0xCB9186BD = 151,
+	-- 	_CPED_CONFIG_FLAG_0xF0710152 = 152,
+	-- 	_CPED_CONFIG_FLAG_0x43DFE310 = 153,
+	-- 	_CPED_CONFIG_FLAG_0xC43C624E = 154,
+	-- 	CPED_CONFIG_FLAG_CanPerformArrest = 155,
+	-- 	CPED_CONFIG_FLAG_CanPerformUncuff = 156,
+	-- 	CPED_CONFIG_FLAG_CanBeArrested = 157,
+	-- 	_CPED_CONFIG_FLAG_0xF7960FF5 = 158,
+	-- 	_CPED_CONFIG_FLAG_0x59564113 = 159,
+	-- 	_CPED_CONFIG_FLAG_0x0C6C3099 = 160,
+	-- 	_CPED_CONFIG_FLAG_0x645F927A = 161,
+	-- 	_CPED_CONFIG_FLAG_0xA86549B9 = 162,
+	-- 	_CPED_CONFIG_FLAG_0x8AAF337A = 163,
+	-- 	_CPED_CONFIG_FLAG_0x13BAA6E7 = 164,
+	-- 	_CPED_CONFIG_FLAG_0x5FB9D1F5 = 165,
+	-- 	CPED_CONFIG_FLAG_IsInjured = 166,
+	-- 	_CPED_CONFIG_FLAG_0x6398A20B = 167,
+	-- 	_CPED_CONFIG_FLAG_0xD8072639 = 168,
+	-- 	_CPED_CONFIG_FLAG_0xA05B1845 = 169,
+	-- 	_CPED_CONFIG_FLAG_0x83F6D220 = 170,
+	-- 	_CPED_CONFIG_FLAG_0xD8430331 = 171,
+	-- 	_CPED_CONFIG_FLAG_0x4B547520 = 172,
+	-- 	_CPED_CONFIG_FLAG_0xE66E1406 = 173,
+	-- 	_CPED_CONFIG_FLAG_0x1C4BFE0C = 174,
+	-- 	_CPED_CONFIG_FLAG_0x90008BFA = 175,
+	-- 	_CPED_CONFIG_FLAG_0x07C7A910 = 176,
+	-- 	_CPED_CONFIG_FLAG_0xF15F8191 = 177,
+	-- 	_CPED_CONFIG_FLAG_0xCE4E8BE2 = 178,
+	-- 	_CPED_CONFIG_FLAG_0x1D46E4F2 = 179,
+	-- 	CPED_CONFIG_FLAG_IsInCustody = 180,
+	-- 	_CPED_CONFIG_FLAG_0xE4FD9B3A = 181,
+	-- 	_CPED_CONFIG_FLAG_0x67AE0812 = 182,
+	-- 	CPED_CONFIG_FLAG_IsAgitated = 183,
+	-- 	CPED_CONFIG_FLAG_PreventAutoShuffleToDriversSeat = 184,
+	-- 	_CPED_CONFIG_FLAG_0x7B2D325E = 185,
+	-- 	CPED_CONFIG_FLAG_EnableWeaponBlocking = 186,
+	-- 	CPED_CONFIG_FLAG_HasHurtStarted = 187,
+	-- 	CPED_CONFIG_FLAG_DisableHurt = 188,
+	-- 	CPED_CONFIG_FLAG_PlayerIsWeird = 189,
+	-- 	_CPED_CONFIG_FLAG_0x32FC208B = 190,
+	-- 	_CPED_CONFIG_FLAG_0x0C296E5A = 191,
+	-- 	_CPED_CONFIG_FLAG_0xE63B73EC = 192,
+	-- 	_CPED_CONFIG_FLAG_0x04E9CC80 = 193,
+	-- 	CPED_CONFIG_FLAG_UsingScenario = 194,
+	-- 	CPED_CONFIG_FLAG_VisibleOnScreen = 195,
+	-- 	_CPED_CONFIG_FLAG_0xD88C58A1 = 196,
+	-- 	_CPED_CONFIG_FLAG_0x5A3DCF43 = 197,
+	-- 	_CPED_CONFIG_FLAG_0xEA02B420 = 198,
+	-- 	_CPED_CONFIG_FLAG_0x3F559CFF = 199,
+	-- 	_CPED_CONFIG_FLAG_0x8C55D029 = 200,
+	-- 	_CPED_CONFIG_FLAG_0x5E6466F6 = 201,
+	-- 	_CPED_CONFIG_FLAG_0xEB5AD706 = 202,
+	-- 	_CPED_CONFIG_FLAG_0x0EDDDDE7 = 203,
+	-- 	_CPED_CONFIG_FLAG_0xA64F7B1D = 204,
+	-- 	_CPED_CONFIG_FLAG_0x48532CBA = 205,
+	-- 	_CPED_CONFIG_FLAG_0xAA25A9E7 = 206,
+	-- 	_CPED_CONFIG_FLAG_0x415B26B9 = 207,
+	-- 	CPED_CONFIG_FLAG_DisableExplosionReactions = 208,
+	-- 	CPED_CONFIG_FLAG_DodgedPlayer = 209,
+	-- 	_CPED_CONFIG_FLAG_0x67405504 = 210,
+	-- 	_CPED_CONFIG_FLAG_0x75DDD68C = 211,
+	-- 	_CPED_CONFIG_FLAG_0x2AD879B4 = 212,
+	-- 	_CPED_CONFIG_FLAG_0x51486F91 = 213,
+	-- 	_CPED_CONFIG_FLAG_0x32F79E21 = 214,
+	-- 	_CPED_CONFIG_FLAG_0xBF099213 = 215,
+	-- 	_CPED_CONFIG_FLAG_0x054AC8E2 = 216,
+	-- 	_CPED_CONFIG_FLAG_0x14E495CC = 217,
+	-- 	_CPED_CONFIG_FLAG_0x3C7DF9DF = 218,
+	-- 	_CPED_CONFIG_FLAG_0x848FFEF2 = 219,
+	-- 	CPED_CONFIG_FLAG_DontEnterLeadersVehicle = 220,
+	-- 	_CPED_CONFIG_FLAG_0x2618E1CF = 221,
+	-- 	_CPED_CONFIG_FLAG_0x84F722FA = 222,
+	-- 	_CPED_CONFIG_FLAG_Shrink = 223, // 0xD1B87B1F
+	-- 	_CPED_CONFIG_FLAG_0x728AA918 = 224,
+	-- 	CPED_CONFIG_FLAG_DisablePotentialToBeWalkedIntoResponse = 225,
+	-- 	CPED_CONFIG_FLAG_DisablePedAvoidance = 226,
+	-- 	_CPED_CONFIG_FLAG_0x59E91185 = 227,
+	-- 	_CPED_CONFIG_FLAG_0x1EA7225F = 228,
+	-- 	CPED_CONFIG_FLAG_DisablePanicInVehicle = 229,
+	-- 	_CPED_CONFIG_FLAG_0x6DCA7D88 = 230,
+	-- 	_CPED_CONFIG_FLAG_0xFC3E572D = 231,
+	-- 	_CPED_CONFIG_FLAG_0x08E9F9CF = 232,
+	-- 	_CPED_CONFIG_FLAG_0x2D3BA52D = 233,
+	-- 	_CPED_CONFIG_FLAG_0xFD2F53EA = 234,
+	-- 	_CPED_CONFIG_FLAG_0x31A1B03B = 235,
+	-- 	CPED_CONFIG_FLAG_IsHoldingProp = 236,
+	-- 	CPED_CONFIG_FLAG_BlocksPathingWhenDead = 237,
+	-- 	_CPED_CONFIG_FLAG_0xCE57C9A3 = 238,
+	-- 	_CPED_CONFIG_FLAG_0x26149198 = 239,
+	-- 	_CPED_CONFIG_FLAG_0x1B33B598 = 240,
+	-- 	_CPED_CONFIG_FLAG_0x719B6E87 = 241,
+	-- 	_CPED_CONFIG_FLAG_0x13E8E8E8 = 242,
+	-- 	_CPED_CONFIG_FLAG_0xF29739AE = 243,
+	-- 	_CPED_CONFIG_FLAG_0xABEA8A74 = 244,
+	-- 	_CPED_CONFIG_FLAG_0xB60EA2BA = 245,
+	-- 	_CPED_CONFIG_FLAG_0x536B0950 = 246,
+	-- 	_CPED_CONFIG_FLAG_0x0C754ACA = 247,
+	-- 	CPED_CONFIG_FLAG_CanPlayInCarIdles = 248,
+	-- 	_CPED_CONFIG_FLAG_0x12659168 = 249,
+	-- 	_CPED_CONFIG_FLAG_0x1BDF2F04 = 250,
+	-- 	_CPED_CONFIG_FLAG_0x7728FAA3 = 251,
+	-- 	_CPED_CONFIG_FLAG_0x6A807ED8 = 252,
+	-- 	CPED_CONFIG_FLAG_OnStairs = 253,
+	-- 	_CPED_CONFIG_FLAG_0xE1A2F73F = 254,
+	-- 	_CPED_CONFIG_FLAG_0x5B3697C8 = 255,
+	-- 	_CPED_CONFIG_FLAG_0xF1EB20A9 = 256,
+	-- 	_CPED_CONFIG_FLAG_0x8B7DF407 = 257,
+	-- 	_CPED_CONFIG_FLAG_0x329DCF1A = 258,
+	-- 	_CPED_CONFIG_FLAG_0x8D90DD1B = 259,
+	-- 	_CPED_CONFIG_FLAG_0xB8A292B7 = 260,
+	-- 	_CPED_CONFIG_FLAG_0x8374B087 = 261,
+	-- 	_CPED_CONFIG_FLAG_0x2AF558F0 = 262,
+	-- 	_CPED_CONFIG_FLAG_0x82251455 = 263,
+	-- 	_CPED_CONFIG_FLAG_0x30CF498B = 264,
+	-- 	_CPED_CONFIG_FLAG_0xE1CD50AF = 265,
+	-- 	_CPED_CONFIG_FLAG_0x72E4AE48 = 266,
+	-- 	_CPED_CONFIG_FLAG_0xC2657EA1 = 267,
+	-- 	_CPED_CONFIG_FLAG_0x29FF6030 = 268,
+	-- 	_CPED_CONFIG_FLAG_0x8248A5EC = 269,
+	-- 	CPED_CONFIG_FLAG_OnStairSlope = 270,
+	-- 	_CPED_CONFIG_FLAG_0xA0897933 = 271,
+	-- 	CPED_CONFIG_FLAG_DontBlipCop = 272,
+	-- 	CPED_CONFIG_FLAG_ClimbedShiftedFence = 273,
+	-- 	_CPED_CONFIG_FLAG_0xF7823618 = 274,
+	-- 	_CPED_CONFIG_FLAG_0xDC305CCE = 275,
+	-- 	CPED_CONFIG_FLAG_EdgeDetected = 276,
+	-- 	_CPED_CONFIG_FLAG_0x92B67896 = 277,
+	-- 	_CPED_CONFIG_FLAG_0xCAD677C9 = 278,
+	-- 	CPED_CONFIG_FLAG_AvoidTearGas = 279,
+	-- 	_CPED_CONFIG_FLAG_0x5276AC7B = 280,
+	-- 	_CPED_CONFIG_FLAG_NoWrithe = 281, // 0x1032692A
+	-- 	_CPED_CONFIG_FLAG_0xDA23E7F1 = 282,
+	-- 	_CPED_CONFIG_FLAG_0x9139724D = 283,
+	-- 	_CPED_CONFIG_FLAG_0xA1457461 = 284,
+	-- 	_CPED_CONFIG_FLAG_0x4186E095 = 285,
+	-- 	_CPED_CONFIG_FLAG_0xAC68E2EB = 286,
+	-- 	CPED_CONFIG_FLAG_RagdollingOnBoat = 287,
+	-- 	CPED_CONFIG_FLAG_HasBrandishedWeapon = 288,
+	-- 	_CPED_CONFIG_FLAG_0x1B9EE8A1 = 289,
+	-- 	_CPED_CONFIG_FLAG_0xF3F5758C = 290,
+	-- 	_CPED_CONFIG_FLAG_0x2A9307F1 = 291,
+	-- 	_CPED_CONFIG_FLAG_FreezePosition = 292, // 0x7403D216
+	-- 	_CPED_CONFIG_FLAG_0xA06A3C6C = 293,
+	-- 	CPED_CONFIG_FLAG_DisableShockingEvents = 294,
+	-- 	_CPED_CONFIG_FLAG_0xF8DA25A5 = 295,
+	-- 	_CPED_CONFIG_FLAG_0x7EF55802 = 296,
+	-- 	_CPED_CONFIG_FLAG_0xB31F1187 = 297,
+	-- 	_CPED_CONFIG_FLAG_0x84315402 = 298,
+	-- 	_CPED_CONFIG_FLAG_0x0FD69867 = 299,
+	-- 	_CPED_CONFIG_FLAG_0xC7829B67 = 300,
+	-- 	CPED_CONFIG_FLAG_DisablePedConstraints = 301,
+	-- 	_CPED_CONFIG_FLAG_0x6D23CF25 = 302,
+	-- 	_CPED_CONFIG_FLAG_0x2ADA871B = 303,
+	-- 	_CPED_CONFIG_FLAG_0x47BC8A58 = 304,
+	-- 	_CPED_CONFIG_FLAG_0xEB692FA5 = 305,
+	-- 	_CPED_CONFIG_FLAG_0x4A133C50 = 306,
+	-- 	_CPED_CONFIG_FLAG_0xC58099C3 = 307,
+	-- 	_CPED_CONFIG_FLAG_0xF3D76D41 = 308,
+	-- 	_CPED_CONFIG_FLAG_0xB0EEE9F2 = 309,
+	-- 	CPED_CONFIG_FLAG_IsInCluster = 310,
+	-- 	_CPED_CONFIG_FLAG_0x0FA153EF = 311,
+	-- 	_CPED_CONFIG_FLAG_0xD73F5CD3 = 312,
+	-- 	_CPED_CONFIG_FLAG_0xD4136C22 = 313,
+	-- 	_CPED_CONFIG_FLAG_0xE404CA6B = 314,
+	-- 	_CPED_CONFIG_FLAG_0xB9597446 = 315,
+	-- 	_CPED_CONFIG_FLAG_0xD5C98277 = 316,
+	-- 	_CPED_CONFIG_FLAG_0xD5060A9C = 317,
+	-- 	_CPED_CONFIG_FLAG_0x3E5F1CBB = 318,
+	-- 	_CPED_CONFIG_FLAG_0xD8BE1D54 = 319,
+	-- 	_CPED_CONFIG_FLAG_0x0B1F191F = 320,
+	-- 	_CPED_CONFIG_FLAG_0xC995167A = 321,
+	-- 	CPED_CONFIG_FLAG_HasHighHeels = 322,
+	-- 	_CPED_CONFIG_FLAG_0x86B01E54 = 323,
+	-- 	_CPED_CONFIG_FLAG_0x3A56FE15 = 324,
+	-- 	_CPED_CONFIG_FLAG_0xC03B736C = 325, // SpawnedAtScenario?
+	-- 	_CPED_CONFIG_FLAG_0xBBF47729 = 326,
+	-- 	_CPED_CONFIG_FLAG_0x22B668A8 = 327,
+	-- 	_CPED_CONFIG_FLAG_0x2624D4D4 = 328,
+	-- 	CPED_CONFIG_FLAG_DisableTalkTo = 329,
+	-- 	CPED_CONFIG_FLAG_DontBlip = 330,
+	-- 	CPED_CONFIG_FLAG_IsSwitchingWeapon = 331,
+	-- 	_CPED_CONFIG_FLAG_0x630F55F3 = 332,
+	-- 	_CPED_CONFIG_FLAG_0x150468FD = 333,
+	-- 	_CPED_CONFIG_FLAG_0x914EBD6B = 334,
+	-- 	_CPED_CONFIG_FLAG_0x79AF3B6D = 335,
+	-- 	_CPED_CONFIG_FLAG_0x75C7A632 = 336,
+	-- 	_CPED_CONFIG_FLAG_0x52D530E2 = 337,
+	-- 	_CPED_CONFIG_FLAG_0xDB2A90E0 = 338,
+	-- 	_CPED_CONFIG_FLAG_0x5922763D = 339,
+	-- 	_CPED_CONFIG_FLAG_0x12ADB567 = 340,
+	-- 	_CPED_CONFIG_FLAG_0x105C8518 = 341,
+	-- 	_CPED_CONFIG_FLAG_0x106F703D = 342,
+	-- 	_CPED_CONFIG_FLAG_0xED152C3E = 343,
+	-- 	_CPED_CONFIG_FLAG_0xA0EFE6A8 = 344,
+	-- 	_CPED_CONFIG_FLAG_0xBF348C82 = 345,
+	-- 	_CPED_CONFIG_FLAG_0xCDDFE830 = 346,
+	-- 	_CPED_CONFIG_FLAG_0x7B59BD9B = 347,
+	-- 	_CPED_CONFIG_FLAG_0x0124C788 = 348,
+	-- 	CPED_CONFIG_FLAG_EquipJetpack = 349,
+	-- 	_CPED_CONFIG_FLAG_0x08D361A5 = 350,
+	-- 	_CPED_CONFIG_FLAG_0xE13D1F7C = 351,
+	-- 	_CPED_CONFIG_FLAG_0x40E25FB9 = 352,
+	-- 	_CPED_CONFIG_FLAG_0x930629D9 = 353,
+	-- 	_CPED_CONFIG_FLAG_0xECCF0C7F = 354,
+	-- 	_CPED_CONFIG_FLAG_0xB6E9613B = 355,
+	-- 	_CPED_CONFIG_FLAG_0x490C0478 = 356,
+	-- 	_CPED_CONFIG_FLAG_0xE8865BEA = 357,
+	-- 	_CPED_CONFIG_FLAG_0xF3C34A29 = 358,
+	-- 	CPED_CONFIG_FLAG_IsDuckingInVehicle = 359,
+	-- 	_CPED_CONFIG_FLAG_0xF660E115 = 360,
+	-- 	_CPED_CONFIG_FLAG_0xAB0E6DED = 361,
+	-- 	CPED_CONFIG_FLAG_HasReserveParachute = 362,
+	-- 	CPED_CONFIG_FLAG_UseReserveParachute = 363,
+	-- 	_CPED_CONFIG_FLAG_0x5C5D9CD3 = 364,
+	-- 	_CPED_CONFIG_FLAG_0x8F7701F3 = 365,
+	-- 	_CPED_CONFIG_FLAG_0xBC4436AD = 366,
+	-- 	_CPED_CONFIG_FLAG_0xD7E07D37 = 367,
+	-- 	_CPED_CONFIG_FLAG_0x03C4FD24 = 368,
+	-- 	_CPED_CONFIG_FLAG_0x7675789A = 369,
+	-- 	_CPED_CONFIG_FLAG_0xB7288A88 = 370,
+	-- 	_CPED_CONFIG_FLAG_0xC06B6291 = 371,
+	-- 	_CPED_CONFIG_FLAG_0x95A4A805 = 372,
+	-- 	_CPED_CONFIG_FLAG_0xA8E9A042 = 373,
+	-- 	CPED_CONFIG_FLAG_NeverLeaveTrain = 374,
+	-- 	_CPED_CONFIG_FLAG_0xBAC674B3 = 375,
+	-- 	_CPED_CONFIG_FLAG_0x147F1FFB = 376,
+	-- 	_CPED_CONFIG_FLAG_0x4376DD79 = 377,
+	-- 	_CPED_CONFIG_FLAG_0xCD3DB518 = 378,
+	-- 	_CPED_CONFIG_FLAG_0xFE4BA4B6 = 379,
+	-- 	_CPED_CONFIG_FLAG_0x5DF03A55 = 380,
+	-- 	_CPED_CONFIG_FLAG_0xBCD816CD = 381,
+	-- 	_CPED_CONFIG_FLAG_0xCF02DD69 = 382,
+	-- 	_CPED_CONFIG_FLAG_0xF73AFA2E = 383,
+	-- 	_CPED_CONFIG_FLAG_0x80B9A9D0 = 384,
+	-- 	_CPED_CONFIG_FLAG_0xF601F7EE = 385,
+	-- 	_CPED_CONFIG_FLAG_0xA91350FC = 386,
+	-- 	_CPED_CONFIG_FLAG_0x3AB23B96 = 387,
+	-- 	CPED_CONFIG_FLAG_IsClimbingLadder = 388,
+	-- 	CPED_CONFIG_FLAG_HasBareFeet = 389,
+	-- 	_CPED_CONFIG_FLAG_0xB4B1CD4C = 390,
+	-- 	_CPED_CONFIG_FLAG_0x5459AFB8 = 391,
+	-- 	_CPED_CONFIG_FLAG_0x54F27667 = 392,
+	-- 	_CPED_CONFIG_FLAG_0xC11D3E8F = 393,
+	-- 	_CPED_CONFIG_FLAG_0x5419EB3E = 394,
+	-- 	_CPED_CONFIG_FLAG_0x82D8DBB4 = 395,
+	-- 	_CPED_CONFIG_FLAG_0x33B02D2F = 396,
+	-- 	_CPED_CONFIG_FLAG_0xAE66176D = 397,
+	-- 	_CPED_CONFIG_FLAG_0xA2692593 = 398,
+	-- 	_CPED_CONFIG_FLAG_0x714C7E31 = 399,
+	-- 	_CPED_CONFIG_FLAG_0xEC488AC7 = 400,
+	-- 	_CPED_CONFIG_FLAG_0xAE398504 = 401,
+	-- 	_CPED_CONFIG_FLAG_0xABC58D72 = 402,
+	-- 	_CPED_CONFIG_FLAG_0x5E5B9591 = 403,
+	-- 	_CPED_CONFIG_FLAG_0x6BA1091E = 404,
+	-- 	_CPED_CONFIG_FLAG_0x77840177 = 405,
+	-- 	_CPED_CONFIG_FLAG_0x1C7ACAC4 = 406,
+	-- 	_CPED_CONFIG_FLAG_0x124420E9 = 407,
+	-- 	_CPED_CONFIG_FLAG_0x75A65587 = 408,
+	-- 	_CPED_CONFIG_FLAG_0xDFD2D55B = 409,
+	-- 	_CPED_CONFIG_FLAG_0xBDD39919 = 410,
+	-- 	_CPED_CONFIG_FLAG_0x43DEC267 = 411,
+	-- 	_CPED_CONFIG_FLAG_0xE42B7797 = 412,
+	-- 	CPED_CONFIG_FLAG_IsHolsteringWeapon = 413,
+	-- 	_CPED_CONFIG_FLAG_0x4F8149F5 = 414,
+	-- 	_CPED_CONFIG_FLAG_0xDD9ECA7A = 415,
+	-- 	_CPED_CONFIG_FLAG_0x9E7EF9D2 = 416,
+	-- 	_CPED_CONFIG_FLAG_0x2C6ED942 = 417,
+	-- 	CPED_CONFIG_FLAG_IsSwitchingHelmetVisor = 418,
+	-- 	_CPED_CONFIG_FLAG_0xA488727D = 419,
+	-- 	_CPED_CONFIG_FLAG_0xCFF5F6DE = 420,
+	-- 	_CPED_CONFIG_FLAG_0x6D614599 = 421,
+	-- 	CPED_CONFIG_FLAG_DisableVehicleCombat = 422,
+	-- 	_CPED_CONFIG_FLAG_0xFE401D26 = 423,
+	-- 	CPED_CONFIG_FLAG_FallsLikeAircraft = 424,
+	-- 	_CPED_CONFIG_FLAG_0x2B42AE82 = 425,
+	-- 	_CPED_CONFIG_FLAG_0x7A95734F = 426,
+	-- 	_CPED_CONFIG_FLAG_0xDF4D8617 = 427,
+	-- 	_CPED_CONFIG_FLAG_0x578F1F14 = 428,
+	-- 	CPED_CONFIG_FLAG_DisableStartEngine = 429,
+	-- 	CPED_CONFIG_FLAG_IgnoreBeingOnFire = 430,
+	-- 	_CPED_CONFIG_FLAG_0x153C9500 = 431,
+	-- 	_CPED_CONFIG_FLAG_0xCB7A632E = 432,
+	-- 	_CPED_CONFIG_FLAG_0xDE727981 = 433,
+	-- 	CPED_CONFIG_FLAG_DisableHomingMissileLockon = 434,
+	-- 	_CPED_CONFIG_FLAG_0x12BBB935 = 435,
+	-- 	_CPED_CONFIG_FLAG_0xAD0A1277 = 436,
+	-- 	_CPED_CONFIG_FLAG_0xEA6AA46A = 437,
+	-- 	CPED_CONFIG_FLAG_DisableHelmetArmor = 438,
+	-- 	_CPED_CONFIG_FLAG_0xCB7F3A1E = 439,
+	-- 	_CPED_CONFIG_FLAG_0x50178878 = 440,
+	-- 	_CPED_CONFIG_FLAG_0x051B4F0D = 441,
+	-- 	_CPED_CONFIG_FLAG_0x2FC3DECC = 442,
+	-- 	_CPED_CONFIG_FLAG_0xC0030B0B = 443,
+	-- 	_CPED_CONFIG_FLAG_0xBBDAF1E9 = 444,
+	-- 	_CPED_CONFIG_FLAG_0x944FE59C = 445,
+	-- 	_CPED_CONFIG_FLAG_0x506FBA39 = 446,
+	-- 	_CPED_CONFIG_FLAG_0xDD45FE84 = 447,
+	-- 	_CPED_CONFIG_FLAG_0xE698AE75 = 448,
+	-- 	_CPED_CONFIG_FLAG_0x199633F8 = 449,
+	-- 	CPED_CONFIG_FLAG_PedIsArresting = 450,
+	-- 	CPED_CONFIG_FLAG_IsDecoyPed = 451,
+	-- 	_CPED_CONFIG_FLAG_0x3A251D83 = 452,
+	-- 	_CPED_CONFIG_FLAG_0xA56F6986 = 453,
+	-- 	_CPED_CONFIG_FLAG_0x1D19C622 = 454,
+	-- 	_CPED_CONFIG_FLAG_0xB68D3EAB = 455,
+	-- 	CPED_CONFIG_FLAG_CanBeIncapacitated = 456,
+	-- 	_CPED_CONFIG_FLAG_0x4BD5EBAD = 457,
+	-- 	_CPED_CONFIG_FLAG_0xFCC5EBC5 = 458
 	-- };
-	-- 
-	-- (*) When flagId is set to 33 and the bool value to true, peds will die by starting ragdoll, so you should set this flag to false when you resurrect a ped.
-	-- When flagId is set to 62 and the boolvalue to false this happens: Ped is taken out of vehicle and can't get back in when jacking their empty vehicle. If in a plane it falls from the sky and crashes. Sometimes peds vehicle continue to drive the route without its driver who's running after. 
-	-- 
-	-- (*)
-	-- JUMPING CHANGES  60,61,104 TO FALSE
-	-- BEING ON WATER CHANGES 60,61 TO FALSE AND 65,66,168 TO TRUE
-	-- FALLING CHANGES 60,61,104,276 TO FALSE AND TO 76 TRUE
-	-- DYING CHANGES 60,61,104,276* TO FALSE AND (NONE) TO TRUE
-	-- DYING MAKES 60,61,104 TO FALSE
-	-- BEING IN A CAR CHANGES 60,79,104 TO FALSE AND 62 TO TRUE
-	-- 
-	-- (*)Maximum value for flagId is 0x1AA (426) in b944.
-	-- ID 0xF0 (240) appears to be a special flag which is handled different compared to the others IDs.
-	-- 
 	["SET_PED_CONFIG_FLAG"]=--[[void]] function(--[[Ped (int)]] ped,--[[int]] flagId,--[[BOOL (bool)]] value)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(flagId);native_invoker.push_arg_bool(value);native_invoker.end_call("1913FE4CBF41C463");end,
 	-- PED::SET_PED_RESET_FLAG(PLAYER::PLAYER_PED_ID(), 240, 1);
 	-- Known values:
 	-- PRF_PreventGoingIntoStillInVehicleState = 236 *(fanatic2.c)*
 	["SET_PED_RESET_FLAG"]=--[[void]] function(--[[Ped (int)]] ped,--[[int]] flagId,--[[BOOL (bool)]] doReset)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(flagId);native_invoker.push_arg_bool(doReset);native_invoker.end_call("C1E8A365BF3B29F2");end,
-	-- p2 is always 1 in the scripts.
-	-- 
-	-- if (GET_PED_CONFIG_FLAG(ped, 78, 1))
-	-- = returns true if ped is aiming/shooting a gun
+	-- See SET_PED_CONFIG_FLAG
 	["GET_PED_CONFIG_FLAG"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped,--[[int]] flagId,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(flagId);native_invoker.push_arg_bool(p2);native_invoker.end_call("7EE53118C892B513");return native_invoker.get_return_value_bool();end,
 	["GET_PED_RESET_FLAG"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped,--[[int]] flagId)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(flagId);native_invoker.end_call("AF9E59B1B1FBF2A0");return native_invoker.get_return_value_bool();end,
 	["SET_PED_GROUP_MEMBER_PASSENGER_INDEX"]=--[[void]] function(--[[Ped (int)]] ped,--[[int]] index)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(index);native_invoker.end_call("0BDDB8D9EC6BCF3C");end,
@@ -10549,52 +10898,137 @@ PED={
 	["_0x1A330D297AAC6BC1"]=--[[void]] function(--[[Ped (int)]] ped,--[[int]] p1)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(p1);native_invoker.end_call("1A330D297AAC6BC1");end,
 	["STOP_PED_WEAPON_FIRING_WHEN_DROPPED"]=--[[void]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("C158D28142A34608");end,
 	["SET_SCRIPTED_ANIM_SEAT_OFFSET"]=--[[void]] function(--[[Ped (int)]] ped,--[[float]] p1)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_float(p1);native_invoker.end_call("5917BBA32D06C230");end,
-	-- 0 - Stationary (Will just stand in place)
-	-- 1 - Defensive (Will try to find cover and very likely to blind fire)
-	-- 2 - Offensive (Will attempt to charge at enemy but take cover as well)
-	-- 3 - Suicidal Offensive (Will try to flank enemy in a suicidal attack)
-	["SET_PED_COMBAT_MOVEMENT"]=--[[void]] function(--[[Ped (int)]] ped,--[[int]] combatMovement)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(combatMovement);native_invoker.end_call("4D9CA1009AFBD057");end,
-	["GET_PED_COMBAT_MOVEMENT"]=--[[int]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("DEA92412FCAEB3F5");return native_invoker.get_return_value_int();end,
-	-- 100 would equal attack
-	-- less then 50ish would mean run away
-	-- 
-	-- Only the values 0, 1 and 2 occur in the decompiled scripts. Most likely refers directly to the values also described in combatbehaviour.meta:
-	-- 0: CA_Poor
-	-- 1: CA_Average
-	-- 2: CA_Professional
-	-- 
-	-- Tested this and got the same results as the first explanation here. Could not find any difference between 0, 1 and 2. 
-	["SET_PED_COMBAT_ABILITY"]=--[[void]] function(--[[Ped (int)]] ped,--[[int]] p1)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(p1);native_invoker.end_call("C7622C0D36B2FDA8");end,
-	-- Only the values 0, 1 and 2 occur in the decompiled scripts. Most likely refers directly to the values also described as AttackRange in combatbehaviour.meta:
-	-- 0: CR_Near
-	-- 1: CR_Medium
-	-- 2: CR_Far
-	["SET_PED_COMBAT_RANGE"]=--[[void]] function(--[[Ped (int)]] ped,--[[int]] p1)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(p1);native_invoker.end_call("3C606747B23E497B");end,
-	["GET_PED_COMBAT_RANGE"]=--[[int]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("F9D9F7F2DB8E2FA0");return native_invoker.get_return_value_int();end,
-	-- These combat attributes seem to be the same as the BehaviourFlags from combatbehaviour.meta.
-	-- So far, these are the equivalents found:
-	-- enum CombatAttributes
+	-- enum eCombatMovement // 0x4F456B61
 	-- {
-	--  BF_CanUseCover = 0,
-	--    BF_CanUseVehicles = 1,
-	--     BF_CanDoDrivebys = 2,
-	--  BF_CanLeaveVehicle = 3,
-	--    BF_CanFightArmedPedsWhenNotArmed = 5,
-	--  BF_CanTauntInVehicle = 20,
-	--     BF_AlwaysFight = 46,
-	--   BF_IgnoreTrafficWhenDriving = 52,
-	--         BF_FreezeMovement = 292,
-	--         BF_PlayerCanUseFiringWeapons = 1424
+	-- 	CM_Stationary,
+	-- 	CM_Defensive,
+	-- 	CM_WillAdvance,
+	-- 	CM_WillRetreat
 	-- };
-	-- 
-	-- 8 = ?
-	-- 9 = ?
-	-- 13 = ?
-	-- 14 ?
-	-- 
-	-- Research thread: gtaforums.com/topic/833391-researchguide-combat-behaviour-flags/
-	["SET_PED_COMBAT_ATTRIBUTES"]=--[[void]] function(--[[Ped (int)]] ped,--[[int]] attributeIndex,--[[BOOL (bool)]] enabled)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(attributeIndex);native_invoker.push_arg_bool(enabled);native_invoker.end_call("9F7794730795E019");end,
-	-- Only 1 and 2 appear in the scripts. combatbehaviour.meta seems to only have TLR_SearchForTarget for all peds, but we don't know if that's 1 or 2.
+	["SET_PED_COMBAT_MOVEMENT"]=--[[void]] function(--[[Ped (int)]] ped,--[[int]] combatMovement)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(combatMovement);native_invoker.end_call("4D9CA1009AFBD057");end,
+	-- See SET_PED_COMBAT_MOVEMENT
+	["GET_PED_COMBAT_MOVEMENT"]=--[[int]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("DEA92412FCAEB3F5");return native_invoker.get_return_value_int();end,
+	-- enum eCombatAbility // 0xE793438C
+	-- {
+	-- 	CA_Poor,
+	-- 	CA_Average,
+	-- 	CA_Professional,
+	-- 	CA_NumTypes
+	-- };
+	["SET_PED_COMBAT_ABILITY"]=--[[void]] function(--[[Ped (int)]] ped,--[[int]] abilityLevel)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(abilityLevel);native_invoker.end_call("C7622C0D36B2FDA8");end,
+	-- enum eCombatRange // 0xB69160F5
+	-- {
+	-- 	CR_Near,
+	-- 	CR_Medium,
+	-- 	CR_Far,
+	-- 	CR_VeryFar,
+	-- 	CR_NumRanges
+	-- };
+	["SET_PED_COMBAT_RANGE"]=--[[void]] function(--[[Ped (int)]] ped,--[[int]] combatRange)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(combatRange);native_invoker.end_call("3C606747B23E497B");end,
+	-- See SET_PED_COMBAT_RANGE
+	["GET_PED_COMBAT_RANGE"]=--[[int]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("F9D9F7F2DB8E2FA0");return native_invoker.get_return_value_int();end,
+	-- enum eCombatAttributes // 0x0E8E7201
+	-- {
+	-- 	BF_CanUseCover = 0,
+	-- 	BF_CanUseVehicles = 1,
+	-- 	BF_CanDoDrivebys = 2,
+	-- 	BF_CanLeaveVehicle = 3,
+	-- 	BF_CanUseDynamicStrafeDecisions = 4,
+	-- 	BF_AlwaysFight = 5,
+	-- 	BF_0x66BB9FCC = 6,
+	-- 	BF_0x6837DA41 = 7,
+	-- 	BF_0xB4A13A5A = 8,
+	-- 	BF_0xEE326AAD = 9,
+	-- 	BF_0x7DF2CCFA = 10,
+	-- 	BF_0x0036D422 = 11,
+	-- 	BF_BlindFireWhenInCover = 12,
+	-- 	BF_Aggressive = 13,
+	-- 	BF_CanInvestigate = 14,
+	-- 	BF_HasRadio = 15,
+	-- 	BF_0x6BDE28D1 = 16,
+	-- 	BF_AlwaysFlee = 17,
+	-- 	BF_0x7852797D = 18,
+	-- 	BF_0x33497B95 = 19,
+	-- 	BF_CanTauntInVehicle = 20,
+	-- 	BF_CanChaseTargetOnFoot = 21,
+	-- 	BF_WillDragInjuredPedsToSafety = 22,
+	-- 	BF_0xCD7168B8 = 23,
+	-- 	BF_UseProximityFiringRate = 24,
+	-- 	BF_0x48F914F8 = 25,
+	-- 	BF_0x2EA543D0 = 26,
+	-- 	BF_PerfectAccuracy = 27,
+	-- 	BF_CanUseFrustratedAdvance = 28,
+	-- 	BF_0x3D131AC1 = 29,
+	-- 	BF_0x3AD95F27 = 30,
+	-- 	BF_MaintainMinDistanceToTarget = 31,
+	-- 	BF_0xEAD68AD2 = 32,
+	-- 	BF_0xA206C2E0 = 33,
+	-- 	BF_CanUsePeekingVariations = 34,
+	-- 	BF_0xA5715184 = 35,
+	-- 	BF_0xD5265533 = 36,
+	-- 	BF_0x2B84C2BF = 37,
+	-- 	BF_DisableBulletReactions = 38,
+	-- 	BF_CanBust = 39,
+	-- 	BF_0xAA525726 = 40,
+	-- 	BF_CanCommandeerVehicles = 41,
+	-- 	BF_CanFlank = 42,
+	-- 	BF_SwitchToAdvanceIfCantFindCover = 43,
+	-- 	BF_SwitchToDefensiveIfInCover = 44,
+	-- 	BF_0xEB4786A0 = 45,
+	-- 	BF_CanFightArmedPedsWhenNotArmed = 46,
+	-- 	BF_0xA08E9402 = 47,
+	-- 	BF_0x952EAD7D = 48,
+	-- 	BF_UseEnemyAccuracyScaling = 49,
+	-- 	BF_CanCharge = 50,
+	-- 	BF_0xDA8C2BD3 = 51,
+	-- 	BF_0x6562F017 = 52,
+	-- 	BF_0xA2C3D53B = 53,
+	-- 	BF_AlwaysEquipBestWeapon = 54,
+	-- 	BF_CanSeeUnderwaterPeds = 55,
+	-- 	BF_0xF619486B = 56,
+	-- 	BF_0x61EB63A3 = 57,
+	-- 	BF_DisableFleeFromCombat = 58,
+	-- 	BF_0x8976D12B = 59,
+	-- 	BF_CanThrowSmokeGrenade = 60,
+	-- 	BF_NonMissionPedsFleeFromThisPedUnlessArmed = 61,
+	-- 	BF_0x5452A10C = 62,
+	-- 	BF_FleesFromInvincibleOpponents = 63,
+	-- 	BF_DisableBlockFromPursueDuringVehicleChase = 64,
+	-- 	BF_DisableSpinOutDuringVehicleChase = 65,
+	-- 	BF_DisableCruiseInFrontDuringBlockDuringVehicleChase = 66,
+	-- 	BF_0x0B404731 = 67,
+	-- 	BF_DisableReactToBuddyShot = 68,
+	-- 	BF_0x7FFD6AEB = 69,
+	-- 	BF_0x51F4AEF8 = 70,
+	-- 	BF_PermitChargeBeyondDefensiveArea = 71,
+	-- 	BF_0x63E0A8E2 = 72,
+	-- 	BF_0xDF974436 = 73,
+	-- 	BF_0x556C080B = 74,
+	-- 	BF_0xA4D50035 = 75,
+	-- 	BF_SetDisableShoutTargetPositionOnCombatStart = 76,
+	-- 	BF_DisableRespondedToThreatBroadcast = 77,
+	-- 	BF_0xCBB01765 = 78,
+	-- 	BF_0x4F862ED4 = 79,
+	-- 	BF_0xEF9C7C40 = 80,
+	-- 	BF_0xE51B494F = 81,
+	-- 	BF_0x054D0199 = 82,
+	-- 	BF_0xD36BCE94 = 83,
+	-- 	BF_0xFB11F690 = 84,
+	-- 	BF_0xD208A9AD = 85,
+	-- 	BF_AllowDogFighting = 86,
+	-- 	BF_0x07A6E531 = 87,
+	-- 	BF_0x34F9317B = 88,
+	-- 	BF_0x4240F5A9 = 89,
+	-- 	BF_0xEE129DBD = 90,
+	-- 	BF_0x053AEAD9 = 91
+	-- };
+	["SET_PED_COMBAT_ATTRIBUTES"]=--[[void]] function(--[[Ped (int)]] ped,--[[int]] attributeId,--[[BOOL (bool)]] enabled)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(attributeId);native_invoker.push_arg_bool(enabled);native_invoker.end_call("9F7794730795E019");end,
+	-- enum eTargetLossResponseType
+	-- {
+	-- 	TLR_ExitTask,
+	-- 	TLR_NeverLoseTarget,
+	-- 	TLR_SearchForTarget
+	-- };
 	["SET_PED_TARGET_LOSS_RESPONSE"]=--[[void]] function(--[[Ped (int)]] ped,--[[int]] responseType)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(responseType);native_invoker.end_call("0703B9079823DA4A");end,
 	["IS_PED_PERFORMING_MELEE_ACTION"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("DCCA191DF9980FD7");return native_invoker.get_return_value_bool();end,
 	["IS_PED_PERFORMING_STEALTH_KILL"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("FD4CCDBCC59941B7");return native_invoker.get_return_value_bool();end,
@@ -10768,10 +11202,7 @@ PED={
 	-- intensity: 0.0f - 1.0f
 	-- 
 	-- This native sets the emissive intensity for the given ped. It is used for different 'glow' levels on illuminated clothing.
-	-- 
-	-- Old name: _SET_PED_REFLECTION_INTENSITY
 	["_SET_PED_EMISSIVE_INTENSITY"]=--[[void]] function(--[[Ped (int)]] ped,--[[float]] intensity)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_float(intensity);native_invoker.end_call("4E90D746056E273D");end,
-	-- Old name: _GET_PED_REFLECTION_INTENSITY
 	-- Use 0x4E90D746056E273D to set the illuminated clothing glow intensity for a specific ped.
 	-- Returns a float between 0.0 and 1.0 representing the current illuminated clothing glow intensity.
 	["_GET_PED_EMISSIVE_INTENSITY"]=--[[float]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("1461B28A06717D68");return native_invoker.get_return_value_float();end,
@@ -10787,7 +11218,7 @@ PED={
 	-- roll and pitch 0
 	-- yaw to Ped.rotation
 	["CREATE_SYNCHRONIZED_SCENE"]=--[[int]] function(--[[float]] x,--[[float]] y,--[[float]] z,--[[float]] roll,--[[float]] pitch,--[[float]] yaw,--[[int]] p6)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_float(roll);native_invoker.push_arg_float(pitch);native_invoker.push_arg_float(yaw);native_invoker.push_arg_int(p6);native_invoker.end_call("8C18E0F9080ADD73");return native_invoker.get_return_value_int();end,
-	["_CREATE_SYNCHRONIZED_SCENE_2"]=--[[int]] function(--[[float]] x,--[[float]] y,--[[float]] z,--[[float]] radius,--[[Hash (int)]] object)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_float(radius);native_invoker.push_arg_int(object);native_invoker.end_call("62EC273D00187DCA");return native_invoker.get_return_value_int();end,
+	["CREATE_SYNCHRONIZED_SCENE_AT_MAP_OBJECT"]=--[[int]] function(--[[float]] x,--[[float]] y,--[[float]] z,--[[float]] radius,--[[Hash (int)]] object)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_float(radius);native_invoker.push_arg_int(object);native_invoker.end_call("62EC273D00187DCA");return native_invoker.get_return_value_int();end,
 	-- Returns true if a synchronized scene is running
 	["IS_SYNCHRONIZED_SCENE_RUNNING"]=--[[BOOL (bool)]] function(--[[int]] sceneId)native_invoker.begin_call();native_invoker.push_arg_int(sceneId);native_invoker.end_call("25D39B935A038A26");return native_invoker.get_return_value_bool();end,
 	["SET_SYNCHRONIZED_SCENE_ORIGIN"]=--[[void]] function(--[[int]] sceneID,--[[float]] x,--[[float]] y,--[[float]] z,--[[float]] roll,--[[float]] pitch,--[[float]] yaw,--[[BOOL (bool)]] p7)native_invoker.begin_call();native_invoker.push_arg_int(sceneID);native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_float(roll);native_invoker.push_arg_float(pitch);native_invoker.push_arg_float(yaw);native_invoker.push_arg_bool(p7);native_invoker.end_call("6ACF6B7225801CD7");end,
@@ -10802,31 +11233,35 @@ PED={
 	["ATTACH_SYNCHRONIZED_SCENE_TO_ENTITY"]=--[[void]] function(--[[int]] sceneID,--[[Entity (int)]] entity,--[[int]] boneIndex)native_invoker.begin_call();native_invoker.push_arg_int(sceneID);native_invoker.push_arg_int(entity);native_invoker.push_arg_int(boneIndex);native_invoker.end_call("272E4723B56A3B96");end,
 	["DETACH_SYNCHRONIZED_SCENE"]=--[[void]] function(--[[int]] sceneID)native_invoker.begin_call();native_invoker.push_arg_int(sceneID);native_invoker.end_call("6D38F1F04CBB37EA");end,
 	["_DISPOSE_SYNCHRONIZED_SCENE"]=--[[void]] function(--[[int]] scene)native_invoker.begin_call();native_invoker.push_arg_int(scene);native_invoker.end_call("CD9CC7E200A52A6F");end,
-	-- Some motionstate hashes are
+	-- Regarding p2, p3 and p4: Most common is 0, 0, 0); followed by 0, 1, 0); and 1, 1, 0); in R* scripts. p4 is very rarely something other than 0.
 	-- 
-	-- 0xec17e58 (standing idle), 0xbac0f10b (nothing?), 0x3f67c6af (aiming with pistol 2-h), 0x422d7a25 (stealth), 0xbd8817db, 0x916e828c
-	-- 
-	-- and those for the strings
-	-- 
-	-- "motionstate_idle", "motionstate_walk", "motionstate_run", "motionstate_actionmode_idle", and "motionstate_actionmode_walk".
-	-- 
-	-- Regarding p2, p3 and p4: Most common is 0, 0, 0); followed by 0, 1, 0); and 1, 1, 0); in the scripts. p4 is very rarely something other than 0.
-	-- 
-	--  [31/03/2017] ins1de :
-	-- 
-	--         enum MotionState
-	--         {
-	--             StopRunning = -530524,
-	--             StopWalking = -668482597,
-	--             Idle = 247561816, // 1, 1, 0
-	--             Idl2 = -1871534317,
-	--             SkyDive =-1161760501, // 0, 1, 0
-	--             Stealth = 1110276645,
-	--             Sprint = -1115154469,
-	--             Swim = -1855028596,
-	--             Unknown1 = 1063765679,
-	--             Unknown2 = -633298724,
-	--         }
+	-- enum eMotionState // 0x92A659FE
+	-- {
+	-- 	MotionState_None = 0xEE717723,
+	-- 	MotionState_Idle = 0x9072A713,
+	-- 	MotionState_Walk = 0xD827C3DB,
+	-- 	MotionState_Run = 0xFFF7E7A4,
+	-- 	MotionState_Sprint = 0xBD8817DB,
+	-- 	MotionState_Crouch_Idle = 0x43FB099E,
+	-- 	MotionState_Crouch_Walk = 0x08C31A98,
+	-- 	MotionState_Crouch_Run = 0x3593CF09,
+	-- 	MotionState_DoNothing = 0x0EC17E58,
+	-- 	MotionState_AnimatedVelocity = 0x551AAC43,
+	-- 	MotionState_InVehicle = 0x94D9D58D,
+	-- 	MotionState_Aiming = 0x3F67C6AF,
+	-- 	MotionState_Diving_Idle = 0x4848CDED,
+	-- 	MotionState_Diving_Swim = 0x916E828C,
+	-- 	MotionState_Swimming_TreadWater = 0xD1BF11C7,
+	-- 	MotionState_Dead = 0x0DBB071C,
+	-- 	MotionState_Stealth_Idle = 0x422D7A25,
+	-- 	MotionState_Stealth_Walk = 0x042AB6A2,
+	-- 	MotionState_Stealth_Run = 0xFB0B79E1,
+	-- 	MotionState_Parachuting = 0xBAC0F10B,
+	-- 	MotionState_ActionMode_Idle = 0xDA40A0DC,
+	-- 	MotionState_ActionMode_Walk = 0xD2905EA7,
+	-- 	MotionState_ActionMode_Run = 0x31BADE14,
+	-- 	MotionState_Jetpack = 0x535E6A5E
+	-- };
 	["FORCE_PED_MOTION_STATE"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped,--[[Hash (int)]] motionStateHash,--[[BOOL (bool)]] p2,--[[int]] p3,--[[BOOL (bool)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(motionStateHash);native_invoker.push_arg_bool(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_bool(p4);native_invoker.end_call("F28965D04F570DCA");return native_invoker.get_return_value_bool();end,
 	["_GET_PED_CURRENT_MOVEMENT_SPEED"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped,--[[float* (pointer)]] speedX,--[[float* (pointer)]] speedY)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_pointer(speedX);native_invoker.push_arg_pointer(speedY);native_invoker.end_call("F60165E1D2C5370B");return native_invoker.get_return_value_bool();end,
 	["SET_PED_MAX_MOVE_BLEND_RATIO"]=--[[void]] function(--[[Ped (int)]] ped,--[[float]] value)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_float(value);native_invoker.end_call("433083750C5E064A");end,
@@ -10932,7 +11367,7 @@ PED={
 	["SPAWNPOINTS_IS_SEARCH_FAILED"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("F445DE8DA80A1792");return native_invoker.get_return_value_bool();end,
 	["SPAWNPOINTS_GET_NUM_SEARCH_RESULTS"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("A635C11B8C44AFC2");return native_invoker.get_return_value_int();end,
 	["SPAWNPOINTS_GET_SEARCH_RESULT"]=--[[void]] function(--[[int]] randomInt,--[[float* (pointer)]] x,--[[float* (pointer)]] y,--[[float* (pointer)]] z)native_invoker.begin_call();native_invoker.push_arg_int(randomInt);native_invoker.push_arg_pointer(x);native_invoker.push_arg_pointer(y);native_invoker.push_arg_pointer(z);native_invoker.end_call("280C7E3AC7F56E90");end,
-	["SPAWNPOINTS_GET_SEARCH_RESULT_FLAGS"]=--[[void]] function(--[[Any (int)]] p0,--[[Any* (pointer)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_pointer(p1);native_invoker.end_call("B782F8238512BAD5");end,
+	["SPAWNPOINTS_GET_SEARCH_RESULT_FLAGS"]=--[[void]] function(--[[int]] p0,--[[int* (pointer)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_pointer(p1);native_invoker.end_call("B782F8238512BAD5");end,
 	["SET_IK_TARGET"]=--[[void]] function(--[[Ped (int)]] ped,--[[int]] ikIndex,--[[Entity (int)]] entityLookAt,--[[int]] boneLookAt,--[[float]] offsetX,--[[float]] offsetY,--[[float]] offsetZ,--[[Any (int)]] p7,--[[int]] blendInDuration,--[[int]] blendOutDuration)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(ikIndex);native_invoker.push_arg_int(entityLookAt);native_invoker.push_arg_int(boneLookAt);native_invoker.push_arg_float(offsetX);native_invoker.push_arg_float(offsetY);native_invoker.push_arg_float(offsetZ);native_invoker.push_arg_int(p7);native_invoker.push_arg_int(blendInDuration);native_invoker.push_arg_int(blendOutDuration);native_invoker.end_call("C32779C16FCEECD9");end,
 	-- FORCE_*
 	["_0xED3C76ADFA6D07C4"]=--[[void]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("ED3C76ADFA6D07C4");end,
@@ -10943,17 +11378,17 @@ PED={
 	["HAS_STEALTH_MODE_ASSET_LOADED"]=--[[BOOL (bool)]] function(--[[string]] asset)native_invoker.begin_call();native_invoker.push_arg_string(asset);native_invoker.end_call("E977FC5B08AF3441");return native_invoker.get_return_value_bool();end,
 	["REMOVE_STEALTH_MODE_ASSET"]=--[[void]] function(--[[string]] asset)native_invoker.begin_call();native_invoker.push_arg_string(asset);native_invoker.end_call("9219857D21F0E842");end,
 	["SET_PED_LOD_MULTIPLIER"]=--[[void]] function(--[[Ped (int)]] ped,--[[float]] multiplier)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_float(multiplier);native_invoker.end_call("DC2C5C242AAC342B");end,
-	-- SET_PED_CAN_*
-	["_0xE861D0B05C7662B8"]=--[[void]] function(--[[Ped (int)]] ped,--[[BOOL (bool)]] p1,--[[int]] p2)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_bool(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("E861D0B05C7662B8");end,
+	["SET_PED_CAN_LOSE_PROPS_ON_DAMAGE"]=--[[void]] function(--[[Ped (int)]] ped,--[[BOOL (bool)]] toggle,--[[int]] p2)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_bool(toggle);native_invoker.push_arg_int(p2);native_invoker.end_call("E861D0B05C7662B8");end,
 	["SET_FORCE_FOOTSTEP_UPDATE"]=--[[void]] function(--[[Ped (int)]] ped,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_bool(toggle);native_invoker.end_call("129466ED55140F8D");end,
 	["SET_FORCE_STEP_TYPE"]=--[[void]] function(--[[Ped (int)]] ped,--[[BOOL (bool)]] p1,--[[int]] type,--[[int]] p3)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_bool(p1);native_invoker.push_arg_int(type);native_invoker.push_arg_int(p3);native_invoker.end_call("CB968B53FC7F916D");end,
 	["IS_ANY_HOSTILE_PED_NEAR_POINT"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped,--[[float]] x,--[[float]] y,--[[float]] z,--[[float]] radius)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_float(radius);native_invoker.end_call("68772DB2B2526F9F");return native_invoker.get_return_value_bool();end,
-	["_0x820E9892A77E97CD"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("820E9892A77E97CD");end,
-	["_0x06087579E7AA85A9"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[float]] p2,--[[float]] p3,--[[float]] p4,--[[float]] p5)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_float(p2);native_invoker.push_arg_float(p3);native_invoker.push_arg_float(p4);native_invoker.push_arg_float(p5);native_invoker.end_call("06087579E7AA85A9");return native_invoker.get_return_value_bool();end,
+	-- Toggles config flag CPED_CONFIG_FLAG_CanPlayInCarIdles.
+	["_SET_PED_CAN_PLAY_IN_CAR_IDLES"]=--[[void]] function(--[[Ped (int)]] ped,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_bool(toggle);native_invoker.end_call("820E9892A77E97CD");end,
+	["IS_TARGET_PED_IN_PERCEPTION_AREA"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped,--[[Ped (int)]] targetPed,--[[float]] p2,--[[float]] p3,--[[float]] p4,--[[float]] p5)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(targetPed);native_invoker.push_arg_float(p2);native_invoker.push_arg_float(p3);native_invoker.push_arg_float(p4);native_invoker.push_arg_float(p5);native_invoker.end_call("06087579E7AA85A9");return native_invoker.get_return_value_bool();end,
 	-- Min and max are usually 100.0 and 200.0
 	["SET_POP_CONTROL_SPHERE_THIS_FRAME"]=--[[void]] function(--[[float]] x,--[[float]] y,--[[float]] z,--[[float]] min,--[[float]] max)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_float(min);native_invoker.push_arg_float(max);native_invoker.end_call("D8C3BE3EE94CAF2D");end,
 	["_0xD33DAA36272177C4"]=--[[void]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("D33DAA36272177C4");end,
-	["_0x711794453CFD692B"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("711794453CFD692B");end,
+	["_SET_DISABLE_PED_FALL_DAMAGE"]=--[[void]] function(--[[Ped (int)]] ped,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_bool(toggle);native_invoker.end_call("711794453CFD692B");end,
 	["_0x83A169EABCDB10A2"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("83A169EABCDB10A2");end,
 	["_0x288DF530C92DAD6F"]=--[[void]] function(--[[Any (int)]] p0,--[[float]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_float(p1);native_invoker.end_call("288DF530C92DAD6F");end,
 	["_IS_PED_SWAPPING_WEAPON"]=--[[BOOL (bool)]] function(--[[Ped (int)]] Ped)native_invoker.begin_call();native_invoker.push_arg_int(Ped);native_invoker.end_call("3795688A307E1EB6");return native_invoker.get_return_value_bool();end,
@@ -11038,7 +11473,7 @@ PHYSICS={
 	["_DOES_ROPE_BELONG_TO_THIS_SCRIPT"]=--[[BOOL (bool)]] function(--[[int]] ropeId)native_invoker.begin_call();native_invoker.push_arg_int(ropeId);native_invoker.end_call("271C9D3ACA5D6409");return native_invoker.get_return_value_bool();end,
 	-- Most likely ROPE_ATTACH_*
 	["_0xBC0CE682D4D05650"]=--[[void]] function(--[[int]] ropeId,--[[int]] p1,--[[float]] p2,--[[float]] p3,--[[float]] p4,--[[float]] p5,--[[float]] p6,--[[float]] p7,--[[float]] p8,--[[float]] p9,--[[float]] p10,--[[float]] p11,--[[float]] p12,--[[float]] p13)native_invoker.begin_call();native_invoker.push_arg_int(ropeId);native_invoker.push_arg_int(p1);native_invoker.push_arg_float(p2);native_invoker.push_arg_float(p3);native_invoker.push_arg_float(p4);native_invoker.push_arg_float(p5);native_invoker.push_arg_float(p6);native_invoker.push_arg_float(p7);native_invoker.push_arg_float(p8);native_invoker.push_arg_float(p9);native_invoker.push_arg_float(p10);native_invoker.push_arg_float(p11);native_invoker.push_arg_float(p12);native_invoker.push_arg_float(p13);native_invoker.end_call("BC0CE682D4D05650");end,
-	["_0xB1B6216CA2E7B55E"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("B1B6216CA2E7B55E");end,
+	["ROPE_CHANGE_SCRIPT_OWNER"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("B1B6216CA2E7B55E");end,
 	-- ROPE_*
 	["_0xB743F735C03D7810"]=--[[void]] function(--[[int]] ropeId,--[[int]] p1)native_invoker.begin_call();native_invoker.push_arg_int(ropeId);native_invoker.push_arg_int(p1);native_invoker.end_call("B743F735C03D7810");end,
 	["ROPE_GET_DISTANCE_BETWEEN_ENDS"]=--[[float]] function(--[[int]] ropeId)native_invoker.begin_call();native_invoker.push_arg_int(ropeId);native_invoker.end_call("73040398DFF9A4A6");return native_invoker.get_return_value_float();end,
@@ -11059,7 +11494,8 @@ PHYSICS={
 	-- RESET_*
 	["_0xCC6E963682533882"]=--[[void]] function(--[[Object (int)]] object)native_invoker.begin_call();native_invoker.push_arg_int(object);native_invoker.end_call("CC6E963682533882");end,
 	["SET_DISABLE_FRAG_DAMAGE"]=--[[void]] function(--[[Object (int)]] object,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(object);native_invoker.push_arg_bool(toggle);native_invoker.end_call("01BA3AED21C16CFB");end,
-	["_SET_ENTITY_PROOF_UNK"]=--[[void]] function(--[[Entity (int)]] entity,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.push_arg_bool(toggle);native_invoker.end_call("15F944730C832252");end,
+	-- PED_RAGDOLL_BUMP Proof?
+	["_0x15F944730C832252"]=--[[void]] function(--[[Entity (int)]] entity,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.push_arg_bool(toggle);native_invoker.end_call("15F944730C832252");end,
 	-- SET_*
 	["_0x9EBD751E5787BAF2"]=--[[void]] function(--[[BOOL (bool)]] p0)native_invoker.begin_call();native_invoker.push_arg_bool(p0);native_invoker.end_call("9EBD751E5787BAF2");end,
 	-- Related to the lower-end of a vehicles fTractionCurve, e.g., from standing starts and acceleration from low/zero speeds.
@@ -11165,8 +11601,8 @@ PLAYER={
 	-- Max value is 1.0
 	["SET_WANTED_LEVEL_DIFFICULTY"]=--[[void]] function(--[[Player (int)]] player,--[[float]] difficulty)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_float(difficulty);native_invoker.end_call("9B0BB33B04405E7A");end,
 	["RESET_WANTED_LEVEL_DIFFICULTY"]=--[[void]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("B9D0DD990DC141DD");end,
-	["_0xA72200F51875FEA4"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("A72200F51875FEA4");return native_invoker.get_return_value_int();end,
-	["_0x49B856B1360C47C7"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("49B856B1360C47C7");end,
+	["_GET_WANTED_LEVEL_PAROLE_DURATION"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("A72200F51875FEA4");return native_invoker.get_return_value_int();end,
+	["_SET_WANTED_LEVEL_HIDDEN_EVASION_TIME"]=--[[void]] function(--[[Player (int)]] player,--[[int]] wantedLevel,--[[int]] lossTime)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_int(wantedLevel);native_invoker.push_arg_int(lossTime);native_invoker.end_call("49B856B1360C47C7");end,
 	["_0x823EC8E82BA45986"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("823EC8E82BA45986");end,
 	["START_FIRING_AMNESTY"]=--[[void]] function(--[[int]] duration)native_invoker.begin_call();native_invoker.push_arg_int(duration);native_invoker.end_call("BF9BD71691857E48");end,
 	-- PLAYER::REPORT_CRIME(PLAYER::PLAYER_ID(), 37, PLAYER::GET_WANTED_LEVEL_THRESHOLD(1));
@@ -11228,14 +11664,8 @@ PLAYER={
 	-- 45: ???
 	-- 46: ???
 	["REPORT_CRIME"]=--[[void]] function(--[[Player (int)]] player,--[[int]] crimeType,--[[int]] wantedLvlThresh)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_int(crimeType);native_invoker.push_arg_int(wantedLvlThresh);native_invoker.end_call("E9B09589827545E7");end,
-	-- This was previously named as "RESERVE_ENTITY_EXPLODES_ON_HIGH_EXPLOSION_COMBO"
-	-- which is obviously incorrect.
-	-- 
-	-- Seems to only appear in scripts used in Singleplayer. p1 ranges from 2 - 46.
-	-- 
-	-- 
-	-- I assume this switches the crime type
-	["_SWITCH_CRIME_TYPE"]=--[[void]] function(--[[Player (int)]] player,--[[int]] p1)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_int(p1);native_invoker.end_call("9A987297ED8BD838");end,
+	-- crimeType: see REPORT_CRIME
+	["SUPPRESS_CRIME_THIS_FRAME"]=--[[void]] function(--[[Player (int)]] player,--[[int]] crimeType)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_int(crimeType);native_invoker.end_call("9A987297ED8BD838");end,
 	-- Seems to only appear in scripts used in Singleplayer.
 	-- 
 	-- Always used like this in scripts
@@ -11352,18 +11782,92 @@ PLAYER={
 	["GET_CAUSE_OF_MOST_RECENT_FORCE_CLEANUP"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("9A41CF4674A12272");return native_invoker.get_return_value_int();end,
 	["SET_PLAYER_MAY_ONLY_ENTER_THIS_VEHICLE"]=--[[void]] function(--[[Player (int)]] player,--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_int(vehicle);native_invoker.end_call("8026FF78F208978A");end,
 	["SET_PLAYER_MAY_NOT_ENTER_ANY_VEHICLE"]=--[[void]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("1DE37BBF9E9CC14A");end,
-	-- Achievements from 0-57
-	-- 
-	-- 
-	-- more achievements came with update 1.29 (freemode events update), I'd say that they now go to 60, but I'll need to check.
-	["GIVE_ACHIEVEMENT_TO_PLAYER"]=--[[BOOL (bool)]] function(--[[int]] achievement)native_invoker.begin_call();native_invoker.push_arg_int(achievement);native_invoker.end_call("BEC7076D64130195");return native_invoker.get_return_value_bool();end,
+	-- 1 - Welcome to Los Santos
+	-- 2 - A Friendship Resurrected
+	-- 3 - A Fair Day's Pay
+	-- 4 - The Moment of Truth
+	-- 5 - To Live or Die in Los Santos
+	-- 6 - Diamond Hard
+	-- 7 - Subversive
+	-- 8 - Blitzed
+	-- 9 - Small Town, Big Job
+	-- 10 - The Government Gimps
+	-- 11 - The Big One!
+	-- 12 - Solid Gold, Baby!
+	-- 13 - Career Criminal
+	-- 14 - San Andreas Sightseer
+	-- 15 - All's Fare in Love and War
+	-- 16 - TP Industries Arms Race
+	-- 17 - Multi-Disciplined
+	-- 18 - From Beyond the Stars
+	-- 19 - A Mystery, Solved
+	-- 20 - Waste Management
+	-- 21 - Red Mist
+	-- 22 - Show Off
+	-- 23 - Kifflom!
+	-- 24 - Three Man Army
+	-- 25 - Out of Your Depth
+	-- 26 - Altruist Acolyte
+	-- 27 - A Lot of Cheddar
+	-- 28 - Trading Pure Alpha
+	-- 29 - Pimp My Sidearm
+	-- 30 - Wanted: Alive Or Alive
+	-- 31 - Los Santos Customs
+	-- 32 - Close Shave
+	-- 33 - Off the Plane
+	-- 34 - Three-Bit Gangster
+	-- 35 - Making Moves
+	-- 36 - Above the Law
+	-- 37 - Numero Uno
+	-- 38 - The Midnight Club
+	-- 39 - Unnatural Selection
+	-- 40 - Backseat Driver
+	-- 41 - Run Like The Wind
+	-- 42 - Clean Sweep
+	-- 43 - Decorated
+	-- 44 - Stick Up Kid
+	-- 45 - Enjoy Your Stay
+	-- 46 - Crew Cut
+	-- 47 - Full Refund
+	-- 48 - Dialling Digits
+	-- 49 - American Dream
+	-- 50 - A New Perspective
+	-- 51 - Be Prepared
+	-- 52 - In the Name of Science
+	-- 53 - Dead Presidents
+	-- 54 - Parole Day
+	-- 55 - Shot Caller
+	-- 56 - Four Way
+	-- 57 - Live a Little
+	-- 58 - Can't Touch This
+	-- 59 - Mastermind
+	-- 60 - Vinewood Visionary
+	-- 61 - Majestic
+	-- 62 - Humans of Los Santos
+	-- 63 - First Time Director
+	-- 64 - Animal Lover
+	-- 65 - Ensemble Piece
+	-- 66 - Cult Movie
+	-- 67 - Location Scout
+	-- 68 - Method Actor
+	-- 69 - Cryptozoologist
+	-- 70 - Getting Started
+	-- 71 - The Data Breaches
+	-- 72 - The Bogdan Problem
+	-- 73 - The Doomsday Scenario
+	-- 74 - A World Worth Saving
+	-- 75 - Orbital Obliteration
+	-- 76 - Elitist
+	-- 77 - Masterminds
+	["GIVE_ACHIEVEMENT_TO_PLAYER"]=--[[BOOL (bool)]] function(--[[int]] achievementId)native_invoker.begin_call();native_invoker.push_arg_int(achievementId);native_invoker.end_call("BEC7076D64130195");return native_invoker.get_return_value_bool();end,
 	-- For Steam.
 	-- Does nothing and always returns false in the retail version of the game.
-	["_SET_ACHIEVEMENT_PROGRESS"]=--[[BOOL (bool)]] function(--[[int]] achievement,--[[int]] progress)native_invoker.begin_call();native_invoker.push_arg_int(achievement);native_invoker.push_arg_int(progress);native_invoker.end_call("C2AFFFDABBDC2C5C");return native_invoker.get_return_value_bool();end,
+	["_SET_ACHIEVEMENT_PROGRESS"]=--[[BOOL (bool)]] function(--[[int]] achievementId,--[[int]] progress)native_invoker.begin_call();native_invoker.push_arg_int(achievementId);native_invoker.push_arg_int(progress);native_invoker.end_call("C2AFFFDABBDC2C5C");return native_invoker.get_return_value_bool();end,
 	-- For Steam.
 	-- Always returns 0 in retail version of the game.
-	["_GET_ACHIEVEMENT_PROGRESS"]=--[[int]] function(--[[int]] achievement)native_invoker.begin_call();native_invoker.push_arg_int(achievement);native_invoker.end_call("1C186837D0619335");return native_invoker.get_return_value_int();end,
-	["HAS_ACHIEVEMENT_BEEN_PASSED"]=--[[BOOL (bool)]] function(--[[int]] achievement)native_invoker.begin_call();native_invoker.push_arg_int(achievement);native_invoker.end_call("867365E111A3B6EB");return native_invoker.get_return_value_bool();end,
+	["_GET_ACHIEVEMENT_PROGRESS"]=--[[int]] function(--[[int]] achievementId)native_invoker.begin_call();native_invoker.push_arg_int(achievementId);native_invoker.end_call("1C186837D0619335");return native_invoker.get_return_value_int();end,
+	-- See GIVE_ACHIEVEMENT_TO_PLAYER
+	["HAS_ACHIEVEMENT_BEEN_PASSED"]=--[[BOOL (bool)]] function(--[[int]] achievementId)native_invoker.begin_call();native_invoker.push_arg_int(achievementId);native_invoker.end_call("867365E111A3B6EB");return native_invoker.get_return_value_bool();end,
 	-- Returns TRUE if the game is in online mode and FALSE if in offline mode.
 	-- 
 	-- This is an alias for NETWORK_IS_SIGNED_ONLINE.
@@ -11487,9 +11991,11 @@ PLAYER={
 	["SET_DISABLE_AMBIENT_MELEE_MOVE"]=--[[void]] function(--[[Player (int)]] player,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_bool(toggle);native_invoker.end_call("2E8AABFA40A84F8C");end,
 	-- Default is 100. Use player id and not ped id. For instance: PLAYER::SET_PLAYER_MAX_ARMOUR(PLAYER::PLAYER_ID(), 100); // main_persistent.ct4
 	["SET_PLAYER_MAX_ARMOUR"]=--[[void]] function(--[[Player (int)]] player,--[[int]] value)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_int(value);native_invoker.end_call("77DFCCF5948B8C71");end,
-	["_SPECIAL_ABILITY_ACTIVATE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("821FDC827D6F4090");end,
+	-- p1 is always 0 in the scripts
+	["_SPECIAL_ABILITY_ACTIVATE"]=--[[void]] function(--[[Player (int)]] player,--[[int]] p1)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_int(p1);native_invoker.end_call("821FDC827D6F4090");end,
 	["_SET_SPECIAL_ABILITY"]=--[[void]] function(--[[Player (int)]] player,--[[int]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("B214D570EAD7F81A");end,
-	["_SPECIAL_ABILITY_DEPLETE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("17F7471EACA78290");end,
+	-- p1 is always 0 in the scripts
+	["_SPECIAL_ABILITY_DEPLETE"]=--[[void]] function(--[[Player (int)]] player,--[[int]] p1)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_int(p1);native_invoker.end_call("17F7471EACA78290");end,
 	["SPECIAL_ABILITY_DEACTIVATE"]=--[[void]] function(--[[Player (int)]] player,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_int(p1);native_invoker.end_call("D6A953C6D1492057");end,
 	["SPECIAL_ABILITY_DEACTIVATE_FAST"]=--[[void]] function(--[[Player (int)]] player,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_int(p1);native_invoker.end_call("9CB5CE07A3968D5A");end,
 	["SPECIAL_ABILITY_RESET"]=--[[void]] function(--[[Player (int)]] player,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_int(p1);native_invoker.end_call("375F0E738F861A94");end,
@@ -11539,7 +12045,7 @@ PLAYER={
 	["SET_PLAYER_HEALTH_RECHARGE_MULTIPLIER"]=--[[void]] function(--[[Player (int)]] player,--[[float]] regenRate)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_float(regenRate);native_invoker.end_call("5DB660B38DD98A31");end,
 	["_GET_PLAYER_HEALTH_RECHARGE_LIMIT"]=--[[float]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("8BC515BAE4AAF8FF");return native_invoker.get_return_value_float();end,
 	["_SET_PLAYER_HEALTH_RECHARGE_LIMIT"]=--[[void]] function(--[[Player (int)]] player,--[[float]] limit)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_float(limit);native_invoker.end_call("C388A0F065F5BC34");end,
-	["_SET_PLAYER_FALL_DISTANCE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("EFD79FA81DFBA9CB");end,
+	["_SET_PLAYER_FALL_DISTANCE"]=--[[void]] function(--[[Player (int)]] player,--[[float]] p1)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_float(p1);native_invoker.end_call("EFD79FA81DFBA9CB");end,
 	-- This modifies the damage value of your weapon. Whether it is a multiplier or base damage is unknown. 
 	-- 
 	-- Based on tests, it is unlikely to be a multiplier.
@@ -11560,8 +12066,8 @@ PLAYER={
 	["SET_PLAYER_VEHICLE_DEFENSE_MODIFIER"]=--[[void]] function(--[[Player (int)]] player,--[[float]] modifier)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_float(modifier);native_invoker.end_call("4C60E6EFDAFF2462");end,
 	-- SET_PLAYER_MAX_*
 	["_0x8D768602ADEF2245"]=--[[void]] function(--[[Player (int)]] player,--[[float]] p1)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_float(p1);native_invoker.end_call("8D768602ADEF2245");end,
-	["_0xD821056B9ACF8052"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("D821056B9ACF8052");end,
-	["_0x31E90B8873A4CD3B"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("31E90B8873A4CD3B");end,
+	["_0xD821056B9ACF8052"]=--[[void]] function(--[[Player (int)]] player,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_int(p1);native_invoker.end_call("D821056B9ACF8052");end,
+	["_0x31E90B8873A4CD3B"]=--[[void]] function(--[[Player (int)]] player,--[[float]] p1)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_float(p1);native_invoker.end_call("31E90B8873A4CD3B");end,
 	-- Tints:
 	--    None = -1,
 	--     Rainbow = 0,
@@ -11725,11 +12231,11 @@ PLAYER={
 	["SET_PLAYER_PARACHUTE_VARIATION_OVERRIDE"]=--[[void]] function(--[[Player (int)]] player,--[[int]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[BOOL (bool)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_bool(p4);native_invoker.end_call("D9284A8C0D48352C");end,
 	["CLEAR_PLAYER_PARACHUTE_VARIATION_OVERRIDE"]=--[[void]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("0F4CC924CF8C7B21");end,
 	["SET_PLAYER_PARACHUTE_MODEL_OVERRIDE"]=--[[void]] function(--[[Player (int)]] player,--[[Hash (int)]] model)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_int(model);native_invoker.end_call("977DB4641F6FC3DB");end,
-	["_0x0764486AEDE748DB"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("0764486AEDE748DB");end,
-	["_0xC219887CA3E65C41"]=--[[Any (int)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("C219887CA3E65C41");return native_invoker.get_return_value_int();end,
-	["_0x37FAAA68DCA9D08D"]=--[[Any (int)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("37FAAA68DCA9D08D");return native_invoker.get_return_value_int();end,
+	["_SET_PLAYER_RESERVE_PARACHUTE_MODEL_OVERRIDE"]=--[[void]] function(--[[Player (int)]] player,--[[Hash (int)]] model)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_int(model);native_invoker.end_call("0764486AEDE748DB");end,
+	["_GET_PLAYER_PARACHUTE_MODEL_OVERRIDE"]=--[[Hash (int)]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("C219887CA3E65C41");return native_invoker.get_return_value_int();end,
+	["_GET_PLAYER_RESERVE_PARACHUTE_MODEL_OVERRIDE"]=--[[Hash (int)]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("37FAAA68DCA9D08D");return native_invoker.get_return_value_int();end,
 	["CLEAR_PLAYER_PARACHUTE_MODEL_OVERRIDE"]=--[[void]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("8753997EB5F6EE3F");end,
-	["_0x290D248E25815AE8"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("290D248E25815AE8");end,
+	["_CLEAR_PLAYER_RESERVE_PARACHUTE_MODEL_OVERRIDE"]=--[[void]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("290D248E25815AE8");end,
 	["SET_PLAYER_PARACHUTE_PACK_MODEL_OVERRIDE"]=--[[void]] function(--[[Player (int)]] player,--[[Hash (int)]] model)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.push_arg_int(model);native_invoker.end_call("DC80A4C2F18A2B64");end,
 	["CLEAR_PLAYER_PARACHUTE_PACK_MODEL_OVERRIDE"]=--[[void]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("10C54E4389C12B42");end,
 	["DISABLE_PLAYER_VEHICLE_REWARDS"]=--[[void]] function(--[[Player (int)]] player)native_invoker.begin_call();native_invoker.push_arg_int(player);native_invoker.end_call("C142BE3BB9CE125F");end,
@@ -11837,6 +12343,7 @@ SAVEMIGRATION={
 	["_0x84B418E93894AC1C"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("84B418E93894AC1C");return native_invoker.get_return_value_int();end,
 	["_0xE5E9746A66359F9D"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("E5E9746A66359F9D");return native_invoker.get_return_value_int();end,
 	["_0x690B76BD2763E068"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("690B76BD2763E068");return native_invoker.get_return_value_int();end,
+	["_0x18A958B38123ED15"]=--[[Any (int)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("18A958B38123ED15");return native_invoker.get_return_value_int();end,
 }
 SCRIPT={
 	["REQUEST_SCRIPT"]=--[[void]] function(--[[string]] scriptName)native_invoker.begin_call();native_invoker.push_arg_string(scriptName);native_invoker.end_call("6EB5F71AA68F2E8E");end,
@@ -11913,6 +12420,11 @@ SCRIPT={
 	-- See TRIGGER_SCRIPT_EVENT
 	["_TRIGGER_SCRIPT_EVENT_2"]=--[[void]] function(--[[int]] eventGroup,--[[Any* (pointer)]] eventData,--[[int]] eventDataSize,--[[int]] playerBits)native_invoker.begin_call();native_invoker.push_arg_int(eventGroup);native_invoker.push_arg_pointer(eventData);native_invoker.push_arg_int(eventDataSize);native_invoker.push_arg_int(playerBits);native_invoker.end_call("A40CC53DF8E50837");end,
 }
+SECURITY={
+	["_0x40EB1EFD921822BC"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("40EB1EFD921822BC");end,
+	["_0x340A36A700E99699"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("340A36A700E99699");end,
+	["_0x8E580AB902917360"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("8E580AB902917360");end,
+}
 SHAPETEST={
 	-- Asynchronously starts a line-of-sight (raycast) world probe shape test.
 	-- 
@@ -11959,15 +12471,15 @@ SOCIALCLUB={
 	["SC_INBOX_GET_TOTAL_NUM_MESSAGES"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("03A93FF1A2CA0864");return native_invoker.get_return_value_int();end,
 	["SC_INBOX_GET_MESSAGE_TYPE_AT_INDEX"]=--[[Hash (int)]] function(--[[int]] msgIndex)native_invoker.begin_call();native_invoker.push_arg_int(msgIndex);native_invoker.end_call("BB8EA16ECBC976C4");return native_invoker.get_return_value_int();end,
 	["SC_INBOX_GET_MESSAGE_IS_READ_AT_INDEX"]=--[[BOOL (bool)]] function(--[[int]] msgIndex)native_invoker.begin_call();native_invoker.push_arg_int(msgIndex);native_invoker.end_call("93028F1DB42BFD08");return native_invoker.get_return_value_bool();end,
-	["_SC_INBOX_MESSAGE_POP"]=--[[BOOL (bool)]] function(--[[int]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("2C015348CF19CA1D");return native_invoker.get_return_value_bool();end,
+	["SC_INBOX_SET_MESSAGE_AS_READ_AT_INDEX"]=--[[BOOL (bool)]] function(--[[int]] msgIndex)native_invoker.begin_call();native_invoker.push_arg_int(msgIndex);native_invoker.end_call("2C015348CF19CA1D");return native_invoker.get_return_value_bool();end,
 	["SC_INBOX_MESSAGE_GET_DATA_INT"]=--[[BOOL (bool)]] function(--[[int]] p0,--[[string]] context,--[[int* (pointer)]] out)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_string(context);native_invoker.push_arg_pointer(out);native_invoker.end_call("A00EFE4082C4056E");return native_invoker.get_return_value_bool();end,
 	["_SC_INBOX_MESSAGE_GET_DATA_BOOL"]=--[[BOOL (bool)]] function(--[[int]] p0,--[[string]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_string(p1);native_invoker.end_call("FFE5C16F402D851D");return native_invoker.get_return_value_bool();end,
 	["SC_INBOX_MESSAGE_GET_DATA_STRING"]=--[[BOOL (bool)]] function(--[[int]] p0,--[[string]] context,--[[char* (pointer)]] out)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_string(context);native_invoker.push_arg_pointer(out);native_invoker.end_call("7572EF42FC6A9B6D");return native_invoker.get_return_value_bool();end,
 	["SC_INBOX_MESSAGE_DO_APPLY"]=--[[BOOL (bool)]] function(--[[int]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("9A2C8064B6C1E41A");return native_invoker.get_return_value_bool();end,
 	["_SC_INBOX_MESSAGE_GET_STRING"]=--[[string]] function(--[[int]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("F3E31D16CBDCB304");return native_invoker.get_return_value_string();end,
-	["_SC_INBOX_MESSAGE_PUSH_GAMER_TO_EVENT_RECIP_LIST"]=--[[void]] function(--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("DA024BDBD600F44A");end,
+	["_SC_INBOX_MESSAGE_PUSH_GAMER_TO_EVENT_RECIP_LIST"]=--[[void]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("DA024BDBD600F44A");end,
 	["_SC_INBOX_MESSAGE_SEND_UGC_STAT_UPDATE_EVENT"]=--[[void]] function(--[[Any* (pointer)]] data)native_invoker.begin_call();native_invoker.push_arg_pointer(data);native_invoker.end_call("A68D3D229F4F3B06");end,
-	["SC_INBOX_MESSAGE_GET_UGCDATA"]=--[[BOOL (bool)]] function(--[[Any (int)]] p0,--[[Any* (pointer)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_pointer(p1);native_invoker.end_call("69D82604A1A5A254");return native_invoker.get_return_value_bool();end,
+	["SC_INBOX_MESSAGE_GET_UGCDATA"]=--[[BOOL (bool)]] function(--[[int]] p0,--[[Any* (pointer)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_pointer(p1);native_invoker.end_call("69D82604A1A5A254");return native_invoker.get_return_value_bool();end,
 	["_SC_INBOX_MESSAGE_SEND_BOUNTY_PRESENCE_EVENT"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] data)native_invoker.begin_call();native_invoker.push_arg_pointer(data);native_invoker.end_call("6AFD2CD753FEEF83");return native_invoker.get_return_value_bool();end,
 	["_SC_INBOX_MESSAGE_GET_BOUNTY_DATA"]=--[[BOOL (bool)]] function(--[[int]] index,--[[Any* (pointer)]] outData)native_invoker.begin_call();native_invoker.push_arg_int(index);native_invoker.push_arg_pointer(outData);native_invoker.end_call("87E0052F08BD64E6");return native_invoker.get_return_value_bool();end,
 	["_SC_INBOX_GET_EMAILS"]=--[[void]] function(--[[int]] offset,--[[int]] limit)native_invoker.begin_call();native_invoker.push_arg_int(offset);native_invoker.push_arg_int(limit);native_invoker.end_call("040ADDCBAFA1018A");end,
@@ -11975,7 +12487,7 @@ SOCIALCLUB={
 	["_0x7DB18CA8CAD5B098"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("7DB18CA8CAD5B098");return native_invoker.get_return_value_int();end,
 	["_0x4737980E8A283806"]=--[[BOOL (bool)]] function(--[[int]] p0,--[[Any* (pointer)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_pointer(p1);native_invoker.end_call("4737980E8A283806");return native_invoker.get_return_value_bool();end,
 	["_0x44ACA259D67651DB"]=--[[void]] function(--[[Any* (pointer)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("44ACA259D67651DB");end,
-	["SC_EMAIL_MESSAGE_PUSH_GAMER_TO_RECIP_LIST"]=--[[void]] function(--[[int* (pointer)]] networkHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(networkHandle);native_invoker.end_call("2330C12A7A605D16");end,
+	["SC_EMAIL_MESSAGE_PUSH_GAMER_TO_RECIP_LIST"]=--[[void]] function(--[[Any* (pointer)]] gamerHandle)native_invoker.begin_call();native_invoker.push_arg_pointer(gamerHandle);native_invoker.end_call("2330C12A7A605D16");end,
 	["SC_EMAIL_MESSAGE_CLEAR_RECIP_LIST"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("55DF6DB45179236E");end,
 	["_0x116FB94DC4B79F17"]=--[[void]] function(--[[string]] p0)native_invoker.begin_call();native_invoker.push_arg_string(p0);native_invoker.end_call("116FB94DC4B79F17");end,
 	["_0x07DBD622D9533857"]=--[[Any (int)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("07DBD622D9533857");return native_invoker.get_return_value_int();end,
@@ -12010,13 +12522,13 @@ SOCIALCLUB={
 	["_0x700569DBA175A77C"]=--[[Any (int)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("700569DBA175A77C");return native_invoker.get_return_value_int();end,
 	["_0x1D4446A62D35B0D0"]=--[[Any (int)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("1D4446A62D35B0D0");return native_invoker.get_return_value_int();end,
 	["_0x2E89990DDFF670C3"]=--[[Any (int)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("2E89990DDFF670C3");return native_invoker.get_return_value_int();end,
-	["_0xD0EE05FE193646EA"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] p0,--[[Any* (pointer)]] p1,--[[Any* (pointer)]] p2)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_pointer(p2);native_invoker.end_call("D0EE05FE193646EA");return native_invoker.get_return_value_bool();end,
-	["_0x1989C6E6F67E76A8"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] p0,--[[Any* (pointer)]] p1,--[[Any* (pointer)]] p2)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_pointer(p2);native_invoker.end_call("1989C6E6F67E76A8");return native_invoker.get_return_value_bool();end,
+	["_0xD0EE05FE193646EA"]=--[[BOOL (bool)]] function(--[[string]] p0,--[[string]] p1,--[[Any* (pointer)]] p2)native_invoker.begin_call();native_invoker.push_arg_string(p0);native_invoker.push_arg_string(p1);native_invoker.push_arg_pointer(p2);native_invoker.end_call("D0EE05FE193646EA");return native_invoker.get_return_value_bool();end,
+	["_0x1989C6E6F67E76A8"]=--[[BOOL (bool)]] function(--[[string]] p0,--[[Any* (pointer)]] p1,--[[int* (pointer)]] p2)native_invoker.begin_call();native_invoker.push_arg_string(p0);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_pointer(p2);native_invoker.end_call("1989C6E6F67E76A8");return native_invoker.get_return_value_bool();end,
 	["_0x07C61676E5BB52CD"]=--[[Any (int)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("07C61676E5BB52CD");return native_invoker.get_return_value_int();end,
 	["_0x8147FFF6A718E1AD"]=--[[Any (int)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("8147FFF6A718E1AD");return native_invoker.get_return_value_int();end,
-	["_0x0F73393BAC7E6730"]=--[[BOOL (bool)]] function(--[[Any* (pointer)]] p0,--[[int* (pointer)]] p1)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.push_arg_pointer(p1);native_invoker.end_call("0F73393BAC7E6730");return native_invoker.get_return_value_bool();end,
-	["_0xD302E99EDF0449CF"]=--[[Any (int)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("D302E99EDF0449CF");return native_invoker.get_return_value_int();end,
-	["_0x5C4EBFFA98BDB41C"]=--[[Any (int)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("5C4EBFFA98BDB41C");return native_invoker.get_return_value_int();end,
+	["_0x0F73393BAC7E6730"]=--[[BOOL (bool)]] function(--[[string]] p0,--[[int* (pointer)]] p1)native_invoker.begin_call();native_invoker.push_arg_string(p0);native_invoker.push_arg_pointer(p1);native_invoker.end_call("0F73393BAC7E6730");return native_invoker.get_return_value_bool();end,
+	["_0xD302E99EDF0449CF"]=--[[int]] function(--[[int]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("D302E99EDF0449CF");return native_invoker.get_return_value_int();end,
+	["_0x5C4EBFFA98BDB41C"]=--[[int]] function(--[[int]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("5C4EBFFA98BDB41C");return native_invoker.get_return_value_int();end,
 	["_0xFF8F3A92B75ED67A"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("FF8F3A92B75ED67A");return native_invoker.get_return_value_bool();end,
 	["_0x4ED9C8D6DA297639"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("4ED9C8D6DA297639");return native_invoker.get_return_value_int();end,
 	["_0x710BCDA8071EDED1"]=--[[BOOL (bool)]] function(--[[string]] p0,--[[int* (pointer)]] p1)native_invoker.begin_call();native_invoker.push_arg_string(p0);native_invoker.push_arg_pointer(p1);native_invoker.end_call("710BCDA8071EDED1");return native_invoker.get_return_value_bool();end,
@@ -12048,7 +12560,7 @@ SOCIALCLUB={
 	["_SC_GET_NICKNAME"]=--[[string]] function()native_invoker.begin_call();native_invoker.end_call("198D161F458ECC7F");return native_invoker.get_return_value_string();end,
 	["_0x225798743970412B"]=--[[BOOL (bool)]] function(--[[int* (pointer)]] p0)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.end_call("225798743970412B");return native_invoker.get_return_value_bool();end,
 	-- Same as HAS_ACHIEVEMENT_BEEN_PASSED
-	["_SC_GET_HAS_ACHIEVEMENT_BEEN_PASSED"]=--[[BOOL (bool)]] function(--[[int]] achievement)native_invoker.begin_call();native_invoker.push_arg_int(achievement);native_invoker.end_call("418DC16FAE452C1C");return native_invoker.get_return_value_bool();end,
+	["_SC_GET_HAS_ACHIEVEMENT_BEEN_PASSED"]=--[[BOOL (bool)]] function(--[[int]] achievementId)native_invoker.begin_call();native_invoker.push_arg_int(achievementId);native_invoker.end_call("418DC16FAE452C1C");return native_invoker.get_return_value_bool();end,
 }
 STATS={
 	-- Example:
@@ -12185,9 +12697,9 @@ STATS={
 	["STAT_GET_LICENSE_PLATE"]=--[[string]] function(--[[Hash (int)]] statName)native_invoker.begin_call();native_invoker.push_arg_int(statName);native_invoker.end_call("5473D4195058B2E4");return native_invoker.get_return_value_string();end,
 	["STAT_SET_LICENSE_PLATE"]=--[[BOOL (bool)]] function(--[[Hash (int)]] statName,--[[string]] str)native_invoker.begin_call();native_invoker.push_arg_int(statName);native_invoker.push_arg_string(str);native_invoker.end_call("69FF13266D7296DA");return native_invoker.get_return_value_bool();end,
 	["STAT_INCREMENT"]=--[[void]] function(--[[Hash (int)]] statName,--[[float]] value)native_invoker.begin_call();native_invoker.push_arg_int(statName);native_invoker.push_arg_float(value);native_invoker.end_call("9B5A68C6489E9909");end,
-	["_0x5A556B229A169402"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("5A556B229A169402");return native_invoker.get_return_value_bool();end,
-	["_0xB1D2BB1E1631F5B1"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("B1D2BB1E1631F5B1");return native_invoker.get_return_value_bool();end,
-	["_0xBED9F5693F34ED17"]=--[[BOOL (bool)]] function(--[[Hash (int)]] statName,--[[int]] p1,--[[float* (pointer)]] outValue)native_invoker.begin_call();native_invoker.push_arg_int(statName);native_invoker.push_arg_int(p1);native_invoker.push_arg_pointer(outValue);native_invoker.end_call("BED9F5693F34ED17");return native_invoker.get_return_value_bool();end,
+	["STAT_COMMUNITY_START_SYNCH"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("5A556B229A169402");return native_invoker.get_return_value_bool();end,
+	["STAT_COMMUNITY_SYNCH_IS_PENDING"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("B1D2BB1E1631F5B1");return native_invoker.get_return_value_bool();end,
+	["STAT_COMMUNITY_GET_HISTORY"]=--[[BOOL (bool)]] function(--[[Hash (int)]] statName,--[[int]] p1,--[[float* (pointer)]] outValue)native_invoker.begin_call();native_invoker.push_arg_int(statName);native_invoker.push_arg_int(p1);native_invoker.push_arg_pointer(outValue);native_invoker.end_call("BED9F5693F34ED17");return native_invoker.get_return_value_bool();end,
 	-- STATS::0x343B27E2(0);
 	-- STATS::0x343B27E2(1);
 	-- STATS::0x343B27E2(2);
@@ -12215,32 +12727,12 @@ STATS={
 	-- 
 	-- profileSetting seems to only be 936, 937 and 938 in scripts
 	["STAT_SET_PROFILE_SETTING_VALUE"]=--[[void]] function(--[[int]] profileSetting,--[[int]] value)native_invoker.begin_call();native_invoker.push_arg_int(profileSetting);native_invoker.push_arg_int(value);native_invoker.end_call("68F01422BE1D838F");end,
-	["_0xC01D2470F22CDE5A"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("C01D2470F22CDE5A");end,
-	-- Needs more research. Possibly used to calculate the "mask" when calling "STAT_SET_BOOL_MASKED"?
-	["_STAT_GET_PACKED_BOOL_MASK"]=--[[int]] function(--[[int]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("F4D8E7AC2A27758C");return native_invoker.get_return_value_int();end,
+	-- This native does absolutely nothing, just a nullsub
+	["_0xC01D2470F22CDE5A"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("C01D2470F22CDE5A");end,
 	-- Needs more research. Possibly used to calculate the "mask" when calling "STAT_SET_MASKED_INT"?
 	["_STAT_GET_PACKED_INT_MASK"]=--[[int]] function(--[[int]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("94F12ABF9C79E339");return native_invoker.get_return_value_int();end,
-	["GET_PACKED_BOOL_STAT_KEY"]=--[[Hash (int)]] function(--[[int]] index,--[[BOOL (bool)]] spStat,--[[BOOL (bool)]] charStat,--[[int]] character)native_invoker.begin_call();native_invoker.push_arg_int(index);native_invoker.push_arg_bool(spStat);native_invoker.push_arg_bool(charStat);native_invoker.push_arg_int(character);native_invoker.end_call("80C75307B1C42837");return native_invoker.get_return_value_int();end,
 	["GET_PACKED_INT_STAT_KEY"]=--[[Hash (int)]] function(--[[int]] index,--[[BOOL (bool)]] spStat,--[[BOOL (bool)]] charStat,--[[int]] character)native_invoker.begin_call();native_invoker.push_arg_int(index);native_invoker.push_arg_bool(spStat);native_invoker.push_arg_bool(charStat);native_invoker.push_arg_int(character);native_invoker.end_call("61E111E323419E07");return native_invoker.get_return_value_int();end,
-	["GET_PACKED_TU_BOOL_STAT_KEY"]=--[[Hash (int)]] function(--[[int]] index,--[[BOOL (bool)]] spStat,--[[BOOL (bool)]] charStat,--[[int]] character)native_invoker.begin_call();native_invoker.push_arg_int(index);native_invoker.push_arg_bool(spStat);native_invoker.push_arg_bool(charStat);native_invoker.push_arg_int(character);native_invoker.end_call("C4BB08EE7907471E");return native_invoker.get_return_value_int();end,
 	["GET_PACKED_TU_INT_STAT_KEY"]=--[[Hash (int)]] function(--[[int]] index,--[[BOOL (bool)]] spStat,--[[BOOL (bool)]] charStat,--[[int]] character)native_invoker.begin_call();native_invoker.push_arg_int(index);native_invoker.push_arg_bool(spStat);native_invoker.push_arg_bool(charStat);native_invoker.push_arg_int(character);native_invoker.end_call("D16C2AD6B8E32854");return native_invoker.get_return_value_int();end,
-	-- Needs more research. Gets the stat name of a masked bool?
-	-- 
-	-- section - values used in the decompiled scripts:
-	-- "_NGPSTAT_BOOL"
-	-- "_NGTATPSTAT_BOOL"
-	-- "_NGDLCPSTAT_BOOL"
-	-- "_DLCBIKEPSTAT_BOOL"
-	-- "_DLCGUNPSTAT_BOOL"
-	-- "_GUNTATPSTAT_BOOL"
-	-- "_DLCSMUGCHARPSTAT_BOOL"
-	-- "_GANGOPSPSTAT_BOOL"
-	-- "_BUSINESSBATPSTAT_BOOL"
-	-- "_ARENAWARSPSTAT_BOOL"
-	-- "_CASINOPSTAT_BOOL"
-	-- "_CASINOHSTPSTAT_BOOL"
-	-- "_HEIST3TATTOOSTAT_BOOL"
-	["_GET_NGSTAT_BOOL_HASH"]=--[[Hash (int)]] function(--[[int]] index,--[[BOOL (bool)]] spStat,--[[BOOL (bool)]] charStat,--[[int]] character,--[[string]] section)native_invoker.begin_call();native_invoker.push_arg_int(index);native_invoker.push_arg_bool(spStat);native_invoker.push_arg_bool(charStat);native_invoker.push_arg_int(character);native_invoker.push_arg_string(section);native_invoker.end_call("BA52FF538ED2BC71");return native_invoker.get_return_value_int();end,
 	-- Needs more research. Gets the stat name of a masked int?
 	-- 
 	-- section - values used in the decompiled scripts:
@@ -12261,9 +12753,10 @@ STATS={
 	-- "_CASINOPSTAT_INT"
 	-- "_CASINOHSTPSTAT_INT"
 	["_GET_NGSTAT_INT_HASH"]=--[[Hash (int)]] function(--[[int]] index,--[[BOOL (bool)]] spStat,--[[BOOL (bool)]] charStat,--[[int]] character,--[[string]] section)native_invoker.begin_call();native_invoker.push_arg_int(index);native_invoker.push_arg_bool(spStat);native_invoker.push_arg_bool(charStat);native_invoker.push_arg_int(character);native_invoker.push_arg_string(section);native_invoker.end_call("2B4CDCA6F07FF3DA");return native_invoker.get_return_value_int();end,
-	-- p2 - Default value? Seems to be -1 most of the time.
-	["STAT_GET_BOOL_MASKED"]=--[[BOOL (bool)]] function(--[[Hash (int)]] statName,--[[int]] mask,--[[int]] p2)native_invoker.begin_call();native_invoker.push_arg_int(statName);native_invoker.push_arg_int(mask);native_invoker.push_arg_int(p2);native_invoker.end_call("10FE3F1B79F9B071");return native_invoker.get_return_value_bool();end,
-	["STAT_SET_BOOL_MASKED"]=--[[BOOL (bool)]] function(--[[Hash (int)]] statName,--[[BOOL (bool)]] value,--[[int]] mask,--[[BOOL (bool)]] save)native_invoker.begin_call();native_invoker.push_arg_int(statName);native_invoker.push_arg_bool(value);native_invoker.push_arg_int(mask);native_invoker.push_arg_bool(save);native_invoker.end_call("5BC62EC1937B9E5B");return native_invoker.get_return_value_bool();end,
+	["_GET_PACKED_STAT_BOOL"]=--[[BOOL (bool)]] function(--[[int]] index,--[[int]] characterSlot)native_invoker.begin_call();native_invoker.push_arg_int(index);native_invoker.push_arg_int(characterSlot);native_invoker.end_call("DA7EBFC49AE3F1B0");return native_invoker.get_return_value_bool();end,
+	["_GET_PACKED_STAT_INT"]=--[[int]] function(--[[int]] index,--[[int]] characterSlot)native_invoker.begin_call();native_invoker.push_arg_int(index);native_invoker.push_arg_int(characterSlot);native_invoker.end_call("0BC900A6FE73770C");return native_invoker.get_return_value_int();end,
+	["_SET_PACKED_STAT_BOOL"]=--[[void]] function(--[[int]] index,--[[BOOL (bool)]] value,--[[int]] characterSlot)native_invoker.begin_call();native_invoker.push_arg_int(index);native_invoker.push_arg_bool(value);native_invoker.push_arg_int(characterSlot);native_invoker.end_call("DB8A58AEAA67CD07");end,
+	["_SET_PACKED_STAT_INT"]=--[[void]] function(--[[int]] index,--[[int]] value,--[[int]] characterSlot)native_invoker.begin_call();native_invoker.push_arg_int(index);native_invoker.push_arg_int(value);native_invoker.push_arg_int(characterSlot);native_invoker.end_call("1581503AE529CD2E");end,
 	["PLAYSTATS_BACKGROUND_SCRIPT_ACTION"]=--[[void]] function(--[[string]] action,--[[int]] value)native_invoker.begin_call();native_invoker.push_arg_string(action);native_invoker.push_arg_int(value);native_invoker.end_call("5009DFD741329729");end,
 	["PLAYSTATS_NPC_INVITE"]=--[[void]] function(--[[Any* (pointer)]] p0)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.end_call("93054C88E6AA7C44");end,
 	["PLAYSTATS_AWARD_XP"]=--[[void]] function(--[[int]] amount,--[[Hash (int)]] type,--[[Hash (int)]] category)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.push_arg_int(type);native_invoker.push_arg_int(category);native_invoker.end_call("46F917F6B4128FE4");end,
@@ -12310,19 +12803,19 @@ STATS={
 	["_PLAYSTATS_DIRECTOR_MODE"]=--[[void]] function(--[[Any* (pointer)]] p0)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.end_call("46326E13DA4E0546");end,
 	["_PLAYSTATS_AWARD_BADSPORT"]=--[[void]] function(--[[int]] id)native_invoker.begin_call();native_invoker.push_arg_int(id);native_invoker.end_call("47B32F5611E6E483");end,
 	["_PLAYSTATS_PEGASAIRCRAFT"]=--[[void]] function(--[[Hash (int)]] modelHash)native_invoker.begin_call();native_invoker.push_arg_int(modelHash);native_invoker.end_call("9572BD4DD6B72122");end,
-	["_0x6A60E43998228229"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("6A60E43998228229");end,
-	["_0xBFAFDB5FAAA5C5AB"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("BFAFDB5FAAA5C5AB");end,
-	["_0x8C9D11605E59D955"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("8C9D11605E59D955");end,
-	["_0x3DE3AA516FB126A4"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("3DE3AA516FB126A4");end,
-	["_0xBAA2F0490E146BE8"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("BAA2F0490E146BE8");end,
-	["_0x1A7CE7CD3E653485"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("1A7CE7CD3E653485");end,
-	["_0x419615486BBF1956"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("419615486BBF1956");end,
-	["_0x84DFC579C2FC214C"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("84DFC579C2FC214C");end,
-	["_0x0A9C7F36E5D7B683"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("0A9C7F36E5D7B683");end,
-	["_0x164C5FF663790845"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("164C5FF663790845");end,
-	["_0xEDBF6C9B0D2C65C8"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("EDBF6C9B0D2C65C8");end,
-	["_0x6551B1F7F6CD46EA"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("6551B1F7F6CD46EA");end,
-	["_0x2CD90358F67D0AA8"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("2CD90358F67D0AA8");end,
+	["_PLAYSTATS_FREEMODE_CHALLENGES"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("6A60E43998228229");end,
+	["_PLAYSTATS_FREEMODE_VEHICLE_TARGET"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("BFAFDB5FAAA5C5AB");end,
+	["_PLAYSTATS_FREEMODE_URBAN_WARFARE"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("8C9D11605E59D955");end,
+	["_PLAYSTATS_FREEMODE_CHECKPOINT_COLLECTION"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("3DE3AA516FB126A4");end,
+	["_PLAYSTATS_FREEMODE_ATOB"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("BAA2F0490E146BE8");end,
+	["_PLAYSTATS_FREEMODE_PENNED_IN"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("1A7CE7CD3E653485");end,
+	["_PLAYSTATS_FREEMODE_PASS_THE_PARCEL"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("419615486BBF1956");end,
+	["_PLAYSTATS_FREEMODE_HOT_PROPERTY"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("84DFC579C2FC214C");end,
+	["_PLAYSTATS_FREEMODE_DEADDROP"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("0A9C7F36E5D7B683");end,
+	["_PLAYSTATS_FREEMODE_KING_OF_THE_CASTLE"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("164C5FF663790845");end,
+	["_PLAYSTATS_FREEMODE_CRIMINAL_DAMAGE"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("EDBF6C9B0D2C65C8");end,
+	["_PLAYSTATS_FREEMODE_COMPETITIVE_URBAN_WARFARE"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("6551B1F7F6CD46EA");end,
+	["_PLAYSTATS_FREEMODE_HUNT_BEAST"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("2CD90358F67D0AA8");end,
 	["_PLAYSTATS_PI_MENU_HIDE_SETTINGS"]=--[[void]] function(--[[Any* (pointer)]] data)native_invoker.begin_call();native_invoker.push_arg_pointer(data);native_invoker.end_call("203B381133817079");end,
 	["LEADERBOARDS_GET_NUMBER_OF_COLUMNS"]=--[[Any (int)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("117B45156D7EFF2E");return native_invoker.get_return_value_int();end,
 	["LEADERBOARDS_GET_COLUMN_ID"]=--[[Any (int)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("C4B5467A1886EA7E");return native_invoker.get_return_value_int();end,
@@ -12395,25 +12888,78 @@ STATS={
 	["_STAT_GET_CANCEL_SAVE_MIGRATION_STATUS"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("567384DFA67029E6");return native_invoker.get_return_value_int();end,
 	["_STAT_SAVE_MIGRATION_CONSUME_CONTENT_UNLOCK"]=--[[BOOL (bool)]] function(--[[Hash (int)]] contentId,--[[string]] srcPlatform,--[[string]] srcGamerHandle)native_invoker.begin_call();native_invoker.push_arg_int(contentId);native_invoker.push_arg_string(srcPlatform);native_invoker.push_arg_string(srcGamerHandle);native_invoker.end_call("3270F67EED31FBC1");return native_invoker.get_return_value_bool();end,
 	["_STAT_GET_SAVE_MIGRATION_CONSUME_CONTENT_UNLOCK_STATUS"]=--[[int]] function(--[[int* (pointer)]] p0)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.end_call("CE5AA445ABA8DEE0");return native_invoker.get_return_value_int();end,
-	["_0x98E2BC1CA26287C3"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("98E2BC1CA26287C3");end,
-	["_0x629526ABA383BCAA"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("629526ABA383BCAA");end,
-	["_0xBE3DB208333D9844"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("BE3DB208333D9844");return native_invoker.get_return_value_int();end,
-	["_0x33D72899E24C3365"]=--[[Any (int)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("33D72899E24C3365");return native_invoker.get_return_value_int();end,
-	["_0xA761D4AC6115623D"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("A761D4AC6115623D");return native_invoker.get_return_value_int();end,
-	["_0xF11F01D98113536A"]=--[[Any (int)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("F11F01D98113536A");return native_invoker.get_return_value_int();end,
-	["_0x8B9CDBD6C566C38C"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("8B9CDBD6C566C38C");return native_invoker.get_return_value_int();end,
-	["_0xE8853FBCE7D8D0D6"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("E8853FBCE7D8D0D6");return native_invoker.get_return_value_int();end,
-	["_0xA943FD1722E11EFD"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("A943FD1722E11EFD");return native_invoker.get_return_value_int();end,
-	["_0x84A810B375E69C0E"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("84A810B375E69C0E");return native_invoker.get_return_value_int();end,
-	["_0x9EC8858184CD253A"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("9EC8858184CD253A");return native_invoker.get_return_value_int();end,
-	["_0xBA9749CC94C1FD85"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("BA9749CC94C1FD85");return native_invoker.get_return_value_int();end,
-	["_0x55A8BECAF28A4EB7"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("55A8BECAF28A4EB7");return native_invoker.get_return_value_int();end,
-	["_0x32CAC93C9DE73D32"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("32CAC93C9DE73D32");return native_invoker.get_return_value_int();end,
-	["_0xAFF47709F1D5DCCE"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("AFF47709F1D5DCCE");return native_invoker.get_return_value_int();end,
-	["_0x6E0A5253375C4584"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("6E0A5253375C4584");return native_invoker.get_return_value_int();end,
-	["_0x1A8EA222F9C67DBB"]=--[[Any (int)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("1A8EA222F9C67DBB");return native_invoker.get_return_value_int();end,
-	["_0xF9F2922717B819EC"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("F9F2922717B819EC");return native_invoker.get_return_value_int();end,
-	["_0x0B8B7F74BF061C6D"]=--[[Any (int)]] function()native_invoker.begin_call();native_invoker.end_call("0B8B7F74BF061C6D");return native_invoker.get_return_value_int();end,
+	["_STAT_MANAGER_SET_MUTABLE"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("98E2BC1CA26287C3");end,
+	-- Prevents updates to CStatsMgr (e.g., STAT_SET_* natives)
+	["_STAT_MANAGER_SET_IMMUTABLE"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("629526ABA383BCAA");end,
+	["_STAT_MANAGER_IS_MUTABLE"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("BE3DB208333D9844");return native_invoker.get_return_value_bool();end,
+	-- enum StatTrackingType
+	-- {
+	-- 	LongestWheelie = 1,
+	-- 	LongestStoppie = 2,
+	-- 	NoCrashes = 3,
+	-- 	HighestSpeed = 4,
+	-- 	_MostFlips = 5,
+	-- 	_LongestSpin = 6,
+	-- 	_HighestJumpReached = 7,
+	-- 	LongestJump = 8,
+	-- 	_NearMissesNoCrash = 9,
+	-- 	LongestFallSurvived = 10,
+	-- 	LowestParachute = 11,
+	-- 	ReverseDriving = 12,
+	-- 	LongestFreefall = 13,
+	-- 	VehiclesStolen = 14,
+	-- 	_SomeCFireEventCount = 15,
+	-- 	_Unk16 = 16,
+	-- 	_LowFlyingTime = 17,
+	-- 	LowFlying = 18,
+	-- 	_InvertedFlyingTime = 19,
+	-- 	InvertedFlying = 20,
+	-- 	_PlaneSpinCount = 21,
+	-- 	MeleeKills = 22, // Players
+	-- 	_LongestSniperKill = 23,
+	-- 	SniperSkills = 24, // Players
+	-- 	DrivebyKills = 25, // Players
+	-- 	HeadshotKills = 26, // Players
+	-- 	LongestBail = 27,
+	-- 	_TotalRammedByCar = 28,
+	-- 	NearMissesPrecise = 29,
+	-- 	_FreefallTime = 30,
+	-- 	Unk31 = 31,
+	-- }
+	-- 
+	-- enum StatTrackingValueType
+	-- {
+	-- 	Total,
+	-- 	Max,
+	-- 	Min
+	-- }
+	["_STAT_TRACKING_ENABLE"]=--[[Any (int)]] function(--[[int]] statType,--[[int]] valueType)native_invoker.begin_call();native_invoker.push_arg_int(statType);native_invoker.push_arg_int(valueType);native_invoker.end_call("33D72899E24C3365");return native_invoker.get_return_value_int();end,
+	["_STAT_TRACKING_CLEAR_PROGRESS"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("A761D4AC6115623D");return native_invoker.get_return_value_bool();end,
+	["_STAT_GET_PROGRESS_OF_TRACKED_STAT"]=--[[BOOL (bool)]] function(--[[float* (pointer)]] value)native_invoker.begin_call();native_invoker.push_arg_pointer(value);native_invoker.end_call("F11F01D98113536A");return native_invoker.get_return_value_bool();end,
+	["_STAT_IS_TRACKING_ENABLED"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("8B9CDBD6C566C38C");return native_invoker.get_return_value_bool();end,
+	-- Perform the most near misses with other vehicles in a land vehicle without crashing
+	["_STAT_GET_CHALLENGE_NEAR_MISSES"]=--[[int]] function()native_invoker.begin_call();native_invoker.end_call("E8853FBCE7D8D0D6");return native_invoker.get_return_value_int();end,
+	-- Perform the longest wheelie on a motorcycle
+	["_STAT_GET_CHALLENGE_LONGEST_WHEELIE"]=--[[float]] function()native_invoker.begin_call();native_invoker.end_call("A943FD1722E11EFD");return native_invoker.get_return_value_float();end,
+	-- Perform the longest stoppie on a motorcycle
+	["_STAT_GET_CHALLENGE_LONGEST_STOPPIE"]=--[[float]] function()native_invoker.begin_call();native_invoker.end_call("84A810B375E69C0E");return native_invoker.get_return_value_float();end,
+	-- Perform the longest jump in a land vehicle
+	["_STAT_GET_CHALLENGE_LONGEST_JUMP"]=--[[float]] function()native_invoker.begin_call();native_invoker.end_call("9EC8858184CD253A");return native_invoker.get_return_value_float();end,
+	-- Drive the furthest distance in a land vehicle without crashing
+	["_STAT_GET_CHALLENGE_NO_CRASHES"]=--[[float]] function()native_invoker.begin_call();native_invoker.end_call("BA9749CC94C1FD85");return native_invoker.get_return_value_float();end,
+	-- Achieve the highest speed in a land vehicle
+	["_STAT_GET_CHALLENGE_HIGHEST_SPEED"]=--[[float]] function()native_invoker.begin_call();native_invoker.end_call("55A8BECAF28A4EB7");return native_invoker.get_return_value_float();end,
+	-- Reverse the longest distance without crashing
+	["_STAT_GET_CHALLENGE_REVERSE_DRIVING"]=--[[float]] function()native_invoker.begin_call();native_invoker.end_call("32CAC93C9DE73D32");return native_invoker.get_return_value_float();end,
+	-- Fall the longest distance with a parachute before opening it
+	["_STAT_GET_CHALLENGE_LONGEST_FREEFALL"]=--[[float]] function()native_invoker.begin_call();native_invoker.end_call("AFF47709F1D5DCCE");return native_invoker.get_return_value_float();end,
+	-- Fly low to the ground for the longest distance
+	["_STAT_GET_CHALLENGE_LOW_FLYING"]=--[[float]] function()native_invoker.begin_call();native_invoker.end_call("6E0A5253375C4584");return native_invoker.get_return_value_float();end,
+	["_STAT_GET_HEIGHT_ABOVE_GROUND"]=--[[BOOL (bool)]] function(--[[float* (pointer)]] p0)native_invoker.begin_call();native_invoker.push_arg_pointer(p0);native_invoker.end_call("1A8EA222F9C67DBB");return native_invoker.get_return_value_bool();end,
+	-- Or non-flyable area
+	["_STAT_IS_ABOVE_DEEP_WATER"]=--[[BOOL (bool)]] function()native_invoker.begin_call();native_invoker.end_call("F9F2922717B819EC");return native_invoker.get_return_value_bool();end,
+	-- Travel the furthest distance when bailing from a vehicle
+	["_STAT_GET_LONGEST_BAIL"]=--[[float]] function()native_invoker.begin_call();native_invoker.end_call("0B8B7F74BF061C6D");return native_invoker.get_return_value_float();end,
 	-- This function is hard-coded to always return 1.
 	-- 
 	-- NETWORK_IS_*
@@ -12425,66 +12971,66 @@ STATS={
 	-- Sets profile setting 501
 	["_SET_SAVE_MIGRATION_TRANSACTION_ID"]=--[[void]] function(--[[int]] transactionId)native_invoker.begin_call();native_invoker.push_arg_int(transactionId);native_invoker.end_call("F6792800AC95350D");end,
 	["_0x6BC0ACD0673ACEBE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("6BC0ACD0673ACEBE");end,
-	["_0x8D8ADB562F09A245"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("8D8ADB562F09A245");end,
-	["_0xD1A1EE3B4FA8E760"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("D1A1EE3B4FA8E760");end,
-	["_0x88087EE1F28024AE"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("88087EE1F28024AE");end,
-	["_0xFCC228E07217FCAC"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("FCC228E07217FCAC");end,
-	["_0x678F86D8FC040BDB"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("678F86D8FC040BDB");end,
-	["_0xA6F54BB2FFCA35EA"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("A6F54BB2FFCA35EA");end,
-	["_0x5FF2C33B13A02A11"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("5FF2C33B13A02A11");end,
-	["_0x282B6739644F4347"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("282B6739644F4347");end,
-	["_0xF06A6F41CB445443"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("F06A6F41CB445443");end,
-	["_0x7B18DA61F6BAE9D5"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("7B18DA61F6BAE9D5");end,
-	["_0x06EAF70AE066441E"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("06EAF70AE066441E");end,
-	["_0x14EDA9EE27BD1626"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("14EDA9EE27BD1626");end,
-	["_0x930F504203F561C9"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("930F504203F561C9");end,
-	["_0xE3261D791EB44ACB"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("E3261D791EB44ACB");end,
-	["_0x73001E34F85137F8"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("73001E34F85137F8");end,
-	["_0x53CAE13E9B426993"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("53CAE13E9B426993");end,
-	["_0x7D36291161859389"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("7D36291161859389");end,
+	["_PLAYSTATS_BW_BOSS_ON_BOSS_DEATH_MATCH"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("8D8ADB562F09A245");end,
+	["_PLAYSTATS_BW_YACHT_ATTACK"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("D1A1EE3B4FA8E760");end,
+	["_PLAYSTATS_BW_HUNT_THE_BOSS"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("88087EE1F28024AE");end,
+	["_PLAYSTATS_BW_SIGHTSEER"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("FCC228E07217FCAC");end,
+	["_PLAYSTATS_BW_ASSAULT"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("678F86D8FC040BDB");end,
+	["_PLAYSTATS_BW_BELLY_OF_THE_BEAST"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("A6F54BB2FFCA35EA");end,
+	["_PLAYSTATS_BW_HEADHUNTER"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("5FF2C33B13A02A11");end,
+	["_PLAYSTATS_BW_FRAGILE_GOOODS"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("282B6739644F4347");end,
+	["_PLAYSTATS_BW_AIR_FREIGHT"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("F06A6F41CB445443");end,
+	["_PLAYSTATS_BC_CAR_JACKING"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("7B18DA61F6BAE9D5");end,
+	["_PLAYSTATS_BC_SMASH_AND_GRAB"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("06EAF70AE066441E");end,
+	["_PLAYSTATS_BC_PROTECTION_RACKET"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("14EDA9EE27BD1626");end,
+	["_PLAYSTATS_BC_MOST_WANTED"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("930F504203F561C9");end,
+	["_PLAYSTATS_BC_FINDERS_KEEPERS"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("E3261D791EB44ACB");end,
+	["_PLAYSTATS_BC_POINT_TO_POINT"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("73001E34F85137F8");end,
+	["_PLAYSTATS_BC_CASHING"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("53CAE13E9B426993");end,
+	["_PLAYSTATS_BC_SALVAGE"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("7D36291161859389");end,
 	["_PLAYSTATS_SPENT_PI_CUSTOM_LOADOUT"]=--[[void]] function(--[[int]] amount)native_invoker.begin_call();native_invoker.push_arg_int(amount);native_invoker.end_call("BE509B0A3693DE8B");end,
 	["_PLAYSTATS_BUY_CONTRABAND"]=--[[void]] function(--[[Any* (pointer)]] data)native_invoker.begin_call();native_invoker.push_arg_pointer(data);native_invoker.end_call("D6781E42755531F7");end,
 	["_PLAYSTATS_SELL_CONTRABAND"]=--[[void]] function(--[[Any* (pointer)]] data)native_invoker.begin_call();native_invoker.push_arg_pointer(data);native_invoker.end_call("C729991A9065376E");end,
 	["_PLAYSTATS_DEFEND_CONTRABAND"]=--[[void]] function(--[[Any* (pointer)]] data)native_invoker.begin_call();native_invoker.push_arg_pointer(data);native_invoker.end_call("2605663BD4F23B5D");end,
 	["_PLAYSTATS_RECOVER_CONTRABAND"]=--[[void]] function(--[[Any* (pointer)]] data)native_invoker.begin_call();native_invoker.push_arg_pointer(data);native_invoker.end_call("04D90BA8207ADA2D");end,
-	["_0x60EEDC12AF66E846"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("60EEDC12AF66E846");end,
-	["_0x3EBEAC6C3F81F6BD"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("3EBEAC6C3F81F6BD");end,
-	["_0x96E6D5150DBF1C09"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("96E6D5150DBF1C09");end,
-	["_0xA3C53804BDB68ED2"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("A3C53804BDB68ED2");end,
-	["_0x6BCCF9948492FD85"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("6BCCF9948492FD85");end,
+	["_PLAYSTATS_HIT_CONTRABAND_DESTROY_LIMIT"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("60EEDC12AF66E846");end,
+	["_PLAYSTATS_BECOME_BOSS"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("3EBEAC6C3F81F6BD");end,
+	["_PLAYSTATS_BECOME_GOON"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("96E6D5150DBF1C09");end,
+	["_PLAYSTATS_END_BEING_BOSS"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("A3C53804BDB68ED2");end,
+	["_PLAYSTATS_END_BEING_GOON"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("6BCCF9948492FD85");end,
 	["_HIRED_LIMO"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("792271AB35C356A4");end,
 	["_ORDERED_BOSS_VEHICLE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Hash (int)]] vehicleHash)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(vehicleHash);native_invoker.end_call("CEA553E35C2246E1");end,
-	["_0xD1C9B92BDD3F151D"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("D1C9B92BDD3F151D");end,
-	["_0x44919CC079BB60BF"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("44919CC079BB60BF");end,
-	["_0x7033EEFD9B28088E"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("7033EEFD9B28088E");end,
-	["_0xAA525DFF66BB82F5"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("AA525DFF66BB82F5");end,
-	["_0x015B03EE1C43E6EC"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("015B03EE1C43E6EC");end,
+	["_PLAYSTATS_CHANGE_UNIFORM"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("D1C9B92BDD3F151D");end,
+	["_PLAYSTATS_CHANGE_GOON_LOOKING_FOR_WORK"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("44919CC079BB60BF");end,
+	["_PLAYSTATS_GHOSTING_TO_PLAYER"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("7033EEFD9B28088E");end,
+	["_PLAYSTATS_VIP_POACH"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("AA525DFF66BB82F5");end,
+	["_PLAYSTATS_PUNISH_BODYGUARD"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("015B03EE1C43E6EC");end,
 	-- Allows CEventNetworkStuntPerformed to be triggered.
 	["_PLAYSTATS_STUNT_PERFORMED_EVENT_ALLOW_TRIGGER"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("928DBFB892638EF3");end,
 	-- Disallows CEventNetworkStuntPerformed to be triggered.
 	["_PLAYSTATS_STUNT_PERFORMED_EVENT_DISALLOW_TRIGGER"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("8A800DACCC0DA55D");end,
-	["_0xBF371CD2B64212FD"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("BF371CD2B64212FD");end,
-	["_0x7D8BA05688AD64C7"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("7D8BA05688AD64C7");end,
-	["_0x0B565B0AAE56A0E8"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5,--[[Any (int)]] p6)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_int(p6);native_invoker.end_call("0B565B0AAE56A0E8");end,
-	["_0x28ECB8AC2F607DB2"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("28ECB8AC2F607DB2");end,
+	["_PLAYSTATS_MISSION_ENDED"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("BF371CD2B64212FD");end,
+	["_PLAYSTATS_IMPEXP_MISSION_ENDED"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("7D8BA05688AD64C7");end,
+	["_PLAYSTATS_CHANGE_MC_ROLE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5,--[[Any (int)]] p6)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_int(p6);native_invoker.end_call("0B565B0AAE56A0E8");end,
+	["_PLAYSTATS_CHANGE_MC_OUTFIT"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("28ECB8AC2F607DB2");end,
 	["_PLAYSTATS_CHANGE_MC_EMBLEM"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("0A50D2604E05CB94");end,
-	["_0xCC25A4553DFBF9EA"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("CC25A4553DFBF9EA");end,
-	["_0xF534D94DFA2EAD26"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("F534D94DFA2EAD26");end,
-	["_0xD558BEC0BBA7E8D2"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("D558BEC0BBA7E8D2");end,
+	["_PLAYSTATS_MC_REQUEST_BIKE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("CC25A4553DFBF9EA");end,
+	["_PLAYSTATS_KILLED_RIVAL_MC_MEMBER"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("F534D94DFA2EAD26");end,
+	["_PLAYSTATS_ABANDONING_MC"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("D558BEC0BBA7E8D2");end,
 	["_PLAYSTATS_EARNED_MC_POINTS"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.end_call("501478855A6074CE");end,
-	["_0x03C2EEBB04B3FB72"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5,--[[Any (int)]] p6)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_int(p6);native_invoker.end_call("03C2EEBB04B3FB72");end,
-	["_0x8989CBD7B4E82534"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5,--[[Any (int)]] p6)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_int(p6);native_invoker.end_call("8989CBD7B4E82534");end,
-	["_0x27AA1C973CACFE63"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5,--[[Any (int)]] p6,--[[Any (int)]] p7,--[[Any (int)]] p8,--[[Any (int)]] p9)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_int(p6);native_invoker.push_arg_int(p7);native_invoker.push_arg_int(p8);native_invoker.push_arg_int(p9);native_invoker.end_call("27AA1C973CACFE63");end,
+	["_PLAYSTATS_MC_FORMATION_ENDS"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5,--[[Any (int)]] p6)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_int(p6);native_invoker.end_call("03C2EEBB04B3FB72");end,
+	["_PLAYSTATS_MC_CLUBHOUSE_ACTIVITY"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5,--[[Any (int)]] p6)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_int(p6);native_invoker.end_call("8989CBD7B4E82534");end,
+	["_PLAYSTATS_RIVAL_BEHAVIOUR"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5,--[[Any (int)]] p6,--[[Any (int)]] p7,--[[Any (int)]] p8,--[[Any (int)]] p9)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_int(p6);native_invoker.push_arg_int(p7);native_invoker.push_arg_int(p8);native_invoker.push_arg_int(p9);native_invoker.end_call("27AA1C973CACFE63");end,
 	["_PLAYSTATS_COPY_RANK_INTO_NEW_SLOT"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5,--[[Any (int)]] p6)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_int(p6);native_invoker.end_call("B7257BA2550EA10A");end,
 	["_PLAYSTATS_DUPE_DETECTION"]=--[[void]] function(--[[Any* (pointer)]] data)native_invoker.begin_call();native_invoker.push_arg_pointer(data);native_invoker.end_call("848B66100EE33B05");end,
 	["_PLAYSTATS_BAN_ALERT"]=--[[void]] function(--[[int]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("516FC96EB88EEFE5");end,
 	["_PLAYSTATS_GUNRUN_MISSION_ENDED"]=--[[void]] function(--[[Any* (pointer)]] data)native_invoker.begin_call();native_invoker.push_arg_pointer(data);native_invoker.end_call("0EACDF8487D5155A");end,
-	["_0xDAF80797FC534BEC"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("DAF80797FC534BEC");end,
-	["_0x316DB59CD14C1774"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("316DB59CD14C1774");end,
-	["_0x2D7A9B577E72385E"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("2D7A9B577E72385E");end,
-	["_0x830C3A44EB3F2CF9"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("830C3A44EB3F2CF9");end,
-	["_0xB26F670685631727"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("B26F670685631727");end,
-	["_0xC14BD9F5337219B2"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("C14BD9F5337219B2");end,
+	["_PLAYSTATS_GUNRUN_RND"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("DAF80797FC534BEC");end,
+	["_PLAYSTATS_BUSINESS_BATTLE_ENDED"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("316DB59CD14C1774");end,
+	["_PLAYSTATS_WAREHOUSE_MISSION_ENDED"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("2D7A9B577E72385E");end,
+	["_PLAYSTATS_NIGHTCLUB_MISSION_ENDED"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("830C3A44EB3F2CF9");end,
+	["_PLAYSTATS_DJ_USAGE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("B26F670685631727");end,
+	["_PLAYSTATS_MINIGAME_USAGE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("C14BD9F5337219B2");end,
 	["_PLAYSTATS_STONE_HATCHET_END"]=--[[void]] function(--[[Any* (pointer)]] data)native_invoker.begin_call();native_invoker.push_arg_pointer(data);native_invoker.end_call("35E39E5570358630");end,
 	["_PLAYSTATS_SMUG_MISSION_ENDED"]=--[[void]] function(--[[Any* (pointer)]] data)native_invoker.begin_call();native_invoker.push_arg_pointer(data);native_invoker.end_call("320C35147D5B5DDD");end,
 	["_PLAYSTATS_H2_FMPREP_END"]=--[[void]] function(--[[Any* (pointer)]] data)native_invoker.begin_call();native_invoker.push_arg_pointer(data);native_invoker.end_call("D8AFB345A9C5CCBB");end,
@@ -12510,33 +13056,37 @@ STATS={
 	["_PLAYSTATS_CASINO_THREECARDPOKER_LIGHT"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("C9001364B4388F22");end,
 	["_PLAYSTATS_CASINO_SLOTMACHINE_LIGHT"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("E60054A0FAE8227F");end,
 	["_PLAYSTATS_CASINO_INSIDETRACK_LIGHT"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("23A3CBCD50D54E47");end,
-	["_PLAYSTATS_ARCADEGAME"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.end_call("533A7D1EA58DF958");end,
-	["_0x4FCDBD3F0A813C25"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("4FCDBD3F0A813C25");end,
+	["_PLAYSTATS_ARCADEGAME"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5,--[[Any (int)]] p6)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_int(p6);native_invoker.end_call("533A7D1EA58DF958");end,
+	["_PLAYSTATS_ARCADE_LOVEMATCH"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("4FCDBD3F0A813C25");end,
 	["_PLAYSTATS_CASINO_MISSION_ENDED"]=--[[void]] function(--[[Any* (pointer)]] data)native_invoker.begin_call();native_invoker.push_arg_pointer(data);native_invoker.end_call("1A0D4A6C336B7BC5");end,
-	["_0xDFBD93BF2943E29B"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("DFBD93BF2943E29B");end,
-	["_0x92FC0EEDFAC04A14"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.end_call("92FC0EEDFAC04A14");end,
-	["_0x0077F15613D36993"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("0077F15613D36993");end,
-	["_0xF9096193DF1F99D4"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("F9096193DF1F99D4");end,
-	["_0x2E0259BABC27A327"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("2E0259BABC27A327");end,
-	["_0x53C31853EC9531FF"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("53C31853EC9531FF");end,
-	["_0x810B5FCC52EC7FF0"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("810B5FCC52EC7FF0");end,
-	["_0x5BF29846C6527C54"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("5BF29846C6527C54");end,
-	["_0xC03FAB2C2F92289B"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("C03FAB2C2F92289B");end,
-	["_0x5CDAED54B34B0ED0"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("5CDAED54B34B0ED0");end,
+	["_PLAYSTATS_HEIST3_DRONE"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("DFBD93BF2943E29B");end,
+	["_PLAYSTATS_HEIST3_HACK"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.end_call("92FC0EEDFAC04A14");end,
+	["_PLAYSTATS_NPC_PHONE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.end_call("0077F15613D36993");end,
+	["_PLAYSTATS_ARCADE_CABINET"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("F9096193DF1F99D4");end,
+	["_PLAYSTATS_HEIST3_FINALE"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("2E0259BABC27A327");end,
+	["_PLAYSTATS_HEIST3_PREP"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("53C31853EC9531FF");end,
+	["_PLAYSTATS_MASTER_CONTROL"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("810B5FCC52EC7FF0");end,
+	["_PLAYSTATS_QUIT_MODE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("5BF29846C6527C54");end,
+	["_PLAYSTATS_MISSION_VOTE"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("C03FAB2C2F92289B");end,
+	["_PLAYSTATS_NJVS_VOTE"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("5CDAED54B34B0ED0");end,
 	["_0x4AFF7E02E485E92B"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("4AFF7E02E485E92B");end,
-	["_0xDFCDB14317A9B361"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("DFCDB14317A9B361");end,
-	["_0xC1E963C58664B556"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("C1E963C58664B556");end,
-	["_0x2FA3173480008493"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("2FA3173480008493");end,
-	["_0xD4367D310F079DB0"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("D4367D310F079DB0");end,
-	["_0x4DC416F246A41FC8"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("4DC416F246A41FC8");end,
-	["_0x2818FF6638CB09DE"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("2818FF6638CB09DE");end,
-	["_0xD6CA58B3B53A0F22"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("D6CA58B3B53A0F22");end,
-	["_0x1A67DFBF1F5C3835"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("1A67DFBF1F5C3835");end,
-	["_0xBBA55BE9AAAABF44"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("BBA55BE9AAAABF44");end,
-	["_0xFA5B74BAB8A7EF99"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("FA5B74BAB8A7EF99");end,
-	["_0xFF14D6FEEC507BBE"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("FF14D6FEEC507BBE");end,
-	["_0x1187CB58D7F3BED7"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("1187CB58D7F3BED7");end,
-	["_0x69C922B677621428"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("69C922B677621428");end,
+	["_0x46A70777BE6CEAB9"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("46A70777BE6CEAB9");end,
+	["_PLAYSTATS_HEIST4_PREP"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("DFCDB14317A9B361");end,
+	["_PLAYSTATS_HEIST4_FINALE"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("C1E963C58664B556");end,
+	["_PLAYSTATS_HEIST4_HACK"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.end_call("2FA3173480008493");end,
+	["_PLAYSTATS_SUB_WEAP"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("D4367D310F079DB0");end,
+	["_PLAYSTATS_FAST_TRVL"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5,--[[Any (int)]] p6,--[[Any (int)]] p7,--[[Any (int)]] p8)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_int(p6);native_invoker.push_arg_int(p7);native_invoker.push_arg_int(p8);native_invoker.end_call("4DC416F246A41FC8");end,
+	["_PLAYSTATS_HUB_ENTRY"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("2818FF6638CB09DE");end,
+	["_PLAYSTATS_DJ_MISSION_ENDED"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("D6CA58B3B53A0F22");end,
+	["_PLAYSTATS_ROBBERY_PREP"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("1A67DFBF1F5C3835");end,
+	["_PLAYSTATS_ROBBERY_FINALE"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("BBA55BE9AAAABF44");end,
+	["_PLAYSTATS_EXTRA_EVENT"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("FA5B74BAB8A7EF99");end,
+	["_PLAYSTATS_CARCLUB_POINTS"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("FF14D6FEEC507BBE");end,
+	["_PLAYSTATS_CARCLUB_CHALLENGE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("1187CB58D7F3BED7");end,
+	["_PLAYSTATS_CARCLUB_PRIZE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("69C922B677621428");end,
+	["_0x70F52471E758EBAE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("70F52471E758EBAE");end,
+	["_0xFEA3F7E83C0610FA"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("FEA3F7E83C0610FA");end,
+	["_0x5A46ACE5C4661132"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("5A46ACE5C4661132");end,
 }
 STREAMING={
 	["LOAD_ALL_OBJECTS_NOW"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("BD6E84632DD4CB3F");end,
@@ -13106,7 +13656,7 @@ TASK={
 	-- Looks like p1 may be a flag, still need to do some research, though.
 	["STOP_ANIM_PLAYBACK"]=--[[void]] function(--[[Ped (int)]] ped,--[[int]] p1,--[[BOOL (bool)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(p1);native_invoker.push_arg_bool(p2);native_invoker.end_call("EE08C992D238C5D1");end,
 	["SET_ANIM_WEIGHT"]=--[[void]] function(--[[Any (int)]] p0,--[[float]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[BOOL (bool)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_float(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_bool(p4);native_invoker.end_call("207F1A47C0342F48");end,
-	["_0xDDF3CB5A0A4C0B49"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("DDF3CB5A0A4C0B49");end,
+	["_SET_ANIM_PLAYBACK_TIME"]=--[[void]] function(--[[Entity (int)]] entity,--[[float]] p1,--[[Any (int)]] p2,--[[BOOL (bool)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(entity);native_invoker.push_arg_float(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_bool(p3);native_invoker.end_call("DDF3CB5A0A4C0B49");end,
 	["SET_ANIM_RATE"]=--[[void]] function(--[[Any (int)]] p0,--[[float]] p1,--[[Any (int)]] p2,--[[BOOL (bool)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_float(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_bool(p3);native_invoker.end_call("032D49C5E359C847");end,
 	["SET_ANIM_LOOPED"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1,--[[Any (int)]] p2,--[[BOOL (bool)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_bool(p3);native_invoker.end_call("70033C3CC29A1FF4");end,
 	-- Example from the scripts:
@@ -13197,8 +13747,6 @@ TASK={
 	["TASK_AIM_GUN_AT_ENTITY"]=--[[void]] function(--[[Ped (int)]] ped,--[[Entity (int)]] entity,--[[int]] duration,--[[BOOL (bool)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(entity);native_invoker.push_arg_int(duration);native_invoker.push_arg_bool(p3);native_invoker.end_call("9B53BB6E8943AF53");end,
 	-- duration: the amount of time in milliseconds to do the task. -1 will keep the task going until either another task is applied, or CLEAR_ALL_TASKS() is called with the ped
 	["TASK_TURN_PED_TO_FACE_ENTITY"]=--[[void]] function(--[[Ped (int)]] ped,--[[Entity (int)]] entity,--[[int]] duration)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(entity);native_invoker.push_arg_int(duration);native_invoker.end_call("5AD23D40115353AC");end,
-	-- 
-	-- 
 	["TASK_AIM_GUN_AT_COORD"]=--[[void]] function(--[[Ped (int)]] ped,--[[float]] x,--[[float]] y,--[[float]] z,--[[int]] time,--[[BOOL (bool)]] p5,--[[BOOL (bool)]] p6)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_int(time);native_invoker.push_arg_bool(p5);native_invoker.push_arg_bool(p6);native_invoker.end_call("6671F3EEC681BDA1");end,
 	-- Firing Pattern Hash Information: https://pastebin.com/Px036isB
 	["TASK_SHOOT_AT_COORD"]=--[[void]] function(--[[Ped (int)]] ped,--[[float]] x,--[[float]] y,--[[float]] z,--[[int]] duration,--[[Hash (int)]] firingPattern)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_int(duration);native_invoker.push_arg_int(firingPattern);native_invoker.end_call("46A6CC01E0826106");end,
@@ -13305,7 +13853,7 @@ TASK={
 	["TASK_HELI_CHASE"]=--[[void]] function(--[[Ped (int)]] pilot,--[[Entity (int)]] entityToFollow,--[[float]] x,--[[float]] y,--[[float]] z)native_invoker.begin_call();native_invoker.push_arg_int(pilot);native_invoker.push_arg_int(entityToFollow);native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.end_call("AC83B1DB38D0ADA0");end,
 	["TASK_PLANE_CHASE"]=--[[void]] function(--[[Ped (int)]] pilot,--[[Entity (int)]] entityToFollow,--[[float]] x,--[[float]] y,--[[float]] z)native_invoker.begin_call();native_invoker.push_arg_int(pilot);native_invoker.push_arg_int(entityToFollow);native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.end_call("2D2386F273FF7A25");end,
 	["TASK_PLANE_LAND"]=--[[void]] function(--[[Ped (int)]] pilot,--[[Vehicle (int)]] plane,--[[float]] runwayStartX,--[[float]] runwayStartY,--[[float]] runwayStartZ,--[[float]] runwayEndX,--[[float]] runwayEndY,--[[float]] runwayEndZ)native_invoker.begin_call();native_invoker.push_arg_int(pilot);native_invoker.push_arg_int(plane);native_invoker.push_arg_float(runwayStartX);native_invoker.push_arg_float(runwayStartY);native_invoker.push_arg_float(runwayStartZ);native_invoker.push_arg_float(runwayEndX);native_invoker.push_arg_float(runwayEndY);native_invoker.push_arg_float(runwayEndZ);native_invoker.end_call("BF19721FA34D32C0");end,
-	["_0x6100B3CEFD43452E"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("6100B3CEFD43452E");end,
+	["_0x6100B3CEFD43452E"]=--[[void]] function(--[[Ped (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("6100B3CEFD43452E");end,
 	-- Seems to stop the engine
 	["_CLEAR_VEHICLE_TASKS"]=--[[void]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("DBBC7A2432524127");end,
 	-- CLEAR_*
@@ -13415,7 +13963,7 @@ TASK={
 	-- 16 = CTaskVehiclePoliceBehaviour
 	-- 17 = CTaskVehicleCrash
 	["TASK_PLANE_MISSION"]=--[[void]] function(--[[Ped (int)]] pilot,--[[Vehicle (int)]] aircraft,--[[Vehicle (int)]] targetVehicle,--[[Ped (int)]] targetPed,--[[float]] destinationX,--[[float]] destinationY,--[[float]] destinationZ,--[[int]] missionFlag,--[[float]] angularDrag,--[[float]] unk,--[[float]] targetHeading,--[[float]] maxZ,--[[float]] minZ,--[[Any (int)]] p13)native_invoker.begin_call();native_invoker.push_arg_int(pilot);native_invoker.push_arg_int(aircraft);native_invoker.push_arg_int(targetVehicle);native_invoker.push_arg_int(targetPed);native_invoker.push_arg_float(destinationX);native_invoker.push_arg_float(destinationY);native_invoker.push_arg_float(destinationZ);native_invoker.push_arg_int(missionFlag);native_invoker.push_arg_float(angularDrag);native_invoker.push_arg_float(unk);native_invoker.push_arg_float(targetHeading);native_invoker.push_arg_float(maxZ);native_invoker.push_arg_float(minZ);native_invoker.push_arg_int(p13);native_invoker.end_call("23703CD154E83B88");end,
-	["TASK_PLANE_TAXI"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5,--[[Any (int)]] p6)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_int(p6);native_invoker.end_call("92C360B5F15D2302");end,
+	["TASK_PLANE_TAXI"]=--[[void]] function(--[[Ped (int)]] pilot,--[[Vehicle (int)]] aircraft,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5,--[[Any (int)]] p6)native_invoker.begin_call();native_invoker.push_arg_int(pilot);native_invoker.push_arg_int(aircraft);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.push_arg_int(p6);native_invoker.end_call("92C360B5F15D2302");end,
 	-- You need to call PED::SET_BLOCKING_OF_NON_TEMPORARY_EVENTS after TASK_BOAT_MISSION in order for the task to execute.
 	-- 
 	-- Working example
@@ -13511,6 +14059,7 @@ TASK={
 	-- Checks if there is a cover point at position
 	["DOES_SCRIPTED_COVER_POINT_EXIST_AT_COORDS"]=--[[BOOL (bool)]] function(--[[float]] x,--[[float]] y,--[[float]] z)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.end_call("A98B8E3C088E5A31");return native_invoker.get_return_value_bool();end,
 	["GET_SCRIPTED_COVER_POINT_COORDS"]=--[[Vector3 (vector3)]] function(--[[ScrHandle (int)]] coverpoint)native_invoker.begin_call();native_invoker.push_arg_int(coverpoint);native_invoker.end_call("594A1028FC2A3E85");return native_invoker.get_return_value_vector3();end,
+	["_0x28B7B9BFDAF274AA"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.end_call("28B7B9BFDAF274AA");end,
 	-- Makes the specified ped attack the target ped.
 	-- p2 should be 0
 	-- p3 should be 16
@@ -13528,6 +14077,7 @@ TASK={
 	-- TASK::TASK_SEEK_COVER_TO_COORDS(ped, -2231.011474609375, 263.6326599121094, 173.60195922851562, -1, 0);
 	["TASK_SEEK_COVER_TO_COORDS"]=--[[void]] function(--[[Ped (int)]] ped,--[[float]] x1,--[[float]] y1,--[[float]] z1,--[[float]] x2,--[[float]] y2,--[[float]] z2,--[[Any (int)]] p7,--[[BOOL (bool)]] p8)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_float(x1);native_invoker.push_arg_float(y1);native_invoker.push_arg_float(z1);native_invoker.push_arg_float(x2);native_invoker.push_arg_float(y2);native_invoker.push_arg_float(z2);native_invoker.push_arg_int(p7);native_invoker.push_arg_bool(p8);native_invoker.end_call("39246A6958EF072C");end,
 	["TASK_PUT_PED_DIRECTLY_INTO_COVER"]=--[[void]] function(--[[Ped (int)]] ped,--[[float]] x,--[[float]] y,--[[float]] z,--[[Any (int)]] timeout,--[[BOOL (bool)]] p5,--[[float]] p6,--[[BOOL (bool)]] p7,--[[BOOL (bool)]] p8,--[[Any (int)]] p9,--[[BOOL (bool)]] p10)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_int(timeout);native_invoker.push_arg_bool(p5);native_invoker.push_arg_float(p6);native_invoker.push_arg_bool(p7);native_invoker.push_arg_bool(p8);native_invoker.push_arg_int(p9);native_invoker.push_arg_bool(p10);native_invoker.end_call("4172393E6BE1FECE");end,
+	["TASK_WARP_PED_DIRECTLY_INTO_COVER"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[Any (int)]] p2,--[[Any (int)]] p3,--[[Any (int)]] p4,--[[Any (int)]] p5)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.push_arg_int(p3);native_invoker.push_arg_int(p4);native_invoker.push_arg_int(p5);native_invoker.end_call("6E01E9E8D89F8276");end,
 	["TASK_EXIT_COVER"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1,--[[float]] p2,--[[float]] p3,--[[float]] p4)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.push_arg_float(p2);native_invoker.push_arg_float(p3);native_invoker.push_arg_float(p4);native_invoker.end_call("79B258E397854D29");end,
 	-- from armenian3.c4
 	-- 
@@ -13874,6 +14424,7 @@ TASK={
 	-- TASK::DELETE_PATROL_ROUTE("miss_merc2");
 	-- TASK::DELETE_PATROL_ROUTE("miss_dock");
 	["DELETE_PATROL_ROUTE"]=--[[void]] function(--[[string]] patrolRoute)native_invoker.begin_call();native_invoker.push_arg_string(patrolRoute);native_invoker.end_call("7767DD9D65E91319");end,
+	["_GET_PATROL_TASK_STATUS"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped,--[[int* (pointer)]] p1,--[[int* (pointer)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_pointer(p1);native_invoker.push_arg_pointer(p2);native_invoker.end_call("52F734CEBE20DFBA");return native_invoker.get_return_value_bool();end,
 	-- After looking at some scripts the second parameter seems to be an id of some kind. Here are some I found from some R* scripts:
 	-- 
 	-- "miss_Tower_01" (this went from 01 - 10)
@@ -14209,7 +14760,7 @@ VEHICLE={
 	-- For some vehicles it returns true if the current speed is <= 0.00039999999.
 	["IS_VEHICLE_STOPPED"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("5721B434AD84D57A");return native_invoker.get_return_value_bool();end,
 	-- Gets the number of passengers, NOT including the driver. Use IS_VEHICLE_SEAT_FREE(Vehicle, -1) to also check for the driver
-	["GET_VEHICLE_NUMBER_OF_PASSENGERS"]=--[[int]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("24CB2137731FFE89");return native_invoker.get_return_value_int();end,
+	["GET_VEHICLE_NUMBER_OF_PASSENGERS"]=--[[int]] function(--[[Vehicle (int)]] vehicle,--[[Any (int)]] p1,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(p1);native_invoker.push_arg_int(p2);native_invoker.end_call("24CB2137731FFE89");return native_invoker.get_return_value_int();end,
 	["GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS"]=--[[int]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("A7C4F2C6E744A550");return native_invoker.get_return_value_int();end,
 	-- Returns max number of passengers (including the driver) for the specified vehicle model.
 	-- 
@@ -14245,8 +14796,8 @@ VEHICLE={
 	-- 
 	-- They use 10 in am_mp_property_int, don't know what it does atm.
 	["SET_VEHICLE_DOORS_LOCKED"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorLockStatus)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorLockStatus);native_invoker.end_call("B664292EAECF7FA6");end,
-	-- destroyType is 1 for opens on damage, 2 for breaks on damage.
-	["SET_VEHICLE_INDIVIDUAL_DOORS_LOCKED"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorIndex,--[[int]] destroyType)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorIndex);native_invoker.push_arg_int(destroyType);native_invoker.end_call("BE70724027F85BCD");end,
+	-- doorId: see SET_VEHICLE_DOOR_SHUT
+	["SET_VEHICLE_INDIVIDUAL_DOORS_LOCKED"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorId,--[[int]] doorLockStatus)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorId);native_invoker.push_arg_int(doorLockStatus);native_invoker.end_call("BE70724027F85BCD");end,
 	-- if set to true, prevents vehicle sirens from having sound, leaving only the lights.
 	["SET_VEHICLE_HAS_MUTED_SIRENS"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("D8050E0EB60CF274");end,
 	["SET_VEHICLE_DOORS_LOCKED_FOR_PLAYER"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[Player (int)]] player,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(player);native_invoker.push_arg_bool(toggle);native_invoker.end_call("517AAF684BB50CD1");end,
@@ -14451,18 +15002,12 @@ VEHICLE={
 	["SET_VEHICLE_TYRES_CAN_BURST"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("EB9DC3C7D8596C46");end,
 	["GET_VEHICLE_TYRES_CAN_BURST"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("678B9BB8C3F58FEB");return native_invoker.get_return_value_bool();end,
 	["SET_VEHICLE_WHEELS_CAN_BREAK"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] enabled)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(enabled);native_invoker.end_call("29B18B4FD460CA8F");end,
-	-- doorIndex:
-	-- 0 = Front Left Door
-	-- 1 = Front Right Door
-	-- 2 = Back Left Door
-	-- 3 = Back Right Door
-	-- 4 = Hood
-	-- 5 = Trunk
-	-- 6 = Back
-	-- 7 = Back2
-	["SET_VEHICLE_DOOR_OPEN"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorIndex,--[[BOOL (bool)]] loose,--[[BOOL (bool)]] openInstantly)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorIndex);native_invoker.push_arg_bool(loose);native_invoker.push_arg_bool(openInstantly);native_invoker.end_call("7C65DAC73C35C862");end,
+	-- doorId: see SET_VEHICLE_DOOR_SHUT
+	["SET_VEHICLE_DOOR_OPEN"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorId,--[[BOOL (bool)]] loose,--[[BOOL (bool)]] openInstantly)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorId);native_invoker.push_arg_bool(loose);native_invoker.push_arg_bool(openInstantly);native_invoker.end_call("7C65DAC73C35C862");end,
+	-- doorId: see SET_VEHICLE_DOOR_SHUT
+	-- 
 	-- Usually used alongside other vehicle door natives.
-	["_0x3B458DDB57038F08"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorIndex,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorIndex);native_invoker.push_arg_bool(toggle);native_invoker.end_call("3B458DDB57038F08");end,
+	["_0x3B458DDB57038F08"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorId,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorId);native_invoker.push_arg_bool(toggle);native_invoker.end_call("3B458DDB57038F08");end,
 	["_0xA247F9EF01D8082E"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("A247F9EF01D8082E");end,
 	-- windowIndex:
 	-- 0 = Front Right Window
@@ -14526,8 +15071,6 @@ VEHICLE={
 	["FIX_VEHICLE_WINDOW"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] index)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(index);native_invoker.end_call("772282EBEB95E682");end,
 	-- Detaches the vehicle's windscreen.
 	-- For further information, see : gtaforums.com/topic/859570-glass/#entry1068894566
-	-- 
-	-- Old name: _DETACH_VEHICLE_WINDSCREEN
 	["POP_OUT_VEHICLE_WINDSCREEN"]=--[[void]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("6D645D59FB5F5AD3");end,
 	["_EJECT_JB700_ROOF"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[float]] x,--[[float]] y,--[[float]] z)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.end_call("E38CB9D7D39FDBCC");end,
 	-- set's if the vehicle has lights or not.
@@ -14653,7 +15196,7 @@ VEHICLE={
 	["SET_TRAIN_SPEED"]=--[[void]] function(--[[Vehicle (int)]] train,--[[float]] speed)native_invoker.begin_call();native_invoker.push_arg_int(train);native_invoker.push_arg_float(speed);native_invoker.end_call("AA0BC91BE0B796E3");end,
 	["SET_TRAIN_CRUISE_SPEED"]=--[[void]] function(--[[Vehicle (int)]] train,--[[float]] speed)native_invoker.begin_call();native_invoker.push_arg_int(train);native_invoker.push_arg_float(speed);native_invoker.end_call("16469284DB8C62B5");end,
 	["SET_RANDOM_BOATS"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("84436EC293B1415F");end,
-	["_0xDA5E12F728DB30CA"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("DA5E12F728DB30CA");end,
+	["_SET_RANDOM_BOATS_IN_MP"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("DA5E12F728DB30CA");end,
 	["SET_GARBAGE_TRUCKS"]=--[[void]] function(--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_bool(toggle);native_invoker.end_call("2AFD795EEAC8D30D");end,
 	-- Maximum amount of vehicles with vehicle stuck check appears to be 16.
 	["DOES_VEHICLE_HAVE_STUCK_VEHICLE_CHECK"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("57E4C39DE5EE8470");return native_invoker.get_return_value_bool();end,
@@ -14771,7 +15314,7 @@ VEHICLE={
 	["GET_CLOSEST_VEHICLE"]=--[[Vehicle (int)]] function(--[[float]] x,--[[float]] y,--[[float]] z,--[[float]] radius,--[[Hash (int)]] modelHash,--[[int]] flags)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_float(radius);native_invoker.push_arg_int(modelHash);native_invoker.push_arg_int(flags);native_invoker.end_call("F73EB622C4F1689B");return native_invoker.get_return_value_int();end,
 	-- Corrected p1. it's basically the 'carriage/trailer number'. So if the train has 3 trailers you'd call the native once with a var or 3 times with 1, 2, 3.
 	["GET_TRAIN_CARRIAGE"]=--[[Entity (int)]] function(--[[Vehicle (int)]] train,--[[int]] trailerNumber)native_invoker.begin_call();native_invoker.push_arg_int(train);native_invoker.push_arg_int(trailerNumber);native_invoker.end_call("08AAFD0814722BC3");return native_invoker.get_return_value_int();end,
-	["_0xAD464F2E18836BFC"]=--[[Any (int)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("AD464F2E18836BFC");return native_invoker.get_return_value_int();end,
+	["_IS_MISSION_TRAIN"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("AD464F2E18836BFC");return native_invoker.get_return_value_bool();end,
 	["DELETE_MISSION_TRAIN"]=--[[void]] function(--[[Vehicle* (pointer)]] train)native_invoker.begin_call();native_invoker.push_arg_pointer(train);native_invoker.end_call("5B76B14AE875C795");end,
 	-- p1 is always 0
 	["SET_MISSION_TRAIN_AS_NO_LONGER_NEEDED"]=--[[void]] function(--[[Vehicle* (pointer)]] train,--[[BOOL (bool)]] p1)native_invoker.begin_call();native_invoker.push_arg_pointer(train);native_invoker.push_arg_bool(p1);native_invoker.end_call("BBE7648349B49BE8");end,
@@ -14824,15 +15367,8 @@ VEHICLE={
 	-- 
 	-- GET_*
 	["_IS_VEHICLE_DAMAGED"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("BCDC5017D3CE1E9E");return native_invoker.get_return_value_bool();end,
-	-- doorIndex:
-	-- 0 = Front Left Door
-	-- 1 = Front Right Door
-	-- 2 = Back Left Door
-	-- 3 = Back Right Door
-	-- 4 = Hood
-	-- 5 = Trunk
-	-- 6 = Trunk2
-	["IS_VEHICLE_DOOR_FULLY_OPEN"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorIndex)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorIndex);native_invoker.end_call("3E933CFF7B111C22");return native_invoker.get_return_value_bool();end,
+	-- doorId: see SET_VEHICLE_DOOR_SHUT
+	["IS_VEHICLE_DOOR_FULLY_OPEN"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorId)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorId);native_invoker.end_call("3E933CFF7B111C22");return native_invoker.get_return_value_bool();end,
 	-- Starts or stops the engine on the specified vehicle.
 	-- 
 	-- vehicle: The vehicle to start or stop the engine on.
@@ -14844,60 +15380,27 @@ VEHICLE={
 	["SET_VEHICLE_ENGINE_ON"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] value,--[[BOOL (bool)]] instantly,--[[BOOL (bool)]] disableAutoStart)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(value);native_invoker.push_arg_bool(instantly);native_invoker.push_arg_bool(disableAutoStart);native_invoker.end_call("2497C4717C8B881E");end,
 	["SET_VEHICLE_UNDRIVEABLE"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("8ABA6AF54B942B95");end,
 	["SET_VEHICLE_PROVIDES_COVER"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("5AFEEDD9BB2899D7");end,
-	-- doorIndex:
-	-- 0 = Front Left Door (driver door)
-	-- 1 = Front Right Door
-	-- 2 = Back Left Door
-	-- 3 = Back Right Door
-	-- 4 = Hood
-	-- 5 = Trunk
-	-- 6 = Trunk2
-	-- 
-	-- p2:
-	-- mostly use 0 and 1, very rare using 3 and 5
-	-- 
-	-- p3:
-	-- It seems it is an angle
-	-- 
-	-- Example in VB: 
-	--     Public Shared Sub Set_Vehicle_Door_Angle(Vehicle As Vehicle, Door As VehicleDoor, Angle As Single)
-	--         Native.Function.Call(Hash.SET_VEHICLE_DOOR_CONTROL, Vehicle.Handle, Door, 1, Angle)
-	--     End Sub
-	-- 
-	-- I'm Not MentaL
-	-- 
-	-- sfink: p2 is speed, 5 is fast, 1 is slow 3 is medium
-	["SET_VEHICLE_DOOR_CONTROL"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorIndex,--[[int]] speed,--[[float]] angle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorIndex);native_invoker.push_arg_int(speed);native_invoker.push_arg_float(angle);native_invoker.end_call("F2BFA0430F0A0FCB");end,
-	["SET_VEHICLE_DOOR_LATCHED"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorIndex,--[[BOOL (bool)]] p2,--[[BOOL (bool)]] p3,--[[BOOL (bool)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorIndex);native_invoker.push_arg_bool(p2);native_invoker.push_arg_bool(p3);native_invoker.push_arg_bool(p4);native_invoker.end_call("A5A9653A8D2CAF48");end,
-	-- example in vb:
-	--     Public Shared Function Get_Vehicle_Door_Angle(Vehicle As Vehicle, Door As VehicleDoor) As Single
-	--         Return Native.Function.Call(Of Single)(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, Vehicle.Handle, Door)
-	--     End Function
-	-- 
-	-- I'm Not MentaL
-	["GET_VEHICLE_DOOR_ANGLE_RATIO"]=--[[float]] function(--[[Vehicle (int)]] vehicle,--[[int]] door)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(door);native_invoker.end_call("FE3F9C29F7B32BD5");return native_invoker.get_return_value_float();end,
-	["GET_PED_USING_VEHICLE_DOOR"]=--[[Ped (int)]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorIndex)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorIndex);native_invoker.end_call("218297BF0CFD853B");return native_invoker.get_return_value_int();end,
-	-- doorIndex:
-	-- 0 = Front Left Door
-	-- 1 = Front Right Door
-	-- 2 = Back Left Door
-	-- 3 = Back Right Door
-	-- 4 = Hood
-	-- 5 = Trunk
-	-- 6 = Trunk2
-	["SET_VEHICLE_DOOR_SHUT"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorIndex,--[[BOOL (bool)]] closeInstantly)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorIndex);native_invoker.push_arg_bool(closeInstantly);native_invoker.end_call("93D9BD300D7789E5");end,
-	-- doorIndex:
-	-- 0 = Front Right Door
-	-- 1 = Front Left Door
-	-- 2 = Back Right Door
-	-- 3 = Back Left Door
-	-- 4 = Hood
-	-- 5 = Trunk
-	-- 
-	-- Changed last paramater from CreateDoorObject To NoDoorOnTheFloor because when on false, the door object is created,and not created when on true...the former parameter name was counter intuitive...(by Calderon)
-	-- 
-	-- Calderon is a moron.
-	["SET_VEHICLE_DOOR_BROKEN"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorIndex,--[[BOOL (bool)]] deleteDoor)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorIndex);native_invoker.push_arg_bool(deleteDoor);native_invoker.end_call("D4D4F6A4AB575A33");end,
+	-- doorId: see SET_VEHICLE_DOOR_SHUT
+	["SET_VEHICLE_DOOR_CONTROL"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorId,--[[int]] speed,--[[float]] angle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorId);native_invoker.push_arg_int(speed);native_invoker.push_arg_float(angle);native_invoker.end_call("F2BFA0430F0A0FCB");end,
+	-- doorId: see SET_VEHICLE_DOOR_SHUT
+	["SET_VEHICLE_DOOR_LATCHED"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorId,--[[BOOL (bool)]] p2,--[[BOOL (bool)]] p3,--[[BOOL (bool)]] p4)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorId);native_invoker.push_arg_bool(p2);native_invoker.push_arg_bool(p3);native_invoker.push_arg_bool(p4);native_invoker.end_call("A5A9653A8D2CAF48");end,
+	-- doorId: see SET_VEHICLE_DOOR_SHUT
+	["GET_VEHICLE_DOOR_ANGLE_RATIO"]=--[[float]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorId)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorId);native_invoker.end_call("FE3F9C29F7B32BD5");return native_invoker.get_return_value_float();end,
+	-- doorId: see SET_VEHICLE_DOOR_SHUT
+	["GET_PED_USING_VEHICLE_DOOR"]=--[[Ped (int)]] function(--[[Vehicle (int)]] vehicle,--[[int]] doord)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doord);native_invoker.end_call("218297BF0CFD853B");return native_invoker.get_return_value_int();end,
+	-- enum eDoorId
+	-- {
+	-- 	VEH_EXT_DOOR_INVALID_ID = -1,
+	-- 	VEH_EXT_DOOR_DSIDE_F,
+	-- 	VEH_EXT_DOOR_DSIDE_R,
+	-- 	VEH_EXT_DOOR_PSIDE_F,
+	-- 	VEH_EXT_DOOR_PSIDE_R,
+	-- 	VEH_EXT_BONNET,
+	-- 	VEH_EXT_BOOT
+	-- };
+	["SET_VEHICLE_DOOR_SHUT"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorId,--[[BOOL (bool)]] closeInstantly)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorId);native_invoker.push_arg_bool(closeInstantly);native_invoker.end_call("93D9BD300D7789E5");end,
+	-- doorId: see SET_VEHICLE_DOOR_SHUT
+	["SET_VEHICLE_DOOR_BROKEN"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorId,--[[BOOL (bool)]] deleteDoor)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorId);native_invoker.push_arg_bool(deleteDoor);native_invoker.end_call("D4D4F6A4AB575A33");end,
 	["SET_VEHICLE_CAN_BREAK"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("59BF8C3D52C92F66");end,
 	["DOES_VEHICLE_HAVE_ROOF"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("8AC862B0B32C5B80");return native_invoker.get_return_value_bool();end,
 	["_0xC4B3347BD68BD609"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("C4B3347BD68BD609");end,
@@ -14943,11 +15446,11 @@ VEHICLE={
 	-- }
 	["GET_VEHICLE_DOOR_LOCK_STATUS"]=--[[int]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("25BC98A59C2EA962");return native_invoker.get_return_value_int();end,
 	-- Returns vehicle door destroy type previously set with _SET_VEHICLE_DOOR_DESTROY_TYPE
-	["_GET_VEHICLE_DOOR_DESTROY_TYPE"]=--[[int]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorIndex)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorIndex);native_invoker.end_call("CA4AC3EAAE46EC7B");return native_invoker.get_return_value_int();end,
+	["_GET_VEHICLE_DOOR_DESTROY_TYPE"]=--[[int]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorId)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorId);native_invoker.end_call("CA4AC3EAAE46EC7B");return native_invoker.get_return_value_int();end,
 	-- doorID starts at 0, not seeming to skip any numbers. Four door vehicles intuitively range from 0 to 3.
 	["IS_VEHICLE_DOOR_DAMAGED"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] veh,--[[int]] doorID)native_invoker.begin_call();native_invoker.push_arg_int(veh);native_invoker.push_arg_int(doorID);native_invoker.end_call("B8E181E559464527");return native_invoker.get_return_value_bool();end,
-	-- Keeps Vehicle Doors/Hood/Trunk from breaking off
-	["_SET_VEHICLE_DOOR_CAN_BREAK"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorIndex,--[[BOOL (bool)]] isBreakable)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorIndex);native_invoker.push_arg_bool(isBreakable);native_invoker.end_call("2FA133A4A9D37ED8");end,
+	-- doorId: see SET_VEHICLE_DOOR_SHUT
+	["_SET_VEHICLE_DOOR_CAN_BREAK"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorId,--[[BOOL (bool)]] isBreakable)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorId);native_invoker.push_arg_bool(isBreakable);native_invoker.end_call("2FA133A4A9D37ED8");end,
 	["IS_VEHICLE_BUMPER_BOUNCING"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] frontBumper)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(frontBumper);native_invoker.end_call("27B926779DEB502D");return native_invoker.get_return_value_bool();end,
 	["IS_VEHICLE_BUMPER_BROKEN_OFF"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] front)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(front);native_invoker.end_call("468056A6BB6F3846");return native_invoker.get_return_value_bool();end,
 	-- Usage:
@@ -15369,7 +15872,8 @@ VEHICLE={
 	-- side = only relevant for bikes/motorcycles to check if the left (false)/right (true) side is blocked.
 	-- onEnter = check if you can enter (true) or exit (false) a vehicle.
 	["_IS_VEHICLE_SEAT_ACCESSIBLE"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped,--[[Vehicle (int)]] vehicle,--[[int]] seatIndex,--[[BOOL (bool)]] side,--[[BOOL (bool)]] onEnter)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(seatIndex);native_invoker.push_arg_bool(side);native_invoker.push_arg_bool(onEnter);native_invoker.end_call("639431E895B9AA57");return native_invoker.get_return_value_bool();end,
-	["_GET_ENTRY_POSITION_OF_DOOR"]=--[[Vector3 (vector3)]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorIndex)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorIndex);native_invoker.end_call("C0572928C0ABFDA3");return native_invoker.get_return_value_vector3();end,
+	-- doorId: see SET_VEHICLE_DOOR_SHUT
+	["_GET_ENTRY_POSITION_OF_DOOR"]=--[[Vector3 (vector3)]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorId)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorId);native_invoker.end_call("C0572928C0ABFDA3");return native_invoker.get_return_value_vector3();end,
 	["CAN_SHUFFLE_SEAT"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle,--[[int]] seatIndex)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(seatIndex);native_invoker.end_call("30785D90C956BF35");return native_invoker.get_return_value_bool();end,
 	["GET_NUM_MOD_KITS"]=--[[int]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("33F2E3FE70EAAE1D");return native_invoker.get_return_value_int();end,
 	-- Set modKit to 0 if you plan to call SET_VEHICLE_MOD. That's what the game does. Most body modifications through SET_VEHICLE_MOD will not take effect until this is set to 0.
@@ -15534,7 +16038,7 @@ VEHICLE={
 	-- 
 	-- Full list of vehicle mod kits and mods by DurtyFree: https://github.com/DurtyFree/gta-v-data-dumps/blob/master/vehicleModKits.json
 	["GET_LIVERY_NAME"]=--[[string]] function(--[[Vehicle (int)]] vehicle,--[[int]] liveryIndex)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(liveryIndex);native_invoker.end_call("B4C7A93837C91A1F");return native_invoker.get_return_value_string();end,
-	["GET_VEHICLE_MOD_MODIFIER_VALUE"]=--[[float]] function(--[[Vehicle (int)]] vehicle,--[[int]] modType,--[[int]] modIndex)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(modType);native_invoker.push_arg_int(modIndex);native_invoker.end_call("90A38E9838E0A8C1");return native_invoker.get_return_value_float();end,
+	["GET_VEHICLE_MOD_MODIFIER_VALUE"]=--[[int]] function(--[[Vehicle (int)]] vehicle,--[[int]] modType,--[[int]] modIndex)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(modType);native_invoker.push_arg_int(modIndex);native_invoker.end_call("90A38E9838E0A8C1");return native_invoker.get_return_value_int();end,
 	-- Can be used for IS_DLC_VEHICLE_MOD and _0xC098810437312FFF
 	["GET_VEHICLE_MOD_IDENTIFIER_HASH"]=--[[Hash (int)]] function(--[[Vehicle (int)]] vehicle,--[[int]] modType,--[[int]] modIndex)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(modType);native_invoker.push_arg_int(modIndex);native_invoker.end_call("4593CF82AA179706");return native_invoker.get_return_value_int();end,
 	["PRELOAD_VEHICLE_MOD"]=--[[void]] function(--[[Any (int)]] p0,--[[int]] modType,--[[Any (int)]] p2)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(modType);native_invoker.push_arg_int(p2);native_invoker.end_call("758F49C24925568A");end,
@@ -15575,8 +16079,8 @@ VEHICLE={
 	-- 	iLocal_260 = 1;
 	-- }
 	["GET_VEHICLE_CAUSE_OF_DESTRUCTION"]=--[[Hash (int)]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("E495D1EF4C91FD20");return native_invoker.get_return_value_int();end,
-	-- Sets some health value. Looks like it's used for helis.
-	["_0x5EE5632F47AE9695"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[float]] health)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_float(health);native_invoker.end_call("5EE5632F47AE9695");end,
+	-- Used for helis.
+	["_OVERRIDE_OVERHEAT_HEALTH"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[float]] health)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_float(health);native_invoker.end_call("5EE5632F47AE9695");end,
 	-- From the driver's perspective, is the left headlight broken.
 	["GET_IS_LEFT_VEHICLE_HEADLIGHT_DAMAGED"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("5EF77C9ADD3B11A3");return native_invoker.get_return_value_bool();end,
 	-- From the driver's perspective, is the right headlight broken.
@@ -15649,8 +16153,8 @@ VEHICLE={
 	["_GET_VEHICLE_NUMBER_OF_BROKEN_OFF_BONES"]=--[[int]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("42A4BEB35D372407");return native_invoker.get_return_value_int();end,
 	["_GET_VEHICLE_NUMBER_OF_BROKEN_BONES"]=--[[int]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("2C8CBFE1EA5FC631");return native_invoker.get_return_value_int();end,
 	["_0x4D9D109F63FEE1D4"]=--[[void]] function(--[[Any (int)]] p0,--[[BOOL (bool)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_bool(p1);native_invoker.end_call("4D9D109F63FEE1D4");end,
-	-- SET_VEHICLE_*
-	["_0x279D50DE5652D935"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("279D50DE5652D935");end,
+	-- Allows creation of CEventShockingPlaneFlyby, CEventShockingHelicopterOverhead, and other(?) Shocking events
+	["SET_VEHICLE_GENERATES_ENGINE_SHOCKING_EVENTS"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("279D50DE5652D935");end,
 	-- Copies sourceVehicle's damage (broken bumpers, broken lights, etc.) to targetVehicle.
 	["COPY_VEHICLE_DAMAGES"]=--[[void]] function(--[[Vehicle (int)]] sourceVehicle,--[[Vehicle (int)]] targetVehicle)native_invoker.begin_call();native_invoker.push_arg_int(sourceVehicle);native_invoker.push_arg_int(targetVehicle);native_invoker.end_call("E44A982368A4AF23");end,
 	["_0xF25E02CB9C5818F8"]=--[[void]] function()native_invoker.begin_call();native_invoker.end_call("F25E02CB9C5818F8");end,
@@ -15835,10 +16339,6 @@ VEHICLE={
 	["SET_VEHICLE_FRICTION_OVERRIDE"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[float]] friction)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_float(friction);native_invoker.end_call("1837AF7C627009BA");end,
 	["SET_VEHICLE_WHEELS_CAN_BREAK_OFF_WHEN_BLOW_UP"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("A37B9A517B133349");end,
 	["_0xF78F94D60248C737"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(p1);native_invoker.end_call("F78F94D60248C737");return native_invoker.get_return_value_bool();end,
-	-- Previously named GET_VEHICLE_DEFORMATION_GET_TREE (hash collision)
-	-- 
-	-- from Decrypted Scripts I found
-	-- VEHICLE::SET_VEHICLE_CEILING_HEIGHT(l_BD9[2/*2*/], 420.0);
 	["SET_VEHICLE_CEILING_HEIGHT"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[float]] height)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_float(height);native_invoker.end_call("A46413066687A328");end,
 	["_0x5E569EC46EC21CAE"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("5E569EC46EC21CAE");end,
 	["CLEAR_VEHICLE_ROUTE_HISTORY"]=--[[void]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("6D6AF961B72728AE");end,
@@ -15855,7 +16355,7 @@ VEHICLE={
 	-- Used to be incorrectly named _SET_VEHICLE_EXCLUSIVE_DRIVER_2
 	["SET_VEHICLE_EXCLUSIVE_DRIVER"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[Ped (int)]] ped,--[[int]] index)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(ped);native_invoker.push_arg_int(index);native_invoker.end_call("B5C51B5502E85E83");end,
 	["_IS_PED_EXCLUSIVE_DRIVER_OF_VEHICLE"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped,--[[Vehicle (int)]] vehicle,--[[int* (pointer)]] outIndex)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(vehicle);native_invoker.push_arg_pointer(outIndex);native_invoker.end_call("B09D25E77C33EB3F");return native_invoker.get_return_value_bool();end,
-	["_DISABLE_PLANE_PROPELLER"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(p1);native_invoker.end_call("500873A45724C863");end,
+	["DISABLE_INDIVIDUAL_PLANE_PROPELLER"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] propeller)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(propeller);native_invoker.end_call("500873A45724C863");end,
 	["SET_VEHICLE_FORCE_AFTERBURNER"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("B055A34527CB8FD7");end,
 	-- R* used it to "remove" vehicle windows when "nightshark" had some mod, which adding some kind of armored windows. When enabled, you can't break vehicles glass. All your bullets wiil shoot through glass. You also will not able to break the glass with any other way (hitting and etc)
 	["_SET_DISABLE_VEHICLE_WINDOW_COLLISIONS"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("1087BC8EC540DAEB");end,
@@ -15956,10 +16456,11 @@ VEHICLE={
 	-- Returns true if the vehicle has a kers boost (for instance the lectro or the vindicator)
 	["GET_VEHICLE_HAS_KERS"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("50634E348C8D44EF");return native_invoker.get_return_value_bool();end,
 	["_0xE16142B94664DEFD"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(p1);native_invoker.end_call("E16142B94664DEFD");end,
+	["_0x8074CC1886802912"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("8074CC1886802912");end,
 	["_0x26D99D5A82FD18E8"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("26D99D5A82FD18E8");end,
 	-- Works only on vehicles that support hydraulic.
 	["_SET_HYDRAULIC_WHEEL_VALUE"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] wheelId,--[[float]] value)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(wheelId);native_invoker.push_arg_float(value);native_invoker.end_call("84EA99C62CB3EF0C");end,
-	["_0x0BB5CBDDD0F25AE3"]=--[[Any (int)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("0BB5CBDDD0F25AE3");return native_invoker.get_return_value_int();end,
+	["_GET_HYDRAULIC_WHEEL_VALUE"]=--[[float]] function(--[[Vehicle (int)]] vehicle,--[[int]] wheelId)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(wheelId);native_invoker.end_call("0BB5CBDDD0F25AE3");return native_invoker.get_return_value_float();end,
 	["_SET_CAMBERED_WHEELS_DISABLED"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("1201E8A3290A3B98");end,
 	["_SET_HYDRAULIC_WHEEL_STATE"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("8EA86DF356801C7D");end,
 	-- Sets vehicle wheel hydraulic states transition. Known states:
@@ -15992,7 +16493,8 @@ VEHICLE={
 	["_0xBA91D045575699AD"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("BA91D045575699AD");return native_invoker.get_return_value_bool();end,
 	["_0x80E3357FDEF45C21"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("80E3357FDEF45C21");end,
 	["_SET_VEHICLE_RAMP_LAUNCH_MODIFIER"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("EFC13B1CE30D755D");end,
-	["_GET_IS_DOOR_VALID"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorIndex)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorIndex);native_invoker.end_call("645F4B6E8499F632");return native_invoker.get_return_value_bool();end,
+	-- doorId: see SET_VEHICLE_DOOR_SHUT
+	["_GET_IS_DOOR_VALID"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle,--[[int]] doorId)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(doorId);native_invoker.end_call("645F4B6E8499F632");return native_invoker.get_return_value_bool();end,
 	["_SET_VEHICLE_ROCKET_BOOST_REFILL_TIME"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[float]] seconds)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_float(seconds);native_invoker.end_call("E00F2AB100B76E89");end,
 	["_GET_HAS_ROCKET_BOOST"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("36D782F68B309BDA");return native_invoker.get_return_value_bool();end,
 	["_IS_VEHICLE_ROCKET_BOOST_ACTIVE"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("3D34E80EED4AE3BE");return native_invoker.get_return_value_bool();end,
@@ -16022,10 +16524,21 @@ VEHICLE={
 	["_0x9D30687C57BAA0BB"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("9D30687C57BAA0BB");end,
 	["_SET_VEHICLE_WEAPONS_DISABLED"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("86B4B6212CB8B627");end,
 	["_0x41290B40FA63E6DA"]=--[[void]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("41290B40FA63E6DA");end,
-	-- parachuteModel = 230075693
+	-- Parachute models:
+	-- - sr_prop_specraces_para_s_01
+	-- - imp_prop_impexp_para_s (SecuroServ; Default)
+	-- Plus, many more props can be used as vehicle parachutes, like umbrellas (prop_beach_parasol_03), and unlike SET_PLAYER_PARACHUTE_MODEL_OVERRIDE, you won't get stuck mid-air when using an umbrella.
 	["_SET_VEHICLE_PARACHUTE_MODEL"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[Hash (int)]] modelHash)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(modelHash);native_invoker.end_call("4D610C6B56031351");end,
-	-- colorIndex = 0 - 7
-	["_SET_VEHICLE_PARACHUTE_TEXTURE_VARIATIION"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] textureVariation)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(textureVariation);native_invoker.end_call("A74AD2439468C883");end,
+	-- Variations available for the generic parachute (sr_prop_specraces_para_s_01):
+	-- - 0: Rainbow
+	-- - 1: Red
+	-- - 2: White, blue, yellow
+	-- - 3: Black, red, white
+	-- - 4: Red, white, blue
+	-- - 5: Blue
+	-- - 6: Black
+	-- - 7: Black, yellow
+	["_SET_VEHICLE_PARACHUTE_TEXTURE_VARIATION"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] textureVariation)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(textureVariation);native_invoker.end_call("A74AD2439468C883");end,
 	["_0x0419B167EE128F33"]=--[[Any (int)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("0419B167EE128F33");return native_invoker.get_return_value_int();end,
 	["_0xF3B0E0AED097A3F5"]=--[[Any (int)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("F3B0E0AED097A3F5");return native_invoker.get_return_value_int();end,
 	["_0xD3E51C0AB8C26EEE"]=--[[Any (int)]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("D3E51C0AB8C26EEE");return native_invoker.get_return_value_int();end,
@@ -16209,10 +16722,12 @@ VEHICLE={
 	-- 5: wheel_rr
 	["_SET_TYRE_TRACTION_LOSS_MULTIPLIER"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] wheelIndex,--[[float]] multiplier)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(wheelIndex);native_invoker.push_arg_float(multiplier);native_invoker.end_call("C970D0E0FC31D768");end,
 	["_0xF8B49F5BA7F850E7"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[int]] p1)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_int(p1);native_invoker.end_call("F8B49F5BA7F850E7");end,
-	["_0x3A375167F5782A65"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("3A375167F5782A65");end,
-	["_0x5AC79C98C5C17F05"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("5AC79C98C5C17F05");end,
-	["_0x2F5A72430E78C8D3"]=--[[Any (int)]] function(--[[Any (int)]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("2F5A72430E78C8D3");return native_invoker.get_return_value_int();end,
-	["_0xEC0C1D4922AF9754"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("EC0C1D4922AF9754");end,
+	-- Lowers the vehicle's stance. Only works for vehicles that support this feature.
+	["_SET_REDUCE_DRIFT_VEHICLE_SUSPENSION"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] enable)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(enable);native_invoker.end_call("3A375167F5782A65");end,
+	["_SET_DRIFT_TYRES_ENABLED"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("5AC79C98C5C17F05");end,
+	["_GET_DRIFT_TYRES_ENABLED"]=--[[BOOL (bool)]] function(--[[Vehicle (int)]] vehicle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.end_call("2F5A72430E78C8D3");return native_invoker.get_return_value_bool();end,
+	-- Implemented only for trains.
+	["_NETWORK_USE_HIGH_PRECISION_VEHICLE_BLENDING"]=--[[void]] function(--[[Vehicle (int)]] vehicle,--[[BOOL (bool)]] toggle)native_invoker.begin_call();native_invoker.push_arg_int(vehicle);native_invoker.push_arg_bool(toggle);native_invoker.end_call("EC0C1D4922AF9754");end,
 }
 WATER={
 	-- This function set height to the value of z-axis of the water surface.
@@ -16228,12 +16743,9 @@ WATER={
 	-- Sets the water height for a given position and radius.
 	-- 
 	["MODIFY_WATER"]=--[[void]] function(--[[float]] x,--[[float]] y,--[[float]] radius,--[[float]] height)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(radius);native_invoker.push_arg_float(height);native_invoker.end_call("C443FD757C3BA637");end,
-	-- Most likely ADD_CURRENT_*
-	["_ADD_CURRENT_RISE"]=--[[int]] function(--[[float]] x,--[[float]] y,--[[float]] z,--[[float]] radius,--[[float]] unk)native_invoker.begin_call();native_invoker.push_arg_float(x);native_invoker.push_arg_float(y);native_invoker.push_arg_float(z);native_invoker.push_arg_float(radius);native_invoker.push_arg_float(unk);native_invoker.end_call("FDBF4CDBC07E1706");return native_invoker.get_return_value_int();end,
+	["ADD_EXTRA_CALMING_QUAD"]=--[[int]] function(--[[float]] xLow,--[[float]] yLow,--[[float]] xHigh,--[[float]] yHigh,--[[float]] height)native_invoker.begin_call();native_invoker.push_arg_float(xLow);native_invoker.push_arg_float(yLow);native_invoker.push_arg_float(xHigh);native_invoker.push_arg_float(yHigh);native_invoker.push_arg_float(height);native_invoker.end_call("FDBF4CDBC07E1706");return native_invoker.get_return_value_int();end,
 	-- p0 is the handle returned from _0xFDBF4CDBC07E1706
-	-- 
-	-- Most likely REMOVE_CURRENT_*
-	["_REMOVE_CURRENT_RISE"]=--[[void]] function(--[[int]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("B1252E3E59A82AAF");end,
+	["REMOVE_EXTRA_CALMING_QUAD"]=--[[void]] function(--[[int]] p0)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.end_call("B1252E3E59A82AAF");end,
 	-- Sets a value that determines how aggressive the ocean waves will be. Values of 2.0 or more make for very aggressive waves like you see during a thunderstorm.
 	-- 
 	-- Works only ~200 meters around the player.
@@ -16432,7 +16944,6 @@ WEAPON={
 	["REMOVE_WEAPON_COMPONENT_FROM_PED"]=--[[void]] function(--[[Ped (int)]] ped,--[[Hash (int)]] weaponHash,--[[Hash (int)]] componentHash)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(weaponHash);native_invoker.push_arg_int(componentHash);native_invoker.end_call("1E8BE90C74FB4C09");end,
 	["HAS_PED_GOT_WEAPON_COMPONENT"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped,--[[Hash (int)]] weaponHash,--[[Hash (int)]] componentHash)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(weaponHash);native_invoker.push_arg_int(componentHash);native_invoker.end_call("C593212475FAE340");return native_invoker.get_return_value_bool();end,
 	["IS_PED_WEAPON_COMPONENT_ACTIVE"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped,--[[Hash (int)]] weaponHash,--[[Hash (int)]] componentHash)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.push_arg_int(weaponHash);native_invoker.push_arg_int(componentHash);native_invoker.end_call("0D78DE0572D3969E");return native_invoker.get_return_value_bool();end,
-	-- Old name: _PED_SKIP_NEXT_RELOADING
 	["REFILL_AMMO_INSTANTLY"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("8C0D57EA686FAD87");return native_invoker.get_return_value_bool();end,
 	-- Forces a ped to reload only if they are able to; if they have a full magazine, they will not reload.
 	["MAKE_PED_RELOAD"]=--[[BOOL (bool)]] function(--[[Ped (int)]] ped)native_invoker.begin_call();native_invoker.push_arg_int(ped);native_invoker.end_call("20AE33F3AC9C0033");return native_invoker.get_return_value_bool();end,
@@ -16597,7 +17108,7 @@ WEAPON={
 	["REQUEST_WEAPON_HIGH_DETAIL_MODEL"]=--[[void]] function(--[[Entity (int)]] weaponObject)native_invoker.begin_call();native_invoker.push_arg_int(weaponObject);native_invoker.end_call("48164DBB970AC3F0");end,
 	-- Changes the weapon damage output by the given multiplier value. Must be run every frame.
 	["_SET_WEAPON_DAMAGE_MODIFIER_THIS_FRAME"]=--[[void]] function(--[[Hash (int)]] weaponHash,--[[float]] damageMultiplier)native_invoker.begin_call();native_invoker.push_arg_int(weaponHash);native_invoker.push_arg_float(damageMultiplier);native_invoker.end_call("4757F00BC6323CFE");end,
-	["_0x4AE5AC8B852D642C"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("4AE5AC8B852D642C");end,
+	["_SET_WEAPON_EXPLOSION_RADIUS_MULTIPLIER"]=--[[void]] function(--[[Hash (int)]] weaponHash,--[[float]] multiplier)native_invoker.begin_call();native_invoker.push_arg_int(weaponHash);native_invoker.push_arg_float(multiplier);native_invoker.end_call("4AE5AC8B852D642C");end,
 	["_0xE6D2CEDD370FF98E"]=--[[void]] function(--[[Any (int)]] p0,--[[Any (int)]] p1)native_invoker.begin_call();native_invoker.push_arg_int(p0);native_invoker.push_arg_int(p1);native_invoker.end_call("E6D2CEDD370FF98E");end,
 	-- This native returns a true or false value.
 	-- 
