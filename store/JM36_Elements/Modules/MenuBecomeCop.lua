@@ -121,14 +121,28 @@ return{
 							end
 							if WantedLevel < 2 then
 								local PedVeh = entities_get_user_vehicle_as_handle()
+								local IncludeFriends = false
 								local Players = players_list(false, IncludeFriends, true)
 								for i=1, #Players do
-									if GetEntityPlayerIsFreeAimingAt(Players[i], MemoryPointer) then
+									local Player = Players[i]
+									--[[if GetEntityPlayerIsFreeAimingAt(Player, MemoryPointer) then
 										local EntityAimedAt = memory_read_int(MemoryPointer)
 										if EntityAimedAt == Ped or (PedVeh ~= 0 and EntityAimedAt == PedVeh) then
+											ReportCrime(Player, 27, GetWantedLevelThreshold(3))
 											Code3()
 											break
 										end
+									end]]
+									if IsPlayerFreeAimingAtEntity(Player, Ped) or IsPlayerFreeAimingAtEntity(Player, PedVeh) then
+										ReportCrime(Player, 27, GetWantedLevelThreshold(3))
+										Code3()
+										break
+									end
+									local PlayersPed = GetPlayerPed(Player)
+									if HasEntityBeenDamagedByEntity(Ped, PlayersPed, true) or HasEntityBeenDamagedByEntity(Ped, PedVeh, true) then
+										ReportCrime(Player, 14, GetWantedLevelThreshold(5))
+										Code3()
+										break
 									end
 								end
 							end
