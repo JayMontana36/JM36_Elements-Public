@@ -216,7 +216,8 @@ return {
 					end)
 					
 					local os_time, util_yield = os.time, util.yield
-					local SoundVehicleHornThisFrame = SoundVehicleHornThisFrame
+					--local SoundVehicleHornThisFrame = SoundVehicleHornThisFrame
+					local SoundVehicleHornThisFrame = SetHornPermanentlyOn
 					menu_action(Menu, "Sound Horn", {}, "Sounds the horn of the vehicle.", function()
 						local PersonalVehicle = PersonalVehicle
 						if RequestEntityControl(PersonalVehicle) then
