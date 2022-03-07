@@ -237,6 +237,7 @@ return{
 				end,
 	loop	=	function(Info)
 					if WasEnabled then
+						WantedBlipsClear()
 						local Player = Info.Player
 						local Ped = Player.Ped
 						if Enabled then
@@ -244,7 +245,6 @@ return{
 								LastPed = Ped
 								ModeCopEnable(LastPed)
 							end
-							WantedBlipsClear()
 							do
 								local PedVeh = Player.Vehicle.Id
 								local Players = players_list(false, true, true)
@@ -300,7 +300,6 @@ return{
 							end
 							return
 						end
-						WantedBlipsClear()
 						WasEnabled = false
 					end
 				end,
