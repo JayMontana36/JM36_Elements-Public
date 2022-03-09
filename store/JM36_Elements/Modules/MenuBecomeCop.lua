@@ -139,7 +139,7 @@ local function GivePlayerWantedLevel(PlayerId)
 end
 
 local MenuOption
-local Enabled, WasEnabled, LastPed, Loop_GivePlayerWantedLevel
+local Enabled, WasEnabled, LastPed, Loop_GivePlayerWantedLevel, Lock_PlayerWantedBlips
 local WantedPlayers, WantedBlips = {}, {}
 local util_remove_blip = util.remove_blip
 local function WantedBlipsClear()
@@ -220,6 +220,9 @@ return{
 						menu_toggle(MenuOption, "Loop GivePlayerWantedLevel", {}, "", function(on)
 							Loop_GivePlayerWantedLevel = on
 						end)
+						menu_toggle(MenuOption, "WantedBlips Always On Target", {}, "", function(on)
+							Lock_PlayerWantedBlips = on
+						end)
 					end
 				end,
 	stop	=	function()
@@ -284,8 +287,16 @@ return{
 										if not IsPedAPlayer then
 											ReleaseScriptGuidFromEntity(_Ped)
 										else
-											if WantedPlayers[NetworkGetPlayerIndexFromPed(_Ped)] then
-												local _PedCoords = GetEntityCoords(_Ped, true)
+											local _Player = NetworkGetPlayerIndexFromPed(_Ped)
+											if WantedPlayers[_Player] then
+												--local _PedCoords = GetEntityCoords(_Ped, true)
+												--local _PedCoords = GetPlayerWantedCentrePosition(_Player)
+												local _PedCoords
+												if not Lock_PlayerWantedBlips then
+													_PedCoords = GetPlayerWantedCentrePosition(_Player)
+												else
+													_PedCoords = GetEntityCoords(_Ped, true)
+												end
 												--local Blip = AddBlipForRadius(_PedCoords.x, _PedCoords.y, _PedCoords.z, 25.0)
 												local Blip = AddBlipForRadius(_PedCoords.x, _PedCoords.y, _PedCoords.z, 50.0)
 												SetBlipColour(Blip, 5)
