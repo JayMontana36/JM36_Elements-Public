@@ -90,7 +90,7 @@ local function ModeCopEnableSelf(Ped)
 	end
 end
 local function ModeCopDisableSelf(Ped)
-	ModeCopDisable(Ped, true, RelationshipGroupToRestore)
+	ModeCopDisable(Ped, true, false, RelationshipGroupToRestore)
 	local MenuCommandDefaults = MenuCommandDefaults
 	if MenuCommandDefaults.MenuCommandOTR ~= 1 then
 		menu_trigger_command(MenuCommandOTR, 0)
@@ -252,12 +252,13 @@ return{
 									local Player = Players[i]
 									local PlayerIsWanted = GetPlayerWantedLevel(Player) ~= 0
 									if Loop_GivePlayerWantedLevel or not PlayerIsWanted then
-										if GetEntityPlayerIsFreeAimingAt(Player, MemoryPointer_GetEntityPlayerIsFreeAimingAt) then
-											local EntityAimedAt = memory_read_int(MemoryPointer_GetEntityPlayerIsFreeAimingAt)
-											if EntityAimedAt == Ped or (PedVeh ~= 0 and EntityAimedAt == PedVeh) then
+--										if GetEntityPlayerIsFreeAimingAt(Player, MemoryPointer_GetEntityPlayerIsFreeAimingAt) then
+--											local EntityAimedAt = memory_read_int(MemoryPointer_GetEntityPlayerIsFreeAimingAt)
+--											if EntityAimedAt == Ped or (PedVeh ~= 0 and EntityAimedAt == PedVeh) then
+										if IsPlayerFreeAimingAtEntity(Player, Ped) or IsPlayerFreeAimingAtEntity(Player, PedVeh) then
 												PlayerIsWanted = true
 												GivePlayerWantedLevel(Player)
-											end
+--											end
 										end
 									end
 									WantedPlayers[Player] = PlayerIsWanted
