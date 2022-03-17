@@ -1,5 +1,5 @@
 --[[ Config Area ]]
-Natives              = "natives-1627063482"
+Natives              = "natives-1640181023"
 Natives_FiveM        = true
 Natives_FiveM_Only   = true
 DebugMode            = false
@@ -14,6 +14,7 @@ __Script_Modules = Script_Home.."__Modules//" -- Shared Script Components/Resour
 Script_Libs = Script_Home.."libs//" -- Standard libs Directory For Environment
 __Script_Libs = Script_Home.."__libs//" -- Automatically Loaded libs On Startup
 
+local util = util
 local tostring, table_concat, util_toast
     = tostring, table.concat, util.toast
 print = function(...)
