@@ -1,3 +1,4 @@
+local HashesRocketObjectsNum
 local HashesRocketObjects = {
 	"w_lr_rpg_rocket",
 	"w_lr_homing_rocket",
@@ -10,11 +11,11 @@ local HashesRocketObjects = {
 	"w_ex_vehiclemissile_4",
 	"w_smug_airmissile_02",
 }
-local HashesRocketObjectsNum = #HashesRocketObjects
+HashesRocketObjectsNum = #HashesRocketObjects
 do
 	local GetHashKey = GetHashKey
 	for i=1, HashesRocketObjectsNum do
 		HashesRocketObjects[i] = GetHashKey(HashesRocketObjects[i])
 	end
 end
-return HashesRocketObjects, HashesRocketObjectsNum
+return function() return HashesRocketObjects, HashesRocketObjectsNum end
