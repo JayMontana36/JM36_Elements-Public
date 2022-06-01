@@ -1,11 +1,11 @@
-local os_time = os.time
-local DoesEntityExist = DoesEntityExist
-local NetworkRequestControlOfEntity = NetworkRequestControlOfEntity
-local util_yield = util.yield
+local os_time <const> = os.time
+local DoesEntityExist <const> = DoesEntityExist
+local NetworkRequestControlOfEntity <const> = NetworkRequestControlOfEntity
+local util_yield <const> = util.yield
 
 return function(EntityHandle, TimeOutTime)
     local CurrentTime = os_time()
-    local TimeOutTime = CurrentTime + (TimeOutTime or 5)
+    local TimeOutTime <const> = CurrentTime + (TimeOutTime or 5)
     local EntityExists = DoesEntityExist(EntityHandle)
     local HasControlOfEntity = NetworkRequestControlOfEntity(EntityHandle)
     while EntityExists and not HasControlOfEntity and TimeOutTime > CurrentTime do
