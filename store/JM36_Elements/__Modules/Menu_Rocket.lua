@@ -1,5 +1,5 @@
-local menu = menu
-local Menu = menu.list(menu.my_root(), "Rocket Guidance", {}, "Rocket Related Options")
+local menu <const> = menu
+local Menu <const> = menu.list(menu.my_root(), "Rocket Guidance", {}, "Rocket Related Options")
 do
 	local Enabled
 	local config = configFileRead("RocketGuidance.ini")
