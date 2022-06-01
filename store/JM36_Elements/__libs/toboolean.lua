@@ -1,4 +1,4 @@
-local booleans = setmetatable
+local booleans <const> = setmetatable
 (
 	{
 		["false"]	=	false,
@@ -13,10 +13,10 @@ local booleans = setmetatable
 	}
 )
 
-local type = type
-local toboolean = function(p1)
+local type <const> = type
+local toboolean <const> = function(p1)
 	if p1 == nil then return false end
-	local Type = type(p1)
+	local Type <const> = type(p1)
 	if Type == 'boolean' then return p1 end
 	return booleans[p1]
 end
