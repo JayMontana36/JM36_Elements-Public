@@ -1,19 +1,19 @@
-local PtFxAssName = "weap_xs_vehicle_weapons"				-- ParticleFX Asset Name
-local PtFxEffName = "muz_xs_turret_flamethrower_looping_sf"	-- ParticleFX Effect Name
-local Scale = 1.0
+local PtFxAssName <const> = "weap_xs_vehicle_weapons"				-- ParticleFX Asset Name
+local PtFxEffName <const> = "muz_xs_turret_flamethrower_looping_sf"	-- ParticleFX Effect Name
+local Scale <const> = 1.0
 
-local RocketObjectHashes, RocketObjectHashesNum = require'HashesRockets_Array'()
+local RocketObjectHashes <const>, RocketObjectHashesNum <const> = require'HashesRockets_Array'()
 
-local util_yield = util.yield
+local util_yield <const> = util.yield
 return function(CoordsRocket, CoordsRadius, TargetEntity, UseRealisticPhysics, GuidanceAccuracy)
 	local Rocket = 0
 	do
-		local TimeTerm = Info.Time+1000
+		local TimeTerm <const> = Info.Time+1000
 		while Rocket == 0 and Info.Time <= TimeTerm do
 			local RocketFound
 			for i=1, RocketObjectHashesNum do
 				Rocket = GetClosestObjectOfType(CoordsRocket.x, CoordsRocket.y, CoordsRocket.z, CoordsRadius, RocketObjectHashes[i], false)
-				RocketFound = Rocket ~= 0
+				RocketFound = Rocket ~= 0 and GetEntitySpeed(Rocket) > 1
 				if RocketFound then break end
 			end
 			if not RocketFound then
@@ -24,8 +24,8 @@ return function(CoordsRocket, CoordsRadius, TargetEntity, UseRealisticPhysics, G
 	
 	if Rocket ~= 0 then
 		local SpeedInit
-		local GuidanceAccuracy = (GuidanceAccuracy or 1) * 32
-		local TargetEntityIsVehicle = GetEntityType(TargetEntity) == 2
+		local GuidanceAccuracy <const> = (GuidanceAccuracy or 1) * 32
+		local TargetEntityIsVehicle <const> = GetEntityType(TargetEntity) == 2
 		do
 			local NetId = ObjToNet(Rocket)
 			if NetId == 0 or NetId == -1 then
@@ -50,7 +50,7 @@ return function(CoordsRocket, CoordsRadius, TargetEntity, UseRealisticPhysics, G
 			NetworkRequestControlOfEntity(Rocket)
 			
 			CoordsRocket = GetEntityCoords(Rocket, false)
-			local CoordsTarget = GetEntityCoords(TargetEntity, false)
+			local CoordsTarget <const> = GetEntityCoords(TargetEntity, false)
 			
 			local Rotation = util.v3_look_at(CoordsRocket, CoordsTarget)
 			
@@ -63,7 +63,7 @@ return function(CoordsRocket, CoordsRadius, TargetEntity, UseRealisticPhysics, G
 			
 			Rotation = util.rot_to_dir(Rotation)
 			
-			local ApplyForceToEntityCenterOfMass = ApplyForceToEntityCenterOfMass
+			local ApplyForceToEntityCenterOfMass <const> = ApplyForceToEntityCenterOfMass
 			if UseRealisticPhysics then
 				ApplyForceToEntityCenterOfMass(Rocket, 1, Rotation.x*GuidanceAccuracy, Rotation.y*GuidanceAccuracy, Rotation.z*GuidanceAccuracy, false, false, true, true)
 			else
