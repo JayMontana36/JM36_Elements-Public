@@ -15,10 +15,9 @@ Script_Libs = Script_Home.."libs//" -- Standard libs Directory For Environment
 __Script_Libs = Script_Home.."__libs//" -- Automatically Loaded libs On Startup
 
 do
-	local util_toast, table_concat, tostring
-		= util.toast, table.concat, tostring
+	local util_toast <const>, TOAST_ALL <const>, table_concat <const>, tostring <const> = util.toast, TOAST_ALL, table.concat, tostring
 	print = function(...)
-		local Content = {...}
+		local Content <const> = {...}
 		for i=1, #Content do
 			Content[i] = tostring(Content[i])
 		end
@@ -26,14 +25,14 @@ do
 	end
 end
 
-local DirectoriesList = {"Script_Home","Script_Modules","__Script_Modules","Script_Libs","__Script_Libs"}
+local DirectoriesList <const> = {"Script_Home","Script_Modules","__Script_Modules","Script_Libs","__Script_Libs"}
 do
-	local filesystem = filesystem
-	local filesystem_mkdir = filesystem.mkdir
-	local filesystem_exists = filesystem.exists
-	local _G = _G
+	local filesystem <const> = filesystem
+	local filesystem_mkdir <const> = filesystem.mkdir
+	local filesystem_exists <const> = filesystem.exists
+	local _G <const> = _G
 	for i=1,5 do
-		local Directory = _G[DirectoriesList[i]]
+		local Directory <const> = _G[DirectoriesList[i]]
 		if not filesystem_exists(Directory) then
 			filesystem_mkdir(Directory)
 		end
@@ -42,20 +41,66 @@ end
 
 
 
-Info = { Enabled=false, Time=0, Player=0, Target=0 } local Info = Info
-local Scripts_Init, Scripts_Join, Scripts_Loop, Scripts_Stop
+local coroutine <const> = coroutine
+Info = { Enabled=false, Time=0, Player=0, Target=0 } local Info <const> = Info
+JM36 = {CreateThread=0,Wait=0,wait=0,yield=0} local JM36 <const> = JM36
 do
+	local Halt
+	do
+		local Info <const> = Info
+		local yield <const> = coroutine.yield
+		Halt = function(ms)
+			local TimeResume <const> = Info.Time+(ms or 0)
+			repeat
+				yield()
+			until Info.Time > TimeResume
+		end
+	end
+	local Halt <const> = Halt
+	JM36.Wait, JM36.wait, JM36.yield = Halt, Halt, Halt
+end
+local Threads <const> = {}
+do
+	local table_insert <const> = table.insert
+	local create <const> = coroutine.create
+	JM36.CreateThread = function(func)
+		table_insert(Threads, create(func))
+	end
+end
+
+
+
+local Scripts_Init, Scripts_Join, Scripts_Stop
+do
+	local loopToThread
+	do
+		local JM36 <const> = JM36
+		local CreateThread <const> = JM36.CreateThread
+		local yield <const> = JM36.yield
+		loopToThread = function(func)
+			CreateThread(function()
+				local Info <const> = Info
+				local func <const> = func
+				local yield <const> = yield
+				while true do
+					func(Info)
+					yield()
+				end
+			end)
+		end
+	end
 	Scripts_Init = setmetatable({},{
 		__call	=	function(Self)
+						local Scripts_Stop <const> = Scripts_Stop
+						
 						if Info.Enabled then Scripts_Stop() end
 						
-						local Scripts_List, Scripts_NMBR = {}, 0
+						local Scripts_List <const>, Scripts_NMBR = {}, 0
 						do
-							local string_gsub, string_split, string_endsWith
-								= string.gsub, string.split, string.endsWith
-							local _Scripts_List = filesystem.list_files(Script_Modules)
+							local string_gsub <const>, string_split <const>, string_endsWith <const> = string.gsub, string.split, string.endsWith
+							local _Scripts_List <const> = filesystem.list_files(Script_Modules)
 							for i=1, #_Scripts_List do
-								local Script = _Scripts_List[i]
+								local Script <const> = _Scripts_List[i]
 								if string_endsWith(Script, ".lua") then
 									Scripts_NMBR = Scripts_NMBR+1
 									Scripts_List[Scripts_NMBR] = string_gsub(string_split(Script, "//")[3], ".lua", "")
@@ -68,18 +113,20 @@ do
 						Self.List = Scripts_List
 						
 						do
-							local Scripts_Loop, Scripts_Stop
-								= Scripts_Loop, Scripts_Stop
-							local print, type, pcall, require
-								= print, type, pcall, require
+							local print <const>, type <const>, pcall <const>, require <const> = print, type, pcall, require
 							for i=1, Scripts_NMBR do
-								local Successful, Script = pcall(require, Scripts_List[i])
+								local Successful <const>, Script <const> = pcall(require, Scripts_List[i])
 								if Successful then
 									if type(Script)=='table' then
 										Self[#Self+1] = Script.init
+										
 										Scripts_Join[#Scripts_Join+1]=Script.join
-										Scripts_Loop[#Scripts_Loop+1]=Script.loop
 										Scripts_Stop[#Scripts_Stop+1]=Script.stop
+										
+										local loop <const> = Script.loop
+										if loop then
+											loopToThread(loop)
+										end
 									end
 								else
 									print(Script)
@@ -87,9 +134,9 @@ do
 							end
 						end
 						do
-							local print, pcall = print, pcall
+							local print <const>, pcall <const> = print, pcall
 							for i=1, #Self do
-								local Successful, Error = pcall(Self[i], Info) if not Successful then print(Error) end
+								local Successful <const>, Error <const> = pcall(Self[i], Info) if not Successful then print(Error) end
 							end
 						end
 						
@@ -99,7 +146,6 @@ do
 					end
 	})
 end
-Scripts_Loop = {} -- Merge with tick using metatables?
 Scripts_Join = {} -- Use metatable to make this also act as a function instead?
 do
 	Scripts_Stop = setmetatable({},{
@@ -107,10 +153,10 @@ do
 						Info.Enabled = false
 						
 						do
-							local Scripts_Init = Scripts_Init
+							local Scripts_Init <const> = Scripts_Init
 							do
-								local unrequire = unrequire
-								local Scripts_List = Scripts_Init.List
+								local unrequire <const> = unrequire
+								local Scripts_List <const> = Scripts_Init.List
 								for i=1, Scripts_List.Num do
 									unrequire(Scripts_List[i])
 								end
@@ -121,14 +167,14 @@ do
 							end
 						end
 						
-						for i=1, #Scripts_Loop do
-							Scripts_Loop[i]=nil
+						for i=1, #Threads do
+							Threads[i]=nil
 						end
 						
 						do
-							local print, pcall = print, pcall
+							local print <const>, pcall <const> = print, pcall
 							for i=1, #Self do
-								local Successful, Error = pcall(Self[i], Info) if not Successful then print(Error) end Self[i]=nil
+								local Successful <const>, Error <const> = pcall(Self[i], Info) if not Successful then print(Error) end Self[i]=nil
 							end
 						end
 						
@@ -144,50 +190,56 @@ local tick
 do
 	local GetTime
 	do
-		local os_clock = os.clock
+		local os_clock <const> = os.clock
 		GetTime = function()
 			return os_clock()*1000
 		end
 	end
 	do
-		local Info_Update_Delay = Info_Update_Delay
+		local resume <const> = coroutine.resume
+		local CR <const> = coroutine.create(function()
+			local print <const> = print
+			local yield <const> = JM36.yield
+			local resume <const> = resume
+			local status <const> = coroutine.status
+			local Threads <const> = Threads
+			while true do
+				local j, n <const> = 1, #Threads
+				for i=1,n do
+					local Thread <const> = Threads[i]
+					if status(Thread)~="dead" then
+						do
+							local Successful <const>, Error <const> = resume(Thread)
+							if not Successful then print(Error) end
+						end
+						if i ~= j then
+							Threads[j] = Threads[i]
+							Threads[i] = nil
+						end
+						j = j + 1
+					else
+						Threads[i] = nil
+					end
+				end
+				yield()
+			end
+		end)
+		
+		local Info_Update_Delay <const> = Info_Update_Delay
 		local UpdateInfoTime = 0
-		local Scripts_Loop = Scripts_Loop
-		local Info = Info
-		if DebugMode then
-			local print, pcall = print, pcall
-			tick = function()
-				local Time = GetTime()
+		local Info <const> = Info
+		tick = function()
+			if Info.Enabled then
+				local Time <const> = GetTime()
 				Info.Time = Time
 				if Time >= UpdateInfoTime then
-					local Functions = Info.Functions
+					local Functions <const> = Info.Functions
 					for i=1, #Functions do
 						Functions[i](Info)
 					end
 					UpdateInfoTime = Time + Info_Update_Delay
 				end
-				for i=1, #Scripts_Loop do
-					--if not Info.Enabled and i~=1 then break end
-					if not Info.Enabled then break end
-					local Successful, Error = pcall(Scripts_Loop[i], Info) if not Successful then print(Error) end
-				end
-			end
-		else
-			tick = function()
-				if Info.Enabled then
-					local Time = GetTime()
-					Info.Time = Time
-					if Time >= UpdateInfoTime then
-						local Functions = Info.Functions
-						for i=1, #Functions do
-							Functions[i](Info)
-						end
-						UpdateInfoTime = Time + Info_Update_Delay
-					end
-					for i=1, #Scripts_Loop do
-						Scripts_Loop[i](Info)
-					end
-				end
+				resume(CR)
 			end
 		end
 	end
@@ -196,12 +248,13 @@ end
 do
 	--[[ Introduce some new useful string functions ]]
 	do
-		local string = string
+		local string <const> = string
 		
 		do
-			local string_gmatch = string.gmatch
+			local string_gmatch <const> = string.gmatch
 			string.split = function(inputstr,sep) -- Split strings into chunks or arguments (in tables)
-				sep = sep or "%s" local t,n={},0
+				local sep <const> = sep or "%s"
+				local t <const>, n = {}, 0
 				for str in string_gmatch(inputstr, "([^"..sep.."]+)") do
 					n=n+1 t[n]=str
 				end
@@ -223,26 +276,26 @@ do
 	end
 	
 	--[[ Introduce/Create a new Secondary Global Environment Variable ]]
-	local setmetatable = setmetatable
+	local setmetatable <const> = setmetatable
 	local _G2
 	do
 		_G2 = {}
 		setmetatable(_G,{__index=_G2})
 	end
+	local _G2 <const> = _G2
 	
 	--[[ Introduce some new useful core functions ]]
 	do
-		local package_loaded = package.loaded
+		local package_loaded <const> = package.loaded
 		function _G2.unrequire(script) -- Very useful for script resets/reloads/cleanup
 			package_loaded[script]=nil
 		end
 	end
 	do
-		local io_open, string_split, string_gsub, string_endsWith, string_startsWith, io_lines
-			= io.open, string.split, string.gsub, string.endsWith, string.startsWith, io.lines
+		local io_open <const>, string_split <const>, string_gsub <const>, string_endsWith <const>, string_startsWith <const>, io_lines <const> = io.open, string.split, string.gsub, string.endsWith, string.startsWith, io.lines
 		function _G2.configFileRead(file, sep) -- Read simple config file
-			file, sep = Script_Home..file, sep or "="
-			local config, configFile = {}, io_open(file)
+			local file <const>, sep <const> = Script_Home..file, sep or "="
+			local config <const>, configFile = {}, io_open(file)
 			if configFile then
 				for line in io_lines(file) do
 					if not (string_startsWith(line, "[") and string_endsWith(line, "]")) then
@@ -259,24 +312,24 @@ do
 		end
 	end
 	do
-		local io_open, string_format, tostring, pairs
-			= io.open, string.format, tostring, pairs
+		local io_open <const>, string_format <const>, tostring <const>, pairs <const> = io.open, string.format, tostring, pairs
 		function _G2.configFileWrite(file, config, sep) -- Write simple config file
-			local configFile, sep = io_open(Script_Home..file, "w"), sep or "="
+			local configFile, sep <const> = io_open(Script_Home..file, "w"), sep or "="
 			for k,v in pairs(config) do
 				configFile:write(string_format("%s%s%s\n", k, sep, tostring(v)))
 			end
+			configFile:close()
 		end
 	end
 	
 	--[[ Update the search path ]]
 	do
 		local package_path = package.path
-		local string_format = string.format
-		local _G = _G
-		local DirectoriesList = DirectoriesList
+		local string_format <const> = string.format
+		local _G <const> = _G
+		local DirectoriesList <const> = DirectoriesList
 		for i=1,5 do
-			local Directory = _G[DirectoriesList[i]]
+			local Directory <const> = _G[DirectoriesList[i]]
 			package_path = string_format(".\\?.dll;%s?.dll;%slibs\\?.dll;%slibs\\?\\init.dll;%s", Directory, Directory, Directory, package_path) -- DLL
 			package_path = string_format(".\\?.lua;%s?.lua;%slibs\\?.lua;%slibs\\?\\init.lua;%s", Directory, Directory, Directory, package_path) -- Lua
 			package_path = string_format(".\\?;%s?;%slibs\\?;%slibs\\?\\init;%s", Directory, Directory, Directory, package_path) -- NoExtension
@@ -288,7 +341,8 @@ do
 	
 	--[[ Introduce/Create FiveM style game native function calls ]]
     if Natives_FiveM then
-        local Namespaces    = {
+        local Namespaces <const> =
+		{
             SYSTEM          = true,
             APP             = true,
             AUDIO           = true,
@@ -334,8 +388,7 @@ do
             ZONE            = true,
         }
         
-        local table_concat, string_upperFirst, string_lower, string_split, string_startsWith, _G, pairs
-            = table.concat, string.upperFirst, string.lower, string.split, string.startsWith, _G, pairs
+        local table_concat <const>, string_upperFirst <const>, string_lower <const>, string_split <const>, string_startsWith <const>, _G <const>, pairs <const> = table.concat, string.upperFirst, string.lower, string.split, string.startsWith, _G, pairs
         for k,v in pairs(_G) do
             if Namespaces[k] then
                 for k,v in pairs(_G[k]) do
@@ -359,17 +412,17 @@ do
             unrequire(Natives)
         end
         
-        Namespaces = nil
-        _G2.Wait = util.yield
+--        Namespaces = nil
+        _G2.Wait = JM36.yield
     end
 	
 	--[[ Automatically load __Internal ]]
 	do
-		local Info = Info
+		local Info <const> = Info
 		
-		local Functions = setmetatable({},{
+		local Functions <const> = setmetatable({},{
 			__call  =   function(Self)
-							local Info = Info
+							local Info <const> = Info
 							for i=1, #Self do
 								Self[i](Info)
 							end
@@ -377,20 +430,19 @@ do
 		})
 		Info.Functions = Functions
 		
-		local package = package
-		local package_path_orig = package.path
+		local package <const> = package
+		local package_path_orig <const> = package.path
 		
-		local Directory = Script_Home.."__Internal//"
+		local Directory <const> = Script_Home.."__Internal//"
 		
 		package.path = string.format("%s?.lua", Directory)
 		
-		local List, ListNum = {}, 0
+		local List <const>, ListNum = {}, 0
 		do
-			local string_endsWith, string_split, string_gsub
-                = string.endsWith, string.split, string.gsub
-			local _List = filesystem.list_files(Directory)
+			local string_endsWith <const>, string_split <const>, string_gsub <const> = string.endsWith, string.split, string.gsub
+			local _List <const> = filesystem.list_files(Directory)
 			for i=1, #_List do
-				local Lib = _List[i]
+				local Lib <const> = _List[i]
 				if string_endsWith(Lib, ".lua") then
 					ListNum = ListNum+1
 					List[ListNum] = string_gsub(string_split(Lib, "//")[3], ".lua", "")
@@ -399,19 +451,18 @@ do
 		end
 		table.sort(List)
 		do
-			local pcall, require, type, print
-				= pcall, require, type, print
+			local pcall <const>, require <const>, type <const>, print <const> = pcall, require, type, print
 			local FunctionsNum = 0
 			for i=1, ListNum do
-				local Successful, Function = pcall(require, List[i])
+				local Successful <const>, Function <const> = pcall(require, List[i])
 				if Successful then
-					local Type = type(Function)
+					local Type <const> = type(Function)
 					if Type == "table" then
 						if not Function.InfoKeyOnly then
 							FunctionsNum = FunctionsNum + 1
 							Functions[FunctionsNum] = Function
 						end
-						local Key = Function.InfoKeyName
+						local Key <const> = Function.InfoKeyName
 						if type(Key) == "string" then
 							Info[Key] = Function
 						end
@@ -430,13 +481,12 @@ do
 	
 	--[[ Automatically load __libs ]]
 	do
-		local __libs_List, __libs_NMBR = {}, 0
+		local __libs_List <const>, __libs_NMBR = {}, 0
 		do
-			local string_gsub, string_split, string_endsWith
-				= string.gsub, string.split, string.endsWith
-			local ___libs_List = filesystem.list_files(__Script_Libs)
+			local string_gsub <const>, string_split <const>, string_endsWith <const> = string.gsub, string.split, string.endsWith
+			local ___libs_List <const> = filesystem.list_files(__Script_Libs)
 			for i=1, #___libs_List do
-				local __lib = ___libs_List[i]
+				local __lib <const> = ___libs_List[i]
 				if string_endsWith(__lib, ".lua") then
 					__libs_NMBR = __libs_NMBR+1
 					__libs_List[__libs_NMBR] = string_gsub(string_split(__lib, "//")[3], ".lua", "")
@@ -447,10 +497,9 @@ do
 		table.sort(__libs_List)
 		
 		do
-			local print, pcall, require
-				= print, pcall, require
+			local print <const>, pcall <const>, require <const> = print, pcall, require
 			for i=1, __libs_NMBR do
-				local Successful, __lib = pcall(require, __libs_List[i])
+				local Successful <const>, __lib <const> = pcall(require, __libs_List[i])
 				if not Successful then
 					print(__lib)
 				end
@@ -460,16 +509,15 @@ do
     
     --[[ Add Reload Option With Debug Mode ]]
     if DebugMode then
-        local Scripts_Init = function()Scripts_Init()end -- Required as Stand errors and complains otherwise - function tables unsupported.
-        local menu = menu
+        local Scripts_Init <const> = function()Scripts_Init()end -- Required as Stand errors and complains otherwise - function tables unsupported.
+        local menu <const> = menu
         menu.action(menu.my_root(), "Reload Modules", {"elements reload", "reload elements", "reload modules"}, "", Scripts_Init)
     end
 end
 
 local init
 do
-	local Scripts_Init, collectgarbage
-		= Scripts_Init, collectgarbage
+	local Scripts_Init <const>, collectgarbage <const> = Scripts_Init, collectgarbage
 	init = function()
 		collectgarbage()
 		Scripts_Init()
@@ -484,7 +532,7 @@ end
 --[[init()]]--[[util.execute_in_os_thread(init)]]
 
 do
-	local Scripts_Join = Scripts_Join
+	local Scripts_Join <const> = Scripts_Join
 	players.on_join(function(PlayerId)
 		for i=1, #Scripts_Join do
 			Scripts_Join[i](PlayerId)
@@ -495,7 +543,7 @@ end
 util.on_stop(Scripts_Stop)
 
 do
-	local tick = tick
+	local tick <const> = tick
 	util.create_tick_handler(function()
 		tick()
 	return true end)
