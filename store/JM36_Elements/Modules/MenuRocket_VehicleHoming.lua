@@ -21,7 +21,7 @@ CreateThread(function()
 			if Vehicle.IsIn then
 				local Vehicle_Id <const> = Vehicle.Id
 				if IsPedShooting(Player.Ped) and GetVehicleLockOnTarget(Vehicle_Id, PtrMem) then
-					CreateThread(RocketNearCoordGuideToEntity, GetEntityCoords(Player_Ped, false), 25.0, memory_read_int(PtrMem), config.Realistic, config.Accuracy)
+					CreateThread(RocketNearCoordGuideToEntity, GetEntityCoords(Vehicle_Id, false), 25.0, memory_read_int(PtrMem), config.Realistic, config.Accuracy)
 				end
 			end
 		end
