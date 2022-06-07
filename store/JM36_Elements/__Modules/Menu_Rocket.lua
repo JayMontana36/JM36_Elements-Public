@@ -7,6 +7,12 @@ do
 	local Info = Info
 	Info.RocketGuidanceEnabled = Enabled
 	menu.toggle(Menu, "Enable Rocket Guidance", {}, "Make rockets smarter\nIncrease rocket accuracy\nEnable missile aimbot", function(state)
+		local state <const> = state
+		if state then
+			RequestStreamedTextureDict("helicopterhud", false)
+		else
+			SetStreamedTextureDictAsNoLongerNeeded("helicopterhud")
+		end
 		Info.RocketGuidanceEnabled = state
 		config.Enabled = state
 	end, Enabled)
