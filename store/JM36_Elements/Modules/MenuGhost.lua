@@ -67,6 +67,7 @@ do
 	local menu_player_root <const> = menu.player_root
 	local menu_divider <const> = menu.divider
 	local menu_toggle <const> = menu.toggle
+	local players_get_name <const> = players.get_name
 	local menu_trigger_command <const> = menu.trigger_command
 	local util_yield <const> = util.yield
 	Join = function(PlayerId)
