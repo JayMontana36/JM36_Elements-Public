@@ -197,9 +197,11 @@ return{
 						if Enabled then
 							WasEnabled = true
 							ModeCopEnableSelf(LastPed)
+							SetPoliceIgnorePlayer(Info.Player.Id, true)
 							return
 						end
 						ModeCopDisableSelf(LastPed)
+						SetPoliceIgnorePlayer(Info.Player.Id, false)
 					end)
 					
 					local menu_action = menu.action
