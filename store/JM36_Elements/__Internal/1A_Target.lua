@@ -3,6 +3,10 @@ local Radius <const> = 1.25
 
 
 
+local v3 <const> = v3
+
+
+
 local TargetTable
 do
 	local v3_new <const> = v3.new
@@ -32,6 +36,8 @@ CreateThread(function()
 		local memory_alloc_int <const> = memory.alloc_int
 		local memory_read_byte <const> = memory.read_byte
 		local memory_read_int <const> = memory.read_int
+		local v3_get <const> = v3.get
+		local v3_set <const> = v3.set
 		local TargetTable <const> = TargetTable
 		local GetShapeTestResult <const> = GetShapeTestResult
 		do
@@ -39,11 +45,16 @@ CreateThread(function()
 			local HitA <const>, EndCoordsA <const>, SurfaceNormalA <const>, EntityHitA <const> = memory_alloc_int(), TargetTable.EndCoordsA, TargetTable.EntOffsetA, memory_alloc_int()
 			ShapeTestLosProbe = function(StartCoords, EndCoords, EntityToIgnore)
 				local StartCoords <const>, EndCoords <const> = StartCoords, EndCoords
-				local shapeTestHandle <const> = StartExpensiveSynchronousShapeTestLosProbe(StartCoords.x, StartCoords.y, StartCoords.z, EndCoords.x, EndCoords.y, EndCoords.z, 14--[[15]], EntityToIgnore, 0)
+				local EndCoords_x <const>, EndCoords_y <const>, EndCoords_z <const> = v3_get(EndCoords)
+				local shapeTestHandle <const> = StartExpensiveSynchronousShapeTestLosProbe(StartCoords.x, StartCoords.y, StartCoords.z, EndCoords_x, EndCoords_y, EndCoords_z, 14--[[15]], EntityToIgnore, 0)
 				while GetShapeTestResult(shapeTestHandle, HitA, EndCoordsA, SurfaceNormalA, EntityHitA) ~= 2 do
 					yield()
 				end
-				TargetTable.CollisionA = memory_read_byte(HitA) == 1
+				local CollisionA <const> = memory_read_byte(HitA) == 1
+				if not CollisionA then
+					v3_set(EndCoordsA, EndCoords_x, EndCoords_y, EndCoords_z)
+				end
+				TargetTable.CollisionA = CollisionA
 				TargetTable.EntityHitA = memory_read_int(EntityHitA)
 			end
 		end
@@ -52,9 +63,14 @@ CreateThread(function()
 			local HitB <const>, EndCoordsB <const>, SurfaceNormalB <const>, EntityHitB <const> = memory_alloc_int(), TargetTable.EndCoordsB, TargetTable.EntOffsetB, memory_alloc_int()
 			ShapeTestCapsule = function(StartCoords, EndCoords, EntityToIgnore)
 				local StartCoords <const>, EndCoords <const> = StartCoords, EndCoords
+				local EndCoords_x <const>, EndCoords_y <const>, EndCoords_z <const> = v3_get(EndCoords)
 				local shapeTestHandle <const> = StartShapeTestCapsule(StartCoords.x, StartCoords.y, StartCoords.z, EndCoords.x, EndCoords.y, EndCoords.z, Radius, 14--[[15]], EntityToIgnore, 0)
 				while GetShapeTestResult(shapeTestHandle, HitB, EndCoordsB, SurfaceNormalB, EntityHitB) ~= 2 do
 					yield()
+				end
+				local CollisionB <const> = memory_read_byte(HitB) == 1
+				if not CollisionB then
+					v3_set(EndCoordsB, EndCoords_x, EndCoords_y, EndCoords_z)
 				end
 				TargetTable.CollisionB = memory_read_byte(HitB) == 1
 				TargetTable.EntityHitB = memory_read_int(EntityHitB)
@@ -62,7 +78,6 @@ CreateThread(function()
 		end
 	end
 	
-	local v3 <const> = v3
 	local v3_toDir <const> = v3.toDir
 	local v3_mul <const> = v3.mul
 	local v3_add <const> = v3.add
