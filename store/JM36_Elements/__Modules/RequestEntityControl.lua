@@ -7,12 +7,12 @@ return function(EntityHandle, TimeOutTime)
     local CurrentTime = os_time()
     local TimeOutTime <const> = CurrentTime + (TimeOutTime or 5)
     local EntityExists = DoesEntityExist(EntityHandle)
-    local HasControlOfEntity = NetworkRequestControlOfEntity(EntityHandle)
+    local HasControlOfEntity = EntityExists and NetworkRequestControlOfEntity(EntityHandle)
     while EntityExists and not HasControlOfEntity and TimeOutTime > CurrentTime do
         util_yield()
         CurrentTime = os_time()
-		EntityExists = DoesEntityExist(EntityHandle) if not EntityExists then break end
-        HasControlOfEntity = NetworkRequestControlOfEntity(EntityHandle)
+		EntityExists = DoesEntityExist(EntityHandle)
+        HasControlOfEntity = EntityExists and NetworkRequestControlOfEntity(EntityHandle)
     end
     return EntityExists and HasControlOfEntity
 end
