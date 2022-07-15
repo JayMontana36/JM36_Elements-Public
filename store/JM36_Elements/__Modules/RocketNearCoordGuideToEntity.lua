@@ -23,6 +23,10 @@ return function(CoordsRocket, CoordsRadius, TargetEntity, UseRealisticPhysics, G
 	end
 	
 	if Rocket ~= 0 then
+		SetEntityAsMissionEntity(Rocket, true, true)
+		
+		SetEntityLoadCollisionFlag(Rocket, true)
+		
 		local SpeedInit
 		local GuidanceAccuracy <const> = (GuidanceAccuracy or 1) * 32
 		local TargetEntityIsVehicle <const> = GetEntityType(TargetEntity) == 2
