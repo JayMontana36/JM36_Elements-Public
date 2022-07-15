@@ -64,7 +64,7 @@ CreateThread(function()
 			ShapeTestCapsule = function(StartCoords, EndCoords, EntityToIgnore)
 				local StartCoords <const>, EndCoords <const> = StartCoords, EndCoords
 				local EndCoords_x <const>, EndCoords_y <const>, EndCoords_z <const> = v3_get(EndCoords)
-				local shapeTestHandle <const> = StartShapeTestCapsule(StartCoords.x, StartCoords.y, StartCoords.z, EndCoords.x, EndCoords.y, EndCoords.z, Radius, 14--[[15]], EntityToIgnore, 0)
+				local shapeTestHandle <const> = StartShapeTestCapsule(StartCoords.x, StartCoords.y, StartCoords.z, EndCoords_x, EndCoords_y, EndCoords_z, Radius, 14--[[15]], EntityToIgnore, 0)
 				while GetShapeTestResult(shapeTestHandle, HitB, EndCoordsB, SurfaceNormalB, EntityHitB) ~= 2 do
 					yield()
 				end
@@ -72,7 +72,7 @@ CreateThread(function()
 				if not CollisionB then
 					v3_set(EndCoordsB, EndCoords_x, EndCoords_y, EndCoords_z)
 				end
-				TargetTable.CollisionB = memory_read_byte(HitB) == 1
+				TargetTable.CollisionB = CollisionB
 				TargetTable.EntityHitB = memory_read_int(EntityHitB)
 			end
 		end
