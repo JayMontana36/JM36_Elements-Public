@@ -116,22 +116,24 @@ return{
 							Menu = menu.list(menu.my_root(), "Ghosting/Passive", {}, "")
 							local Menu <const> = Menu
 							
+							do
+								local players_list <const> = players.list
+								menu_toggle(Menu, "Ghost All", {}, "Automatically ghost all players?", function(state)
+									local state <const> = state
+									config.GhostAll = state
+									
+									local Players = players_list(false,true,true)
+									for i=1, #Players do
+										local Player <const> = Players[i]
+										GhostState[Player] = state
+										SetRelationshipToPlayer(Player, state)
+									end
+								end, config.GhostAll)
+							end
+							
 							menu_toggle(Menu, "Ghost God", {}, "Automatically ghost invincible players?", function(state)
 								config.GhostGod = state
 							end, config.GhostGod)
-							
-							local players_list <const> = players.list
-							menu_toggle(Menu, "Ghost All", {}, "Automatically ghost all players?", function(state)
-								local state <const> = state
-								config.GhostAll = state
-								
-								local Players = players_list(false,true,true)
-								for i=1, #Players do
-									local Player <const> = Players[i]
-									GhostState[Player] = state
-									SetRelationshipToPlayer(Player, state)
-								end
-							end, config.GhostAll)
 						end
 						
 						do -- fix/remove this, add on_leave to modularity framework instead
