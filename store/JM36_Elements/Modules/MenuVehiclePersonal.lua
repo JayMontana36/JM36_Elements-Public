@@ -213,7 +213,7 @@ return
 										local Ped <const> = GetPedInVehicleSeat(PersonalVehicle, i)
 										if Ped ~= 0 and Ped ~= Player_Ped then
 											if IsPedAPlayer(Ped) then
-												menu_trigger_command(menu_ref_by_rel_path(menu_player_root(NetworkGetPlayerIndexFromPed(Ped)), "Veh>Kick"))
+												menu_trigger_command(menu_ref_by_rel_path(menu_player_root(NetworkGetPlayerIndexFromPed(Ped)), "Trolling>Kick From Vehicle"))
 											else
 												local Ped <const> = Ped
 												if RequestEntityControl(Ped) then
