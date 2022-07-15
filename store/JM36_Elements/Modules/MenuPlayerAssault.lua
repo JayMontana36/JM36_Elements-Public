@@ -1,5 +1,15 @@
 local PlayerAssaultOptions <const> =
 {
+	{
+		Name	=	"Air - Valkyrie - 2 Man",
+		Type	=	0,
+		NPCs	=	{
+						"s_m_m_armoured_02",
+						"s_m_m_armoured_02",
+					},
+		WEPN	=	"WEAPON_UNARMED",
+		Veh		=	"valkyrie",
+	},
 	--[[{
 		Name	=	"Air - Valkyrie - 4 Man",
 		Type	=	0,
@@ -14,22 +24,10 @@ local PlayerAssaultOptions <const> =
 		WEPN	=	"WEAPON_UNARMED",
 		Veh		=	"valkyrie",
 	},]]
-	--[[{
-		Name	=	"Air - Valkyrie - 2 Man",
-		Type	=	0,
-		NPCs	=	{
-						--"s_m_m_armoured_01",
-						"s_m_m_armoured_02",
-						"s_m_m_armoured_02",
-					},
-		WEPN	=	"WEAPON_UNARMED",
-		Veh		=	"valkyrie",
-	},]]
 	{
 		Name	=	"Air - Lazer",
 		Type	=	0,
 		NPCs	=	{
-						--"s_m_m_armoured_01",
 						"s_m_m_armoured_02",
 					},
 		WEPN	=	"WEAPON_UNARMED",
@@ -39,11 +37,28 @@ local PlayerAssaultOptions <const> =
 		Name	=	"Air - Hydra",
 		Type	=	0,
 		NPCs	=	{
-						--"s_m_m_armoured_01",
 						"s_m_m_armoured_02",
 					},
 		WEPN	=	"WEAPON_UNARMED",
 		Veh		=	"hydra",
+	},
+	{
+		Name	=	"Air - Strikeforce B-11",
+		Type	=	0,
+		NPCs	=	{
+						"s_m_m_armoured_02",
+					},
+		WEPN	=	"WEAPON_UNARMED",
+		Veh		=	"strikeforce",
+	},
+	{
+		Name	=	"Air - Starling",
+		Type	=	0,
+		NPCs	=	{
+						"s_m_m_armoured_02",
+					},
+		WEPN	=	"WEAPON_UNARMED",
+		Veh		=	"starling",
 	},
 	{
 		Name	=	"Ground - Cop Female",
@@ -62,13 +77,12 @@ local PlayerAssaultOptions <const> =
 		Name	=	"Ground - Tank",
 		Type	=	1,
 		NPCs	=	{
-						--"u_m_y_juggernaut_01",
 						"s_m_m_armoured_02",
 					},
 		WEPN	=	"weapon_militaryrifle",
 		Veh		=	"rhino",
 	},
-	{
+	--[[{
 		Name	=	"Ground",
 		Type	=	1,
 		NPCs	=	{
@@ -81,24 +95,14 @@ local PlayerAssaultOptions <const> =
 						"u_m_y_juggernaut_01",
 						"u_m_y_juggernaut_01",
 						"u_m_y_juggernaut_01",
-						--[["s_m_m_armoured_02",
-						"s_m_m_armoured_02",
-						"s_m_m_armoured_02",
-						"s_m_m_armoured_02",
-						"s_m_m_armoured_02",
-						"s_m_m_armoured_02",
-						"s_m_m_armoured_02",
-						"s_m_m_armoured_02",
-						"s_m_m_armoured_02",]]
 					},
 		WEPN	=	{
 						"weapon_militaryrifle",
 						"WEAPON_MINIGUN",
-						--"weapon_combatmg",
 						"weapon_machinepistol",
 					},
 		Veh		=	"insurgent3",
-	},
+	},]]
 }
 local PlayerAssaultOptionsNum <const> = #PlayerAssaultOptions
 
@@ -113,7 +117,8 @@ local players_user = players.user
 --local entities_create_ped = entities.create_ped
 local type = type
 local memory = memory
-local memory_alloc = memory.alloc
+--local memory_alloc = memory.alloc
+local memory_alloc = memory.alloc_int
 local memory_read_vector3 = memory.read_vector3
 local memory_read_float = memory.read_float
 local memory_write_int = memory.write_int
@@ -160,6 +165,8 @@ local PlayerAssaultTeamSpawn = setmetatable
 						memory_write_int(MemoryPointer, Vehicle)
 						SetEntityAsNoLongerNeeded(MemoryPointer)
 						
+						SetNetworkIdExistsOnAllMachines(NetworkGetNetworkIdFromEntity(Vehicle), true)
+						
 						local NPCs = Option.NPCs
 						local WEPN = Option.WEPN
 						local _PlayerId = players_user()
@@ -173,6 +180,15 @@ local PlayerAssaultTeamSpawn = setmetatable
 							end
 						end
 						
+						local MemPtr <const> = memory_alloc()
+						OpenSequenceTask(MemPtr)
+						TaskCombatHatedTargetsAroundPed(0, 1000.0, 0)
+						AddVehicleSubtaskAttackPed(0, PlayerPed)
+						TaskCombatPed(0, PlayerPed, 0, 16)
+						local _MemPtr <const> = memory.read_int(MemPtr)
+						SetSequenceToRepeat(_MemPtr, true)
+						CloseSequenceTask(_MemPtr)
+						
 						for i=1, #NPCs do
 							local NPC = NPCs[i]
 							if RequestEntityModel(NPC) then
@@ -185,7 +201,14 @@ local PlayerAssaultTeamSpawn = setmetatable
 									print"SpawnFailed :("
 									return
 								elseif not SpawnFailed then
-									SpawnedPeds[#SpawnedPeds+1] = {NPC,PlayerPed}
+									do
+										local EntityNetworkHandle <const> = NetworkGetNetworkIdFromEntity(NPC)
+										if NetworkDoesNetworkIdExist(EntityNetworkHandle) then
+											SpawnedPeds[#SpawnedPeds+1] = {EntityNetworkHandle,true,PlayerId}
+										else
+											SpawnedPeds[#SpawnedPeds+1] = {NPC,false,PlayerId}
+										end
+									end
 									
 									SetEntityCleanupByEngine(NPC, true)
 									--memory_write_int(MemoryPointer, NPC)
@@ -208,12 +231,37 @@ local PlayerAssaultTeamSpawn = setmetatable
 									SetPedShootRate(NPC, 1000)
 									SetPedAccuracy(NPC, 100)
 									SetPedCombatRange(NPC, 2)
-									SetPedCombatMovement(NPC, 2)
-									TaskCombatHatedTargetsAroundPed(NPC, 1000.0, 0)
-									TaskCombatPed(NPC, PlayerPed, 0, 16)
-									SetPedKeepTask(NPC, true)
+--									SetPedCombatMovement(NPC, 2)
+									SetPedCombatMovement(NPC, 3)
+--									TaskCombatHatedTargetsAroundPed(NPC, 1000.0, 0)
+--									TaskCombatPed(NPC, PlayerPed, 0, 16)
+--									SetPedKeepTask(NPC, true)
+--									SetPedCanRagdoll(NPC, false)
+--									SetPedCanRagdollFromPlayerImpact(NPC, false)
+									SetRagdollBlockingFlags(NPC, 7)
+									SetPedConfigFlag(NPC, 2, true) -- CPED_CONFIG_FLAG_NoCriticalHits
+									SetPedConfigFlag(NPC, 7, true) -- CPED_CONFIG_FLAG_UpperBodyDamageAnimsOnly
+								--	SetPedConfigFlag(NPC, 33, false) -- CPED_CONFIG_FLAG_DieWhenRagdoll 
+									SetPedConfigFlag(NPC, 42, true) -- CPED_CONFIG_FLAG_DontInfluenceWantedLevel
+									SetPedConfigFlag(NPC, 43, true) -- CPED_CONFIG_FLAG_DisablePlayerLockon
+--									SetPedConfigFlag(NPC, 48, true) -- CPED_CONFIG_FLAG_BlockWeaponSwitching
+								--	SetPedConfigFlag(NPC, 128, true) -- CPED_CONFIG_FLAG_CanBeAgitated
+--									SetPedConfigFlag(NPC, 183, true) -- CPED_CONFIG_FLAG_IsAgitated
+									SetPedConfigFlag(NPC, 229, true) -- CPED_CONFIG_FLAG_AvoidTearGas
+									SetPedConfigFlag(NPC, 234, true) -- CPED_CONFIG_FLAG_DisableHomingMissileLockon
+--									SetPedConfigFlag(NPC, 234, false) -- CPED_CONFIG_FLAG_CanBeIncapacitated
+									TaskPerformSequence(NPC, _MemPtr)
 								end
 							end
+						end
+						ClearSequenceTask(MemPtr)
+						--SetEntityVelocity(Vehicle, 0.0, 100.0/1.9438444924, 0.0)
+						ApplyForceToEntityCenterOfMass(Vehicle, 1, 0.0, 100.0/1.9438444924, 25.0/1.9438444924, false, true, true, true)
+						if GetHasRetractableWheels(Vehicle) then
+							RaiseRetractableWheels(Vehicle)
+						end
+						if DoesVehicleHaveLandingGear(Vehicle) or IsThisModelAPlane(VehicleHash) then
+							ControlLandingGear(Vehicle, 4)
 						end
 					end
 				end
@@ -279,6 +327,8 @@ local PlayerAssaultTeamSpawn = setmetatable
 						memory_write_int(MemoryPointer, Vehicle)
 						SetEntityAsNoLongerNeeded(MemoryPointer)
 						
+						SetNetworkIdExistsOnAllMachines(NetworkGetNetworkIdFromEntity(Vehicle), true)
+						
 						local NPCs = Option.NPCs
 						local WEPN = Option.WEPN
 						local _PlayerId = players_user()
@@ -292,6 +342,15 @@ local PlayerAssaultTeamSpawn = setmetatable
 							end
 						end
 						
+						local MemPtr <const> = memory_alloc()
+						OpenSequenceTask(MemPtr)
+						TaskCombatHatedTargetsAroundPed(0, 1000.0, 0)
+						AddVehicleSubtaskAttackPed(0, PlayerPed)
+						TaskCombatPed(0, PlayerPed, 0, 16)
+						local _MemPtr <const> = memory.read_int(MemPtr)
+						SetSequenceToRepeat(_MemPtr, true)
+						CloseSequenceTask(_MemPtr)
+						
 						for i=1, #NPCs do
 							local NPC = NPCs[i]
 							if RequestEntityModel(NPC) then
@@ -304,6 +363,17 @@ local PlayerAssaultTeamSpawn = setmetatable
 									print"SpawnFailed :("
 									return
 								elseif not SpawnFailed then
+									do
+										local EntityNetworkHandle <const> = NetworkGetNetworkIdFromEntity(NPC)
+										if NetworkDoesNetworkIdExist(EntityNetworkHandle) then
+											SpawnedPeds[#SpawnedPeds+1] = {EntityNetworkHandle,true,PlayerId}
+										else
+											SpawnedPeds[#SpawnedPeds+1] = {NPC,false,PlayerId}
+										end
+									end
+									
+									
+									
 									SetEntityCleanupByEngine(NPC, true)
 									--memory_write_int(MemoryPointer, NPC)
 									--SetEntityAsNoLongerNeeded(MemoryPointer)
@@ -326,12 +396,28 @@ local PlayerAssaultTeamSpawn = setmetatable
 									SetPedAccuracy(NPC, 100)
 									SetPedCombatRange(NPC, 2)
 									SetPedCombatMovement(NPC, 2)
-									TaskCombatHatedTargetsAroundPed(NPC, 1000.0, 0)
-									TaskCombatPed(NPC, PlayerPed, 0, 16)
-									SetPedKeepTask(NPC, true)
+--									TaskCombatHatedTargetsAroundPed(NPC, 1000.0, 0)
+--									TaskCombatPed(NPC, PlayerPed, 0, 16)
+--									SetPedKeepTask(NPC, true)
+--									SetPedCanRagdoll(NPC, false)
+--									SetPedCanRagdollFromPlayerImpact(NPC, false)
+									SetRagdollBlockingFlags(NPC, 7)
+									SetPedConfigFlag(NPC, 2, true) -- CPED_CONFIG_FLAG_NoCriticalHits
+									SetPedConfigFlag(NPC, 7, true) -- CPED_CONFIG_FLAG_UpperBodyDamageAnimsOnly
+								--	SetPedConfigFlag(NPC, 33, false) -- CPED_CONFIG_FLAG_DieWhenRagdoll 
+									SetPedConfigFlag(NPC, 42, true) -- CPED_CONFIG_FLAG_DontInfluenceWantedLevel
+									SetPedConfigFlag(NPC, 43, true) -- CPED_CONFIG_FLAG_DisablePlayerLockon
+--									SetPedConfigFlag(NPC, 48, true) -- CPED_CONFIG_FLAG_BlockWeaponSwitching
+								--	SetPedConfigFlag(NPC, 128, true) -- CPED_CONFIG_FLAG_CanBeAgitated
+--									SetPedConfigFlag(NPC, 183, true) -- CPED_CONFIG_FLAG_IsAgitated
+									SetPedConfigFlag(NPC, 229, true) -- CPED_CONFIG_FLAG_AvoidTearGas
+									SetPedConfigFlag(NPC, 234, true) -- CPED_CONFIG_FLAG_DisableHomingMissileLockon
+--									SetPedConfigFlag(NPC, 234, false) -- CPED_CONFIG_FLAG_CanBeIncapacitated
+									TaskPerformSequence(NPC, _MemPtr)
 								end
 							end
 						end
+						ClearSequenceTask(MemPtr)
 					end
 				end
 			end
@@ -384,6 +470,7 @@ do
 					end
 end
 
+local DoesEntityExist <const> = require'DoesEntityExist'
 return{
 	init	=	function()
 					local PlayerAssaultOptions = PlayerAssaultOptions
@@ -420,11 +507,26 @@ return{
 					local j, n <const> = 1, #SpawnedPeds
 					for i=1,n do
 						local SpawnedPedTable <const> = SpawnedPeds[i]
-						local SpawnedPed <const>, SpawnedPedTarget <const> = SpawnedPedTable[1], SpawnedPedTable[2]
-						local SpawnedPed <const> = DoesEntityExist(SpawnedPed) and SpawnedPed
-						local SpawnedPedTarget <const> = DoesEntityExist(SpawnedPedTarget) and SpawnedPedTarget
-						if (SpawnedPed and not IsEntityDead(SpawnedPed)) and (SpawnedPedTarget and not IsEntityDead(SpawnedPedTarget)) then
-							SetNetworkIdCanMigrate(NetworkGetNetworkIdFromEntity(SpawnedPed), false)
+						local SpawnedPed <const>, SpawnedPedIsNetId <const>, SpawnedPedTarget <const> = SpawnedPedTable[1], SpawnedPedTable[2], players_exists(SpawnedPedTable[3])
+						
+						local ShouldKeep = 
+							(
+								SpawnedPedIsNetId and NetworkDoesNetworkIdExist(SpawnedPed)
+							)
+							or
+							(
+								not SpawnedPedIsNetId and DoesEntityExist(SpawnedPed)
+							)
+						if ShouldKeep and SpawnedPedIsNetId and NetworkDoesEntityExistWithNetworkId(SpawnedPed) then
+							ShouldKeep = not IsEntityDead(NetworkGetEntityFromNetworkId(SpawnedPed))
+						end
+						
+						
+						
+						if ShouldKeep then
+							if SpawnedPedIsNetId then
+								SetNetworkIdCanMigrate(SpawnedPed, false)
+							end
 							if i ~= j then
 								SpawnedPeds[j] = SpawnedPeds[i]
 								SpawnedPeds[i] = nil
@@ -433,8 +535,26 @@ return{
 						else
 							SpawnedPeds[i] = nil
 							util.create_thread(function()
-								if SpawnedPed and require'RequestEntityControl'(SpawnedPed) then
-									entities.delete_by_handle(SpawnedPed)
+								if SpawnedPedIsNetId then
+									while NetworkDoesNetworkIdExist(SpawnedPed) and not NetworkDoesEntityExistWithNetworkId(SpawnedPed) do
+										NetworkRequestControlOfNetworkId(SpawnedPed)
+										util.yield()
+									end
+									if NetworkDoesNetworkIdExist(SpawnedPed) and NetworkDoesEntityExistWithNetworkId(SpawnedPed) and NetworkRequestControlOfNetworkId(SpawnedPed) then
+										SetNetworkIdCanMigrate(SpawnedPed, false)
+										local SpawnedPed <const> = NetworkGetEntityFromNetworkId(SpawnedPed)
+										--entities.delete_by_handle(SpawnedPed)
+										local MemoryPointer <const> = memory_alloc()
+										memory_write_int(MemoryPointer, SpawnedPed)
+										SetEntityAsNoLongerNeeded(MemoryPointer)
+										--RemovePedElegantly(MemoryPointer)
+									end
+								else
+									if DoesEntityExist(SpawnedPed) then
+										local MemoryPointer <const> = memory_alloc()
+										memory_write_int(MemoryPointer, SpawnedPed)
+										RemovePedElegantly(MemoryPointer)
+									end
 								end
 							end)
 						end
