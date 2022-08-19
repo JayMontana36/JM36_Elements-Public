@@ -24,9 +24,11 @@ local KeyFobHash <const> = GetHashKey("p_car_keys_01")
 local KeyFobAnimDict <const> = "anim@mp_player_intmenu@key_fob@"--[[memory.alloc() memory.write_string(KeyFobAnimDict, "anim@mp_player_intmenu@key_fob@")]]
 local KeyFobAnimName <const> = "fob_click"--[[memory.alloc() memory.write_string(KeyFobAnimName, "fob_click")]]
 --local KeyFobAudioName = "Remote_Control_Fob"
-local KeyFobAudioName <const> = memory.alloc() memory.write_string(KeyFobAudioName, "Remote_Control_Fob")
+--local KeyFobAudioName <const> = memory.alloc() memory.write_string(KeyFobAudioName, "Remote_Control_Fob")
+local KeyFobAudioName = "Remote_Control_Fob"
 --local KeyFobAudioRef = "PI_Menu_Sounds"
-local KeyFobAudioRef <const> = memory.alloc() memory.write_string(KeyFobAudioRef, "PI_Menu_Sounds")
+--local KeyFobAudioRef <const> = memory.alloc() memory.write_string(KeyFobAudioRef, "PI_Menu_Sounds")
+local KeyFobAudioRef = "PI_Menu_Sounds"
 local _KeyFobObject <const> = memory.alloc()
 
 return function(Vehicle_Id, SkipAnims)
