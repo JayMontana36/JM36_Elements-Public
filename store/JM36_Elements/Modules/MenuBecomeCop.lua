@@ -124,7 +124,7 @@ local MemoryPointer_GivePlayerWantedLevel
 local function GivePlayerWantedLevel(PlayerId)
 	util_create_thread(function()
 		if RequestEntityModel(CopHash) then
-			local PlayersPed = GetPlayerPed(Player)
+			local PlayersPed = GetPlayerPed(PlayerId)
 			local CopCoords = GetOffsetFromEntityInWorldCoords(PlayersPed, 0.0, 0.0, 125.0)
 			local CopPed = entities_create_ped(6, CopHash, CopCoords, 0.0)
 			SetEntityCleanupByEngine(CopPed, true)
@@ -197,9 +197,11 @@ return{
 						if Enabled then
 							WasEnabled = true
 							ModeCopEnableSelf(LastPed)
+							SetPoliceIgnorePlayer(Info.Player.Id, true)
 							return
 						end
 						ModeCopDisableSelf(LastPed)
+						SetPoliceIgnorePlayer(Info.Player.Id, false)
 					end)
 					
 					local menu_action = menu.action

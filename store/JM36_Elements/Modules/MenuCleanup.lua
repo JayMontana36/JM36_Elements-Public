@@ -8,26 +8,37 @@ local util_yield = util.yield
 local entities_pointer_to_handle = entities.pointer_to_handle
 local function DeleteEntity_Passively(EntityPointer)
 	pcall(function()
-		local EntityHandle
-		while true do
-			EntityHandle = entities_pointer_to_handle(EntityPointer)
-			if DoesEntityExist(EntityHandle) and NetworkRequestControlOfEntity(EntityHandle) then
-				SetEntityAsMissionEntity(EntityHandle, true, true)
-				SetEntityCleanupByEngine(EntityHandle, true)
-				memory.write_int(MemoryPointer, EntityHandle)
+		local EntityScriptHandle <const> = entities_pointer_to_handle(EntityPointer)
+		local EntityNetworkHandle <const> = NetworkGetNetworkIdFromEntity(EntityScriptHandle)
+		if NetworkDoesNetworkIdExist(EntityNetworkHandle) then
+			ReleaseScriptGuidFromEntity(EntityScriptHandle)
+			while NetworkDoesNetworkIdExist(EntityNetworkHandle) and NetworkDoesEntityExistWithNetworkId(EntityNetworkHandle) do
+				if NetworkRequestControlOfNetworkId(EntityNetworkHandle) then
+					local EntityScriptHandle <const> = NetworkGetEntityFromNetworkId(EntityNetworkHandle)
+					SetEntityAsMissionEntity(EntityScriptHandle, true, true)
+					SetEntityCleanupByEngine(EntityScriptHandle, true)
+					memory.write_int(MemoryPointer, EntityScriptHandle)
+					SetEntityAsNoLongerNeeded(MemoryPointer)
+					return
+				end
+				util_yield()
+			end
+		else
+			if DoesEntityExist(EntityScriptHandle) then
+				SetEntityAsMissionEntity(EntityScriptHandle, true, true)
+				SetEntityCleanupByEngine(EntityScriptHandle, true)
+				memory.write_int(MemoryPointer, EntityScriptHandle)
 				SetEntityAsNoLongerNeeded(MemoryPointer)
 				return
 			end
---			ReleaseScriptGuidFromEntity(EntityHandle)
-			util_yield()
 		end
 	end)
 end
---local entities_delete_by_pointer = entities.delete_by_pointer
+local entities_delete_by_pointer = entities.delete_by_pointer
 local function DeleteEntity_Forcefully(EntityPointer)
 	pcall(function()
-		--entities_delete_by_pointer(EntityPointer)
-		local EntityHandle
+		entities_delete_by_pointer(EntityPointer)
+		--[[local EntityHandle
 		while true do
 			EntityHandle = entities_pointer_to_handle(EntityPointer)
 			if DoesEntityExist(EntityHandle) and NetworkRequestControlOfEntity(EntityHandle) then
@@ -39,14 +50,14 @@ local function DeleteEntity_Forcefully(EntityPointer)
 			end
 			ReleaseScriptGuidFromEntity(EntityHandle)
 			util_yield()
-		end
+		end]]
 	end)
 end
 
 local MenuOptions = {[1]=0,[2]=0,[3]=0,[4]=0,[5]=0,[6]=0} Info.MenuOptionsCleanup = MenuOptions
 return{
 	init	=	function()
-					MemoryPointer = memory.alloc()
+					MemoryPointer = memory.alloc_int()
 					
 					local MenuOptions = MenuOptions
 					local menu_action = menu.action

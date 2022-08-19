@@ -72,7 +72,7 @@ local WeaponsOnBackModule WeaponsOnBackModule = {
 							LastWeaponEntityModel = GetWeapontypeModel(SelectedPedWeapon)
 							LastWeaponIsMeleeWeapon = GetWeapontypeGroup(SelectedPedWeapon) == WeaponGroupMelee
 						else
-							if LastWeaponEntityModel ~= CurrentWeaponEntityModelOnBack then
+							if LastWeaponEntityModel ~= CurrentWeaponEntityModelOnBack or (CurrentWeaponEntityOnBack ~= 0 and not DoesEntityExist(CurrentWeaponEntityOnBack)) then
 								RemoveCurrentWeaponEntityOnBack()
 								--CurrentWeaponEntityOnBack = CreateObject(LastWeaponEntityModel, 1.0, 1.0, 1.0, true, true, false)
 								CurrentWeaponEntityOnBack = entities_create_object(LastWeaponEntityModel, DummyV3)
@@ -80,8 +80,8 @@ local WeaponsOnBackModule WeaponsOnBackModule = {
 								SetEntityCleanupByEngine(CurrentWeaponEntityOnBack, true)
 								do
 									local NetworkId = NetworkGetNetworkIdFromEntity(CurrentWeaponEntityOnBack)
-									SetNetworkIdCanMigrate(CurrentWeaponEntityOnBack, false)
-									SetNetworkIdExistsOnAllMachines(CurrentWeaponEntityOnBack, true)
+									SetNetworkIdCanMigrate(NetworkId, false)
+									SetNetworkIdExistsOnAllMachines(NetworkId, true)
 								end
 								if not LastWeaponIsMeleeWeapon then
 									AttachEntityToEntity(CurrentWeaponEntityOnBack, Player_Ped, GetPedBoneIndex(Player_Ped, 24816), 0.075, -0.15, -0.02, 0.0, 165.0, 0.0, true, true, false, false, 2, true)

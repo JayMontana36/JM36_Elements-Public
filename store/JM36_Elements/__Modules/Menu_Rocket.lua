@@ -1,5 +1,5 @@
-local menu = menu
-local Menu = menu.list(menu.my_root(), "Rocket Guidance", {}, "Rocket Related Options")
+local menu <const> = menu
+local Menu <const> = menu.list(menu.my_root(), "Rocket Guidance", {}, "Rocket Related Options")
 do
 	local Enabled
 	local config = configFileRead("RocketGuidance.ini")
@@ -7,6 +7,12 @@ do
 	local Info = Info
 	Info.RocketGuidanceEnabled = Enabled
 	menu.toggle(Menu, "Enable Rocket Guidance", {}, "Make rockets smarter\nIncrease rocket accuracy\nEnable missile aimbot", function(state)
+		local state <const> = state
+		if state then
+			RequestStreamedTextureDict("helicopterhud", false)
+		else
+			SetStreamedTextureDictAsNoLongerNeeded("helicopterhud")
+		end
 		Info.RocketGuidanceEnabled = state
 		config.Enabled = state
 	end, Enabled)

@@ -1,131 +1,178 @@
-local menu = menu
-local players = players
-local players_list = players.list
+local GetEntityCanBeDamaged_Original <const> = GetEntityCanBeDamaged
+local GetEntityCanBeDamaged
+do
+	GetEntityCanBeDamaged = function(Entity)
+		pluto_switch GetEntityType(Entity) do
+			case 1:
+				if IsPedAPlayer(Entity) then
+					return (not players.is_godmode(NetworkGetPlayerIndexFromPed(Entity))) and GetEntityCanBeDamaged_Original(Entity)
+				end
+            pluto_default:
+                return GetEntityCanBeDamaged_Original(Entity)
+		end
+		--return GetEntityCanBeDamaged_Original(Entity)
+	end
+end
 
-local SetRelationshipToPlayer = SetRelationshipToPlayer
+local JM36 <const> = JM36
+local yield <const> = JM36.yield
+local CreateThread <const> = JM36.CreateThread
 
-local GhostState, _GhostState = {}, {}
-local MenuPlayer = {}
-local config, Menu
-return{
-	init	=	function()
-					local toboolean = toboolean -- require'toboolean'
-					config = configFileRead("MenuGhost.ini")
-					if config.GhostAll == nil then
-						config.GhostAll = false
+local config
+local GhostState <const>, _GhostState <const> = {}, {}
+CreateThread(function()
+	local TimeForceUpdate = 0
+	local Info <const> = Info
+	local players_list <const> = players.list
+	local SetRelationshipToPlayer <const> = SetRelationshipToPlayer
+	local GetPlayerPed <const> = GetPlayerPed
+	local GetEntityCanBeDamaged <const> = GetEntityCanBeDamaged
+	local IsEntityVisible <const> = IsEntityVisible
+	local GetVehiclePedIsUsing <const> = GetVehiclePedIsUsing
+	local config <const> = config
+	local yield <const> = yield
+	while true do
+		local GhostAll <const>, GhostGod <const> = config.GhostAll, config.GhostGod
+		if GhostAll or GhostGod then
+			local Time <const> = Info.Time
+			local ShouldForceUpdate <const> = Time >= TimeForceUpdate
+			if ShouldForceUpdate then
+				TimeForceUpdate = Time + 15000
+			end
+			
+			if GhostAll then
+				if ShouldForceUpdate then
+					local Players <const> = players_list(false,true,true)
+					for i=1, #Players do
+						SetRelationshipToPlayer(Players[i], true)
 					end
-					config.GhostAll = toboolean(config.GhostAll)
-					if config.GhostGod == nil then
-						config.GhostGod = false
-					end
-					config.GhostGod = toboolean(config.GhostGod)
-					
-					Menu = menu.list(menu.my_root(), "Ghosting", {}, "")
-					
-					local menu_toggle = menu.toggle
-					
-					menu_toggle(Menu, "Ghost All", {}, "Automatically ghost all players?", function(state)
-						config.GhostAll = state
+				end
+			elseif GhostGod then
+				local Players <const> = players_list(false,true,true)
+				for i=1, #Players do
+					local Player <const> = Players[i]
+					if not _GhostState[Player] then
+						local Ped <const> = GetPlayerPed(Player)
+						local state = Ped ~= 0 and GetEntityCanBeDamaged(Ped) and IsEntityVisible(Ped)
+						if state then
+							local Vehicle <const> = GetVehiclePedIsUsing(Ped)
+							if Vehicle ~= 0 then
+								state = GetEntityCanBeDamaged(Vehicle) and IsEntityVisible(Vehicle)
+							end
+						end
 						
-						local Players = players_list(false,true,true)
-						for i=1, #Players do
-							local Player = Players[i]
+						local state <const> = not state
+						if state ~= GhostState[Player] or ShouldForceUpdate then
 							GhostState[Player] = state
 							SetRelationshipToPlayer(Player, state)
 						end
-					end, config.GhostAll)
-					
-					menu_toggle(Menu, "Ghost God", {}, "Automatically ghost invincible players?", function(state)
-						config.GhostGod = state
-					end, config.GhostGod)
-					
-					local players_exists = players.exists
-					local menu_player_root = menu.player_root
-					local menu_divider = menu.divider
-					local menu_action = menu.action
-					local function MenuPlayerCreate(Player)
-						if players_exists(Player) then
-							local Menu = menu_player_root(Player)
-							local _Menu = {0,0}
-							_Menu[1] = menu_divider(Menu, "Ghosting")
-							_Menu[2] = menu_action(Menu, "Toggle Ghost", {}, "", function()
-								local state = not GhostState[Player]
-								GhostState[Player] = state
-								_GhostState[Player] = state
-								SetRelationshipToPlayer(Player, state)
-							end)
-							MenuPlayer[Player] = _Menu
-						end
 					end
-					
-					local config = config
+				end
+			end
+		end
+		yield()
+	end
+end)
+
+local MenuPlayer <const> = {}
+local Join
+do
+	local menu <const> = menu
+	local players <const> = players
+	local players_exists <const> = players.exists
+	local menu_player_root <const> = menu.player_root
+	local menu_divider <const> = menu.divider
+	local menu_toggle <const> = menu.toggle
+	local players_get_name <const> = players.get_name
+	local menu_trigger_command <const> = menu.trigger_command
+	local util_yield <const> = util.yield
+	Join = function(PlayerId)
+		local PlayerId <const> = PlayerId
+		if players_exists(PlayerId) then
+			local Menu <const> = menu_player_root(PlayerId)
+			local _Menu <const> = {0,0}
+			_Menu[1] = menu_divider(Menu, "Ghosting/Passive")
+			local _MenuOption2 <const> = menu_toggle(Menu, "Ghost "..players_get_name(PlayerId), {}, "", function(state)
+				local state <const> = state
+				GhostState[PlayerId] = state
+				_GhostState[PlayerId] = state
+				SetRelationshipToPlayer(PlayerId, state)
+			end, false)
+			_Menu[2] = _MenuOption2
+			MenuPlayer[PlayerId] = _Menu
+			if config.GhostAll then
+				menu_trigger_command(_MenuOption2, 'on')
+			end
+		end
+	end
+end
+
+local OnLeaveHandler -- fix/remove this, add on_leave to modularity framework instead
+local Menu
+return{
+	init	=	function()
 					do
-						local config = config
-						local Players = players_list(true,true,true)
-						for i=1, #Players do
-							local Player = Players[i]
-							
-							MenuPlayerCreate(Player)
-							
-							if config.GhostAll then
-								GhostState[Player] = true
-								SetRelationshipToPlayer(Player, true)
-							end
+						local toboolean <const> = toboolean
+						config = configFileRead("MenuGhost.ini") local config <const> = config
+						if config.GhostAll == nil then
+							config.GhostAll = false
 						end
+						config.GhostAll = toboolean(config.GhostAll)
+						if config.GhostGod == nil then
+							config.GhostGod = false
+						end
+						config.GhostGod = toboolean(config.GhostGod)
 					end
 					
-					players.on_join(function(Player)
-						MenuPlayerCreate(Player)
-						if config.GhostAll then
-							while players_exists(Player) and GetPlayerPed(Player) == 0 do
-								Wait()
-							end
-							Wait(2500)
-							if players_exists(Player) then
-								GhostState[Player] = true
-								SetRelationshipToPlayer(Player, true)
-							end
-						end
-					end)
-					players.on_leave(function(Player)
-						GhostState[Player], _GhostState[Player], MenuPlayer[Player] = false, false, nil
-					end)
-				end,
-	loop	=	function(Info)
-					if config.GhostGod and not config.GhostAll then
-						local Players = players_list(false,true,true)
-						for i=1, #Players do
-							local Player = Players[i]
-							if not _GhostState[Player] then
-								local Ped = GetPlayerPed(Player)
-								local state = DoesEntityExist(Ped) and GetEntityCanBeDamaged(Ped) and IsEntityVisible(Ped)
-								if state then
-									local Veh = GetVehiclePedIsUsing(Ped)
-									--local Veh = GetVehiclePedIsIn(Ped, false)
-									if DoesEntityExist(Veh) then
-										state = GetEntityCanBeDamaged(Veh) and IsEntityVisible(Veh)
+					do
+						local menu <const> = menu
+						local menu_toggle <const> = menu.toggle
+						
+						do
+							Menu = menu.list(menu.my_root(), "Ghosting/Passive", {}, "")
+							local Menu <const> = Menu
+							
+							do
+								local players_list <const> = players.list
+								menu_toggle(Menu, "Ghost All", {}, "Automatically ghost all players?", function(state)
+									local state <const> = state
+									config.GhostAll = state
+									
+									local Players = players_list(false,true,true)
+									for i=1, #Players do
+										local Player <const> = Players[i]
+										GhostState[Player] = state
+										SetRelationshipToPlayer(Player, state)
 									end
-								end
-								
-								state = not state
-								
-								if state ~= GhostState[Player] then
-									GhostState[Player] = state
-									SetRelationshipToPlayer(Player, state)
-								end
+								end, config.GhostAll)
 							end
+							
+							menu_toggle(Menu, "Ghost God", {}, "Automatically ghost invincible players?", function(state)
+								config.GhostGod = state
+							end, config.GhostGod)
+						end
+						
+						do -- fix/remove this, add on_leave to modularity framework instead
+							OnLeaveHandler = players.on_leave(function(PlayerId)
+								GhostState[PlayerId], _GhostState[PlayerId], MenuPlayer[PlayerId] = false, false, nil
+							end)
 						end
 					end
 				end,
+	join	=	Join,
 	stop	=	function()
 					config = configFileWrite("MenuGhost.ini", config) -- Writes settings to ini and sets config to nil
 					
-					local menu_delete = menu.delete
+					OnLeaveHandler = OnLeaveHandler and util.remove_handler(OnLeaveHandler) or nil
+					
+					local SetRelationshipToPlayer <const> = SetRelationshipToPlayer
+					
+					local menu_delete <const> = menu.delete
 					menu_delete(Menu)
 					
-					local type = type
+					local type <const> = type
 					for i=0,31 do
-						local _MenuPlayer = MenuPlayer[i]
+						local _MenuPlayer <const> = MenuPlayer[i]
 						if type(_MenuPlayer)=='table' then
 							menu_delete(_MenuPlayer[1]) menu_delete(_MenuPlayer[2]) MenuPlayer[i] = nil
 						end
