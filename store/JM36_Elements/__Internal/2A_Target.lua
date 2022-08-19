@@ -26,9 +26,9 @@ do
 end
 local TargetTable <const> = TargetTable
 
-local util <const> = util
-local CreateThread <const> = util.create_thread
-CreateThread(function()
+local JM36 <const> = JM36
+JM36.CreateThread_HighPriority(function()
+	local CreateThread <const> = util.create_thread
 	local yield <const> = util.yield
 	local ShapeTestLosProbe, ShapeTestCapsule
 	do
