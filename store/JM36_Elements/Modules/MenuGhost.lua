@@ -1,3 +1,19 @@
+local GetEntityCanBeDamaged_Original <const> = GetEntityCanBeDamaged
+local GetEntityCanBeDamaged
+do
+	GetEntityCanBeDamaged = function(Entity)
+		pluto_switch GetEntityType(Entity) do
+			case 1:
+				if IsPedAPlayer(Entity) then
+					return (not players.is_godmode(NetworkGetPlayerIndexFromPed(Entity))) and GetEntityCanBeDamaged_Original(Entity)
+				end
+            pluto_default:
+                return GetEntityCanBeDamaged_Original(Entity)
+		end
+		--return GetEntityCanBeDamaged_Original(Entity)
+	end
+end
+
 local JM36 <const> = JM36
 local yield <const> = JM36.yield
 local CreateThread <const> = JM36.CreateThread
