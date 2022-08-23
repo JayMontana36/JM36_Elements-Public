@@ -1,108 +1,88 @@
-local PtFxAssName <const> = "weap_xs_vehicle_weapons"				-- ParticleFX Asset Name
-local PtFxEffName <const> = "muz_xs_turret_flamethrower_looping_sf"	-- ParticleFX Effect Name
-local Scale <const> = 1.0
-
 local RocketObjectHashes <const>, RocketObjectHashesNum <const> = require'HashesRockets_Array'()
 
-local util_yield <const> = util.yield
-return function(CoordsRocket, CoordsRadius, TargetEntity, UseRealisticPhysics, GuidanceAccuracy)
-	local Rocket = 0
-	do
-		local TimeTerm <const> = Info.Time+1000
-		while Rocket == 0 and Info.Time <= TimeTerm do
-			local RocketFound
-			for i=1, RocketObjectHashesNum do
-				Rocket = GetClosestObjectOfType(CoordsRocket.x, CoordsRocket.y, CoordsRocket.z, CoordsRadius, RocketObjectHashes[i], false)
-				RocketFound = Rocket ~= 0 and GetEntitySpeed(Rocket) > 1
-				if RocketFound then break end
-			end
-			if not RocketFound then
-				util_yield()
-			end
-		end
-	end
-	
-	if Rocket ~= 0 then
-		SetEntityAsMissionEntity(Rocket, true, true)
-		
-		SetEntityLoadCollisionFlag(Rocket, true)
-		
-		local SpeedInit
-		local GuidanceAccuracy <const> = (GuidanceAccuracy or 1) * 32
-		local TargetEntityIsVehicle <const> = GetEntityType(TargetEntity) == 2
-		--CreateThread(function()
-		--	NetworkUnregisterNetworkedEntity(Rocket)
-		--	NetworkRegisterEntityAsNetworked(Rocket)
-		--end)
+local Info = Info
+local JM36 = JM36
+local CreateThread = JM36.CreateThread_HighPriority
+local yield = JM36.yield
+
+return function(CoordsRocket, CoordsRadius, _TargetEntity, UseRealisticPhysics, GuidanceAccuracy)
+	CreateThread(function()
+		local _Rocket = 0
 		do
-			local NetId = ObjToNet(Rocket)
-			if NetId == 0 or NetId == -1 then
-				NetworkRegisterEntityAsNetworked(Rocket)
-				NetId = ObjToNet(Rocket)
+			local TimeTerm = Info.Time+1000
+			while _Rocket == 0 and Info.Time <= TimeTerm do
+				local RocketFound
+				for i=1, RocketObjectHashesNum do
+					_Rocket = GetClosestObjectOfType(CoordsRocket.x, CoordsRocket.y, CoordsRocket.z, CoordsRadius, RocketObjectHashes[i], false)
+					RocketFound = _Rocket ~= 0 and GetEntitySpeed(_Rocket) > 1
+					if RocketFound then break end
+				end
+				if not RocketFound then
+					yield()
+				end
 			end
-			SetNetworkIdExistsOnAllMachines(NetId, true)
-			NetworkUseHighPrecisionBlending(NetId, true)
 		end
-		if not HasNamedPtfxAssetLoaded(PtFxAssName) then
-			RequestNamedPtfxAsset(PtFxAssName)
-			while not HasNamedPtfxAssetLoaded(PtFxAssName) do
-				util.yield()
+		
+		if _Rocket ~= 0 and DoesEntityExist(_TargetEntity) then
+			local Rocket = ObjToNet(Rocket);Rocket = Rocket ~= 0 and Rocket ~= -1 and Rocket
+			if Rocket then
+				SetNetworkIdExistsOnAllMachines(Rocket, true)
+				NetworkUseHighPrecisionBlending(Rocket, true)
+				SetNetworkIdCanMigrate(Rocket, false)
 			end
-		end
-		UseParticleFxAsset(PtFxAssName)
-		--local ptfx = StartNetworkedParticleFxLoopedOnEntityBone(PtFxEffName, Rocket, 0.0, 0.0, 0.0, -0.0, -0.0, 180.0, EntityBoneIndex, Scale, false, false, false)
---		local ptfx = StartNetworkedParticleFxLoopedOnEntity(PtFxEffName, Rocket, 0.0, 0.0, 0.0, 0.0, 0.0, 180.0, Scale, false, false, false)
---		SetParticleFxLoopedColour(ptfx, 255, 0, 0, false)
-		local CoordsRocket
-		while DoesEntityExist(Rocket) and DoesEntityExist(TargetEntity) do
-			NetworkRequestControlOfEntity(Rocket)
+			SetEntityAsMissionEntity(_Rocket, true, true)
+			SetEntityLoadCollisionFlag(_Rocket, true)
+			SetEntityMaxSpeed(Rocket, 158.2) -- Max Recorded Speed = 158.10801696777
 			
-			CoordsRocket = GetEntityCoords(Rocket, false)
-			local CoordsTarget <const> = GetEntityCoords(TargetEntity, false)
-	--		if HasEntityClearLosToEntityInFront(Rocket, TargetEntity) then
-				local Rotation = util.v3_look_at(CoordsRocket, CoordsTarget)
-				
-				SetEntityRotation(Rocket, Rotation.x, Rotation.y, Rotation.z, 2, false)
-				
-				if not SpeedInit then
-					SetEntityMaxSpeed(Rocket, 158.2) -- Max Recorded Speed = 158.10801696777
-					SpeedInit = 1
+			local GuidanceAccuracy = (GuidanceAccuracy or 1) * 32
+			
+			local TargetEntityType = GetEntityType(_TargetEntity)
+			local TargetEntityIsVehicle = TargetEntityType == 2
+			local TargetEntity = (TargetEntityIsVehicle and VehToNet(_TargetEntity)) or (TargetEntityType==1 and PedToNet(_TargetEntity)) or (TargetEntityType==3 and ObjToNet(_TargetEntity)) or NetworkGetNetworkIdFromEntity(_TargetEntity);TargetEntity = TargetEntity ~= 0 and TargetEntity ~= -1 and TargetEntity
+			if TargetEntity then
+				SetNetworkIdAlwaysExistsForPlayer(TargetEntity, PlayerId(), true)
+			end
+			
+			local CoordsRocket
+			while (Rocket and NetworkDoesEntityExistWithNetworkId(Rocket) or DoesEntityExist(_Rocket)) and (TargetEntity and NetworkDoesEntityExistWithNetworkId(TargetEntity) or DoesEntityExist(_TargetEntity)) do
+				if Rocket then _Rocket = NetToObj(Rocket) end
+				if TargetEntity then
+					_TargetEntity = (TargetEntityIsVehicle and NetToVeh(TargetEntity)) or (TargetEntityType==1 and NetToPed(TargetEntity)) or (TargetEntityType==3 and NetToObj(TargetEntity)) or NetworkGetEntityFromNetworkId(TargetEntity)
 				end
 				
-				Rotation = util.rot_to_dir(Rotation)
-				
-				local ApplyForceToEntityCenterOfMass <const> = ApplyForceToEntityCenterOfMass
-				if UseRealisticPhysics then
-					ApplyForceToEntityCenterOfMass(Rocket, 1, Rotation.x*GuidanceAccuracy, Rotation.y*GuidanceAccuracy, Rotation.z*GuidanceAccuracy, false, false, true, true)
-				else
-					for i=1, GuidanceAccuracy do
-						ApplyForceToEntityCenterOfMass(Rocket, 1, Rotation.x, Rotation.y, Rotation.z, false, false, true, true)
+				CoordsRocket = GetEntityCoords(_Rocket, false)
+				local CoordsTarget <const> = GetEntityCoords(_TargetEntity, false)
+				--if HasEntityClearLosToEntityInFront(_Rocket, _TargetEntity) then
+					local Rotation = CoordsRocket:lookAt(CoordsTarget)
+					
+					SetEntityRotation(_Rocket, Rotation, 2, false)
+					
+					Rotation = Rotation:toDir()
+					
+					local ApplyForceToEntityCenterOfMass = ApplyForceToEntityCenterOfMass
+					if UseRealisticPhysics then
+						Rotation:mul(GuidanceAccuracy)
+						ApplyForceToEntityCenterOfMass(_Rocket, 1, Rotation, false, false, true, true)
+					else
+						for i=1, GuidanceAccuracy do
+							ApplyForceToEntityCenterOfMass(_Rocket, 1, Rotation, false, false, true, true)
+						end
 					end
-				end
-				
-				--[[do
-					UseParticleFxAsset(PtFxAssName)
-					SetParticleFxNonLoopedColour(1.0, 0, 0)
-					StartNetworkedParticleFxNonLoopedOnEntity(PtFxEffName, Rocket, 0.0, 0.0, 0.0, 0.0, 0.0, 180.0, Scale, false, false, false)
-				end]]
-				
-				DrawLine(CoordsRocket.x, CoordsRocket.y, CoordsRocket.z, CoordsTarget.x, CoordsTarget.y, CoordsTarget.z, 255, 255, 255, 255)
-				
-				if TargetEntityIsVehicle then
-					_0x407DC5E97DB1A4D3(TargetEntity, 2)
-				end
-				
-				
-	--		end
-			
-			util_yield()
-			
---			StopParticleFxLooped(ptfx, false)
---			RemoveParticleFx(ptfx, false)
-			
-			if CoordsRocket and not DoesEntityExist(Rocket) then
-				AddOwnedExplosion(PlayerPedId(), CoordsRocket.x, CoordsRocket.y, CoordsRocket.z, --[[63]]--[[64]]--[[70]]64, 1.0, false, true, 10.0)
+					
+					DrawLine(CoordsRocket, CoordsTarget, 255, 255, 255, 255)
+					
+					if TargetEntityIsVehicle then
+						_0x407DC5E97DB1A4D3(_TargetEntity, 2)
+					end
+				--end
+				yield()
+			end
+			if CoordsRocket and not DoesEntityExist(_Rocket) then
+				AddOwnedExplosion(PlayerPedId(), CoordsRocket, --[[63]]--[[64]]--[[70]]64, 1.0, false, true, 10.0)
+			end
+			if TargetEntity and TargetEntityIsVehicle then
+				--SetNetworkIdAlwaysExistsForPlayer(TargetEntity, PlayerId(), false)
 			end
 		end
-	end
+	end)
 end
