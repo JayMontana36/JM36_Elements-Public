@@ -1,0 +1,1 @@
+menu.hyperlink(menu.my_root(), "Official Discord Guild Invite Link", "https://discord.gg/vFb4b67f8q", "")
