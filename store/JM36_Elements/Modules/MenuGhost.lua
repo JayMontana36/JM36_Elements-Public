@@ -1,14 +1,50 @@
 local GetEntityCanBeDamaged_Original <const> = GetEntityCanBeDamaged
 local GetEntityCanBeDamaged
 do
+	local memory_read_int = memory.read_int
+	local bulletProof, fireProof, explosionProof, collisionProof, meleeProof, steamProof, p7, drownProof = memory.alloc_int(), memory.alloc_int(), memory.alloc_int(), memory.alloc_int(), memory.alloc_int(), memory.alloc_int(), memory.alloc_int(), memory.alloc_int()
 	GetEntityCanBeDamaged = function(Entity)
+		GetEntityProofs(Entity, bulletProof, fireProof, explosionProof, collisionProof, meleeProof, steamProof, p7, drownProof)
 		pluto_switch GetEntityType(Entity) do
 			case 1:
 				if IsPedAPlayer(Entity) then
-					return (not players.is_godmode(NetworkGetPlayerIndexFromPed(Entity))) and GetEntityCanBeDamaged_Original(Entity)
+					return
+					(
+						(
+							not players.is_godmode(NetworkGetPlayerIndexFromPed(Entity))
+							and GetEntityCanBeDamaged_Original(Entity)
+						)
+						and
+						not
+						(
+							memory_read_int(bulletProof)~=0
+							--or memory_read_int(fireProof)~=0
+							or memory_read_int(explosionProof)~=0
+							--or memory_read_int(collisionProof)~=0
+							or memory_read_int(meleeProof)~=0
+							--or memory_read_int(steamProof)~=0
+							--or memory_read_int(p7)~=0
+							--or memory_read_int(drownProof~=0
+						)
+					)
 				end
             pluto_default:
-                return GetEntityCanBeDamaged_Original(Entity)
+                return
+				(
+					GetEntityCanBeDamaged_Original(Entity)
+					and
+					not
+					(
+						memory_read_int(bulletProof)~=0
+						--or memory_read_int(fireProof)~=0
+						or memory_read_int(explosionProof)~=0
+						--or memory_read_int(collisionProof)~=0
+						or memory_read_int(meleeProof)~=0
+						--or memory_read_int(steamProof)~=0
+						--or memory_read_int(p7)~=0
+						--or memory_read_int(drownProof)~=0
+					)
+				)
 		end
 		--return GetEntityCanBeDamaged_Original(Entity)
 	end

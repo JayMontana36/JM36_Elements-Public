@@ -53,6 +53,12 @@ return function(CoordsRocket, CoordsRadius, _TargetEntity, UseRealisticPhysics, 
 				CoordsRocket = GetEntityCoords(_Rocket, false)
 				local CoordsTarget <const> = GetEntityCoords(_TargetEntity, false)
 				--if HasEntityClearLosToEntityInFront(_Rocket, _TargetEntity) then
+					do
+						local _CoordsTarget = GetEntityVelocity(_TargetEntity)
+						_CoordsTarget:mul(v3.distance(CoordsRocket, CoordsTarget)*.01)
+						CoordsTarget:add(_CoordsTarget)
+					end
+					
 					local Rotation = CoordsRocket:lookAt(CoordsTarget)
 					
 					SetEntityRotation(_Rocket, Rotation, 2, false)
