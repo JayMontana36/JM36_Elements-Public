@@ -367,6 +367,7 @@ local SpawnAssault <const> = function(TargetPlayerId, Option, TotalNumber, Invin
 			SetPedIntoVehicle(Ped, Vehicle, j-2)
 			SetEntityLoadCollisionFlag(Ped, true)
 			SetEntityInvincible(Ped, Invincible)
+			SetPedRelationshipGroupHash(Ped, GetHashKey"cop")
 			
 			
 			
