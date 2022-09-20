@@ -64,18 +64,35 @@ return{
 					local util_create_thread = util.create_thread
 					
 					do
+						local DecorPropertyName = memory.alloc()
+						memory.write_string(DecorPropertyName, "Player_Vehicle")
+						
 						--Add check for if player owned or is inside
 						local entities_get_all_vehicles_as_pointers = entities.get_all_vehicles_as_pointers
 						MenuOptions[1] = menu_action(Menu, "Vehicles Remove/Delete Passively", {}, "", function()
 							local table = entities_get_all_vehicles_as_pointers()
+							local EntityPointer, EntityHandle
 							for i=1, #table do
-								util_create_thread(DeleteEntity_Passively, table[i])
+								EntityPointer = table[i]
+								EntityHandle = entities_pointer_to_handle(EntityPointer)
+								if not DecorExistOn(EntityHandle, DecorPropertyName) then
+									util_create_thread(DeleteEntity_Passively, EntityPointer)
+								else
+									ReleaseScriptGuidFromEntity(EntityHandle)
+								end
 							end
 						end)
 						MenuOptions[2] = menu_action(Menu, "Vehicles Remove/Delete Forcefully", {}, "", function()
 							local table = entities_get_all_vehicles_as_pointers()
+							local EntityPointer, EntityHandle
 							for i=1, #table do
-								util_create_thread(DeleteEntity_Forcefully, table[i])
+								EntityPointer = table[i]
+								EntityHandle = entities_pointer_to_handle(EntityPointer)
+								if not DecorExistOn(EntityHandle, DecorPropertyName) then
+									util_create_thread(DeleteEntity_Forcefully, EntityPointer)
+								else
+									ReleaseScriptGuidFromEntity(EntityHandle)
+								end
 							end
 						end)
 					end
