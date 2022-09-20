@@ -24,6 +24,74 @@ return function(CoordsRocket, CoordsRadius, _TargetEntity, UseRealisticPhysics, 
 		end
 		
 		if _Rocket ~= 0 and DoesEntityExist(_TargetEntity) then
+			local __Rocket = entities.create_object(GetHashKey"w_lr_homing_rocket", CoordsRocket)
+			if __Rocket ~= 0 then
+				SetEntityVisible(_Rocket, false, false)
+				SetEntityAsMissionEntity(__Rocket, true, true)
+				SetEntityLoadCollisionFlag(__Rocket, true)
+				SetEntityNoCollisionEntity(__Rocket, _Rocket, false)
+				SetEntityNoCollisionEntity(_Rocket, __Rocket, false)
+				do
+					local Vehicle = Info.Player.Vehicle
+					if Vehicle.IsIn then
+						local Vehicle_Id = Vehicle.Id
+						SetEntityNoCollisionEntity(__Rocket, Vehicle_Id, false)
+						SetEntityNoCollisionEntity(Vehicle_Id, __Rocket, false)
+					end
+				end
+				AttachEntityToEntity(__Rocket, _Rocket, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, false, false, false, false, 2, true)
+				SetEntityCollision(__Rocket, false, false)
+				SetEntityCompletelyDisableCollision(__Rocket, not true, false)
+				NetworkFadeInEntity(__Rocket, true, false)
+				CreateThread(function()
+					while DoesEntityExist(_Rocket) do
+						local __RocketNet = ObjToNet(__Rocket)
+						if __RocketNet ~= 0 then
+							SetNetworkIdExistsOnAllMachines(__RocketNet, true)
+							NetworkUseHighPrecisionBlending(__RocketNet, true)
+							SetNetworkIdCanMigrate(__RocketNet, false)
+							break
+						end
+						yield()
+					end
+				end)
+				CreateThread(function()
+					local PtFx
+					do
+						local PtFxAssName <const> = "veh_impexp_rocket"	-- ParticleFX Asset Name
+						local PtFxEffName <const> = "veh_rocket_boost"	-- ParticleFX Effect Name
+						local Scale <const> = 1.0
+						
+						if not HasNamedPtfxAssetLoaded(PtFxAssName) then
+							RequestNamedPtfxAsset(PtFxAssName)
+							while not HasNamedPtfxAssetLoaded(PtFxAssName) do
+								yield()
+							end
+						end
+						
+						local OffsetY
+						do
+							local min, max = v3.new(), v3.new()
+							GetModelDimensions(GetHashKey"w_lr_homing_rocket", min, max)
+							OffsetY = min.y
+						end
+						UseParticleFxAsset(PtFxAssName)
+						PtFx = StartNetworkedParticleFxLoopedOnEntity(PtFxEffName, __Rocket, 0.0, OffsetY, 0.0, 0.0, 0.0, 0.0, Scale, false, false, false)
+						SetParticleFxLoopedEvolution(PtFx, "boost", 1.0, true)
+					end
+					
+					while DoesEntityExist(_Rocket) do
+						--Set Coords and Rotation?
+						yield()
+					end
+					StopParticleFxLooped(PtFx, false)
+					RemoveParticleFx(PtFx, false)
+					if DoesEntityExist(__Rocket) then
+						entities.delete_by_handle(__Rocket)
+					end
+				end)
+			end
+			
 			local Rocket = ObjToNet(Rocket);Rocket = Rocket ~= 0 and Rocket ~= -1 and Rocket
 			if Rocket then
 				SetNetworkIdExistsOnAllMachines(Rocket, true)
@@ -78,7 +146,7 @@ return function(CoordsRocket, CoordsRadius, _TargetEntity, UseRealisticPhysics, 
 					DrawLine(CoordsRocket, CoordsTarget, 255, 255, 255, 255)
 					
 					if TargetEntityIsVehicle then
-						_0x407DC5E97DB1A4D3(_TargetEntity, 2)
+						SetVehicleHomingLockedontoState(_TargetEntity, 2)
 					end
 				--end
 				yield()
