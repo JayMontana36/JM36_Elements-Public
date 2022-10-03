@@ -1,96 +1,97 @@
+local Player = Info.Player
+
 local CreateCacheSimpleForFunction = require'CreateCacheSimpleForFunction'
 
-local GetWeapontypeModel = CreateCacheSimpleForFunction(GetWeapontypeModel)
-local GetWeapontypeGroup = CreateCacheSimpleForFunction(GetWeapontypeGroup)
-local DoesEntityExist = DoesEntityExist
-local DeleteEntity = DeleteEntity
+local entities_create_object = entities.create_object
+local entities_delete_by_handle = entities.delete_by_handle
+
 local IsPedArmed = IsPedArmed
 local GetSelectedPedWeapon = GetSelectedPedWeapon
---local CreateObject = CreateObject
+local GetWeapontypeModel = CreateCacheSimpleForFunction(GetWeapontypeModel)
+local GetWeapontypeGroup = CreateCacheSimpleForFunction(GetWeapontypeGroup)
 local SetEntityAsMissionEntity = SetEntityAsMissionEntity
-local SetEntityCleanupByEngine = SetEntityCleanupByEngine
-local NetworkGetNetworkIdFromEntity = NetworkGetNetworkIdFromEntity
-local SetNetworkIdCanMigrate = SetNetworkIdCanMigrate
+local SetEntityCollision = SetEntityCollision
+local SetEntityCompletelyDisableCollision = SetEntityCompletelyDisableCollision
 local AttachEntityToEntity = AttachEntityToEntity
+local GetPedBoneIndex = GetPedBoneIndex
+local DoesEntityExist = DoesEntityExist
+local ObjToNet = ObjToNet
+local SetNetworkIdExistsOnAllMachines = SetNetworkIdExistsOnAllMachines
+local SetNetworkIdCanMigrate = SetNetworkIdCanMigrate
 
-local menu = menu
-local memory = memory
-local memory_alloc = memory.alloc
-local memory_write_int = memory.write_int
-local memory_free = memory.free
-local entities_create_object = entities.create_object
+local CreateThread = JM36.CreateThread
+local yield = JM36.yield
 
-
-
-local WeaponGroupMelee = GetHashKey"group_melee"
-
-
-
-local LastWeaponEntityModel, CurrentWeaponEntityOnBack, CurrentWeaponEntityModelOnBack = 0, 0, 0
+local CurrentlyArmed
+local LastWeaponEntityModel = 0
 local LastWeaponIsMeleeWeapon = false
+local CurrentWeaponEntityOnBack = 0
+local UnarmedHandlerRunning = false
+local WeaponGroupMelee;CreateThread(function()WeaponGroupMelee=GetHashKey"group_melee"end)
+local Enabled = toboolean(configFileRead("LastWeaponOnBack.ini").Enabled)
 
-local function RemoveCurrentWeaponEntityOnBack()
-	if CurrentWeaponEntityOnBack ~= 0 and DoesEntityExist(CurrentWeaponEntityOnBack) then
-		local Mem = memory_alloc()
-		memory_write_int(Mem, CurrentWeaponEntityOnBack)
-		DeleteEntity(Mem)
-		memory_free(Mem)
-		CurrentWeaponEntityOnBack = 0
+menu.toggle(menu.my_root(), "Last Weapon On Back", {}, "Puts your last used weapon on your back.", function(state, click_type)
+	if click_type == CLICK_MENU then
+		configFileWrite("LastWeaponOnBack.ini", {Enabled = state})
 	end
-end
+	Enabled = state
+end, Enabled)
 
-local Enabled, MenuOption, DummyV3
-local WeaponsOnBackModule WeaponsOnBackModule = {
-	init	=	function()
-					do
-						local config = configFileRead("LastWeaponOnBack.ini")
-						Enabled = toboolean(config.Enabled)
-						if Enabled then DummyV3 = {x=0,y=0,z=0} end
-					end
-					
-					MenuOption = menu.toggle(menu.my_root(), "Last Weapon On Back", {}, "Puts your last used weapon on your back.", function(state)
-						if state then
-							DummyV3 = {x=0,y=0,z=0}
+CreateThread(function()
+	while true do
+		if Enabled then
+			local Player_Ped = Player.Ped
+			CurrentlyArmed = IsPedArmed(Player_Ped, 7)
+			if CurrentlyArmed then
+				--remove weapon
+				local SelectedPedWeapon = GetSelectedPedWeapon(Player_Ped)
+				LastWeaponEntityModel = GetWeapontypeModel(SelectedPedWeapon)
+				LastWeaponIsMeleeWeapon = GetWeapontypeGroup(SelectedPedWeapon) == WeaponGroupMelee
+			elseif not UnarmedHandlerRunning --[[or (CurrentWeaponEntityOnBack ~= 0 and not DoesEntityExist(CurrentWeaponEntityOnBack))]] then
+				UnarmedHandlerRunning = true
+				CreateThread(function()
+					CurrentWeaponEntityOnBack = entities_create_object(LastWeaponEntityModel, Player.Coords)
+					if CurrentWeaponEntityOnBack ~= 0 then
+						SetEntityAsMissionEntity(CurrentWeaponEntityOnBack, true, true)
+						SetEntityCollision(CurrentWeaponEntityOnBack, false, false)
+						SetEntityCompletelyDisableCollision(CurrentWeaponEntityOnBack, not true, false)
+						if not LastWeaponIsMeleeWeapon then
+							AttachEntityToEntity(CurrentWeaponEntityOnBack, Player_Ped, GetPedBoneIndex(Player_Ped, 24816), 0.075, -0.15, -0.02, 0.0, 165.0, 0.0, true, true, false, false, 2, true)
 						else
-							RemoveCurrentWeaponEntityOnBack()
-							DummyV3 = nil
+							AttachEntityToEntity(CurrentWeaponEntityOnBack, Player_Ped, GetPedBoneIndex(Player_Ped, 24816), 0.11, -0.14, 0.0, -75.0, 185.0, 92.0, true, true, false, false, 2, true)
 						end
-						configFileWrite("LastWeaponOnBack.ini", {Enabled = state})
-						Enabled = state
-					end, Enabled)
-				end,
-	stop	=	function()
-					RemoveCurrentWeaponEntityOnBack()
-					menu.delete(MenuOption)
-				end,
-	loop	=	function(Info)
-					if Enabled then
-						local Player_Ped = Info.Player.Ped
-						if IsPedArmed(Player_Ped, 7) then
-							RemoveCurrentWeaponEntityOnBack()
-							local SelectedPedWeapon = GetSelectedPedWeapon(Player_Ped)
-							LastWeaponEntityModel = GetWeapontypeModel(SelectedPedWeapon)
-							LastWeaponIsMeleeWeapon = GetWeapontypeGroup(SelectedPedWeapon) == WeaponGroupMelee
-						else
-							if LastWeaponEntityModel ~= CurrentWeaponEntityModelOnBack or (CurrentWeaponEntityOnBack ~= 0 and not DoesEntityExist(CurrentWeaponEntityOnBack)) then
-								RemoveCurrentWeaponEntityOnBack()
-								--CurrentWeaponEntityOnBack = CreateObject(LastWeaponEntityModel, 1.0, 1.0, 1.0, true, true, false)
-								CurrentWeaponEntityOnBack = entities_create_object(LastWeaponEntityModel, DummyV3)
-								SetEntityAsMissionEntity(CurrentWeaponEntityOnBack, true, true)
-								SetEntityCleanupByEngine(CurrentWeaponEntityOnBack, true)
-								do
-									local NetworkId = NetworkGetNetworkIdFromEntity(CurrentWeaponEntityOnBack)
-									SetNetworkIdCanMigrate(NetworkId, false)
-									SetNetworkIdExistsOnAllMachines(NetworkId, true)
+						CreateThread(function()
+							while DoesEntityExist(CurrentWeaponEntityOnBack) do
+								local _CurrentWeaponEntityOnBack = ObjToNet(CurrentWeaponEntityOnBack)
+								if _CurrentWeaponEntityOnBack ~= 0 then
+									SetNetworkIdExistsOnAllMachines(_CurrentWeaponEntityOnBack, true)
+									SetNetworkIdCanMigrate(_CurrentWeaponEntityOnBack, false)
+									break
 								end
-								if not LastWeaponIsMeleeWeapon then
-									AttachEntityToEntity(CurrentWeaponEntityOnBack, Player_Ped, GetPedBoneIndex(Player_Ped, 24816), 0.075, -0.15, -0.02, 0.0, 165.0, 0.0, true, true, false, false, 2, true)
-								else
-									AttachEntityToEntity(CurrentWeaponEntityOnBack, Player_Ped, GetPedBoneIndex(Player_Ped, 24816), 0.11, -0.14, 0.0, -75.0, 185.0, 92.0, true, true, false, false, 2, true)
-								end
+								yield()
 							end
+						end)
+						while Enabled and UnarmedHandlerRunning and not CurrentlyArmed do
+							yield()
 						end
+						if DoesEntityExist(CurrentWeaponEntityOnBack) then
+							entities_delete_by_handle(CurrentWeaponEntityOnBack)
+						end
+						CurrentWeaponEntityOnBack = 0
+					end
+					UnarmedHandlerRunning = false
+				end)
+			end
+		end
+		yield()
+	end
+end)
+
+return
+{
+	stop	=	function()
+					if CurrentWeaponEntityOnBack ~= 0 and DoesEntityExist(CurrentWeaponEntityOnBack) then
+						entities_delete_by_handle(CurrentWeaponEntityOnBack)
 					end
 				end,
 }
-return WeaponsOnBackModule
