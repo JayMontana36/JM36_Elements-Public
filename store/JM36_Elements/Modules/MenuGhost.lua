@@ -28,7 +28,7 @@ do
 						)
 					)
 				end
-            pluto_default:
+            default:
                 return
 				(
 					GetEntityCanBeDamaged_Original(Entity)
