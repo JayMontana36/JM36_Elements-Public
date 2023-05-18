@@ -1,31 +1,42 @@
-local os_time <const> = os.time
-local IsModelValid <const> = require('CreateCacheSimpleForFunction')(IsModelValid)
-local HasModelLoaded <const> = HasModelLoaded
-local RequestModel <const> = RequestModel
-local util_yield <const> = util.yield
-local util_create_thread <const> = util.create_thread
-local SetModelAsNoLongerNeeded <const> = SetModelAsNoLongerNeeded
+local Info = Info
+local yield = JM36.yield_once
 
-return function(EntityHash, TimeOutTime)
-    --local _TimeOutTime = (TimeOutTime or 5)
-    local _TimeOutTime <const> = (TimeOutTime or 500)
-	local CurrentTime = os_time()
-    local TimeOutTime <const> = CurrentTime + _TimeOutTime
-    local ModelExists <const> = IsModelValid(EntityHash)
-    local ModelLoaded = HasModelLoaded(EntityHash)
-    while ModelExists and not ModelLoaded and TimeOutTime > CurrentTime do
-        RequestModel(EntityHash)
-		util_yield()
-        CurrentTime = os_time()
-		ModelLoaded = HasModelLoaded(EntityHash)
-    end
-	if ModelExists then
-		util_create_thread(function()
-			util_yield(_TimeOutTime--[[*1000]])
-			SetModelAsNoLongerNeeded(EntityHash)
-		end)
-	--else
-		--local _error = "Model Doesn't Exist?" error(_error)print(_error)
+local SetModelAsNoLongerNeeded = SetModelAsNoLongerNeeded
+local IsModelValid = IsModelValid
+local HasModelLoaded = HasModelLoaded
+local RequestModel = RequestModel
+
+local ModelAutoUnloadTimeout = setmetatable({},{__index=function()return 0 end})
+JM36.CreateThread_HighPriority(function()
+	while true do
+		for EntityHash, TimeUnload in ModelAutoUnloadTimeout do
+			if Info.Time > TimeUnload then
+				SetModelAsNoLongerNeeded(EntityHash)
+				ModelAutoUnloadTimeout[EntityHash] = nil
+			end
+		end
+		yield()
 	end
-    return ModelLoaded and ModelExists
+end)
+
+return function(EntityHash, TimeBail, TimeUnload)
+	if IsModelValid(EntityHash) then
+		local _TimeUnload = ModelAutoUnloadTimeout[EntityHash]
+		local ModelLoaded = HasModelLoaded(EntityHash)
+		if not ModelLoaded then
+			TimeBail = Info.Time + (TimeBail or 500)
+			RequestModel(EntityHash)
+			repeat
+				yield()
+				ModelLoaded = HasModelLoaded(EntityHash)
+			until ModelLoaded or Info.Time > TimeBail
+		end
+		if ModelLoaded then
+			TimeUnload = Info.Time + (TimeUnload or 500)
+			if _TimeUnload < TimeUnload then
+				ModelAutoUnloadTimeout[EntityHash] = TimeUnload
+			end
+			return true
+		end
+	end
 end

@@ -1,68 +1,96 @@
-local PlayerId, PlayerPedId, GetEntityCoords, IsPedInAnyVehicle, GetVehiclePedIsIn, GetPedInVehicleSeat, NetworkGetNetworkIdFromEntity, GetEntityModel, GetDisplayNameFromVehicleModel, IsThisModelABicycle, IsThisModelABike, IsThisModelABoat, IsThisModelACar, IsThisModelAHeli, IsThisModelAJetski, IsThisModelAPlane, IsThisModelAQuadbike, IsThisModelATrain, IsThisModelAnAmphibiousCar, IsThisModelAnAmphibiousQuadbike = players.user or PlayerId, PlayerPedId, GetEntityCoords, IsPedInAnyVehicle, GetVehiclePedIsIn, GetPedInVehicleSeat, NetworkGetNetworkIdFromEntity, GetEntityModel, GetDisplayNameFromVehicleModel, IsThisModelABicycle, IsThisModelABike, IsThisModelABoat, IsThisModelACar, IsThisModelAHeli, IsThisModelAJetski, IsThisModelAPlane, IsThisModelAQuadbike, IsThisModelATrain, IsThisModelAnAmphibiousCar, IsThisModelAnAmphibiousQuadbike
-local v3_new = v3.new
+local Player = 
+{
+	Id			=	0,
+	Ped			=	0,
+	Coords		=	0,
+	Vehicle		=	0
+}
+Info.Player = Player
+
+local Vehicle =
+{
+	IsIn			=	0,
+	IsOp			=	0,
+	IsUsing			=	0,
+	HandleScript	=	0,
+	HandleNetwork	=	0,
+	Model			=	0,
+	--Name			=	0,
+	--Coords			=	0,
+	Dimensions		=	0,
+	Type			=	setmetatable({},{__index=function()return false end}),
+}
+Player.Vehicle = Vehicle
+
+local Vehicle_Dimensions = {Minimum=0,Maximum=0,Size=0,SizeMax=0};Vehicle.Dimensions=Vehicle_Dimensions
+local Vehicle_Dimensions_Minimum = v3();Vehicle_Dimensions.Minimum=Vehicle_Dimensions_Minimum
+local Vehicle_Dimensions_Maximum = v3();Vehicle_Dimensions.Maximum=Vehicle_Dimensions_Maximum
+local Vehicle_Dimensions_Size = v3();Vehicle_Dimensions.Size=Vehicle_Dimensions_Size
+
+local Vehicle_Type = Vehicle.Type
+
+
+
+local math_max = math.max
+
+
+
+local PlayerId = PlayerId
+local PlayerPedId = PlayerPedId
+local GetEntityCoords = GetEntityCoords
+local GetVehiclePedIsUsing = GetVehiclePedIsUsing
+local IsPedSittingInVehicle = IsPedSittingInVehicle
+local GetPedInVehicleSeat = GetPedInVehicleSeat
+local NetworkHasControlOfEntity = NetworkHasControlOfEntity
+local NetworkGetNetworkIdFromEntity = NetworkGetNetworkIdFromEntity
+local GetEntityModel = GetEntityModel
+--local GetDisplayNameFromVehicleModel = GetDisplayNameFromVehicleModel
+local IsThisModelABicycle = IsThisModelABicycle
+local IsThisModelABike = IsThisModelABike
+local IsThisModelABoat = IsThisModelABoat
+local IsThisModelACar = IsThisModelACar
+local IsThisModelAHeli = IsThisModelAHeli
+local IsThisModelAJetski = IsThisModelAJetski
+local IsThisModelAPlane = IsThisModelAPlane
+local IsThisModelAQuadbike = IsThisModelAQuadbike
+local IsThisModelATrain = IsThisModelATrain
+local IsThisModelAnAmphibiousCar = IsThisModelAnAmphibiousCar
+local IsThisModelAnAmphibiousQuadbike = IsThisModelAnAmphibiousQuadbike
 local GetModelDimensions = GetModelDimensions
-local Player <const> = setmetatable
-(
-	{
-		InfoKeyName	=	"Player",
-		Id			=	 0,
-		Ped			=	 0,
-		Handle		=	 0,
-		Coords		=	 0,
-		Vehicle		=	{
-							IsIn	   =	0,
-							IsOp	   =	0,
-							Id		   =	0,
-							Handle	   =	0,
-							NetId	   =	0,
-							Model	   =	0,
-							Name	   =	0,
-							Coords	   =	0,
-							Dimensions =	{Minimum=v3_new(),Maximum=v3_new(),Size=v3_new()},
-							Type	   =	setmetatable({},{__index=function() return false end}),
-						}
-	},
-	{
-		__call	=	function(Self)
-						Self.Id				= PlayerId()
-						local Ped			= PlayerPedId() Self.Ped,Self.Handle=Ped,Ped
-						Self.Coords			= GetEntityCoords(Ped, false)
-						local IsIn			= IsPedInAnyVehicle(Ped, false) Self.Vehicle.IsIn = IsIn
-						if IsIn then
-							local Vehicle 	= Self.Vehicle
-							local Veh	  	= GetVehiclePedIsIn(Ped, false)
-							Vehicle.IsOp	= Veh ~= 0 and Ped == GetPedInVehicleSeat(Veh, -1)
-							Vehicle.Coords	= GetEntityCoords(Veh~=0 and Veh or Vehicle.Id, false)
-							
-							if Veh == Vehicle.Id then return end
-							
-							Vehicle.Id,Vehicle.Handle=Veh,Veh
-							Vehicle.NetId	= NetworkGetNetworkIdFromEntity(Veh)
-							local VehModel	= GetEntityModel(Veh) Vehicle.Model = VehModel
-							Vehicle.Name	= GetDisplayNameFromVehicleModel(VehModel)
-							
-							do
-								local Vehicle_Type = Vehicle.Type
-								Vehicle_Type.Bicycle			= IsThisModelABicycle(VehModel)
-								Vehicle_Type.Bike				= IsThisModelABike(VehModel)
-								Vehicle_Type.Boat				= IsThisModelABoat(VehModel)
-								Vehicle_Type.Car				= IsThisModelACar(VehModel)
-								Vehicle_Type.Heli				= IsThisModelAHeli(VehModel)
-								Vehicle_Type.Jetski				= IsThisModelAJetski(VehModel)
-								Vehicle_Type.Plane				= IsThisModelAPlane(VehModel)
-								Vehicle_Type.Quadbike			= IsThisModelAQuadbike(VehModel)
-								Vehicle_Type.Train				= IsThisModelATrain(VehModel)
-								Vehicle_Type.AmphibiousCar		= IsThisModelAnAmphibiousCar(VehModel)
-								Vehicle_Type.AmphibiousQuadbike = IsThisModelAnAmphibiousQuadbike(VehModel)
-							end
-							do
-								local Dimensions = Vehicle.Dimensions
-								local Minimum, Maximum, Size = Dimensions.Minimum, Dimensions.Maximum, Dimensions.Size
-								GetModelDimensions(VehModel, Minimum, Maximum)
-								Size:set(Maximum) Size:sub(Minimum)
-							end
-						end
-					end
-	}
-)
-return Player
+
+local yield = JM36.yield_once
+
+JM36.CreateThread_HighPriority(function()
+	while true do
+		Player.Id = PlayerId()
+		local Ped = PlayerPedId();Player.Ped=Ped
+		Player.Coords = GetEntityCoords(Ped,false)
+		local IsUsing = GetVehiclePedIsUsing(Ped);Vehicle.IsUsing=IsUsing
+		local IsIn = IsPedSittingInVehicle(Ped,IsUsing) and IsUsing;Vehicle.IsIn=IsIn
+		if IsIn then
+			Vehicle.IsOp = (Ped == GetPedInVehicleSeat(IsIn,-1)) and NetworkHasControlOfEntity(IsIn)
+			if IsIn ~= Vehicle.HandleScript then
+				Vehicle.HandleScript = IsIn
+				Vehicle.HandleNetwork = NetworkGetNetworkIdFromEntity(IsIn)
+				
+				local Model = GetEntityModel(IsIn);Vehicle.Model=Model
+				Vehicle_Type.Bicycle			= IsThisModelABicycle(Model)
+				Vehicle_Type.Bike				= IsThisModelABike(Model)
+				Vehicle_Type.Boat				= IsThisModelABoat(Model)
+				Vehicle_Type.Car				= IsThisModelACar(Model)
+				Vehicle_Type.Heli				= IsThisModelAHeli(Model)
+				Vehicle_Type.Jetski				= IsThisModelAJetski(Model)
+				Vehicle_Type.Plane				= IsThisModelAPlane(Model)
+				Vehicle_Type.Quadbike			= IsThisModelAQuadbike(Model)
+				Vehicle_Type.Train				= IsThisModelATrain(Model)
+				Vehicle_Type.AmphibiousCar		= IsThisModelAnAmphibiousCar(Model)
+				Vehicle_Type.AmphibiousQuadbike	= IsThisModelAnAmphibiousQuadbike(Model)
+				
+				GetModelDimensions(Model, Vehicle_Dimensions_Minimum, Vehicle_Dimensions_Maximum)
+				Vehicle_Dimensions_Size:set(Vehicle_Dimensions_Maximum);Vehicle_Dimensions_Size:sub(Vehicle_Dimensions_Minimum)
+				Vehicle_Dimensions.SizeMax = math_max(Vehicle_Dimensions_Size.x, Vehicle_Dimensions_Size.z)--Vehicle_Dimensions.SizeMax = math_max(Vehicle_Dimensions_Size.x, Vehicle_Dimensions_Size.y, Vehicle_Dimensions_Size.z)
+			end
+		end
+		yield()
+	end
+end)

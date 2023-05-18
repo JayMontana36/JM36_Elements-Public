@@ -36,13 +36,14 @@ local collectgarbage = collectgarbage
 
 
 --[[ Create secondary "global" table for storing tables containing "global" functions, such as natives. ]]
+local GlobalsWarnAndRedirect
 do
 	local _G2 = setmetatable
 	(
-		{},
+		{_GlobalVariables={}},
 		{
 			__index = function(Self,Key)
-				for k,v in pairs(Self) do
+				for k,v in Self do
 					local ReturnValue = type(v)=='table' and v[Key]
 					if ReturnValue then return ReturnValue end
 				end
@@ -56,6 +57,15 @@ do
 		{
 			__index = function(Self,Key)
 				return _G2[Key]
+			end,
+			__newindex = function(Self,Key,Value)
+				local DebugData = debug.getinfo(2,'lS')
+				if DebugData and GlobalsWarnAndRedirect and not (DebugData.what == 'main' or DebugData.short_src == 'scripts/main.lua') then
+					print(('[Warning - Script]	%s:%s\n	Variable "%s" (%s) declared global (use local).'):format(DebugData.short_src, DebugData.currentline, Key, type(Value)))
+					_G2._GlobalVariables[Key] = Value
+				else
+					rawset(Self,Key,Value)
+				end
 			end
 		}
 	)
@@ -112,6 +122,7 @@ do
 			for k,v in pairs(config) do
 				configFile:write(("%s%s%s\n"):format(k, sep, tostring(v)))
 			end
+			configFile:close()
 		end
 	end
 end
@@ -146,15 +157,21 @@ do
 	_G.print = print
 end
 do
+	local OsThreadRunning = false
 	local _require = require
 	require = function(file)
 		local ReturnValue
-	--	util.execute_in_os_thread(function()
+		if not OsThreadRunning then
+			OsThreadRunning = true
+			util.execute_in_os_thread(function()
+				ReturnValue = _require(file)
+				OsThreadRunning = false
+			end)
+		else
 			ReturnValue = _require(file)
-	--	end)
+		end
 		return ReturnValue
 	end
-	_G.require = require
 end
 
 
@@ -200,17 +217,21 @@ local JM36 =
 		end,
 	Wait=0,
 	wait=0,
-	yield=0
+	yield=0,
+	yield_once=coroutine_yield
 }
 do
 	local Halt = function(ms)
-		local TimeResume = Info.Time+(ms or 0)
-		repeat
+		if not ms then
 			coroutine_yield()
-		until Info.Time > TimeResume
+		else
+			ms = Info.Time+ms
+			repeat
+				coroutine_yield()
+			until Info.Time > ms
+		end
 	end
 	JM36.Wait, JM36.wait, JM36.yield = Halt, Halt, Halt
-	JM36.CreateThread_HighPriority(function() wait=JM36.wait;IsKeyPressed=get_key_pressed end)
 end
 _G.JM36 = JM36
 
@@ -349,6 +370,9 @@ do
 	
 	package.path = ("%s?.lua;%s?.luac"):format(__Internal_Path,__Internal_Path)
 	
+	if not filesystem.exists(__Internal_Path) then
+		filesystem.mkdir(__Internal_Path)
+	end
 	local List, ListNum = {}, 0
 	for i, Lib in filesystem.list_files(__Internal_Path) do
 		if Lib:endsWith(".lua") then
@@ -366,7 +390,7 @@ do
 		if Successful then
 			local Type = type(Function)
 			if Type == "table" then
-				if not Function.InfoKeyOnly then
+				if (not Function.InfoKeyOnly) and (getmetatable(Function) and getmetatable(Function).__call) then
 					FunctionsNum = FunctionsNum + 1
 					Functions[FunctionsNum] = Function
 				end
@@ -420,14 +444,14 @@ end
 
 
 -- Add player triggers
-players.on_join(function(PlayerId)
+--[[players.on_join]]players.add_command_hook(function(PlayerId,PlayerRoot)
 	for i=1, #Scripts_Join do
-		Scripts_Join[i](PlayerId)
+		Scripts_Join[i](PlayerId,PlayerRoot)
 	end
 end)
-players.on_leave(function(PlayerId, PlayerName)
+players.on_leave(function(PlayerId,PlayerName)
 	for i=1, #Scripts_Left do
-		Scripts_Left[i](PlayerId, PlayerName)
+		Scripts_Left[i](PlayerId,PlayerName)
 	end
 end)
 
@@ -460,7 +484,7 @@ local tick = coroutine_wrap(function()
 				local j = 1
 				for i = 1, #Threads_HighPriority do
 					local Thread = Threads_HighPriority[i]
-					if coroutine_status(Thread)~="dead" then
+					if Thread and coroutine_status(Thread)~="dead" then
 						do
 							local Successful, Error = coroutine_resume(Thread)
 							if not Successful then print(Error) end
@@ -484,7 +508,7 @@ local tick = coroutine_wrap(function()
 			local j = 1
 			for i = 1, ThreadsNum do
 				local Thread = Threads[i]
-				if coroutine_status(Thread)~="dead" then
+				if Thread and coroutine_status(Thread)~="dead" then
 					do
 						local Successful, Error = coroutine_resume(Thread)
 						if not Successful then print(Error) end
@@ -503,4 +527,4 @@ local tick = coroutine_wrap(function()
 	end
 end)util.create_tick_handler(tick)
 
-util.on_stop(Scripts_Stop)
+util.on_stop(function()Scripts_Stop()end)

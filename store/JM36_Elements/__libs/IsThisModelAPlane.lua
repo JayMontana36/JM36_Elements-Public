@@ -1,3 +1,3 @@
-local _IsThisModelAPlane <const> = require('CreateCacheSimpleForFunction')(IsThisModelAPlane)
+local _IsThisModelAPlane = require('CreateCacheSimpleForFunction')(IsThisModelAPlane)
 IsThisModelAPlane = _IsThisModelAPlane
 return _IsThisModelAPlane
