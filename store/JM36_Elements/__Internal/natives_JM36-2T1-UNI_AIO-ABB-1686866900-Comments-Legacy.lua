@@ -1,7 +1,7 @@
--- This should be natives_JM36-2T1-UNI_AIO-ABB-1678100670-Comments.lua wherein 2T1-UNI_AIO-ABB-1678100670-Comments represents the version.
+-- This should be natives_JM36-2T1-UNI_AIO-ABB-1686866900-Comments-Legacy.lua wherein 2T1-UNI_AIO-ABB-1686866900-Comments-Legacy represents the version.
 -- Any given version may not be compatible with any given script using this library.
 -- Additionally, you should bundle the version of this library that you are developing against with your script, so "installing" your script is a simple drag & drop operation.
--- Natives JayMontana36 (JayMontana36#9565 | https://discord.gg/wqphXBKkqS) 2Take1 Universal All In One AutomaticByteBuffer (With) Comments | 2023.03.06@11:04:30UTC
+-- Natives JayMontana36 (JayMontana36#9565 | https://discord.gg/wqphXBKkqS) 2Take1 Universal All In One AutomaticByteBuffer (With) Comments Legacy (Version) | 2023.06.15@22:08:20UTC
 
 local native_call = native.call
 local ByteBuffer8, ByteBuffer32, ByteBuffer256 = native.ByteBuffer8, native.ByteBuffer32, native.ByteBuffer256 -- Unused (ByteBuffer16, ByteBuffer64, ByteBuffer128)
@@ -102,7 +102,6 @@ local OldNames <const> =
 	["0x02b1f2a72e0f5325"]="StartParticleFxNonLoopedOnEntityBone",
 	["0x02c40bf885c567b6"]="NetworkGetLocalSceneFromNetworkId",
 	["0x02c8e5b49848664e"]="SetScenarioGroupEnabled",
-	["0x02ce1d6ac0fc73ea"]="NetworkEarnFromRockstar",
 	["0x02cfba0c9e9275ce"]="FlashAbilityBar",
 	["0x02d24a35a9cc3503"]="NetworkSpendVehicleRequested",
 	["0x02deaac8f8ea7fe7"]="SetCloudSettingsOverride",
@@ -319,6 +318,7 @@ local OldNames <const> =
 	["0x0be84c318ba6ec22"]="RegisterObjectScriptBrain",
 	["0x0bf3b3bd47d79c08"]="SetMaxNumPortablePickupsCarriedByPlayer",
 	["0x0bffb028b3dd0a97"]="VehicleStartParachuting",
+	["0x0c02468829e4aa65"]="SetDeployMissileBays",
 	["0x0c0c4e81e1ac60a0"]="GetStatusOfSaveHighQualityPhoto",
 	["0x0c112765300c7e1e"]="GetIsEntityAFrag",
 	["0x0c15b0e443b2349d"]="GetLodscale",
@@ -422,6 +422,7 @@ local OldNames <const> =
 	["0x109697e2ffbac8a1"]="DoesPlayerVehHaveRadio",
 	["0x1098355a16064bb3"]="SetMobileRadioEnabledDuringGameplay",
 	["0x109e99373f290687"]="UpdateNavmeshBlockingObject",
+	["0x10a691f5756416d0"]="PlaystatsVehDel",
 	["0x10ab107b887214d8"]="TaskVehicleShootAtPed",
 	["0x10bd227a753b0d84"]="NetworkGetTunableCloudCrc",
 	["0x10bddbfc529428dd"]="EndTextCommandIsThisHelpMessageBeingDisplayed",
@@ -561,6 +562,7 @@ local OldNames <const> =
 	["0x1509c089adc208bf"]="SetPedSteersAroundObjects",
 	["0x150e808b375a385a"]="CreateForcedObject",
 	["0x1514fb24c02c2322"]="AppGetFloat",
+	["0x151d6c04c9e2742f"]="PlaystatsShowroomOverview",
 	["0x152d90e4c1b4738a"]="UgcCopyContent",
 	["0x15337c7c268a27b2"]="NetworkAmIBlockedByGamer",
 	["0x153973ab99fe8980"]="AddEntityToAudioMixGroup",
@@ -603,6 +605,7 @@ local OldNames <const> =
 	["0x166e7cf68597d8b5"]="SetEntityMaxHealth",
 	["0x1670f8d05056f257"]="GetStatusOfLoadMissionCreatorPhoto",
 	["0x16754c556d2ede3d"]="IsScriptedConversationOngoing",
+	["0x168a09d1b25b0ba4"]="AttachEntityToEntityPhysicallyOverrideInverseMass",
 	["0x169bd9382084c8c0"]="GetCharacterFromAudioConversationFilename",
 	["0x16a304e6cb2bfab9"]="SetSecondScriptVariableHudColour",
 	["0x16a96863a17552bb"]="SetCamUseShallowDofMode",
@@ -1432,6 +1435,7 @@ local OldNames <const> =
 	["0x35ad299f50d91b24"]="CreateItemset",
 	["0x35b9e0803292b641"]="IsModelInCdimage",
 	["0x35bb21de06784373"]="SetVehicleOccupantsTakeExplosiveDamage",
+	["0x35cce12eaecb4a51"]="SetPauseExteriorRenderingWhileInInterior",
 	["0x35e0654f4bad7971"]="SetAmbientVehicleNeonEnabled",
 	["0x35e39e5570358630"]="PlaystatsStoneHatchetEnded",
 	["0x35edd5b2e3ff01c0"]="SetMinimapGolfCourseOff",
@@ -1868,7 +1872,6 @@ local OldNames <const> =
 	["0x46f3add1e2d5baf2"]="SetPortablePickupPersist",
 	["0x46f8696933a63c9b"]="GetEntityBonePostion",
 	["0x46f917f6b4128fe4"]="PlaystatsAwardXp",
-	["0x46fb3ed415c7641c"]="TriggerPlayerCrcHackerCheck",
 	["0x4700a416e8324ef3"]="GetPedMaxHealth",
 	["0x470555300d10b2a5"]="GetPlayerSwitchState",
 	["0x471d2ff42a94b4f2"]="SetAllRandomPedsFleeThisFrame",
@@ -2213,6 +2216,7 @@ local OldNames <const> =
 	["0x55e86af2712b36a1"]="ActivateInteriorEntitySet",
 	["0x55eab010faee9380"]="GetTyreHealth",
 	["0x55ecf4d13d9903b0"]="SetNextRadioTrack",
+	["0x55f006b9d4a46c1d"]="NetworkEarnAvenger",
 	["0x55f5a5f07134de60"]="DontZoomMinimapWhenSnipingThisFrame",
 	["0x55fcc0c390620314"]="SetPlayerCanDamagePlayer",
 	["0x560a43136eb58105"]="SetPedHelmet",
@@ -2760,6 +2764,7 @@ local OldNames <const> =
 	["0x6b24bfe83a2be47b"]="IsCamShaking",
 	["0x6b38ecb05a63a685"]="NetworkSpentCinema",
 	["0x6b3c4650bc8bee47"]="SetTextRightJustify",
+	["0x6b407f2525e93644"]="HaveVehicleRearDoorsBeenBlownOpenByStickybomb",
 	["0x6b50fc8749632ec1"]="SetMinimapSonarSweep",
 	["0x6b5c83ba3efe6a10"]="NetworkIsTransitionHostFromHandle",
 	["0x6b7256074ae34680"]="DrawLine",
@@ -3214,6 +3219,7 @@ local OldNames <const> =
 	["0x7cdc8c3b89f661b3"]="SetPedVoiceGroup",
 	["0x7ce1ccb9b293020e"]="GetVehicleNumberPlateText",
 	["0x7cf0448787b23758"]="UgcGetContentDescriptionHash",
+	["0x7cf3af51dcfe4108"]="SetCamDofShouldKeepLookAtTargetInFocus",
 	["0x7cfba6a80bdf3874"]="SetEntityLights",
 	["0x7d1464d472d32136"]="GetVehicleExtraColour5",
 	["0x7d2708796355b20b"]="NetGameserverUseServerTransactions",
@@ -3246,6 +3252,7 @@ local OldNames <const> =
 	["0x7e6946f68a38b74f"]="StatCloudSlotSaveFailed",
 	["0x7e782a910c362c25"]="NetworkCanEnterMultiplayer",
 	["0x7e9dfe24ac1e58ef"]="IsPedShootingInArea",
+	["0x7ea06f970f999394"]="PlaystatsRandomEvent",
 	["0x7ea2b6af97eca6ed"]="IsFrontendFading",
 	["0x7ec3c679d0e7e46b"]="UpdateSoundCoord",
 	["0x7ec52cc40597d170"]="GetFirstPersonAimCamZoomFactor",
@@ -3297,6 +3304,7 @@ local OldNames <const> =
 	["0x807abe1ab65c24d2"]="IsProsperoVersion",
 	["0x808519373fd336a3"]="SetPlayerIsInDirectorMode",
 	["0x8093f23abaccc7d4"]="SetCutsceneFadeValues",
+	["0x809549afc7aec597"]="GetSpawnCoordsForVehicleNode",
 	["0x8098c8d6597aae18"]="GetReplayStatAtIndex",
 	["0x80c2fd58d720c801"]="GetControlGroupInstructionalButtonsString",
 	["0x80c527893080ccf3"]="SetReduceVehicleModelBudget",
@@ -3448,7 +3456,7 @@ local OldNames <const> =
 	["0x85f41f9225d08c72"]="SavemigrationMpRequestAccounts",
 	["0x85f462badc7da47f"]="AddVehicleSubtaskAttackPed",
 	["0x85f6c9aba1de2bcf"]="NetGameserverGetCatalogCloudCrc",
-	["0x85fc953f6c6cbde1"]="_0x85FC953F6C6CBDE1",
+	["0x85fc953f6c6cbde1"]="SetBoundsAffectWaterProbes",
 	["0x8605af0de8b3a5ac"]="TaskAimGunScriptedWithTarget",
 	["0x8609c75ec438fb3b"]="AddCamSplineNode",
 	["0x8621390f0cdcfe1f"]="AssistedMovementFlushRoute",
@@ -3598,6 +3606,7 @@ local OldNames <const> =
 	["0x8c4f3bf23b6237db"]="CreateParachuteBagObject",
 	["0x8c70252fc40f320b"]="NetworkSetVehicleDrivenInTestDrive",
 	["0x8c71288ae68ede39"]="NetworkIsPlayerMutedByMe",
+	["0x8c7e8d6f96c9e948"]="NetworkSpentAirFreight",
 	["0x8c825bdc7741d37c"]="SetHighFallTask",
 	["0x8c8d2739ba44af0f"]="UgcGetContentCreatedByLocalPlayer",
 	["0x8c90fe4b381ba60a"]="IsObjectNearPoint",
@@ -3816,6 +3825,7 @@ local OldNames <const> =
 	["0x95c0a5bbdc189aa1"]="StopPlayerSwitch",
 	["0x95c5d356cda6e85f"]="AppSaveData",
 	["0x95c9e72f3d7dec9b"]="CellSetInput",
+	["0x95ce79a6939c537a"]="NetworkSpentStealthModule",
 	["0x95cf53b3d687f9fa"]="SetTrailerLegsRaised",
 	["0x95cf81bd06ee1887"]="RemoveMultiplayerWalletCash",
 	["0x95d2d383d5396b8a"]="SetPedIsDrunk",
@@ -3830,6 +3840,7 @@ local OldNames <const> =
 	["0x9614b71f8adb982b"]="NetworkGetAgeGroup",
 	["0x961777e64bdaf717"]="GetClockYear",
 	["0x961ac54bf0613f5d"]="DetachEntity",
+	["0x961d4157b9b428db"]="PlaystatsShowroomNav",
 	["0x96320e6549dae7b4"]="SetRemotePlayerVisibleInCutscene",
 	["0x963d27a58df860ac"]="RequestModel",
 	["0x9640e30a7f395e4b"]="SetVehicleDamageScales",
@@ -4102,6 +4113,7 @@ local OldNames <const> =
 	["0xa0a9668f158129a2"]="IsPedheadshotValid",
 	["0xa0ad167e4b39d9a2"]="GetPointAreaOverlap",
 	["0xa0ad7e2af5349f61"]="NetworkHaveRosCreateTicketPriv",
+	["0xa0ce91e47531d3bb"]="NetworkSetVehicleDrivenLocation",
 	["0xa0cefcea390aab9b"]="ClearControlShakeSuppressedId",
 	["0xa0d3d71ea1086c55"]="IsAnyPedShootingInArea",
 	["0xa0d3e4f7aafb7e78"]="SetPlayerUnderwaterBreathPercentRemaining",
@@ -4114,7 +4126,6 @@ local OldNames <const> =
 	["0xa10b2db49e92a6b0"]="GetCamAnimCurrentPhase",
 	["0xa11700682f3ad45c"]="NetworkGetNetworkIdFromEntity",
 	["0xa1183bcfee0f93d1"]="SetForcedJumpThisFrame",
-	["0xa12d3a5a3753cc23"]="TriggerTuningCrcHackerCheck",
 	["0xa132fb5370554db0"]="GetVehicleMaxTraction",
 	["0xa134777ff7f33331"]="NetworkClanIsEmblemReady",
 	["0xa135ac892a58fc07"]="NetGameserverStartSession",
@@ -4853,6 +4864,7 @@ local OldNames <const> =
 	["0xbd4d7eaf8a30f637"]="NetGameserverCatalogItemIsValid",
 	["0xbd545d44cce70597"]="NetworkIsNpAvailable",
 	["0xbd605b8e0e18b3bb"]="DisableSwitchOutroFx",
+	["0xbd642335a732f1a8"]="PlaystatsAttritionStageEnd",
 	["0xbd6e84632dd4cb3f"]="LoadAllObjectsNow",
 	["0xbd8d32550e5cebfe"]="GetEntityBoneObjectRotation",
 	["0xbda07e5950085e46"]="SetAmbientZoneState",
@@ -5468,9 +5480,11 @@ local OldNames <const> =
 	["0xd6429a016084f1a5"]="GetPickupTypeFromWeaponHash",
 	["0xd66c9e72b3cc4982"]="NetworkDisplaynamesFromHandlesStart",
 	["0xd6781e42755531f7"]="PlaystatsBuyContrabandMission",
+	["0xd687100f616163f4"]="NetworkSpentMissileJammer",
 	["0xd68a5ff8a3a89874"]="SetScriptVariableHudColour",
 	["0xd69411aa0cebf9e9"]="SetPedEnveffColorModulator",
 	["0xd69736aae04db51a"]="ScaleformMovieMethodAddParamFloat",
+	["0xd69ce161fe614531"]="GetStatHashForCharacterStat",
 	["0xd6a86331a537a7b9"]="IsPedProne",
 	["0xd6a953c6d1492057"]="SpecialAbilityDeactivate",
 	["0xd6ade981781fca09"]="CellCamSetSelfieModeHeadYawOffset",
@@ -5631,6 +5645,7 @@ local OldNames <const> =
 	["0xdce214d9ed58f3cf"]="ShakeCinematicCam",
 	["0xdce4334788af94ea"]="IsThisModelAHeli",
 	["0xdce97bdf8a0eabc8"]="SetVehicleSteerForBuildings",
+	["0xdcef983c24191997"]="NetworkEarnBonusObjective",
 	["0xdcf0754ac3d6fd4e"]="SetCinematicModeActive",
 	["0xdcfb5d4db8bf367e"]="ShowCrewIndicatorOnBlip",
 	["0xdcfe42068fe0135a"]="ControlMountedWeapon",
@@ -5670,6 +5685,7 @@ local OldNames <const> =
 	["0xde7465a27d403c06"]="CanPlayerStartMission",
 	["0xde81239437e8c5a8"]="DisableScreenblurFade",
 	["0xde9225854f37bf72"]="NetworkResolvePrivilegeUserContent",
+	["0xdea273d5f8a9661a"]="NetworkEarnSmugglerOps",
 	["0xdea2b8283baa3944"]="SetMpGamerTagName",
 	["0xdea36202fc3382df"]="AllowMissionCreatorWarp",
 	["0xdea92412fcaeb3f5"]="GetPedCombatMovement",
@@ -5877,6 +5893,7 @@ local OldNames <const> =
 	["0xe679e3e06e363892"]="NetworkOverrideClockTime",
 	["0xe67c6dfd386ea5e7"]="AllowDisplayOfMultiplayerCashText",
 	["0xe6869becdd8f2403"]="RemovePopMultiplierSphere",
+	["0xe6a27cda42887f93"]="PlaystatsFlowLow",
 	["0xe6a877c64caf1bc5"]="GetPedWaypointDistance",
 	["0xe6a9f00d4240b519"]="SetScaleformMovieToUseSuperLargeRt",
 	["0xe6ac6c45fbe83004"]="StartShapeTestSweptSphere",
@@ -5961,6 +5978,7 @@ local OldNames <const> =
 	["0xea241bb04110f091"]="SetPlayerAngry",
 	["0xea2f2061875eed90"]="UiStartedEndUserBenchmark",
 	["0xea386986e786a54f"]="DeleteVehicle",
+	["0xea4743874d515f13"]="AreMissileBaysDeployed",
 	["0xea47fe3719165b94"]="TaskPlayAnim",
 	["0xea560ac9eeb1e19b"]="NetworkGetRemainingTransferBalance",
 	["0xea61ca8e80f09e4d"]="GetRopeVertexCoord",
@@ -6037,6 +6055,7 @@ local OldNames <const> =
 	["0xecf041186c5a94dc"]="GetContentIdIndex",
 	["0xecf128344e9ff9f1"]="SetPauseMenuPedSleepState",
 	["0xed1517d3af17c698"]="NetworkEarnFromPickup",
+	["0xed1b407bada42cec"]="NetworkSpentSkipCargoSourceSetup",
 	["0xed26584f6bdcbbfd"]="NetworkEarnGangopsPrepParticipation",
 	["0xed34ab6c5cb36520"]="SetPedDriveByClipsetOverride",
 	["0xed34c0c02c098bb7"]="NetworkSessionHostClosed",
@@ -6191,7 +6210,6 @@ local OldNames <const> =
 	["0xf25e02cb9c5818f8"]="DisableVehicleExplosionBreakOffParts",
 	["0xf271147eb7b40f12"]="GetVehicleBodyHealth",
 	["0xf284ac67940c6812"]="HasMenuTriggerEventOccurred",
-	["0xf287f506767cc8a9"]="TriggerFileCrcHackerCheck",
 	["0xf28965d04f570dca"]="ForcePedMotionState",
 	["0xf28da9f38cd1787c"]="StartParticleFxLoopedOnPedBone",
 	["0xf297383aa91dca29"]="CanPedHearPlayer",
@@ -6336,6 +6354,7 @@ local OldNames <const> =
 	["0xf816f2933752322d"]="SetBinkMovieAudioFrontend",
 	["0xf827589017d4e4a9"]="SetWeaponObjectTintIndex",
 	["0xf82d8f1926a02c3d"]="SetStateOfClosestDoorOfType",
+	["0xf8332b06f0eecc9c"]="NetworkEarnProgressHub",
 	["0xf833ddba3b104d43"]="SetPedCanPlayVisemeAnims",
 	["0xf83d0febe75e62c9"]="SetupFakeConeData",
 	["0xf846aa63df56b804"]="GetVehicleCountermeasureAmmo",
@@ -6519,6 +6538,7 @@ local OldNames <const> =
 	["0xff8f3a92b75ed67a"]="ScCommunityEventIsActive",
 	["0xff8fcf9ffc458a1c"]="NetworkGetNumUnackedReliables",
 	["0xffa5d878809819db"]="TestProbeAgainstWater",
+	["0xffbd7052d65be0ff"]="GetNearestParticipantToEntity",
 	["0xffbe02cd385356bd"]="NetworkSpentBossGoon",
 	["0xffc24b988b938b38"]="SetFacialIdleAnimOverride",
 	["0xffe1e5b792d92b34"]="NetworkJoinPreviouslyFailedTransition",
@@ -7359,7 +7379,6 @@ local OldNames <const> =
 	["NetworkIsNetworkIdAClone"]="NetworkIsNetworkIdRemotelyControlled",
 	["NetworkIsPlayerAnimationDrawingSynchronized"]="NetworkSessionJoinInvite",
 	["NetworkIsPlayerEqualToIndex"]="NetworkArePlayersInSameTutorialSession",
-	["NetworkIsPlayerInScript"]="TriggerPlayerCrcHackerCheck",
 	["NetworkIsTextChatActive"]="NetworkTextChatIsTyping",
 	["NetworkIsThisScriptMarked"]="NetworkTryToSetThisScriptIsNetworkScript",
 	["NetworkIsThreadActive"]="NetworkIsThreadANetworkScript",
@@ -7378,8 +7397,8 @@ local OldNames <const> =
 	["NetworkRivalDeliveryCompleted"]="NetworkServiceEarnGangopsRivalDelivery",
 	["NetworkSctvSlots"]="NetworkSessionSetMatchmakingGroup",
 	["NetworkSendPresenceInvite"]="NetworkSendInviteViaPresence",
-	["NetworkSendPresenceTransitionInvite"]="NetworkSendTransitionInviteViaPresence",
 	["NetworkSendPresenceTransitionInvite"]="NetworkSendImportantTransitionInviteViaPresence",
+	["NetworkSendPresenceTransitionInvite"]="NetworkSendTransitionInviteViaPresence",
 	["NetworkSessionActivityQuickmatch"]="NetworkSessionDoActivityQuickmatch",
 	["NetworkSessionArePlayersVotingToKick"]="NetworkSessionGetKickVote",
 	["NetworkSessionCrewMatchmaking"]="NetworkSessionDoCrewMatchmaking",
@@ -8215,7 +8234,6 @@ local OldNames <const> =
 	["TransformVehicleToSubmarine"]="TransformToSubmarine",
 	["TransitionFromBlurred"]="TriggerScreenblurFadeOut",
 	["TransitionToBlurred"]="TriggerScreenblurFadeIn",
-	["TriggerScriptCrcCheckOnPlayer"]="TriggerPlayerCrcHackerCheck",
 	["TriggerScriptEvent2"]="SendTuScriptEvent",
 	["TriggerSiren"]="TriggerSirenAudio",
 	["UgcGetCloudPath"]="UgcGetContentPath",
@@ -10238,6 +10256,12 @@ local _Natives = setmetatable
 				-- returnValue (BOOL/Boolean)
 			-- Comment:
 				-- Only used with the "akula" and "annihilator2" in the decompiled native scripts.
+		["AreMissileBaysDeployed"]=function(vehicle)return native_call(0xEA4743874D515F13,vehicle):__tointeger()~=0 end,
+			-- Name: _ARE_MISSILE_BAYS_DEPLOYED
+			-- Parameters:
+				-- vehicle (Vehicle/Integer)
+			-- Returns:
+				-- returnValue (BOOL/Boolean)
 		["AreNodesLoadedForArea"]=function(x1,y1,x2,y2)return native_call(0xF7B79A50B905A30D,x1,y1,x2,y2):__tointeger()~=0 end,
 			-- Name: ARE_NODES_LOADED_FOR_AREA
 			-- Parameters:
@@ -10534,6 +10558,32 @@ local _Natives = setmetatable
 				-- p18 - is always 2 in scripts.
 				-- 
 				-- 
+		["AttachEntityToEntityPhysicallyOverrideInverseMass"]=function(firstEntityIndex,secondEntityIndex,firstEntityBoneIndex,secondEntityBoneIndex,secondEntityOffsetX,secondEntityOffsetY,secondEntityOffsetZ,firstEntityOffsetX,firstEntityOffsetY,firstEntityOffsetZ,vecRotationX,vecRotationY,vecRotationZ,physicalStrength,constrainRotation,doInitialWarp,collideWithEntity,addInitialSeperation,rotOrder,invMassScaleA,invMassScaleB)return native_call(0x168A09D1B25B0BA4,firstEntityIndex,secondEntityIndex,firstEntityBoneIndex,secondEntityBoneIndex,secondEntityOffsetX,secondEntityOffsetY,secondEntityOffsetZ,firstEntityOffsetX,firstEntityOffsetY,firstEntityOffsetZ,vecRotationX,vecRotationY,vecRotationZ,physicalStrength,constrainRotation,doInitialWarp,collideWithEntity,addInitialSeperation,rotOrder,invMassScaleA,invMassScaleB)end,
+			-- Name: ATTACH_ENTITY_TO_ENTITY_PHYSICALLY_OVERRIDE_INVERSE_MASS
+			-- Parameters:
+				-- firstEntityIndex (Entity/Integer)
+				-- secondEntityIndex (Entity/Integer)
+				-- firstEntityBoneIndex (int/Integer)
+				-- secondEntityBoneIndex (int/Integer)
+				-- secondEntityOffsetX (float/Number)
+				-- secondEntityOffsetY (float/Number)
+				-- secondEntityOffsetZ (float/Number)
+				-- firstEntityOffsetX (float/Number)
+				-- firstEntityOffsetY (float/Number)
+				-- firstEntityOffsetZ (float/Number)
+				-- vecRotationX (float/Number)
+				-- vecRotationY (float/Number)
+				-- vecRotationZ (float/Number)
+				-- physicalStrength (float/Number)
+				-- constrainRotation (BOOL/Boolean)
+				-- doInitialWarp (BOOL/Boolean)
+				-- collideWithEntity (BOOL/Boolean)
+				-- addInitialSeperation (BOOL/Boolean)
+				-- rotOrder (int/Integer)
+				-- invMassScaleA (float/Number)
+				-- invMassScaleB (float/Number)
+			-- Returns:
+				-- returnValue (void/nil)
 		["AttachPortablePickupToPed"]=function(pickupObject,ped)return native_call(0x8DC39368BDD57755,pickupObject,ped)end,
 			-- Name: ATTACH_PORTABLE_PICKUP_TO_PED
 			-- Parameters:
@@ -16532,11 +16582,12 @@ local _Natives = setmetatable
 				-- toggle (BOOL/Boolean)
 			-- Returns:
 				-- returnValue (void/nil)
-		["EndBeingBoss"]=function(p0,p1)return native_call(0xA3C53804BDB68ED2,p0,p1)end,
+		["EndBeingBoss"]=function(p0,p1,p2)return native_call(0xA3C53804BDB68ED2,p0,p1,p2)end,
 			-- Name: END_BEING_BOSS
 			-- Parameters:
 				-- p0 (Any)
 				-- p1 (Any)
+				-- p2 (Any)
 			-- Returns:
 				-- returnValue (void/nil)
 		["EndBeingGoon"]=function(p0,p1,p2,p3,p4)return native_call(0x6BCCF9948492FD85,p0,p1,p2,p3,p4)end,
@@ -21455,6 +21506,12 @@ local _Natives = setmetatable
 				-- returnValue (int/Integer)
 			-- Comment:
 				-- See GET_NAVMESH_ROUTE_DISTANCE_REMAINING for more details.
+		["GetNearestParticipantToEntity"]=function(entity)return native_call(0xFFBD7052D65BE0FF,entity):__tointeger()end,
+			-- Name: GET_NEAREST_PARTICIPANT_TO_ENTITY
+			-- Parameters:
+				-- entity (Entity/Integer)
+			-- Returns:
+				-- returnValue (int/Integer)
 		["GetNearestPlayerToEntity"]=function(entity)return native_call(0x7196842CB375CDB3,entity):__tointeger()end,
 			-- Name: GET_NEAREST_PLAYER_TO_ENTITY
 			-- Parameters:
@@ -24184,10 +24241,33 @@ local _Natives = setmetatable
 				-- netId (int/Integer)
 			-- Returns:
 				-- returnValue (int/Integer)
+		["GetSpawnCoordsForVehicleNode"]=function(nodeAddress,towardsCoorsX,towardsCoorsY,towardsCoorsZ,centrePoint,heading);centrePoint=AutoByteBuffer(centrePoint)or ByteBuffer32();heading=AutoByteBuffer(heading)or ByteBuffer8()return native_call(0x809549AFC7AEC597,nodeAddress,towardsCoorsX,towardsCoorsY,towardsCoorsZ,centrePoint,heading):__tov3(),centrePoint:__tov3(),heading:__tonumber()end,
+			-- Name: GET_SPAWN_COORDS_FOR_VEHICLE_NODE
+			-- Parameters:
+				-- nodeAddress (int/Integer)
+				-- towardsCoorsX (float/Number)
+				-- towardsCoorsY (float/Number)
+				-- towardsCoorsZ (float/Number)
+				-- centrePoint (Vector3/Userdata/nil)
+				-- heading (float*/Number/Userdata/0/nil)
+			-- Returns:
+				-- returnValue (Vector3/Userdata)
+				-- centrePoint (Vector3/Userdata)
+				-- heading (float/Number)
 		["GetStandardBlipEnumId"]=function()return native_call(0x4A9923385BDB9DAD):__tointeger()end,
 			-- Name: GET_STANDARD_BLIP_ENUM_ID
 			-- Returns:
 				-- returnValue (int/Integer)
+		["GetStatHashForCharacterStat"]=function(dataType,statIndex,charSlot)return native_call(0xD69CE161FE614531,dataType,statIndex,charSlot):__tointeger()end,
+			-- Name: _GET_STAT_HASH_FOR_CHARACTER_STAT
+			-- Parameters:
+				-- dataType (int/Integer)
+				-- statIndex (int/Integer)
+				-- charSlot (int/Integer)
+			-- Returns:
+				-- returnValue (Hash/Integer)
+			-- Comment:
+				-- Returns stat hash based on dataType, statIndex/statId and characterSlot. Related to CStatsMpCharacterMappingData
 		["GetStateOfClosestDoorOfType"]=function(type,x,y,z,locked,heading);locked=AutoByteBuffer(locked)or ByteBuffer8();heading=AutoByteBuffer(heading)or ByteBuffer8()return native_call(0xEDC1A5B84AEF33FF,type,x,y,z,locked,heading),locked:__tointeger()~=0 ,heading:__tonumber()end,
 			-- Name: GET_STATE_OF_CLOSEST_DOOR_OF_TYPE
 			-- Parameters:
@@ -25576,16 +25656,15 @@ local _Natives = setmetatable
 				-- ped (Ped/Integer)
 			-- Returns:
 				-- returnValue (Vehicle/Integer)
-		["GetVehiclePedIsIn"]=function(ped,includeLastVehicle)return native_call(0x9A9112A0FE9A4713,ped,includeLastVehicle):__tointeger()end,
+		["GetVehiclePedIsIn"]=function(ped,includeEntering)return native_call(0x9A9112A0FE9A4713,ped,includeEntering):__tointeger()end,
 			-- Name: GET_VEHICLE_PED_IS_IN
 			-- Parameters:
 				-- ped (Ped/Integer)
-				-- includeLastVehicle (BOOL/Boolean)
+				-- includeEntering (BOOL/Boolean)
 			-- Returns:
 				-- returnValue (Vehicle/Integer)
 			-- Comment:
 				-- Gets the vehicle the specified Ped is in. Returns 0 if the ped is/was not in a vehicle.
-				-- If the Ped is not in a vehicle and includeLastVehicle is true, the vehicle they were last in is returned.
 		["GetVehiclePedIsTryingToEnter"]=function(ped)return native_call(0x814FA8BE5449445D,ped):__tointeger()end,
 			-- Name: GET_VEHICLE_PED_IS_TRYING_TO_ENTER
 			-- Parameters:
@@ -27182,6 +27261,12 @@ local _Natives = setmetatable
 				-- returnValue (BOOL/Boolean)
 		["HaveVehicleModsStreamedIn"]=function(vehicle)return native_call(0x9A83F5F9963775EF,vehicle):__tointeger()~=0 end,
 			-- Name: HAVE_VEHICLE_MODS_STREAMED_IN
+			-- Parameters:
+				-- vehicle (Vehicle/Integer)
+			-- Returns:
+				-- returnValue (BOOL/Boolean)
+		["HaveVehicleRearDoorsBeenBlownOpenByStickybomb"]=function(vehicle)return native_call(0x6B407F2525E93644,vehicle):__tointeger()~=0 end,
+			-- Name: HAVE_VEHICLE_REAR_DOORS_BEEN_BLOWN_OPEN_BY_STICKYBOMB
 			-- Parameters:
 				-- vehicle (Vehicle/Integer)
 			-- Returns:
@@ -33626,6 +33711,15 @@ local _Natives = setmetatable
 				-- p1 (int/Integer)
 			-- Returns:
 				-- returnValue (void/nil)
+		["NetworkEarnAvenger"]=function(amount,p1)return native_call(0x55F006B9D4A46C1D,amount,p1)end,
+			-- Name: _NETWORK_EARN_AVENGER
+			-- Parameters:
+				-- amount (int/Integer)
+				-- p1 (int/Integer)
+			-- Returns:
+				-- returnValue (void/nil)
+			-- Comment:
+				-- Used for SERVICE_EARN_AVENGER_OPERATIONS & SERVICE_EARN_AVENGER_OPS_BONUS
 		["NetworkEarnAwardAcidLab"]=function(p0,p1)return native_call(0xD1A8165767AD2D23,p0,p1)end,
 			-- Name: _NETWORK_EARN_AWARD_ACID_LAB
 			-- Parameters:
@@ -33721,6 +33815,14 @@ local _Natives = setmetatable
 			-- Parameters:
 				-- p0 (Any)
 				-- p1 (Any)
+			-- Returns:
+				-- returnValue (void/nil)
+		["NetworkEarnBonusObjective"]=function(amount,p1,p2)return native_call(0xDCEF983C24191997,amount,p1,p2)end,
+			-- Name: _NETWORK_EARN_BONUS_OBJECTIVE
+			-- Parameters:
+				-- amount (int/Integer)
+				-- p1 (Any)
+				-- p2 (Any)
 			-- Returns:
 				-- returnValue (void/nil)
 		["NetworkEarnBoss"]=function(p0,p1,p2)return native_call(0x08B0CA7A6AB3AC32,p0,p1,p2)end,
@@ -34077,10 +34179,12 @@ local _Natives = setmetatable
 				-- type (const char/String)
 			-- Comment:
 				-- type either Monthly,Weekly,Daily
-		["NetworkEarnFromDestroyingContraband"]=function(p0)return native_call(0x84C0116D012E8FC2,p0)end,
+		["NetworkEarnFromDestroyingContraband"]=function(p0,p1,p2)return native_call(0x84C0116D012E8FC2,p0,p1,p2)end,
 			-- Name: NETWORK_EARN_FROM_DESTROYING_CONTRABAND
 			-- Parameters:
 				-- p0 (Any)
+				-- p1 (Any)
+				-- p2 (Any)
 			-- Returns:
 				-- returnValue (void/nil)
 		["NetworkEarnFromFmbbBossWork"]=function(p0)return native_call(0x1FDA0AA679C9919B,p0)end,
@@ -34205,12 +34309,6 @@ local _Natives = setmetatable
 				-- For the money bags that drop a max of $40,000. Often called 40k bags.
 				-- 
 				-- Most likely NETWORK_EARN_FROM_ROB***
-		["NetworkEarnFromRockstar"]=function(amount)return native_call(0x02CE1D6AC0FC73EA,amount)end,
-			-- Name: NETWORK_EARN_FROM_ROCKSTAR
-			-- Parameters:
-				-- amount (int/Integer)
-			-- Returns:
-				-- returnValue (void/nil)
 		["NetworkEarnFromSellBunker"]=function(amount,bunkerHash)return native_call(0x9251B6ABF2D0A5B4,amount,bunkerHash)end,
 			-- Name: NETWORK_EARN_FROM_SELL_BUNKER
 			-- Parameters:
@@ -34218,7 +34316,7 @@ local _Natives = setmetatable
 				-- bunkerHash (Hash/Integer)
 			-- Returns:
 				-- returnValue (void/nil)
-		["NetworkEarnFromSmugglerWork"]=function(p0,p1,p2,p3,p4)return native_call(0x6B7E4FB50D5F3D65,p0,p1,p2,p3,p4)end,
+		["NetworkEarnFromSmugglerWork"]=function(p0,p1,p2,p3,p4,p5)return native_call(0x6B7E4FB50D5F3D65,p0,p1,p2,p3,p4,p5)end,
 			-- Name: NETWORK_EARN_FROM_SMUGGLER_WORK
 			-- Parameters:
 				-- p0 (Any)
@@ -34226,6 +34324,7 @@ local _Natives = setmetatable
 				-- p2 (Any)
 				-- p3 (Any)
 				-- p4 (Any)
+				-- p5 (Any)
 			-- Returns:
 				-- returnValue (void/nil)
 		["NetworkEarnFromVehicle"]=function(p0,p1,p2,p3,p4,p5,p6,p7)return native_call(0xB539BD8A4C1EECF8,p0,p1,p2,p3,p4,p5,p6,p7)end,
@@ -34384,6 +34483,13 @@ local _Natives = setmetatable
 				-- p0 (Any)
 			-- Returns:
 				-- returnValue (void/nil)
+		["NetworkEarnProgressHub"]=function(p0,p1)return native_call(0xF8332B06F0EECC9C,p0,p1)end,
+			-- Name: _NETWORK_EARN_PROGRESS_HUB
+			-- Parameters:
+				-- p0 (Any)
+				-- p1 (Any)
+			-- Returns:
+				-- returnValue (void/nil)
 		["NetworkEarnPurchaseClubHouse"]=function(p0,p1)return native_call(0x55A1E095DB052FA5,p0,p1)end,
 			-- Name: NETWORK_EARN_PURCHASE_CLUB_HOUSE
 			-- Parameters:
@@ -34456,6 +34562,14 @@ local _Natives = setmetatable
 				-- p1 (Any)
 				-- p2 (Any)
 				-- p3 (Any)
+			-- Returns:
+				-- returnValue (void/nil)
+		["NetworkEarnSmugglerOps"]=function(p0,p1,p2)return native_call(0xDEA273D5F8A9661A,p0,p1,p2)end,
+			-- Name: _NETWORK_EARN_SMUGGLER_OPS
+			-- Parameters:
+				-- p0 (Any)
+				-- p1 (Any)
+				-- p2 (Any)
 			-- Returns:
 				-- returnValue (void/nil)
 		["NetworkEarnSourceParticipationAcidLab"]=function(p0,p1)return native_call(0x136F11B5DF1B304D,p0,p1)end,
@@ -37672,6 +37786,14 @@ local _Natives = setmetatable
 				-- returnValue (void/nil)
 			-- Comment:
 				-- Used by MetricVEHICLE_DIST_DRIVEN
+		["NetworkSetVehicleDrivenLocation"]=function(location)return native_call(0xA0CE91E47531D3BB,location)end,
+			-- Name: NETWORK_SET_VEHICLE_DRIVEN_LOCATION
+			-- Parameters:
+				-- location (Hash/Integer)
+			-- Returns:
+				-- returnValue (void/nil)
+			-- Comment:
+				-- Sets 'loc' variable used in MetricVEHICLE_DIST_DRIVEN
 		["NetworkSetVoiceActive"]=function(toggle)return native_call(0xBABEC9E69A91C57B,toggle)end,
 			-- Name: NETWORK_SET_VOICE_ACTIVE
 			-- Parameters:
@@ -38342,6 +38464,17 @@ local _Natives = setmetatable
 				-- p4 (Any)
 			-- Returns:
 				-- returnValue (void/nil)
+		["NetworkSpentAirFreight"]=function(hangarCargoSourcingPrice,fromBank,fromBankAndWallet,cost,warehouseId,warehouseSlot)return native_call(0x8C7E8D6F96C9E948,hangarCargoSourcingPrice,fromBank,fromBankAndWallet,cost,warehouseId,warehouseSlot)end,
+			-- Name: _NETWORK_SPENT_AIR_FREIGHT
+			-- Parameters:
+				-- hangarCargoSourcingPrice (int/Integer)
+				-- fromBank (BOOL/Boolean)
+				-- fromBankAndWallet (BOOL/Boolean)
+				-- cost (int/Integer)
+				-- warehouseId (int/Integer)
+				-- warehouseSlot (int/Integer)
+			-- Returns:
+				-- returnValue (void/nil)
 		["NetworkSpentAmmoDrop"]=function(p0,p1,p2,p3)return native_call(0xB162DC95C0A3317B,p0,p1,p2,p3)end,
 			-- Name: NETWORK_SPENT_AMMO_DROP
 			-- Parameters:
@@ -38677,6 +38810,17 @@ local _Natives = setmetatable
 				-- p4 (Any)
 			-- Returns:
 				-- returnValue (void/nil)
+		["NetworkSpentMissileJammer"]=function(amount,fromBank,fromBankAndWallet,p3)return native_call(0xD687100F616163F4,amount,fromBank,fromBankAndWallet,p3)end,
+			-- Name: _NETWORK_SPENT_MISSILE_JAMMER
+			-- Parameters:
+				-- amount (int/Integer)
+				-- fromBank (BOOL/Boolean)
+				-- fromBankAndWallet (BOOL/Boolean)
+				-- p3 (Hash/Integer)
+			-- Returns:
+				-- returnValue (void/nil)
+			-- Comment:
+				-- Hash p3 = MISSILE_JAMMER
 		["NetworkSpentMoveSubmarine"]=function(p0,p1,p2)return native_call(0xCD4D66B43B1DD28D,p0,p1,p2)end,
 			-- Name: NETWORK_SPENT_MOVE_SUBMARINE
 			-- Parameters:
@@ -38896,13 +39040,14 @@ local _Natives = setmetatable
 				-- p3 (Any)
 			-- Returns:
 				-- returnValue (void/nil)
-		["NetworkSpentPurchaseOfficeProperty"]=function(p0,p1,p2,p3)return native_call(0x69EF772B192614C1,p0,p1,p2,p3)end,
+		["NetworkSpentPurchaseOfficeProperty"]=function(p0,p1,p2,p3,p4)return native_call(0x69EF772B192614C1,p0,p1,p2,p3,p4)end,
 			-- Name: NETWORK_SPENT_PURCHASE_OFFICE_PROPERTY
 			-- Parameters:
 				-- p0 (Any)
 				-- p1 (Any)
 				-- p2 (Any)
 				-- p3 (Any)
+				-- p4 (Any)
 			-- Returns:
 				-- returnValue (void/nil)
 		["NetworkSpentPurchaseWarehouseProperty"]=function(p0,p1,p2,p3)return native_call(0xBD0EFB25CCA8F97A,p0,p1,p2,p3)end,
@@ -38931,12 +39076,13 @@ local _Natives = setmetatable
 				-- p3 (BOOL/Boolean)
 			-- Returns:
 				-- returnValue (void/nil)
-		["NetworkSpentRenameOrganization"]=function(p0,p1,p2)return native_call(0xFC4EE00A7B3BFB76,p0,p1,p2)end,
+		["NetworkSpentRenameOrganization"]=function(p0,p1,p2,p3)return native_call(0xFC4EE00A7B3BFB76,p0,p1,p2,p3)end,
 			-- Name: NETWORK_SPENT_RENAME_ORGANIZATION
 			-- Parameters:
 				-- p0 (Any)
 				-- p1 (Any)
 				-- p2 (Any)
+				-- p3 (Any)
 			-- Returns:
 				-- returnValue (void/nil)
 		["NetworkSpentRequestHeist"]=function(p0,p1,p2,p3)return native_call(0x9D26502BB97BFE62,p0,p1,p2,p3)end,
@@ -38966,6 +39112,26 @@ local _Natives = setmetatable
 				-- p3 (Any)
 			-- Returns:
 				-- returnValue (void/nil)
+		["NetworkSpentSkipCargoSourceSetup"]=function(amount,fromBank,fromBankAndWallet,cost)return native_call(0xED1B407BADA42CEC,amount,fromBank,fromBankAndWallet,cost)end,
+			-- Name: _NETWORK_SPENT_SKIP_CARGO_SOURCE_SETUP
+			-- Parameters:
+				-- amount (int/Integer)
+				-- fromBank (BOOL/Boolean)
+				-- fromBankAndWallet (BOOL/Boolean)
+				-- cost (int/Integer)
+			-- Returns:
+				-- returnValue (void/nil)
+		["NetworkSpentStealthModule"]=function(amount,fromBank,fromBankAndWallet,p3)return native_call(0x95CE79A6939C537A,amount,fromBank,fromBankAndWallet,p3)end,
+			-- Name: _NETWORK_SPENT_STEALTH_MODULE
+			-- Parameters:
+				-- amount (int/Integer)
+				-- fromBank (BOOL/Boolean)
+				-- fromBankAndWallet (BOOL/Boolean)
+				-- p3 (Hash/Integer)
+			-- Returns:
+				-- returnValue (void/nil)
+			-- Comment:
+				-- Hash p3 = STEALTH_MODULE
 		["NetworkSpentTaxi"]=function(amount,p1,p2,p3,p4)return native_call(0x17C3A7D31EAE39F9,amount,p1,p2,p3,p4)end,
 			-- Name: NETWORK_SPENT_TAXI
 			-- Parameters:
@@ -39074,13 +39240,14 @@ local _Natives = setmetatable
 				-- p3 (Any)
 			-- Returns:
 				-- returnValue (void/nil)
-		["NetworkSpentUpgradeOfficeProperty"]=function(p0,p1,p2,p3)return native_call(0x8E243837643D9583,p0,p1,p2,p3)end,
+		["NetworkSpentUpgradeOfficeProperty"]=function(p0,p1,p2,p3,p4)return native_call(0x8E243837643D9583,p0,p1,p2,p3,p4)end,
 			-- Name: NETWORK_SPENT_UPGRADE_OFFICE_PROPERTY
 			-- Parameters:
 				-- p0 (Any)
 				-- p1 (Any)
 				-- p2 (Any)
 				-- p3 (Any)
+				-- p4 (Any)
 			-- Returns:
 				-- returnValue (void/nil)
 		["NetworkSpentUpgradeTiltrotor"]=function(p0,p1,p2,p3)return native_call(0x165E135D6DFA2907,p0,p1,p2,p3)end,
@@ -39508,12 +39675,15 @@ local _Natives = setmetatable
 			-- Returns:
 				-- returnValue (void/nil)
 				-- taskSequenceId (int/Integer)
-		["OpenSocialClubMenu"]=function()return native_call(0x75D3691713C3B05A)end,
+		["OpenSocialClubMenu"]=function(menu)return native_call(0x75D3691713C3B05A,menu)end,
 			-- Name: OPEN_SOCIAL_CLUB_MENU
+			-- Parameters:
+				-- menu (Hash/Integer)
 			-- Returns:
 				-- returnValue (void/nil)
 			-- Comment:
 				-- Uses the `SOCIAL_CLUB2` scaleform.
+				-- menu: GALLERY, MISSIONS, CREWS, MIGRATE, PLAYLISTS, JOBS
 		["OrderBossVehicle"]=function(p0,p1,vehicleHash)return native_call(0xCEA553E35C2246E1,p0,p1,vehicleHash)end,
 			-- Name: ORDER_BOSS_VEHICLE
 			-- Parameters:
@@ -40592,6 +40762,12 @@ local _Natives = setmetatable
 				-- p4 (int/Integer)
 			-- Returns:
 				-- returnValue (void/nil)
+		["PlaystatsAttritionStageEnd"]=function(p0)return native_call(0xBD642335A732F1A8,p0)end,
+			-- Name: _PLAYSTATS_ATTRITION_STAGE_END
+			-- Parameters:
+				-- p0 (Any)
+			-- Returns:
+				-- returnValue (void/nil)
 		["PlaystatsAwardBadSport"]=function(id)return native_call(0x47B32F5611E6E483,id)end,
 			-- Name: PLAYSTATS_AWARD_BAD_SPORT
 			-- Parameters:
@@ -41024,6 +41200,21 @@ local _Natives = setmetatable
 				-- p10 (Any)
 			-- Returns:
 				-- returnValue (void/nil)
+		["PlaystatsFlowLow"]=function(posX,posY,posZ,p3,p4,amount);p3=AutoByteBuffer(p3)or ByteBuffer256()return native_call(0xE6A27CDA42887F93,posX,posY,posZ,p3,p4,amount),p3:__tostring(true)end,
+			-- Name: _PLAYSTATS_FLOW_LOW
+			-- Parameters:
+				-- posX (float/Number)
+				-- posY (float/Number)
+				-- posZ (float/Number)
+				-- p3 (const char*/String/Userdata/0/nil)
+				-- p4 (Any)
+				-- amount (int/Integer)
+			-- Returns:
+				-- returnValue (void/nil)
+				-- p3 (const char/String)
+			-- Comment:
+				-- p3: VehicleConversion, SCAdminCashGift
+				-- p4: 0
 		["PlaystatsFmEventAtob"]=function(p0)return native_call(0xBAA2F0490E146BE8,p0)end,
 			-- Name: PLAYSTATS_FM_EVENT_ATOB
 			-- Parameters:
@@ -41572,6 +41763,12 @@ local _Natives = setmetatable
 				-- p3 (Any)
 			-- Returns:
 				-- returnValue (void/nil)
+		["PlaystatsRandomEvent"]=function(p0)return native_call(0x7EA06F970F999394,p0)end,
+			-- Name: _PLAYSTATS_RANDOM_EVENT
+			-- Parameters:
+				-- p0 (Any)
+			-- Returns:
+				-- returnValue (void/nil)
 		["PlaystatsRandomMissionDone"]=function(name,p1,p2,p3);name=AutoByteBuffer(name)or ByteBuffer256()return native_call(0x71862B1D855F32E1,name,p1,p2,p3),name:__tostring(true)end,
 			-- Name: PLAYSTATS_RANDOM_MISSION_DONE
 			-- Parameters:
@@ -41662,6 +41859,23 @@ local _Natives = setmetatable
 				-- p2 (Any)
 			-- Returns:
 				-- returnValue (void/nil)
+		["PlaystatsShowroomNav"]=function(p0,p1,entity)return native_call(0x961D4157B9B428DB,p0,p1,entity)end,
+			-- Name: _PLAYSTATS_SHOWROOM_NAV
+			-- Parameters:
+				-- p0 (Any)
+				-- p1 (Any)
+				-- entity (Hash/Integer)
+			-- Returns:
+				-- returnValue (void/nil)
+		["PlaystatsShowroomOverview"]=function(data);data=AutoByteBuffer(data)or ByteBuffer256()return native_call(0x151D6C04C9E2742F,data),data end,
+			-- Name: _PLAYSTATS_SHOWROOM_OVERVIEW
+			-- Parameters:
+				-- data (Any*/Userdata)
+			-- Returns:
+				-- returnValue (void/nil)
+				-- data (Any/Userdata)
+			-- Comment:
+				-- Data struct contains various tunables related to test drives at Simeons Showroom or Luxury Showcase.
 		["PlaystatsSmugglerMissionEnded"]=function(data);data=AutoByteBuffer(data)or ByteBuffer256()return native_call(0x320C35147D5B5DDD,data),data end,
 			-- Name: PLAYSTATS_SMUGGLER_MISSION_ENDED
 			-- Parameters:
@@ -41733,6 +41947,16 @@ local _Natives = setmetatable
 				-- p1 (int/Integer)
 				-- p2 (int/Integer)
 				-- p3 (int/Integer)
+			-- Returns:
+				-- returnValue (void/nil)
+		["PlaystatsVehDel"]=function(bossId1,bossId2,bossType,vehicleID,reason)return native_call(0x10A691F5756416D0,bossId1,bossId2,bossType,vehicleID,reason)end,
+			-- Name: PLAYSTATS_VEH_DEL
+			-- Parameters:
+				-- bossId1 (int/Integer)
+				-- bossId2 (int/Integer)
+				-- bossType (int/Integer)
+				-- vehicleID (int/Integer)
+				-- reason (int/Integer)
 			-- Returns:
 				-- returnValue (void/nil)
 		["PlaystatsWarehouseMissionEnded"]=function(p0)return native_call(0x2D7A9B577E72385E,p0)end,
@@ -46475,6 +46699,15 @@ local _Natives = setmetatable
 				-- vehicle (Vehicle/Integer)
 			-- Returns:
 				-- returnValue (void/nil)
+		["SetBoundsAffectWaterProbes"]=function(vehicle,toggle)return native_call(0x85FC953F6C6CBDE1,vehicle,toggle)end,
+			-- Name: _SET_BOUNDS_AFFECT_WATER_PROBES
+			-- Parameters:
+				-- vehicle (Vehicle/Integer)
+				-- toggle (BOOL/Boolean)
+			-- Returns:
+				-- returnValue (void/nil)
+			-- Comment:
+				-- Use the vehicle bounds (instead of viewport) when deciding if a vehicle is sufficiently above the water (waterheight.dat), bypassing wave simulation checks
 		["SetCalmedWaveHeightScaler"]=function(height)return native_call(0x547237AA71AB44DE,height)end,
 			-- Name: SET_CALMED_WAVE_HEIGHT_SCALER
 			-- Parameters:
@@ -46631,6 +46864,15 @@ local _Natives = setmetatable
 				-- p4 (float/Number)
 			-- Returns:
 				-- returnValue (void/nil)
+		["SetCamDofShouldKeepLookAtTargetInFocus"]=function(camera,state)return native_call(0x7CF3AF51DCFE4108,camera,state)end,
+			-- Name: SET_CAM_DOF_SHOULD_KEEP_LOOK_AT_TARGET_IN_FOCUS
+			-- Parameters:
+				-- camera (Cam/Integer)
+				-- state (BOOL/Boolean)
+			-- Returns:
+				-- returnValue (void/nil)
+			-- Comment:
+				-- This native has a name defined inside its code
 		["SetCamDofStrength"]=function(cam,dofStrength)return native_call(0x5EE29B4D7D5DF897,cam,dofStrength)end,
 			-- Name: SET_CAM_DOF_STRENGTH
 			-- Parameters:
@@ -47683,6 +47925,13 @@ local _Natives = setmetatable
 				-- returnValue (void/nil)
 			-- Comment:
 				-- Only used with the "akula" and "annihilator2" in the decompiled native scripts.
+		["SetDeployMissileBays"]=function(vehicle,deploy)return native_call(0x0C02468829E4AA65,vehicle,deploy)end,
+			-- Name: _SET_DEPLOY_MISSILE_BAYS
+			-- Parameters:
+				-- vehicle (Vehicle/Integer)
+				-- deploy (BOOL/Boolean)
+			-- Returns:
+				-- returnValue (void/nil)
 		["SetDepthwriting"]=function(toggle)return native_call(0xC5C8F970D4EDFF71,toggle)end,
 			-- Name: SET_DEPTHWRITING
 			-- Parameters:
@@ -50320,10 +50569,10 @@ local _Natives = setmetatable
 				-- toggle (BOOL/Boolean)
 			-- Returns:
 				-- returnValue (void/nil)
-		["SetLocalPlayerInvisibleLocally"]=function(p0)return native_call(0xE5F773C1A1D9D168,p0)end,
+		["SetLocalPlayerInvisibleLocally"]=function(bIncludePlayersVehicle)return native_call(0xE5F773C1A1D9D168,bIncludePlayersVehicle)end,
 			-- Name: SET_LOCAL_PLAYER_INVISIBLE_LOCALLY
 			-- Parameters:
-				-- p0 (BOOL/Boolean)
+				-- bIncludePlayersVehicle (BOOL/Boolean)
 			-- Returns:
 				-- returnValue (void/nil)
 		["SetLocalPlayerPermittedToCollectPickupsWithModel"]=function(modelHash,toggle)return native_call(0x88EAEC617CD26926,modelHash,toggle)end,
@@ -50342,10 +50591,10 @@ local _Natives = setmetatable
 				-- p1 (BOOL/Boolean)
 			-- Returns:
 				-- returnValue (void/nil)
-		["SetLocalPlayerVisibleLocally"]=function(p0)return native_call(0x7619364C82D3BF14,p0)end,
+		["SetLocalPlayerVisibleLocally"]=function(bIncludePlayersVehicle)return native_call(0x7619364C82D3BF14,bIncludePlayersVehicle)end,
 			-- Name: SET_LOCAL_PLAYER_VISIBLE_LOCALLY
 			-- Parameters:
-				-- p0 (BOOL/Boolean)
+				-- bIncludePlayersVehicle (BOOL/Boolean)
 			-- Returns:
 				-- returnValue (void/nil)
 		["SetLockAdaptiveDofDistance"]=function(p0)return native_call(0xB569F41F3E7E83A4,p0)end,
@@ -51443,6 +51692,10 @@ local _Natives = setmetatable
 			-- Name: SET_PARTICLE_FX_SLIPSTREAM_LODRANGE_SCALE
 			-- Parameters:
 				-- scale (float/Number)
+			-- Returns:
+				-- returnValue (void/nil)
+		["SetPauseExteriorRenderingWhileInInterior"]=function()return native_call(0x35CCE12EAECB4A51)end,
+			-- Name: _SET_PAUSE_EXTERIOR_RENDERING_WHILE_IN_INTERIOR
 			-- Returns:
 				-- returnValue (void/nil)
 		["SetPauseMenuActive"]=function(toggle)return native_call(0xDF47FC56C71569CF,toggle)end,
@@ -54890,11 +55143,11 @@ local _Natives = setmetatable
 				-- toggle (BOOL/Boolean)
 			-- Returns:
 				-- returnValue (void/nil)
-		["SetPlayerInvisibleLocally"]=function(player,toggle)return native_call(0x12B37D54667DB0B8,player,toggle)end,
+		["SetPlayerInvisibleLocally"]=function(player,bIncludePlayersVehicle)return native_call(0x12B37D54667DB0B8,player,bIncludePlayersVehicle)end,
 			-- Name: SET_PLAYER_INVISIBLE_LOCALLY
 			-- Parameters:
 				-- player (Player/Integer)
-				-- toggle (BOOL/Boolean)
+				-- bIncludePlayersVehicle (BOOL/Boolean)
 			-- Returns:
 				-- returnValue (void/nil)
 		["SetPlayerIsInAnimalForm"]=function(toggle)return native_call(0x4EBB7E87AA0DBED4,toggle)end,
@@ -55314,11 +55567,11 @@ local _Natives = setmetatable
 				-- returnValue (void/nil)
 			-- Comment:
 				-- Unsets playerPed+330 if the current weapon has certain flags.
-		["SetPlayerVisibleLocally"]=function(player,toggle)return native_call(0xFAA10F1FAFB11AF2,player,toggle)end,
+		["SetPlayerVisibleLocally"]=function(player,bIncludePlayersVehicle)return native_call(0xFAA10F1FAFB11AF2,player,bIncludePlayersVehicle)end,
 			-- Name: SET_PLAYER_VISIBLE_LOCALLY
 			-- Parameters:
 				-- player (Player/Integer)
-				-- toggle (BOOL/Boolean)
+				-- bIncludePlayersVehicle (BOOL/Boolean)
 			-- Returns:
 				-- returnValue (void/nil)
 		["SetPlayerWantedCentrePosition"]=function(player,position,p2,p3);position=AutoByteBuffer(position)or ByteBuffer32()return native_call(0x520E541A97A13354,player,position,p2,p3),position:__tov3()end,
@@ -60429,7 +60682,7 @@ local _Natives = setmetatable
 				-- toggle (BOOL/Boolean)
 			-- Returns:
 				-- returnValue (void/nil)
-		["SimulatePlayerInputGait"]=function(player,amount,gaitType,speed,p4,p5)return native_call(0x477D5D63E63ECA5D,player,amount,gaitType,speed,p4,p5)end,
+		["SimulatePlayerInputGait"]=function(player,amount,gaitType,speed,p4,p5,p6)return native_call(0x477D5D63E63ECA5D,player,amount,gaitType,speed,p4,p5,p6)end,
 			-- Name: SIMULATE_PLAYER_INPUT_GAIT
 			-- Parameters:
 				-- player (Player/Integer)
@@ -60438,6 +60691,7 @@ local _Natives = setmetatable
 				-- speed (float/Number)
 				-- p4 (BOOL/Boolean)
 				-- p5 (BOOL/Boolean)
+				-- p6 (Any)
 			-- Returns:
 				-- returnValue (void/nil)
 			-- Comment:
@@ -60833,10 +61087,11 @@ local _Natives = setmetatable
 				-- 
 				-- List of all usable scene names found in b617d. Sorted alphabetically and identical names removed: https://pastebin.com/MtM9N9CC
 				-- Full list of audio scene names by DurtyFree https://github.com/DurtyFree/gta-v-data-dumps/blob/master/audioSceneNames.json
-		["StartBeingBoss"]=function(p0)return native_call(0x3EBEAC6C3F81F6BD,p0)end,
+		["StartBeingBoss"]=function(p0,p1)return native_call(0x3EBEAC6C3F81F6BD,p0,p1)end,
 			-- Name: START_BEING_BOSS
 			-- Parameters:
 				-- p0 (Any)
+				-- p1 (Any)
 			-- Returns:
 				-- returnValue (void/nil)
 		["StartBeingGoon"]=function(p0,p1,p2)return native_call(0x96E6D5150DBF1C09,p0,p1,p2)end,
@@ -65982,14 +66237,6 @@ local _Natives = setmetatable
 				-- returnValue (void/nil)
 			-- Comment:
 				-- Does nothing (it's a nullsub).
-		["TriggerFileCrcHackerCheck"]=function(player,p1);p1=AutoByteBuffer(p1)or ByteBuffer256()return native_call(0xF287F506767CC8A9,player,p1):__tointeger()~=0 ,p1:__tostring(true)end,
-			-- Name: TRIGGER_FILE_CRC_HACKER_CHECK
-			-- Parameters:
-				-- player (Player/Integer)
-				-- p1 (const char*/String/Userdata/0/nil)
-			-- Returns:
-				-- returnValue (BOOL/Boolean)
-				-- p1 (const char/String)
 		["TriggerIdleAnimationOnPed"]=function(ped)return native_call(0xC2EE020F5FB4DB53,ped)end,
 			-- Name: TRIGGER_IDLE_ANIMATION_ON_PED
 			-- Parameters:
@@ -66017,16 +66264,6 @@ local _Natives = setmetatable
 				-- p3 (Any)
 			-- Returns:
 				-- returnValue (BOOL/Boolean)
-		["TriggerPlayerCrcHackerCheck"]=function(player,p1,scriptHash)return native_call(0x46FB3ED415C7641C,player,p1,scriptHash):__tointeger()~=0 end,
-			-- Name: TRIGGER_PLAYER_CRC_HACKER_CHECK
-			-- Parameters:
-				-- player (Player/Integer)
-				-- p1 (int/Integer)
-				-- scriptHash (Hash/Integer)
-			-- Returns:
-				-- returnValue (BOOL/Boolean)
-			-- Comment:
-				-- p1 = 6
 		["TriggerScreenblurFadeIn"]=function(transitionTime)return native_call(0xA328A24AAA6B7FDC,transitionTime):__tointeger()~=0 end,
 			-- Name: TRIGGER_SCREENBLUR_FADE_IN
 			-- Parameters:
@@ -66075,16 +66312,6 @@ local _Natives = setmetatable
 				-- p4 (int/Integer)
 			-- Returns:
 				-- returnValue (void/nil)
-		["TriggerTuningCrcHackerCheck"]=function(player,p1,p2);p1=AutoByteBuffer(p1)or ByteBuffer256();p2=AutoByteBuffer(p2)or ByteBuffer256()return native_call(0xA12D3A5A3753CC23,player,p1,p2):__tointeger()~=0 ,p1:__tostring(true),p2:__tostring(true)end,
-			-- Name: TRIGGER_TUNING_CRC_HACKER_CHECK
-			-- Parameters:
-				-- player (Player/Integer)
-				-- p1 (const char*/String/Userdata/0/nil)
-				-- p2 (const char*/String/Userdata/0/nil)
-			-- Returns:
-				-- returnValue (BOOL/Boolean)
-				-- p1 (const char/String)
-				-- p2 (const char/String)
 		["TriggerVehiclePartBrokenCameraShake"]=function(vehicle,p1,p2)return native_call(0x5D96CFB59DA076A0,vehicle,p1,p2)end,
 			-- Name: TRIGGER_VEHICLE_PART_BROKEN_CAMERA_SHAKE
 			-- Parameters:
@@ -67639,13 +67866,6 @@ local _Natives = setmetatable
 				-- p4 (BOOL/Boolean)
 			-- Returns:
 				-- returnValue (BOOL/Boolean)
-		["_0x85FC953F6C6CBDE1"]=function(vehicle,p1)return native_call(0x85FC953F6C6CBDE1,vehicle,p1)end,
-			-- Name: _0x85FC953F6C6CBDE1
-			-- Parameters:
-				-- vehicle (Vehicle/Integer)
-				-- p1 (BOOL/Boolean)
-			-- Returns:
-				-- returnValue (void/nil)
 	},
 	{
 		__index=function(Self,Key)

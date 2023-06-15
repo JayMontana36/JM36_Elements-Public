@@ -113,7 +113,7 @@ end
 
 do
 	local _G_Metatable_Original = getmetatable(_G)
-	local natives=require'natives_JM36-2T1-UNI_AIO-ABB-1678100670-Comments'
+	local natives=require'natives_JM36-2T1-UNI_AIO-ABB-1686866900-Comments-Legacy'
 	setmetatable(_G,_G_Metatable_Original)
 	_G2.JM36_2Take1_Natives = natives
 end
